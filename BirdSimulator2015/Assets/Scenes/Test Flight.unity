@@ -1681,9 +1681,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f6ebcb848ce43a990c72c25e899dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: .100000001
-  verticalSpeed: .200000003
-  horizontalSpeed: .300000012
+  speed: .189999998
+  verticalSpeed: .25999999
+  horizontalSpeed: .389999986
   target: {fileID: 0}
   invertY: 0
 --- !u!95 &1496840033

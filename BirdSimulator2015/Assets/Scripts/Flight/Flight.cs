@@ -48,15 +48,18 @@ public class Flight : MonoBehaviour {
 						this.transform.position -= new Vector3 (0, speed, 0);
 						this.GetComponent<Animator> ().SetBool ("isDiving", true);
 			if(isTilt<45f){
-				this.transform.rotation = Quaternion.Euler(new Vector3(isTilt,0,0));
+				
+				Vector3 x = this.transform.rotation.eulerAngles;
+				this.transform.rotation = Quaternion.Euler(new Vector3(isTilt,x.y,x.z));
 	//		this.transform.RotateAround(this.transform.position,this.transform.right,isTilt);
 				isTilt+= 0.8f;
 			}
-				} else {
+		} else {
 			
 			this.GetComponent<Animator> ().SetBool ("isDiving", false);
 			if(isTilt>0f){
-				this.transform.rotation = Quaternion.Euler(new Vector3(isTilt,0,0));
+				Vector3 x = this.transform.rotation.eulerAngles;
+				this.transform.rotation = Quaternion.Euler(new Vector3(isTilt,x.y,x.z));
 				isTilt-= 0.8f;
 			}
 		}
