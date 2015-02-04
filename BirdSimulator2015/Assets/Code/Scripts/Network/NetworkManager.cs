@@ -17,7 +17,7 @@ public class NetworkManager : MonoBehaviour
 	void uLink_OnConnectedToServer()
 	{
 		Debug.Log("OnConnectedToServer()");
-		uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Owner, PLAYER_SPAWN, Quaternion.identity, 0);
+		uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Proxy, PLAYER_SPAWN, Quaternion.identity, 0);
 		GameController.LoadWorld();
 	}
 
