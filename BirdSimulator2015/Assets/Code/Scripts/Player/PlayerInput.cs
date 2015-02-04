@@ -70,7 +70,7 @@ public class PlayerInput : MonoBehaviour
 	
 	float rotation = 0f;
 	Vector3 targetVelocity = Vector3.zero;
-	Quaternion targetRotation = Quaternion.identity;
+	//Quaternion targetRotation = Quaternion.identity;
 	public float rotationY = 0f;
 	public float rotationZ = 0f;
 	public float momentum = 0f;
@@ -311,7 +311,7 @@ public class PlayerInput : MonoBehaviour
 	void changePlayerRotation(float f)
 	{
 		Vector3 vec = new Vector3(0, 0, f);
-		this.transform.GetChild(1).transform.localEulerAngles = vec;
+		this.transform.GetChild(0).transform.localEulerAngles = vec;
 	}
 	
 	const float MOMENTUM_GAIN = 5f;
