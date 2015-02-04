@@ -28,7 +28,7 @@ public class GameController : ScriptableObject
 
 		// player has been instantiated already, so we can get this reference
 		Player = GameObject.FindWithTag("Player");
-		Debug.Log(Player);
+		//Debug.Log(Player);
 
 		// camera setup (make sure this comes after the player is loaded)
 		CameraTarget = GameObject.Instantiate(Resources.Load("Player/CameraTarget")) as GameObject;
