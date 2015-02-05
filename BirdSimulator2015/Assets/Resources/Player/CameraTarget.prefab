@@ -115,14 +115,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4c3e2e5cc6f53444a9d6afc0ff20898, type: 3}
+  m_Script: {fileID: 11500000, guid: 487f21872ea76484bb7ad54e480d4935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FOVThreshold: 25
+  FOVThreshold: 30
   UpOffset: .150000006
   FOVCoefficient: .75
-  TargetRigidBody: {fileID: 0}
-  radius: 4
+  Radius: 2
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -131,10 +130,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba97acb22816f0f4da1a95079fa51cc9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3852930e36cc7284bb8a39cb84a68dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bird: {fileID: 0}
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

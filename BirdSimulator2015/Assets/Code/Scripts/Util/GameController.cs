@@ -32,7 +32,7 @@ public class GameController : ScriptableObject
 
 		// camera setup (make sure this comes after the player is loaded)
 		CameraTarget = GameObject.Instantiate(Resources.Load("Player/CameraTarget")) as GameObject;
-		CameraTarget.GetComponent<CameraTarget>().Bird = Player;
+		CameraTarget.BroadcastMessage("SetTarget", Player);
 
 	}
 
