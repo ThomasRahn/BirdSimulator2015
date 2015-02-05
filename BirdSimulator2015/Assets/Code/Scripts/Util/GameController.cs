@@ -25,7 +25,7 @@ public class GameController : ScriptableObject
 	public static void LoadWorld()
 	{
 		loadChunks();
-
+		
 		// player has been instantiated already, so we can get this reference
 		Player = GameObject.FindWithTag("Player");
 		//Debug.Log(Player);
@@ -36,11 +36,23 @@ public class GameController : ScriptableObject
 
 	}
 
-	public static void loadChunks()
+	static void loadChunks()
 	{
 		foreach (GameObject g in Resources.LoadAll("World/Chunk", typeof(GameObject)))
 		{
 			//Debug.Log("Loading chunk: " + g.name);
+			GameObject h = GameObject.Instantiate(g) as GameObject;
+			h.transform.parent = World;
+		}
+		
+		foreach (GameObject g in Resources.LoadAll("World/Dungeon", typeof(GameObject)))
+		{
+			GameObject h = GameObject.Instantiate(g) as GameObject;
+			h.transform.parent = World;
+		}
+		
+		foreach (GameObject g in Resources.LoadAll("World/Environment", typeof(GameObject)))
+		{
 			GameObject h = GameObject.Instantiate(g) as GameObject;
 			h.transform.parent = World;
 		}
