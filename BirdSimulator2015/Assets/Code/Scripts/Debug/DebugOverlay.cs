@@ -18,6 +18,11 @@ public class DebugOverlay : MonoBehaviour
 
 	void Update()
 	{
+        //Debug.DrawRay(this.transform.position, this.rigidbody.velocity * 5f, Color.magenta);
+        //Debug.DrawRay(this.transform.position, this.transform.up * 1f, Color.blue);
+        //Debug.DrawRay(this.transform.position, this.transform.forward * 1f, Color.green);
+        //Debug.DrawRay(this.transform.position, Vector3.down * 1f, Color.red);
+
 		left -= Time.deltaTime;
 		accum += Time.timeScale / Time.deltaTime;
 		++frames;
@@ -39,13 +44,13 @@ public class DebugOverlay : MonoBehaviour
 		if (GameObject.FindWithTag("Player"))
 		{
 			string t = "";
-			t += "rotationZ= " + GameObject.FindWithTag("Player").transform.GetChild(0).transform.localEulerAngles.z + "\n";
-			t += GameObject.FindWithTag("Player").GetComponent<PlayerInput>().currentState + "\n";
-			t += "rotationY= " + GameObject.FindWithTag("Player").GetComponent<PlayerInput>().rotationY + "\n";
-			t += "momentum= " + GameObject.FindWithTag("Player").GetComponent<PlayerInput>().momentum + "\n";
-			t += "velocity= " + GameObject.FindWithTag("Player").rigidbody.velocity + "\n";
-			t += "currentMaxSpeed= " + GameObject.FindWithTag("Player").GetComponent<PlayerInput>().currentMaxSpeed + "\n";
-			t += "currentTurnSpeed= " + GameObject.FindWithTag("Player").GetComponent<PlayerInput>().currentTurnSpeed + "\n";
+			//t += "rotationZ= " + GameObject.FindWithTag("Player").transform.GetChild(0).transform.localEulerAngles.z + "\n";
+			//t += GameObject.FindWithTag("Player").GetComponent<PlayerState>().currentState + "\n";
+            //t += "rotationY= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().rotationY + "\n";
+            //t += "momentum= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().momentum + "\n";
+			//t += "velocity= " + GameObject.FindWithTag("Player").rigidbody.velocity + "\n";
+           // t += "currentMaxSpeed= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().currentMaxSpeed + "\n";
+           // t += "currentTurnSpeed= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().currentTurnSpeed + "\n";
 			Left.text = t;
 		}
 
