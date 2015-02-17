@@ -73,6 +73,14 @@ public class PlayerInput : MonoBehaviour
         JoystickButton11 = Input.GetButton("JoystickButton11");
         JoystickButton12 = Input.GetButton("JoystickButton12");
 
+        animator.ResetTrigger("DashForward");
+        animator.ResetTrigger("Decelerate");
+        animator.ResetTrigger("QuickAscend");
+        animator.ResetTrigger("DashRight");
+        animator.ResetTrigger("DashLeft");
+        animator.ResetTrigger("DashUp");
+        animator.ResetTrigger("DashDown");
+
         if (controller == Controller.LOGITECHF310)
         {
             animator.SetFloat("Horizontal", JoystickAxisX);
@@ -81,9 +89,9 @@ public class PlayerInput : MonoBehaviour
             if (JoystickButton0)
                 animator.SetTrigger("DashForward");
             if (JoystickButton1)
+                animator.SetTrigger("QuickAscend");
+            if (JoystickButton2)
                 animator.SetTrigger("Decelerate");
-            if (JoystickButton3)
-                animator.SetTrigger("Ascend");
 
             if (JoystickAxis3 > JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
                 animator.SetTrigger("DashRight");

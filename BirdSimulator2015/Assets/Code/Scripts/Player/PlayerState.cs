@@ -22,6 +22,17 @@ public class PlayerState : MonoBehaviour
         Ascending,
         AscendingAndTurningLeft,
         AscendingAndTurningRight,
+        AboutFacing,
+        DashingForward,
+        Landing,
+
+        QuickAscending,
+        RollingLeft,
+        RollingRight,
+
+        // cosmetics
+        RandomFlapping,
+
 
     }
 
@@ -29,7 +40,7 @@ public class PlayerState : MonoBehaviour
     private Dictionary<int, BirdState> hash = new Dictionary<int, BirdState>();
     private BirdState state;
 
-    const float MAX_FORWARD_VELOCITY = 30f;
+    const float MAX_FORWARD_VELOCITY = 35f;
     const float MAX_DOWNWARD_VELOCITY = 30f;
     const float DOWNWARD_ACCELERATION = 2f;
     const float MAX_UPWARD_VELOCITY = 5f;
@@ -44,7 +55,7 @@ public class PlayerState : MonoBehaviour
     const float MOMENTUM_LOSS_RATE = 50f;
     const float TURN_SHARPNESS = 1.4f;
 
-    const float TILT_LIMIT = -70f;
+    const float TILT_LIMIT = 70f;
 
     // we need this so we don't slowly descend (usually when gliding forward and turning at low speeds)
     // for some dumb reason, the y component of the velocity vector becomes -0.5f, so the player will slowly
@@ -61,6 +72,15 @@ public class PlayerState : MonoBehaviour
     private float rotationZ = 0f; // of child transform
     private float momentum = 0f;
 
+    // collision
+    private RaycastHit hit;
+    private bool flipped = false;
+    private int tilting = 0;
+
+    // skills, prolly move this into skills refactor
+    private const float _rollTimer = 1f;
+    private float rollTimer = _rollTimer;
+
     void Awake()
     {
         animator = this.GetComponent<Animator>();
@@ -76,24 +96,95 @@ public class PlayerState : MonoBehaviour
 
     void FixedUpdate()
     {
+        state = hash[animator.GetCurrentAnimatorStateInfo(0).nameHash];
+
+        Debug.DrawRay(this.transform.position, this.rigidbody.velocity * 5f, Color.magenta);
+        Debug.DrawRay(this.transform.position, this.transform.up * 1f, Color.blue);
+        Debug.DrawRay(this.transform.position, this.transform.forward * 1f, Color.green);
+        Debug.DrawRay(this.transform.position, Vector3.down * 1f, Color.red);
+
+        Vector3 from = this.transform.position;
+        Vector3 direction = this.transform.forward;
+
+        if (Physics.Raycast(from, direction, out hit, 1f))
+        {
+            if (state != BirdState.AboutFacing && state != BirdState.DashingForward)
+            {
+                Debug.DrawRay(hit.point, hit.normal, Color.red, 5f);
+                Debug.Log(Vector3.Angle(hit.normal, -direction));
+
+                if (Vector3.Angle(hit.normal, -direction) < 35f)
+                {
+                    animator.SetTrigger("AboutFace");
+                }
+            }
+        }
+
+        Debug.DrawRay(from, (this.transform.forward + this.transform.right) * 0.8f, Color.black);
+        Debug.DrawRay(from, (this.transform.forward - this.transform.right) * 0.8f, Color.black);
+        if (Physics.Raycast(from, this.transform.forward + this.transform.right, out hit, 1f))
+        {
+            tilting = 1; // right
+            tiltTowards(-TILT_LIMIT); // tilt away (opposite)
+
+            if (Physics.Raycast(from, this.transform.forward + this.transform.right, out hit, 0.7f))
+            {
+                rotationY = Mathf.Lerp(rotationY, rotationY - 20f, Time.deltaTime);
+                this.transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
+            }
+
+        }
+        else if (Physics.Raycast(from, this.transform.forward - this.transform.right, out hit, 1f))
+        {
+            tilting = -1; // left
+            tiltTowards(TILT_LIMIT);
+
+            if (Physics.Raycast(from, this.transform.forward - this.transform.right, out hit, 0.7f))
+            {
+                rotationY = Mathf.Lerp(rotationY, rotationY + 20f, Time.deltaTime);
+                this.transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
+            }
+        }
+        else
+        {
+            tilting = 0; // none
+        }
+    }
+
+    void Update()
+    {
+        // prolly make this better or something
+        animator.ResetTrigger("RandomFlap");
+        if (Random.Range(1, 500) == 2)
+        {
+            animator.SetTrigger("RandomFlap");
+        }
+
+        // update body rotation
         rotationX = transform.localEulerAngles.x;
         rotationY = transform.localEulerAngles.y;
+
+        // update model rotation (tilt)
         Vector3 rot = this.transform.GetChild(0).transform.localEulerAngles;
         rot.z = rotationZ;
         this.transform.GetChild(0).transform.localEulerAngles = rot;
 
+        // decelerate over time, maybe remove this?
         currentMaxSpeed -= Time.deltaTime * 0.1f;
         currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
 
-        state = hash[animator.GetCurrentAnimatorStateInfo(0).nameHash];
         switch (state)
         {
             case BirdState.Gliding:
                 // reset some stuff
+                flipped = false;
                 momentum = 0f;
                 currentTurnSpeed = TURN_RATE_INITIAL;
 
-                tiltTowards(0);
+                // make sure we're not slamming against a wall, since the gliding state applies there also
+                if (tilting == 0)
+                    tiltTowards(0);
+
                 this.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
                 targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
                 break;
@@ -182,40 +273,48 @@ public class PlayerState : MonoBehaviour
             case BirdState.Decelerating:
                 tiltTowards(0);
                 // TODO change decel numbers
-                currentMaxSpeed -= Time.deltaTime * 20f;
+                currentMaxSpeed -= Time.deltaTime * 2f;
                 targetVelocity = this.transform.forward * currentMaxSpeed;
                 break;
 
             case BirdState.TurningLeft:
-                // OLD too jittery and shit
-                //this.transform.Rotate(this.transform.up, -TURN_RATE * Time.deltaTime, Space.Self);
+                if (tilting != -1)
+                {
+                    // OLD too jittery and shit
+                    //this.transform.Rotate(this.transform.up, -TURN_RATE * Time.deltaTime, Space.Self);
 
-                rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
-                currentTurnSpeed += Mathf.Pow(Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")), 2) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed;
-                currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
+                    rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+                    currentTurnSpeed += Mathf.Pow(Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")), 2) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed;
+                    currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
 
-                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
+                    transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
 
-                tiltTowards(-TILT_LIMIT);
+                    tiltTowards(-TILT_LIMIT);
 
-                // TODO fuck around with this modifier to make turning feel sharp at high speeds
-                targetVelocity = this.transform.forward * currentMaxSpeed - this.transform.right * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
+                    // TODO fuck around with this modifier to make turning feel sharp at high speeds
+                    targetVelocity = this.transform.forward * currentMaxSpeed - this.transform.right * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
+                }
+                else { targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET; }
                 break;
 
             case BirdState.TurningRight:
-                // OLD too jittery and shit
-                //this.transform.Rotate(this.transform.up, TURN_RATE * Time.deltaTime, Space.Self);
+                if (tilting != 1)
+                {
+                    // OLD too jittery and shit
+                    //this.transform.Rotate(this.transform.up, TURN_RATE * Time.deltaTime, Space.Self);
 
-                rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
-                currentTurnSpeed += Mathf.Pow(Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")), 2) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed;
-                currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
+                    rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+                    currentTurnSpeed += Mathf.Pow(Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")), 2) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed;
+                    currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
 
-                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
+                    transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
 
-                tiltTowards(TILT_LIMIT);
+                    tiltTowards(TILT_LIMIT);
 
-                // TODO fuck around with this modifier to make turning feel sharp at high speeds
-                targetVelocity = this.transform.forward * currentMaxSpeed + this.transform.right * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
+                    // TODO fuck around with this modifier to make turning feel sharp at high speeds
+                    targetVelocity = this.transform.forward * currentMaxSpeed + this.transform.right * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
+                }
+                else { targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET; }
                 break;
 
             case BirdState.Descending:
@@ -263,10 +362,50 @@ public class PlayerState : MonoBehaviour
                 // OLD removed shitty velocity	
                 //targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY;
                 break;
+
+            case BirdState.AboutFacing:
+                tiltTowards(0);
+                momentum = 0f;
+                currentMaxSpeed = 0f;
+
+                this.rigidbody.velocity = Vector3.zero;
+                targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
+                break;
+
+            case BirdState.DashingForward:
+			    if (!flipped)
+			    {
+                    // flip once
+                    flipped = true;
+				    this.transform.localEulerAngles = new Vector3(this.transform.localEulerAngles.x, this.transform.localEulerAngles.y + 180f, this.transform.localEulerAngles.z);
+			    }
+
+			    //Debug.DrawRay (this.transform.position, hit.normal * 5f, Color.cyan, 2f);
+			    currentMaxSpeed = 10f;
+			    // instant or velocity over time?
+			    targetVelocity = hit.normal * currentMaxSpeed;
+			    //this.rigidbody.velocity = hit.normal * currentMaxSpeed;
+                break;
+
+            case BirdState.QuickAscending:
+                break;
+
+            case BirdState.RollingLeft:
+                tiltTowards(TILT_LIMIT / 2);
+                this.rigidbody.velocity -= this.transform.right;
+                break;
+
+            case BirdState.RollingRight:
+                tiltTowards(-TILT_LIMIT / 2);
+                this.rigidbody.velocity += this.transform.right;
+                break;
+
         }
 
+        // update the actual body
         this.rigidbody.velocity = Vector3.Lerp(this.rigidbody.velocity, targetVelocity, Time.deltaTime);
 
+        // update the animator
         animator.SetFloat("Rotation", this.transform.localEulerAngles.x);
         animator.SetFloat("Momentum", momentum);
         animator.SetFloat("Velocity", this.transform.rigidbody.velocity.magnitude);
@@ -286,9 +425,10 @@ public class PlayerState : MonoBehaviour
         transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
     }
 
+    const float TILT_EASE_RATE = 5f;
     void tiltTowards(float f)
     {
-        rotationZ = Mathf.Lerp(rotationZ, f, Time.deltaTime * 5f);
+        rotationZ = Mathf.Lerp(rotationZ, f, Time.deltaTime * TILT_EASE_RATE);
     }
 
     const float MOMENTUM_GAIN = 5f;
