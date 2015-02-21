@@ -5,7 +5,7 @@ public class NetworkManager : MonoBehaviour
 	public GameObject Owner;
 	public GameObject Proxy;
 
-	Vector3 PLAYER_SPAWN = new Vector3(0f, 100f, 0f);
+	Vector3 PLAYER_SPAWN = new Vector3(0f, 1000f, 0f);
 
 	void uLink_OnServerInitialized()
 	{
