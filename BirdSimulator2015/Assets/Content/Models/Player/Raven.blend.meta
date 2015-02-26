@@ -136,6 +136,7 @@ ModelImporter:
     100260: Feather_001
     100262: Feather_002
     100264: Raven
+    100266: Empty
     400000: Armature
     400002: Beak_bottom
     400004: Beak_top
@@ -269,6 +270,7 @@ ModelImporter:
     400260: Feather_001
     400262: Feather_002
     400264: Raven
+    400266: Empty
     4300000: Body
     4300002: LeftWing
     4300004: RightWing
@@ -309,7 +311,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
