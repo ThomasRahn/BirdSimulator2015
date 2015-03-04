@@ -1,15 +1,16 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &149156
+--- !u!1 &138126
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 449156}
-  - 33: {fileID: 3349156}
-  - 23: {fileID: 2349156}
+  - 4: {fileID: 438126}
+  - 33: {fileID: 3338126}
+  - 23: {fileID: 2338126}
+  - 64: {fileID: 6438126}
   m_Layer: 0
   m_Name: crypt_tunnelbridge_b
   m_TagString: Untagged
@@ -17,31 +18,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &449156
+--- !u!4 &438126
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 149156}
+  m_GameObject: {fileID: 138126}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2349156
+--- !u!23 &2338126
 Renderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 149156}
+  m_GameObject: {fileID: 138126}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 8e580cb8a9f18ec49ab732814756d97c, type: 2}
+  - {fileID: 2100000, guid: 7c9375374a97d9a4fa1d87a3596f1d96, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -49,13 +50,26 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3349156
+--- !u!33 &3338126
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 149156}
-  m_Mesh: {fileID: 4300000, guid: 38dce420b3f78bc47bbc82194f0ccda6, type: 3}
+  m_GameObject: {fileID: 138126}
+  m_Mesh: {fileID: 4300000, guid: 80de4a1275a6d044e82ea49d378f36b4, type: 3}
+--- !u!64 &6438126
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 138126}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 80de4a1275a6d044e82ea49d378f36b4, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -65,6 +79,6 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 149156}
+  m_RootGameObject: {fileID: 138126}
   m_IsPrefabParent: 1
   m_IsExploded: 1
