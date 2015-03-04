@@ -22,6 +22,8 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.name == "LandingZone")
         {
+            GameController.GamepadPopup.SetImage(GamepadSetup.ImageAction.A);
+            GameController.GamepadPopup.FadeIn();
             // TODO refactor into base later (important!!!!!!!!!!!!!!!!!!!!)
             this.GetComponent<PlayerState>().LandPos = other.GetComponent<LandingZone>().Target.position;
             this.GetComponent<PlayerState>().CanLand = true;
@@ -32,6 +34,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.name == "LandingZone")
         {
+            GameController.GamepadPopup.FadeOut();
             this.GetComponent<PlayerState>().CanLand = false;
         }
     }

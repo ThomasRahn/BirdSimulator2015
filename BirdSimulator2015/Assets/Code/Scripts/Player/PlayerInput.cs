@@ -4,15 +4,6 @@ using System.Collections.Generic;
 
 public class PlayerInput : MonoBehaviour
 {
-    protected enum Controller
-    {
-        KEYBOARD,
-        XBOX360,
-        PLAYSTATION3,
-        LOGITECHF310,
-
-    }
-
     protected float JoystickAxisX = 0f;
     protected float JoystickAxisY = 0f;
     protected float JoystickAxis3 = 0f;
@@ -37,7 +28,6 @@ public class PlayerInput : MonoBehaviour
     protected bool JoystickButton12 = false;
 
     private Animator animator;
-    private Controller controller;
     private float invertY = -1f;
 
     private const float JOYSTICK_ALT_THUMBSTICK_THRESHOLD = 0.2f;
@@ -45,7 +35,6 @@ public class PlayerInput : MonoBehaviour
     void Awake()
     {
         animator = this.GetComponent<Animator>();
-        controller = Controller.LOGITECHF310;
     }
 
     void Update()
@@ -81,7 +70,7 @@ public class PlayerInput : MonoBehaviour
         animator.ResetTrigger("DashUp");
         animator.ResetTrigger("DashDown");
 
-        if (controller == Controller.LOGITECHF310)
+        if (GameController.Gamepad.GetType() == GamepadSetup.Type.LOGITECHF310)
         {
             animator.SetFloat("Horizontal", JoystickAxisX);
             animator.SetFloat("Vertical", JoystickAxisY * invertY);
