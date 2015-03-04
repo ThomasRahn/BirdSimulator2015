@@ -34,8 +34,12 @@ public class GamepadSetup
         {
             s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_A");
             lookup.Add(ImageAction.A, s);
-
-            // TODO add some more contexts here
+            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_B");
+            lookup.Add(ImageAction.B, s);
+            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_X");
+            lookup.Add(ImageAction.X, s);
+            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_Y");
+            lookup.Add(ImageAction.Y, s);
         }
     }
 

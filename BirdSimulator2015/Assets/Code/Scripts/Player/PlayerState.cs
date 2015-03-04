@@ -243,6 +243,14 @@ public class PlayerState : MonoBehaviour
                 }
                 break;
 
+            case BirdState.Descending:
+                rotationX = transform.localEulerAngles.x + DIVE_RATE * Time.deltaTime;
+                rotationX = Mathf.Clamp(rotationX, 1f, Mathf.Abs(Input.GetAxisRaw("JoystickAxisY")) * 85f);
+                transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
+
+                targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY_WHEN_ASCENDING + Vector3.down * MAX_UPWARD_VELOCITY;
+                break;
+
             case BirdState.Diving:
                 addMomentum();
                 dive();
@@ -320,10 +328,6 @@ public class PlayerState : MonoBehaviour
                     targetVelocity = this.transform.forward * currentMaxSpeed + this.transform.right * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
                 }
                 else { targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET; }
-                break;
-
-            case BirdState.Descending:
-                targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY_WHEN_ASCENDING + Vector3.down * MAX_UPWARD_VELOCITY;
                 break;
 
             case BirdState.Ascending:
