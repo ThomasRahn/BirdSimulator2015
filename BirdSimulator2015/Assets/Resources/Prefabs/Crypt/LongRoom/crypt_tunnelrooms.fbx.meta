@@ -1,0 +1,317 @@
+fileFormatVersion: 2
+guid: 28d63cfd96f700d4f8159cfad04bae07
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: atrium_columns
+    100002: atrium_floor
+    100004: atrium_misc
+    100006: atrium_roof
+    100008: atrium_wallmounts
+    100010: atrium_walls
+    100012: birdpillar1
+    100014: birdpillar:birdpillar
+    100016: //RootNode
+    100018: cryptentrance4:pCube3
+    100020: group1
+    100022: group10
+    100024: group11
+    100026: group12
+    100028: group2
+    100030: group3
+    100032: group4
+    100034: group5
+    100036: group6
+    100038: group7
+    100040: group8
+    100042: group9
+    100044: pCube1
+    100046: pCube13
+    100048: pCube17
+    100050: pCube18
+    100052: pCylinder1
+    100054: polySurface1
+    100056: polySurface3
+    100058: polySurface5
+    100060: roundroom_beams
+    100062: roundroom_ceiling
+    100064: roundroom_floor
+    100066: roundroom_wall
+    100068: tunnel_endwall
+    100070: tunnel_endwall2
+    100072: tunnel_endwallarches
+    100074: tunnel_endwallarches2
+    100076: tunnelbrazier
+    100078: tunnelbrazier 1
+    100080: tunnelbrazier 2
+    100082: tunnelbrazier 3
+    100084: tunnelbrazier 4
+    100086: tunnelbrazier 5
+    100088: tunnelbrazier 6
+    100090: tunnelbrazier 7
+    100092: tunnelcolumn
+    100094: tunnelcolumn1
+    100096: tunnelcolumn1 1
+    100098: tunnelcolumn1 2
+    100100: tunnelcolumn1 3
+    100102: tunnelcolumn1 4
+    100104: tunnelcolumn1 5
+    100106: tunnelcolumn1 6
+    100108: tunnelcolumn1 7
+    100110: tunnelmain
+    100112: tunnelmain 1
+    100114: tunnelmain 2
+    100116: tunnelmain 3
+    100118: tunnelmain 4
+    100120: tunnelmain 5
+    100122: tunnelmain 6
+    100124: tunnelmain 7
+    100126: tunnelmain1
+    400000: atrium_columns
+    400002: atrium_floor
+    400004: atrium_misc
+    400006: atrium_roof
+    400008: atrium_wallmounts
+    400010: atrium_walls
+    400012: birdpillar1
+    400014: birdpillar:birdpillar
+    400016: //RootNode
+    400018: cryptentrance4:pCube3
+    400020: group1
+    400022: group10
+    400024: group11
+    400026: group12
+    400028: group2
+    400030: group3
+    400032: group4
+    400034: group5
+    400036: group6
+    400038: group7
+    400040: group8
+    400042: group9
+    400044: pCube1
+    400046: pCube13
+    400048: pCube17
+    400050: pCube18
+    400052: pCylinder1
+    400054: polySurface1
+    400056: polySurface3
+    400058: polySurface5
+    400060: roundroom_beams
+    400062: roundroom_ceiling
+    400064: roundroom_floor
+    400066: roundroom_wall
+    400068: tunnel_endwall
+    400070: tunnel_endwall2
+    400072: tunnel_endwallarches
+    400074: tunnel_endwallarches2
+    400076: tunnelbrazier
+    400078: tunnelbrazier 1
+    400080: tunnelbrazier 2
+    400082: tunnelbrazier 3
+    400084: tunnelbrazier 4
+    400086: tunnelbrazier 5
+    400088: tunnelbrazier 6
+    400090: tunnelbrazier 7
+    400092: tunnelcolumn
+    400094: tunnelcolumn1
+    400096: tunnelcolumn1 1
+    400098: tunnelcolumn1 2
+    400100: tunnelcolumn1 3
+    400102: tunnelcolumn1 4
+    400104: tunnelcolumn1 5
+    400106: tunnelcolumn1 6
+    400108: tunnelcolumn1 7
+    400110: tunnelmain
+    400112: tunnelmain 1
+    400114: tunnelmain 2
+    400116: tunnelmain 3
+    400118: tunnelmain 4
+    400120: tunnelmain 5
+    400122: tunnelmain 6
+    400124: tunnelmain 7
+    400126: tunnelmain1
+    2300000: atrium_columns
+    2300002: atrium_floor
+    2300004: atrium_misc
+    2300006: atrium_roof
+    2300008: atrium_wallmounts
+    2300010: atrium_walls
+    2300012: birdpillar1
+    2300014: birdpillar:birdpillar
+    2300016: polySurface5
+    2300018: roundroom_beams
+    2300020: roundroom_ceiling
+    2300022: roundroom_floor
+    2300024: roundroom_wall
+    2300026: tunnel_endwall
+    2300028: tunnel_endwall2
+    2300030: tunnel_endwallarches
+    2300032: tunnel_endwallarches2
+    2300034: tunnelbrazier
+    2300036: tunnelbrazier 1
+    2300038: tunnelbrazier 2
+    2300040: tunnelbrazier 3
+    2300042: tunnelbrazier 4
+    2300044: tunnelbrazier 5
+    2300046: tunnelbrazier 6
+    2300048: tunnelbrazier 7
+    2300050: tunnelcolumn
+    2300052: tunnelcolumn1
+    2300054: tunnelcolumn1 1
+    2300056: tunnelcolumn1 2
+    2300058: tunnelcolumn1 3
+    2300060: tunnelcolumn1 4
+    2300062: tunnelcolumn1 5
+    2300064: tunnelcolumn1 6
+    2300066: tunnelcolumn1 7
+    2300068: tunnelmain
+    2300070: tunnelmain 1
+    2300072: tunnelmain 2
+    2300074: tunnelmain 3
+    2300076: tunnelmain 4
+    2300078: tunnelmain 5
+    2300080: tunnelmain 6
+    2300082: tunnelmain 7
+    2300084: tunnelmain1
+    3300000: atrium_columns
+    3300002: atrium_floor
+    3300004: atrium_misc
+    3300006: atrium_roof
+    3300008: atrium_wallmounts
+    3300010: atrium_walls
+    3300012: birdpillar1
+    3300014: birdpillar:birdpillar
+    3300016: polySurface5
+    3300018: roundroom_beams
+    3300020: roundroom_ceiling
+    3300022: roundroom_floor
+    3300024: roundroom_wall
+    3300026: tunnel_endwall
+    3300028: tunnel_endwall2
+    3300030: tunnel_endwallarches
+    3300032: tunnel_endwallarches2
+    3300034: tunnelbrazier
+    3300036: tunnelbrazier 1
+    3300038: tunnelbrazier 2
+    3300040: tunnelbrazier 3
+    3300042: tunnelbrazier 4
+    3300044: tunnelbrazier 5
+    3300046: tunnelbrazier 6
+    3300048: tunnelbrazier 7
+    3300050: tunnelcolumn
+    3300052: tunnelcolumn1
+    3300054: tunnelcolumn1 1
+    3300056: tunnelcolumn1 2
+    3300058: tunnelcolumn1 3
+    3300060: tunnelcolumn1 4
+    3300062: tunnelcolumn1 5
+    3300064: tunnelcolumn1 6
+    3300066: tunnelcolumn1 7
+    3300068: tunnelmain
+    3300070: tunnelmain 1
+    3300072: tunnelmain 2
+    3300074: tunnelmain 3
+    3300076: tunnelmain 4
+    3300078: tunnelmain 5
+    3300080: tunnelmain 6
+    3300082: tunnelmain 7
+    3300084: tunnelmain1
+    4300000: tunnelcolumn
+    4300002: tunnel_endwallarches2
+    4300004: tunnel_endwall2
+    4300006: tunnelmain1
+    4300008: birdpillar:birdpillar
+    4300010: birdpillar1
+    4300012: atrium_floor
+    4300014: atrium_roof
+    4300016: polySurface5
+    4300018: tunnelcolumn1
+    4300020: tunnelbrazier
+    4300022: tunnelmain
+    4300024: tunnelcolumn1
+    4300026: tunnelbrazier
+    4300028: tunnelmain
+    4300030: tunnelcolumn1
+    4300032: tunnelbrazier
+    4300034: tunnelmain
+    4300036: tunnelcolumn1
+    4300038: tunnelbrazier
+    4300040: tunnelmain
+    4300042: tunnelcolumn1
+    4300044: tunnelbrazier
+    4300046: tunnelmain
+    4300048: tunnelcolumn1
+    4300050: tunnelbrazier
+    4300052: tunnelmain
+    4300054: tunnelcolumn1
+    4300056: tunnelbrazier
+    4300058: tunnelmain
+    4300060: roundroom_floor
+    4300062: roundroom_wall
+    4300064: roundroom_ceiling
+    4300066: tunnel_endwall
+    4300068: tunnel_endwallarches
+    4300070: roundroom_beams
+    4300072: tunnelcolumn1
+    4300074: tunnelbrazier
+    4300076: tunnelmain
+    4300078: atrium_walls
+    4300080: atrium_columns
+    4300082: atrium_wallmounts
+    4300084: atrium_misc
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
