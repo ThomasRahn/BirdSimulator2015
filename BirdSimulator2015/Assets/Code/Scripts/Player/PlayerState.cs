@@ -25,6 +25,7 @@ public class PlayerState : MonoBehaviour
         AboutFacing,
         DashingForward,
         Landing,
+        Grounded,
 
         QuickAscending,
         RollingLeft,
@@ -80,6 +81,9 @@ public class PlayerState : MonoBehaviour
     // skills, prolly move this into skills refactor
     private const float _rollTimer = 1f;
     private float rollTimer = _rollTimer;
+
+    // collision trigger (landing)
+    public Vector3 LandPos = Vector3.zero;
 
     void Awake()
     {
@@ -398,6 +402,33 @@ public class PlayerState : MonoBehaviour
             case BirdState.RollingRight:
                 tiltTowards(-TILT_LIMIT / 2);
                 this.rigidbody.velocity += this.transform.right;
+                break;
+
+            case BirdState.Landing:
+                tiltTowards(0);
+                momentum = 0f;
+                currentMaxSpeed = 0f;
+
+                this.rigidbody.velocity = Vector3.zero;
+                targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
+
+                // move this body to the center of the landing zone
+                this.rigidbody.MovePosition(this.rigidbody.position + (LandPos - this.transform.position) * Time.deltaTime);
+
+                if (Vector3.Distance(this.transform.position, LandPos) < 0.05f)
+                {
+                    animator.SetBool("b_Grounded", true);
+                }
+
+                break;
+
+            case BirdState.Grounded:
+                tiltTowards(0);
+                momentum = 0f;
+                currentMaxSpeed = 0f;
+
+                this.rigidbody.velocity = Vector3.zero;
+                targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
                 break;
 
         }
