@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class PlayerState : MonoBehaviour
 {
-    protected enum BirdState
+    public enum BirdState
     {
         Hovering,
         Gliding,
@@ -84,6 +84,7 @@ public class PlayerState : MonoBehaviour
 
     // collision trigger (landing)
     public Vector3 LandPos = Vector3.zero;
+    public bool CanLand = false;
 
     void Awake()
     {
@@ -466,5 +467,10 @@ public class PlayerState : MonoBehaviour
     void addMomentum()
     {
         momentum += MOMENTUM_GAIN * Time.deltaTime;
+    }
+
+    public BirdState GetState()
+    {
+        return state;
     }
 }

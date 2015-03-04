@@ -88,8 +88,28 @@ public class PlayerInput : MonoBehaviour
 
             if (JoystickButton0)
                 animator.SetTrigger("DashForward");
+
             if (JoystickButton1)
-                animator.SetTrigger("QuickAscend");
+            {
+                // knees weak moms spaghetti
+                if (this.GetComponent<PlayerState>().CanLand)
+                {
+                    if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Grounded)
+                    {
+                        // make some sort of liftoff animation or something
+                        animator.SetBool("b_Grounded", false);
+                    }
+                    else
+                    {
+                        animator.SetTrigger("t_Land");
+                    }
+                }
+                else
+                {
+                    animator.SetTrigger("QuickAscend");
+                }
+            }
+
             if (JoystickButton2)
                 animator.SetTrigger("Decelerate");
 

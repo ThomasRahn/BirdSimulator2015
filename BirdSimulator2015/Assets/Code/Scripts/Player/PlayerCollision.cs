@@ -22,8 +22,17 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.name == "LandingZone")
         {
+            // TODO refactor into base later (important!!!!!!!!!!!!!!!!!!!!)
             this.GetComponent<PlayerState>().LandPos = other.GetComponent<LandingZone>().Target.position;
-            animator.SetTrigger("t_Land");
+            this.GetComponent<PlayerState>().CanLand = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.name == "LandingZone")
+        {
+            this.GetComponent<PlayerState>().CanLand = false;
         }
     }
 }
