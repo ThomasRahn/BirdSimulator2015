@@ -31,6 +31,8 @@ public class PlayerState : MonoBehaviour
         RollingLeft,
         RollingRight,
 
+        LiftingOff,
+
         // cosmetics
         RandomFlapping,
 
@@ -41,9 +43,9 @@ public class PlayerState : MonoBehaviour
     private Dictionary<int, BirdState> hash = new Dictionary<int, BirdState>();
     private BirdState state;
 
-    const float MAX_FORWARD_VELOCITY = 20f;
-    const float MAX_DOWNWARD_VELOCITY = 30f;
-    const float DOWNWARD_ACCELERATION = 2f;
+    const float MAX_FORWARD_VELOCITY = 25f;
+    const float MAX_DOWNWARD_VELOCITY = 40f;
+    const float DOWNWARD_ACCELERATION = 1f;
     const float MAX_UPWARD_VELOCITY = 5f;
     const float MAX_FORWARD_VELOCITY_WHEN_ASCENDING = 25f;
     const float DIVE_RATE = 50f;
@@ -55,6 +57,7 @@ public class PlayerState : MonoBehaviour
     const float EASE_RATE = 100f;
     const float MOMENTUM_LOSS_RATE = 50f;
     const float TURN_SHARPNESS = 1.4f;
+    const float DECELERATION_RATE = 200f;
 
     const float TILT_LIMIT = 70f;
 
@@ -77,10 +80,6 @@ public class PlayerState : MonoBehaviour
     private RaycastHit hit;
     private bool flipped = false;
     private int tilting = 0;
-
-    // skills, prolly move this into skills refactor
-    private const float _rollTimer = 1f;
-    private float rollTimer = _rollTimer;
 
     // collision trigger (landing)
     public Vector3 LandPos = Vector3.zero;
@@ -120,7 +119,7 @@ public class PlayerState : MonoBehaviour
 
                 if (Vector3.Angle(hit.normal, -direction) < 35f)
                 {
-                    animator.SetTrigger("AboutFace");
+                    animator.SetTrigger("t_AboutFace");
                 }
             }
         }
@@ -159,10 +158,10 @@ public class PlayerState : MonoBehaviour
     void Update()
     {
         // prolly make this better or something
-        animator.ResetTrigger("RandomFlap");
+        animator.ResetTrigger("t_RandomFlap");
         if (Random.Range(1, 500) == 2)
         {
-            animator.SetTrigger("RandomFlap");
+            animator.SetTrigger("t_RandomFlap");
         }
 
         // update body rotation
@@ -180,6 +179,11 @@ public class PlayerState : MonoBehaviour
 
         switch (state)
         {
+            case BirdState.Hovering:
+                ease();
+                tiltTowards(0);
+                break;
+
             case BirdState.Gliding:
                 // reset some stuff
                 flipped = false;
@@ -245,7 +249,8 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.Descending:
                 rotationX = transform.localEulerAngles.x + DIVE_RATE * Time.deltaTime;
-                rotationX = Mathf.Clamp(rotationX, 1f, Mathf.Abs(Input.GetAxisRaw("JoystickAxisY")) * 85f);
+                //rotationX = Mathf.Clamp(rotationX, 1f, Mathf.Abs(Input.GetAxisRaw("JoystickAxisY")) * 85f);
+                rotationX = Mathf.Clamp(rotationX, 1f, 85f);
                 transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
 
                 targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY_WHEN_ASCENDING + Vector3.down * MAX_UPWARD_VELOCITY;
@@ -284,10 +289,11 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case BirdState.Decelerating:
+                ease();
                 tiltTowards(0);
-                // TODO change decel numbers
-                currentMaxSpeed -= Time.deltaTime * 2f;
-                targetVelocity = this.transform.forward * currentMaxSpeed;
+                currentMaxSpeed = 0;
+                targetVelocity = Vector3.zero;
+                this.rigidbody.velocity = this.rigidbody.velocity * 0.4f;
                 break;
 
             case BirdState.TurningLeft:
@@ -332,6 +338,10 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.Ascending:
                 tiltTowards(0);
+
+                rotationX = transform.localEulerAngles.x - DIVE_RATE * Time.deltaTime;
+                rotationX = Mathf.Clamp(rotationX, 1f, 85f);
+                transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
 
                 targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * MAX_UPWARD_VELOCITY;
                 break;
@@ -434,6 +444,11 @@ public class PlayerState : MonoBehaviour
 
                 this.rigidbody.velocity = Vector3.zero;
                 targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
+                break;
+
+            case BirdState.LiftingOff:
+                tiltTowards(0);
+                targetVelocity = Vector3.up * 5f;
                 break;
 
         }

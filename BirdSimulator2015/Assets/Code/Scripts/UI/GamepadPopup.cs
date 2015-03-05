@@ -26,7 +26,7 @@ public class GamepadPopup : MonoBehaviour
     {
 	}
 
-    public void SetImage(GamepadSetup.ImageAction ia)
+    public void SetImage(GamepadSetup.GamepadAction ia)
     {
         image.sprite = GameController.Gamepad.GetSprite(ia);
     }

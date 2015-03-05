@@ -70,7 +70,7 @@ public class PlayerInput : MonoBehaviour
         animator.ResetTrigger("DashUp");
         animator.ResetTrigger("DashDown");
 
-        if (GameController.Gamepad.GetType() == GamepadSetup.Type.LOGITECHF310)
+        if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.LOGITECHF310)
         {
             animator.SetFloat("Horizontal", JoystickAxisX);
             animator.SetFloat("Vertical", JoystickAxisY * invertY);

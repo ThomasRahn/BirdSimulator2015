@@ -14,7 +14,7 @@ public class GameController : ScriptableObject
     void Awake()
     {
         // TODO this will probably be delegated to an options menu
-        Gamepad = new GamepadSetup(GamepadSetup.Type.LOGITECHF310);
+        Gamepad = new GamepadSetup(GamepadSetup.GamepadType.LOGITECHF310);
     }
 
 	void Start()

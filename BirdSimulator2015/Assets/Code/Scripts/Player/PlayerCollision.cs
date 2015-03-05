@@ -3,13 +3,6 @@ using System.Collections;
 
 public class PlayerCollision : MonoBehaviour
 {
-    private Animator animator;
-
-    void Awake()
-    {
-        animator = this.GetComponent<Animator>();
-    }
-
 	void Start()
     {
 	}
@@ -22,7 +15,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.name == "LandingZone")
         {
-            GameController.GamepadPopup.SetImage(GamepadSetup.ImageAction.A);
+            GameController.GamepadPopup.SetImage(GamepadSetup.GamepadAction.A);
             GameController.GamepadPopup.FadeIn();
             // TODO refactor into base later (important!!!!!!!!!!!!!!!!!!!!)
             this.GetComponent<PlayerState>().LandPos = other.GetComponent<LandingZone>().Target.position;

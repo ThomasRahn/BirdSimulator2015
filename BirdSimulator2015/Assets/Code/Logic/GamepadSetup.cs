@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class GamepadSetup
 {
-    public enum Type
+    public enum GamepadType
     {
         KEYBOARD,
         XBOX360,
@@ -13,7 +13,7 @@ public class GamepadSetup
 
     }
 
-    public enum ImageAction
+    public enum GamepadAction
     {
         A,
         B,
@@ -22,35 +22,35 @@ public class GamepadSetup
 
     }
 
-    Type type;
-    private Dictionary<ImageAction, Sprite> lookup = new Dictionary<ImageAction, Sprite>(); 
+    GamepadType type;
+    private Dictionary<GamepadAction, Sprite> lookup = new Dictionary<GamepadAction, Sprite>(); 
 
-    public GamepadSetup(Type type)
+    public GamepadSetup(GamepadType type)
     {
         this.type = type;
 
         Sprite s;
-        if (type == Type.LOGITECHF310)
+        if (type == GamepadType.LOGITECHF310)
         {
             s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_A");
-            lookup.Add(ImageAction.A, s);
+            lookup.Add(GamepadAction.A, s);
             s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_B");
-            lookup.Add(ImageAction.B, s);
+            lookup.Add(GamepadAction.B, s);
             s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_X");
-            lookup.Add(ImageAction.X, s);
+            lookup.Add(GamepadAction.X, s);
             s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_Y");
-            lookup.Add(ImageAction.Y, s);
+            lookup.Add(GamepadAction.Y, s);
         }
     }
 
-    public Sprite GetSprite(ImageAction ia)
+    public Sprite GetSprite(GamepadAction ia)
     {
         Sprite s;
         lookup.TryGetValue(ia, out s);
         return s;
     }
 
-    public Type GetType()
+    public GamepadType GetGamepadType()
     {
         return type;
     }
