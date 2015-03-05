@@ -13,6 +13,7 @@ GameObject:
   - 124: {fileID: 12400000}
   - 81: {fileID: 8100000}
   - 114: {fileID: 11400000}
+  - 45: {fileID: 4537258}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -42,7 +43,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: .1305262, y: 0, z: 0, w: .991444886}
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -93,6 +94,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+--- !u!45 &4537258
+Skybox:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 3594a61ebd629fa43b52b3badbfeb954, type: 2}
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -119,9 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FOVThreshold: 30
-  UpOffset: .150000006
+  UpOffset: 1
   FOVCoefficient: .75
-  Radius: 2
+  Radius: 4
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class PlayerState : MonoBehaviour
 {
-    protected enum BirdState
+    public enum BirdState
     {
         Hovering,
         Gliding,
@@ -25,6 +25,7 @@ public class PlayerState : MonoBehaviour
         AboutFacing,
         DashingForward,
         Landing,
+        Grounded,
 
         QuickAscending,
         RollingLeft,
@@ -40,7 +41,7 @@ public class PlayerState : MonoBehaviour
     private Dictionary<int, BirdState> hash = new Dictionary<int, BirdState>();
     private BirdState state;
 
-    const float MAX_FORWARD_VELOCITY = 35f;
+    const float MAX_FORWARD_VELOCITY = 20f;
     const float MAX_DOWNWARD_VELOCITY = 30f;
     const float DOWNWARD_ACCELERATION = 2f;
     const float MAX_UPWARD_VELOCITY = 5f;
@@ -80,6 +81,10 @@ public class PlayerState : MonoBehaviour
     // skills, prolly move this into skills refactor
     private const float _rollTimer = 1f;
     private float rollTimer = _rollTimer;
+
+    // collision trigger (landing)
+    public Vector3 LandPos = Vector3.zero;
+    public bool CanLand = false;
 
     void Awake()
     {
@@ -238,6 +243,14 @@ public class PlayerState : MonoBehaviour
                 }
                 break;
 
+            case BirdState.Descending:
+                rotationX = transform.localEulerAngles.x + DIVE_RATE * Time.deltaTime;
+                rotationX = Mathf.Clamp(rotationX, 1f, Mathf.Abs(Input.GetAxisRaw("JoystickAxisY")) * 85f);
+                transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
+
+                targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY_WHEN_ASCENDING + Vector3.down * MAX_UPWARD_VELOCITY;
+                break;
+
             case BirdState.Diving:
                 addMomentum();
                 dive();
@@ -315,10 +328,6 @@ public class PlayerState : MonoBehaviour
                     targetVelocity = this.transform.forward * currentMaxSpeed + this.transform.right * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
                 }
                 else { targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET; }
-                break;
-
-            case BirdState.Descending:
-                targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY_WHEN_ASCENDING + Vector3.down * MAX_UPWARD_VELOCITY;
                 break;
 
             case BirdState.Ascending:
@@ -400,6 +409,33 @@ public class PlayerState : MonoBehaviour
                 this.rigidbody.velocity += this.transform.right;
                 break;
 
+            case BirdState.Landing:
+                tiltTowards(0);
+                momentum = 0f;
+                currentMaxSpeed = 0f;
+
+                this.rigidbody.velocity = Vector3.zero;
+                targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
+
+                // move this body to the center of the landing zone
+                this.rigidbody.MovePosition(this.rigidbody.position + (LandPos - this.transform.position) * Time.deltaTime);
+
+                if (Vector3.Distance(this.transform.position, LandPos) < 0.05f)
+                {
+                    animator.SetBool("b_Grounded", true);
+                }
+
+                break;
+
+            case BirdState.Grounded:
+                tiltTowards(0);
+                momentum = 0f;
+                currentMaxSpeed = 0f;
+
+                this.rigidbody.velocity = Vector3.zero;
+                targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
+                break;
+
         }
 
         // update the actual body
@@ -435,5 +471,10 @@ public class PlayerState : MonoBehaviour
     void addMomentum()
     {
         momentum += MOMENTUM_GAIN * Time.deltaTime;
+    }
+
+    public BirdState GetState()
+    {
+        return state;
     }
 }
