@@ -3702,6 +3702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LandPos: {x: 0, y: 0, z: 0}
+  CanLand: 0
 --- !u!114 &11494512
 MonoBehaviour:
   m_ObjectHideFlags: 1
