@@ -23,7 +23,7 @@ public class PlayerState : MonoBehaviour
         AscendingAndTurningLeft,
         AscendingAndTurningRight,
         AboutFacing,
-        DashingForward,
+        FlappingForward,
         Landing,
         Grounded,
 
@@ -35,6 +35,8 @@ public class PlayerState : MonoBehaviour
 
         // cosmetics
         RandomFlapping,
+
+        DashingForward,
 
 
     }
@@ -112,7 +114,7 @@ public class PlayerState : MonoBehaviour
 
         if (Physics.Raycast(from, direction, out hit, 1f))
         {
-            if (state != BirdState.AboutFacing && state != BirdState.DashingForward)
+            if (state != BirdState.AboutFacing && state != BirdState.FlappingForward)
             {
                 Debug.DrawRay(hit.point, hit.normal, Color.red, 5f);
                 Debug.Log(Vector3.Angle(hit.normal, -direction));
@@ -391,7 +393,7 @@ public class PlayerState : MonoBehaviour
                 targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
                 break;
 
-            case BirdState.DashingForward:
+            case BirdState.FlappingForward:
 			    if (!flipped)
 			    {
                     // flip once
@@ -449,6 +451,11 @@ public class PlayerState : MonoBehaviour
             case BirdState.LiftingOff:
                 tiltTowards(0);
                 targetVelocity = Vector3.up * 5f;
+                break;
+
+            case BirdState.DashingForward:
+                tiltTowards(0);
+                this.rigidbody.velocity += this.transform.forward;
                 break;
 
         }

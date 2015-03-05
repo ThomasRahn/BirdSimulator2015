@@ -62,13 +62,13 @@ public class PlayerInput : MonoBehaviour
         JoystickButton11 = Input.GetButton("JoystickButton11");
         JoystickButton12 = Input.GetButton("JoystickButton12");
 
-        animator.ResetTrigger("DashForward");
-        animator.ResetTrigger("Decelerate");
-        animator.ResetTrigger("QuickAscend");
-        animator.ResetTrigger("DashRight");
-        animator.ResetTrigger("DashLeft");
-        animator.ResetTrigger("DashUp");
-        animator.ResetTrigger("DashDown");
+        animator.ResetTrigger("t_DashForward");
+        animator.ResetTrigger("t_Decelerate");
+        animator.ResetTrigger("t_QuickAscend");
+        animator.ResetTrigger("t_DashRight");
+        animator.ResetTrigger("t_DashLeft");
+        animator.ResetTrigger("t_DashUp");
+        animator.ResetTrigger("t_DashDown");
 
         if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.LOGITECHF310)
         {
@@ -76,7 +76,7 @@ public class PlayerInput : MonoBehaviour
             animator.SetFloat("Vertical", JoystickAxisY * invertY);
 
             if (JoystickButton0)
-                animator.SetTrigger("DashForward");
+                animator.SetTrigger("t_DashForward");
 
             if (JoystickButton1)
             {
@@ -95,21 +95,22 @@ public class PlayerInput : MonoBehaviour
                 }
                 else
                 {
-                    animator.SetTrigger("QuickAscend");
+                    animator.SetTrigger("t_QuickAscend");
                 }
             }
 
+            // limit this, obviously
             if (JoystickButton2)
-                animator.SetTrigger("Decelerate");
+                animator.SetTrigger("t_Decelerate");
 
             if (JoystickAxis3 > JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
-                animator.SetTrigger("DashRight");
+                animator.SetTrigger("t_DashRight");
             if (JoystickAxis3 < -JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
-                animator.SetTrigger("DashLeft");
+                animator.SetTrigger("t_DashLeft");
             if (JoystickAxis4 > JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
-                animator.SetTrigger("DashUp");
+                animator.SetTrigger("t_DashUp");
             if (JoystickAxis4 < -JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
-                animator.SetTrigger("DashDown");
+                animator.SetTrigger("t_DashDown");
         }
     }
 }
