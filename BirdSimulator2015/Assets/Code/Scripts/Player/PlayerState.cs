@@ -37,8 +37,9 @@ public class PlayerState : MonoBehaviour
         RandomFlapping,
 
         DashingForward,
-
-
+        
+        HoveringAndTurningLeft,
+        HoveringAndTurningRight,
     }
 
     private Animator animator;
@@ -409,6 +410,8 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case BirdState.QuickAscending:
+				tiltTowards(0);
+				this.rigidbody.velocity += this.transform.up * 0.5f;
                 break;
 
             case BirdState.RollingLeft:
@@ -457,6 +460,26 @@ public class PlayerState : MonoBehaviour
                 tiltTowards(0);
                 this.rigidbody.velocity += this.transform.forward;
                 break;
+
+			case BirdState.HoveringAndTurningLeft:
+				rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+				currentTurnSpeed += Mathf.Pow(Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")), 2) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed;
+				currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
+				
+				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
+				
+				tiltTowards(-TILT_LIMIT * 0.1f);
+				break;
+				
+			case BirdState.HoveringAndTurningRight:
+				rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+				currentTurnSpeed += Mathf.Pow(Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")), 2) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed;
+				currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
+				
+				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
+				
+				tiltTowards(TILT_LIMIT * 0.1f);
+				break;
 
         }
 

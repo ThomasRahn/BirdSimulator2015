@@ -15,7 +15,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: .5, g: .5, b: .5, a: 1}
   m_FogMode: 3
-  m_FogDensity: .000500000024
+  m_FogDensity: .000300000014
   m_LinearFogStart: 0
   m_LinearFogEnd: 0
   m_AmbientLight: {r: .27303201, g: .348071516, b: .367647052, a: 1}

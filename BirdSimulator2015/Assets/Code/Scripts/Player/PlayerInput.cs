@@ -93,16 +93,15 @@ public class PlayerInput : MonoBehaviour
                         animator.SetTrigger("t_Land");
                     }
                 }
-                else
-                {
-                    animator.SetTrigger("t_QuickAscend");
-                }
             }
 
             // limit this, obviously
             if (JoystickButton2)
                 animator.SetTrigger("t_Decelerate");
 
+			if (JoystickButton3)
+				animator.SetTrigger("t_QuickAscend");
+			
             if (JoystickAxis3 > JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
                 animator.SetTrigger("t_DashRight");
             if (JoystickAxis3 < -JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
