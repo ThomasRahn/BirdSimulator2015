@@ -425,6 +425,7 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case BirdState.Landing:
+                ease();
                 tiltTowards(0);
                 momentum = 0f;
                 currentMaxSpeed = 0f;
