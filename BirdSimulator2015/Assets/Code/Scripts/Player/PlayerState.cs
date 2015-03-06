@@ -411,7 +411,7 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.QuickAscending:
 				tiltTowards(0);
-				this.rigidbody.velocity += this.transform.up * 0.5f;
+				this.rigidbody.velocity += Vector3.up * 0.5f;
                 break;
 
             case BirdState.RollingLeft:
@@ -458,27 +458,28 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.DashingForward:
                 tiltTowards(0);
-                this.rigidbody.velocity += this.transform.forward;
+                this.rigidbody.velocity += this.transform.forward * 0.5f; // instant impulse
+                currentMaxSpeed += Time.deltaTime * 10f;
                 break;
 
 			case BirdState.HoveringAndTurningLeft:
 				rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
-				currentTurnSpeed += Mathf.Pow(Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")), 2) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed;
+				currentTurnSpeed += TURN_ACCELERATION * Time.deltaTime;
 				currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
 				
 				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
 				
-				tiltTowards(-TILT_LIMIT * 0.1f);
+				tiltTowards(-TILT_LIMIT * 0.2f);
 				break;
 				
 			case BirdState.HoveringAndTurningRight:
 				rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
-				currentTurnSpeed += Mathf.Pow(Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")), 2) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed;
+				currentTurnSpeed += TURN_ACCELERATION * Time.deltaTime;
 				currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
 				
 				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
 				
-				tiltTowards(TILT_LIMIT * 0.1f);
+				tiltTowards(TILT_LIMIT * 0.2f);
 				break;
 
         }
