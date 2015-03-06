@@ -434,8 +434,7 @@ public class PlayerState : MonoBehaviour
 
                 // move this body to the center of the landing zone
                 this.rigidbody.MovePosition(this.rigidbody.position + (LandPos - this.transform.position) * Time.deltaTime);
-
-                if (Vector3.Distance(this.transform.position, LandPos) < 0.05f)
+                if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 0.3f))
                 {
                     animator.SetBool("b_Grounded", true);
                 }
@@ -453,7 +452,8 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.LiftingOff:
                 tiltTowards(0);
-                targetVelocity = Vector3.up * 5f;
+                this.rigidbody.velocity += Vector3.up * Time.deltaTime;
+                targetVelocity = Vector3.zero;
                 break;
 
             case BirdState.DashingForward:

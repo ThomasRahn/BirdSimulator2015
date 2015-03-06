@@ -549,8 +549,8 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110275298}
   m_DstState: {fileID: 110238432}
-  m_TransitionDuration: 7.49999952
-  m_TransitionOffset: 0
+  m_TransitionDuration: .454507411
+  m_TransitionOffset: .0299191065
   m_Conditions:
   - m_ConditionMode: 2
     m_ConditionEvent: b_Grounded
@@ -1461,14 +1461,14 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110285766}
   m_DstState: {fileID: 110275298}
-  m_TransitionDuration: 0
-  m_TransitionOffset: 0
+  m_TransitionDuration: .114063092
+  m_TransitionOffset: 1
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: b_Grounded
     m_EventTreshold: 0
     m_ExitTime: .642857194
-  m_Atomic: 1
+  m_Atomic: 0
   m_Solo: 0
   m_Mute: 0
   m_CanTransitionToSelf: 0
@@ -1481,7 +1481,7 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 0}
   m_DstState: {fileID: 110285766}
-  m_TransitionDuration: 0
+  m_TransitionDuration: .109670885
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 1
@@ -1843,7 +1843,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Grounded
-  m_Speed: 1
+  m_Speed: .100000001
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400022, guid: f7e3af8429cb8764a9abe7c4961ed31a, type: 3}
@@ -1903,7 +1903,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Landing
-  m_Speed: 1
+  m_Speed: .699999988
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400020, guid: f7e3af8429cb8764a9abe7c4961ed31a, type: 3}
