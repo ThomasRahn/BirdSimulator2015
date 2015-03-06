@@ -1,0 +1,88 @@
+fileFormatVersion: 2
+guid: faba998c3076c2840b38bc58e41381e0
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: crypt_sideentrancearches
+    100004: crypt_sideentrancemain
+    100006: crypt_sideentranceramp
+    100008: crypt_sideentrancesupports
+    100010: group1
+    400000: //RootNode
+    400002: crypt_sideentrancearches
+    400004: crypt_sideentrancemain
+    400006: crypt_sideentranceramp
+    400008: crypt_sideentrancesupports
+    400010: group1
+    2300000: crypt_sideentrancearches
+    2300002: crypt_sideentrancemain
+    2300004: crypt_sideentranceramp
+    2300006: crypt_sideentrancesupports
+    3300000: crypt_sideentrancearches
+    3300002: crypt_sideentrancemain
+    3300004: crypt_sideentranceramp
+    3300006: crypt_sideentrancesupports
+    4300000: crypt_sideentrancearches
+    4300002: crypt_sideentrancemain
+    4300004: crypt_sideentranceramp
+    4300006: crypt_sideentrancesupports
+    6400000: crypt_sideentrancearches
+    6400002: crypt_sideentrancemain
+    6400004: crypt_sideentranceramp
+    6400006: crypt_sideentrancesupports
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
