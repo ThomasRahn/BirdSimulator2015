@@ -1,16 +1,14 @@
 fileFormatVersion: 2
-guid: 5200976e04609ee46914412c81e3e2ba
+guid: 5d29bfb8bf2fa564bbce165056549d2c
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: crypt_atriumplaceholderentrance
-    100002: //RootNode
-    400000: crypt_atriumplaceholderentrance
-    400002: //RootNode
-    2300000: crypt_atriumplaceholderentrance
-    3300000: crypt_atriumplaceholderentrance
-    4300000: crypt_atriumplaceholderentrance
-    6400000: crypt_atriumplaceholderentrance
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: crypt_atrium_bridge
+    6400000: //RootNode
     9500000: //RootNode
   materials:
     importMaterials: 0
