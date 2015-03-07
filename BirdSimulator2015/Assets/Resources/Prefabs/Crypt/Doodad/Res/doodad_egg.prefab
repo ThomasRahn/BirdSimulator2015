@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &119090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 419090}
+  - 135: {fileID: 13519090}
+  m_Layer: 0
+  m_Name: Pickup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &153410
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +26,7 @@ GameObject:
   - 4: {fileID: 453410}
   - 33: {fileID: 3353410}
   - 23: {fileID: 2353410}
-  - 64: {fileID: 6453410}
+  - 135: {fileID: 13526800}
   - 54: {fileID: 5459606}
   m_Layer: 0
   m_Name: doodad_egg
@@ -19,6 +35,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &419090
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119090}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453410}
+  m_RootOrder: 0
 --- !u!4 &453410
 Transform:
   m_ObjectHideFlags: 1
@@ -28,7 +56,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 419090}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!23 &2353410
@@ -73,8 +102,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &6453410
-MeshCollider:
+--- !u!135 &13519090
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119090}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .699999988
+  m_Center: {x: 0, y: .0700000003, z: 0}
+--- !u!135 &13526800
+SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -83,9 +124,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 1
-  m_Mesh: {fileID: 4300000, guid: a6fbf7e3b6533d548a4edfc6a6edd48c, type: 3}
+  m_Radius: .280000001
+  m_Center: {x: 0, y: .0700000003, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
