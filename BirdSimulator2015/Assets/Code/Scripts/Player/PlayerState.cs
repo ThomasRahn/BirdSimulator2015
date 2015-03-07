@@ -437,7 +437,8 @@ public class PlayerState : MonoBehaviour
                 this.rigidbody.MovePosition(this.rigidbody.position + (LandPos - this.transform.position) * Time.deltaTime);
                 if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 0.3f))
                 {
-                    animator.SetBool("b_Grounded", true);
+                    if (hit.collider.tag != "Player")
+                        animator.SetBool("b_Grounded", true);
                 }
 
                 break;
@@ -464,9 +465,7 @@ public class PlayerState : MonoBehaviour
                 break;
 
 			case BirdState.HoveringAndTurningLeft:
-				rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
-				currentTurnSpeed += TURN_ACCELERATION * Time.deltaTime;
-				currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
+				rotationY -= 50f * Time.deltaTime * TURN_SHARPNESS;
 				
 				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
 				
@@ -474,10 +473,8 @@ public class PlayerState : MonoBehaviour
 				break;
 				
 			case BirdState.HoveringAndTurningRight:
-				rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
-				currentTurnSpeed += TURN_ACCELERATION * Time.deltaTime;
-				currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
-				
+				rotationY += 50f * Time.deltaTime * TURN_SHARPNESS;
+
 				transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
 				
 				tiltTowards(TILT_LIMIT * 0.2f);
