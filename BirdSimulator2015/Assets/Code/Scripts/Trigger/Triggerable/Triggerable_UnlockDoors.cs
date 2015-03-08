@@ -4,9 +4,19 @@ using System.Collections.Generic;
 
 public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
 {
+    public enum UnlockType
+    {
+        Slide,
+        Pivot,
+
+    }
+
     private List<GameObject> players = new List<GameObject>();
     private bool Locked = true;
 
+    public float Length;
+    public bool Lock; // lock instead of unlock
+    public UnlockType Type;
     public Transform Left;
     public Transform Right;
 
@@ -40,15 +50,23 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
 
     IEnumerator coUnlockDoors()
     {
-        float t = 5.0f;
+        int l = 1;
+        if (Lock) l = -1;
 
-        Debug.Log("Unlock");
-        while (t > 0)
+        while (Length > 0)
         {
-            Left.transform.Rotate(Vector3.up, 1f);
-            Right.transform.Rotate(Vector3.up, -1f);
+            if (Type == UnlockType.Pivot)
+            {
+                Left.transform.Rotate(Vector3.up, 1f);
+                Right.transform.Rotate(Vector3.up, -1f);
+            }
+            else if (Type == UnlockType.Slide)
+            {
+                Left.transform.Translate(l * Vector3.right * Time.deltaTime);
+                Right.transform.Translate(l * Vector3.left * Time.deltaTime);
+            }
 
-            t -= Time.deltaTime;
+            Length -= Time.deltaTime;
             yield return null;
         }
 
