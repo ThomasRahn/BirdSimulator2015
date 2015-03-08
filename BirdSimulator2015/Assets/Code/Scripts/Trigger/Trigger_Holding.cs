@@ -16,7 +16,7 @@ public class Trigger_Holding : MonoBehaviour
     {
 	}
 
-    void OnTriggerStay(Collider c)
+    void OnTriggerEnter(Collider c)
     {
         if (!alreadyTriggered)
         {
@@ -34,10 +34,5 @@ public class Trigger_Holding : MonoBehaviour
                 }
             }
         }
-    }
-
-    void OnTriggerExit(Collider c)
-    {
-        alreadyTriggered = false;
     }
 }
