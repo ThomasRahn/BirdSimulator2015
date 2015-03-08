@@ -12,18 +12,18 @@ public class NestedPrefab : MonoBehaviour
 	
 	void Start()
 	{
-		if (EditorApplication.isPlaying)
-		{
+		//if (EditorApplication.isPlaying)
+		//{
 			foreach (NestedPrefab np in UnityEngine.Object.FindObjectsOfType(typeof(NestedPrefab)))
 			{
 				Bake(np);
 			}
-		}
+		//}
 	}
 	
-	#if UNITY_EDITOR
+#if UNITY_EDITOR
 	[System.NonSerializedAttribute]
-	public List<Components> components = new List<Components> ();
+	public List<Components> components = new List<Components>();
 			
 	public struct Components
 	{
@@ -129,8 +129,10 @@ public class NestedPrefab : MonoBehaviour
 		foreach (NestedPrefab np in UnityEngine.Object.FindObjectsOfType(typeof(NestedPrefab)))
 			Bake(np);
 	}
-	
-	public static void Bake(NestedPrefab np)
+
+#endif
+
+    public static void Bake(NestedPrefab np)
 	{
 		if (!np.Prefab || !np.enabled)
 		{
@@ -138,7 +140,8 @@ public class NestedPrefab : MonoBehaviour
 		}
 		
 		np.enabled = false;
-		GameObject go = PrefabUtility.InstantiatePrefab(np.Prefab) as GameObject;
+		//GameObject go = PrefabUtility.InstantiatePrefab(np.Prefab) as GameObject;
+        GameObject go = GameObject.Instantiate(np.Prefab) as GameObject;
 		Quaternion rot = go.transform.localRotation;
 		Vector3 scale = go.transform.localScale;
 		go.transform.parent = np.transform;
@@ -151,5 +154,4 @@ public class NestedPrefab : MonoBehaviour
 			Bake(child);
 		}
 	}
-	#endif
 }
