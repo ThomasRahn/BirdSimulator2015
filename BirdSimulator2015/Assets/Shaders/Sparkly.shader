@@ -1,7 +1,7 @@
 // Shader created with Shader Forge v1.04 
 // Shader Forge (c) Neat Corporation / Joachim Holmer - http://www.acegikmo.com/shaderforge/
 // Note: Manually altering this data may prevent you from opening it in Shader Forge
-/*SF_DATA;ver:1.04;sub:START;pass:START;ps:flbk:Diffuse,lico:1,lgpr:1,nrmq:1,limd:1,uamb:True,mssp:True,lmpd:False,lprd:False,rprd:False,enco:False,frtr:True,vitr:True,dbil:False,rmgx:True,rpth:0,hqsc:True,hqlp:False,tesm:0,blpr:0,bsrc:0,bdst:1,culm:0,dpts:2,wrdp:True,dith:2,ufog:True,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.0003,fgrn:0,fgrf:0,ofsf:0,ofsu:0,f2p0:False;n:type:ShaderForge.SFN_Final,id:4343,x:33506,y:32644,varname:node_4343,prsc:2|diff-969-RGB,emission-8814-OUT;n:type:ShaderForge.SFN_Time,id:168,x:32550,y:32718,varname:node_168,prsc:2;n:type:ShaderForge.SFN_Multiply,id:4254,x:32752,y:32636,varname:node_4254,prsc:2|A-4676-OUT,B-168-T;n:type:ShaderForge.SFN_ValueProperty,id:4676,x:32550,y:32636,ptovrint:False,ptlb:Speed,ptin:_Speed,varname:node_4676,prsc:2,glob:False,v1:1;n:type:ShaderForge.SFN_Sin,id:9098,x:32932,y:32636,varname:node_9098,prsc:2|IN-4254-OUT;n:type:ShaderForge.SFN_RemapRange,id:8814,x:33115,y:32636,varname:node_8814,prsc:2,frmn:-1,frmx:1,tomn:0,tomx:0.5|IN-9098-OUT;n:type:ShaderForge.SFN_Tex2d,id:969,x:32911,y:32379,ptovrint:False,ptlb:Texture,ptin:_Texture,varname:node_969,prsc:2,ntxv:0,isnm:False;proporder:4676-969;pass:END;sub:END;*/
+/*SF_DATA;ver:1.04;sub:START;pass:START;ps:flbk:Diffuse,lico:1,lgpr:1,nrmq:1,limd:1,uamb:True,mssp:True,lmpd:False,lprd:False,rprd:False,enco:False,frtr:True,vitr:True,dbil:True,rmgx:True,rpth:0,hqsc:True,hqlp:False,tesm:0,blpr:0,bsrc:0,bdst:1,culm:0,dpts:2,wrdp:True,dith:2,ufog:True,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.0003,fgrn:0,fgrf:0,ofsf:0,ofsu:0,f2p0:False;n:type:ShaderForge.SFN_Final,id:4343,x:33506,y:32644,varname:node_4343,prsc:2|diff-969-RGB,emission-8814-OUT;n:type:ShaderForge.SFN_Time,id:168,x:32550,y:32718,varname:node_168,prsc:2;n:type:ShaderForge.SFN_Multiply,id:4254,x:32752,y:32636,varname:node_4254,prsc:2|A-4676-OUT,B-168-T;n:type:ShaderForge.SFN_ValueProperty,id:4676,x:32550,y:32636,ptovrint:False,ptlb:Speed,ptin:_Speed,varname:node_4676,prsc:2,glob:False,v1:1;n:type:ShaderForge.SFN_Sin,id:9098,x:32932,y:32636,varname:node_9098,prsc:2|IN-4254-OUT;n:type:ShaderForge.SFN_RemapRange,id:8814,x:33115,y:32636,varname:node_8814,prsc:2,frmn:-1,frmx:1,tomn:0,tomx:0.3|IN-9098-OUT;n:type:ShaderForge.SFN_Tex2d,id:969,x:32911,y:32379,ptovrint:False,ptlb:Texture,ptin:_Texture,varname:node_969,prsc:2,ntxv:0,isnm:False;proporder:4676-969;pass:END;sub:END;*/
 
 Shader "Siekut/Sparkly" {
     Properties {
@@ -61,18 +61,18 @@ Shader "Siekut/Sparkly" {
                 float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
                 float3 lightColor = _LightColor0.rgb;
 ////// Lighting:
-                float attenuation = LIGHT_ATTENUATION(i);
+                float attenuation = LIGHT_ATTENUATION(i)*2;
                 float3 attenColor = attenuation * _LightColor0.xyz;
 /////// Diffuse:
                 float NdotL = max(0.0,dot( normalDirection, lightDirection ));
                 float3 indirectDiffuse = float3(0,0,0);
                 float3 directDiffuse = max( 0.0, NdotL) * attenColor;
-                indirectDiffuse += UNITY_LIGHTMODEL_AMBIENT.rgb; // Ambient Light
+                indirectDiffuse += UNITY_LIGHTMODEL_AMBIENT.rgb*2; // Ambient Light
                 float4 _Texture_var = tex2D(_Texture,TRANSFORM_TEX(i.uv0, _Texture));
                 float3 diffuse = (directDiffuse + indirectDiffuse) * _Texture_var.rgb;
 ////// Emissive:
                 float4 node_168 = _Time + _TimeEditor;
-                float node_8814 = (sin((_Speed*node_168.g))*0.25+0.25);
+                float node_8814 = (sin((_Speed*node_168.g))*0.15+0.15);
                 float3 emissive = float3(node_8814,node_8814,node_8814);
 /// Final Color:
                 float3 finalColor = diffuse + emissive;
@@ -131,7 +131,7 @@ Shader "Siekut/Sparkly" {
                 float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
                 float3 lightColor = _LightColor0.rgb;
 ////// Lighting:
-                float attenuation = LIGHT_ATTENUATION(i);
+                float attenuation = LIGHT_ATTENUATION(i)*2;
                 float3 attenColor = attenuation * _LightColor0.xyz;
 /////// Diffuse:
                 float NdotL = max(0.0,dot( normalDirection, lightDirection ));

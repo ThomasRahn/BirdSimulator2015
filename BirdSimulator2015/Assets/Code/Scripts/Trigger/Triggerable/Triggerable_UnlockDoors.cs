@@ -11,14 +11,14 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
 
     }
 
-    private List<GameObject> players = new List<GameObject>();
-    private bool Locked = true;
-
     public float Length;
     public bool Lock; // lock instead of unlock
     public UnlockType Type;
     public Transform Left;
     public Transform Right;
+
+    private List<GameObject> players = new List<GameObject>();
+    private bool locked = true;
 
 	void Start()
     {
@@ -40,9 +40,9 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
         }
 
         // TODO REPLACE 0 WITH 1 FOR RELEASE
-        if (players.Count > 0 && Locked)
+        if (players.Count > 0 && locked)
         {
-            Locked = false;
+            locked = false;
             StartCoroutine(coUnlockDoors());
             base.Trigger(c, g);
         }
