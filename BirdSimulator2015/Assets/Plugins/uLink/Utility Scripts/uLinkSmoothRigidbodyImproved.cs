@@ -184,7 +184,12 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 		{
 			// Detected a too big distance error! Snap to correct position!
 			targetDistance = 0;
-			rigidbody.velocity = new Vector3(0, 0, 0);
+
+            if (!rigidbody.isKinematic)
+            {
+                rigidbody.velocity = new Vector3(0, 0, 0);
+            }
+
 			transform.position = target;
 		}
 	}
@@ -219,6 +224,11 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 		   // If we are this close to end position, don't move at all to avoid "flickering".
 			return;
 		}
+
+        if (rigidbody.isKinematic)
+        {
+            return;
+        }
 
 		rigidbody.velocity = optimalSmoothVelocity;
 	}
