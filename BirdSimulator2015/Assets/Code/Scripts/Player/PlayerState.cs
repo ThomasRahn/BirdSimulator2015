@@ -489,6 +489,11 @@ public class PlayerState : MonoBehaviour
         animator.SetFloat("Rotation", this.transform.localEulerAngles.x);
         animator.SetFloat("Momentum", momentum);
         animator.SetFloat("Velocity", this.transform.rigidbody.velocity.magnitude);
+
+        this.GetComponent<PlayerSync>().SendFloat("Rotation", this.transform.localEulerAngles.x);
+        this.GetComponent<PlayerSync>().SendFloat("Momentum", momentum);
+        this.GetComponent<PlayerSync>().SendFloat("Velocity", this.transform.rigidbody.velocity.magnitude);
+
     }
 
     void dive()

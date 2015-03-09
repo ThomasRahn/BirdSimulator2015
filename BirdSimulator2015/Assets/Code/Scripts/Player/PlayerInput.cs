@@ -76,7 +76,10 @@ public class PlayerInput : MonoBehaviour
             animator.SetFloat("Vertical", JoystickAxisY * invertY);
 
             if (JoystickButton0)
+            {
+                this.GetComponent<PlayerSync>().SendTrigger("t_DashForward");
                 animator.SetTrigger("t_DashForward");
+            }
 
             if (JoystickButton1)
             {
@@ -90,6 +93,8 @@ public class PlayerInput : MonoBehaviour
                     }
                     else
                     {
+                        this.GetComponent<PlayerSync>().SendTrigger("t_Land");
+
                         animator.SetTrigger("t_Land");
                     }
                 }
@@ -97,10 +102,16 @@ public class PlayerInput : MonoBehaviour
 
             // limit this, obviously
             if (JoystickButton2)
+            {
+                this.GetComponent<PlayerSync>().SendTrigger("t_Decelerate");
                 animator.SetTrigger("t_Decelerate");
+            }
 
 			if (JoystickButton3)
-				animator.SetTrigger("t_QuickAscend");
+            {
+                this.GetComponent<PlayerSync>().SendTrigger("t_QuickAscend");
+                animator.SetTrigger("t_QuickAscend");
+            }
 			
             if (JoystickAxis3 > JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
                 animator.SetTrigger("t_DashRight");
