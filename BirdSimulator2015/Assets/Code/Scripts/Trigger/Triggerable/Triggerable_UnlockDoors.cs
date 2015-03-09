@@ -44,6 +44,7 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
         {
             locked = false;
             StartCoroutine(coUnlockDoors());
+            networkView.RPC("RPC_UnlockDoors", uLink.RPCMode.Others);
             base.Trigger(c, g);
         }
 	}
@@ -71,5 +72,11 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
         }
 
         yield return null;
+    }
+
+    [RPC]
+    public void RPC_UnlockDoors()
+    {
+        StartCoroutine(coUnlockDoors());
     }
 }

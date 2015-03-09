@@ -44,6 +44,15 @@ public class GameController : ScriptableObject
 		// camera setup (make sure this comes after the player is loaded)
 		CameraTarget = GameObject.Instantiate(Resources.Load("Player/CameraTarget")) as GameObject;
 		CameraTarget.BroadcastMessage("SetTarget", Player);
+
+        // if server, load in all objects that must be networked
+        if (uLink.Network.isServer)
+        {
+            Debug.Log("Server load objects");
+            uLink.Network.Instantiate(uLink.Network.player, "doodad_egg", "doodad_egg", "doodad_egg", new Vector3(780f, 1309.7f, -151.5f), Quaternion.identity, 0);
+        }
+
+
 	}
 
 	static void loadChunks()

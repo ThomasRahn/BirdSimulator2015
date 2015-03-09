@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 429362}
   - 114: {fileID: 11450844}
   m_Layer: 0
-  m_Name: pf_Doodad_Egg
+  m_Name: pf_Doodad_Egg_DONOTUSE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

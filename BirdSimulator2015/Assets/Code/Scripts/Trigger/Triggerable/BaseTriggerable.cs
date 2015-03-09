@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class BaseTriggerable : MonoBehaviour
+public abstract class BaseTriggerable : uLink.MonoBehaviour
 {
     public virtual void Trigger(Collider c, GameObject g)
     {
