@@ -12,13 +12,15 @@ public class NestedPrefab : MonoBehaviour
 	
 	void Start()
 	{
-		//if (EditorApplication.isPlaying)
-		//{
+        #if UNITY_EDITOR
+		if (EditorApplication.isPlaying)
+		{
 			foreach (NestedPrefab np in UnityEngine.Object.FindObjectsOfType(typeof(NestedPrefab)))
 			{
 				Bake(np);
 			}
-		//}
+		}
+        #endif
 	}
 	
 #if UNITY_EDITOR
