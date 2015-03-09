@@ -12,6 +12,7 @@ GameObject:
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400000}
+  - 95: {fileID: 9556094}
   m_Layer: 0
   m_Name: PlayerProxy
   m_TagString: Untagged
@@ -28,6 +29,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 452560}
   - 95: {fileID: 9552306}
+  - 54: {fileID: 5482248}
+  - 114: {fileID: 11482248}
+  - 114: {fileID: 11482250}
   m_Layer: 0
   m_Name: Raven
   m_TagString: Untagged
@@ -3635,6 +3639,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!54 &5482248
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152306}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &9552306
 Animator:
   serializedVersion: 3
@@ -3646,6 +3665,21 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: f7e3af8429cb8764a9abe7c4961ed31a, type: 3}
   m_Controller: {fileID: 9100000, guid: ddf21bed09f67124e8dc3ba9559837ff, type: 2}
   m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &9556094
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: f7e3af8429cb8764a9abe7c4961ed31a, type: 3}
+  m_Controller: {fileID: 9100000, guid: ddf21bed09f67124e8dc3ba9559837ff, type: 2}
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
@@ -3681,7 +3715,8 @@ MonoBehaviour:
   serverPrefab: 
   _parent: {fileID: 0}
   _childIndex: -1
-  _children: []
+  _children:
+  - {fileID: 11482248}
   stateSynchronization: 2
   securable: 3
   observed: {fileID: 11400004}
@@ -3703,6 +3738,45 @@ MonoBehaviour:
   observedList:
   - {fileID: 11400000}
   - {fileID: 0}
+--- !u!114 &11482248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -68052387, guid: b6514755f9868d8479e26d7ca3d69431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proxyPrefab: 
+  ownerPrefab: 
+  serverPrefab: 
+  _parent: {fileID: 11400002}
+  _childIndex: 0
+  _children: []
+  stateSynchronization: 2
+  securable: 3
+  observed: {fileID: 11482250}
+  _manualViewID: 0
+  rpcReceiver: 1
+  listOfGameObjects: []
+  _prefabRoot: {fileID: 0}
+--- !u!114 &11482250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af6a803229e53e643b2327221b5ca82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistanceError: 8
+  interpolationBackTimeMs: 200
+  maxExtrapolationTimeMs: 500
+  rotationDamping: .850000024
 --- !u!137 &13752306
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
