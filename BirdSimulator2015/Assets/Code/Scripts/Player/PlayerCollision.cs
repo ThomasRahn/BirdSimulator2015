@@ -13,7 +13,8 @@ public class PlayerCollision : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.name == "LandingZone")
+        // TODO rename proper
+        if (other.name == "LandingZone(Clone)")
         {
             GameController.GamepadPopup.SetImage(GamepadSetup.GamepadAction.A);
             GameController.GamepadPopup.FadeIn();
@@ -25,7 +26,8 @@ public class PlayerCollision : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.name == "LandingZone")
+        // TODO rename proper
+        if (other.name == "LandingZone(Clone)")
         {
             GameController.GamepadPopup.FadeOut();
             this.GetComponent<PlayerState>().CanLand = false;
