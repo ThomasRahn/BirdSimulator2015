@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using BS2015.Code.Scripts.Player;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -55,7 +56,7 @@ public class PlayerInput : MonoBehaviour
         JoystickButton4 = Input.GetButton("JoystickButton4");
         JoystickButton5 = Input.GetButton("JoystickButton5");
         JoystickButton6 = Input.GetButton("JoystickButton6");
-        JoystickButton7 = Input.GetButton("JoystickButton7");
+		JoystickButton7 = Input.GetButtonDown("JoystickButton7");
         JoystickButton8 = Input.GetButton("JoystickButton8");
         JoystickButton9 = Input.GetButton("JoystickButton9");
         JoystickButton10 = Input.GetButton("JoystickButton10");
@@ -75,11 +76,20 @@ public class PlayerInput : MonoBehaviour
             animator.SetFloat("Horizontal", JoystickAxisX);
             animator.SetFloat("Vertical", JoystickAxisY * invertY);
 
-            if (JoystickButton0)
-            {
-                this.GetComponent<PlayerSync>().SendTrigger("t_DashForward");
-                animator.SetTrigger("t_DashForward");
-            }
+			if(GameController.isWhite)
+			{
+				animator.SetBool("Taunt", JoystickButton7);
+				if(JoystickButton7)
+				{
+					this.GetComponent<PlayerSkills>().Taunt();
+				}
+
+	            if (JoystickButton0)
+	            {
+	                this.GetComponent<PlayerSync>().SendTrigger("t_DashForward");
+	                animator.SetTrigger("t_DashForward");
+	            }
+			}
 
             if (JoystickButton1)
             {

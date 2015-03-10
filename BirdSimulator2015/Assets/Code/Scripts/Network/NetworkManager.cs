@@ -12,6 +12,7 @@ public class NetworkManager : MonoBehaviour
 		Debug.Log("OnServerInitialized()");
 		uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Owner, PLAYER_SPAWN, Quaternion.identity, 0);
 		GameController.LoadWorld();
+		GameController.isWhite = true;
 	}
 
 	void uLink_OnConnectedToServer()
@@ -19,6 +20,7 @@ public class NetworkManager : MonoBehaviour
 		Debug.Log("OnConnectedToServer()");
 		uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Proxy, PLAYER_SPAWN, Quaternion.identity, 0);
 		GameController.LoadWorld();
+		GameController.isWhite = false;
 	}
 
 	void uLink_OnPlayerConnected(uLink.NetworkPlayer player)
