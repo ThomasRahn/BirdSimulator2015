@@ -10,6 +10,7 @@ public class GameController : ScriptableObject
     [HideInInspector] public static GamepadSetup Gamepad;
 	public GameObject Canvas;
 	static Transform World;
+	public static bool isWhite;
 
     void Awake()
     {
