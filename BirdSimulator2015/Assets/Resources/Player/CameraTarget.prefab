@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FOVThreshold: 30
-  UpOffset: 1
+  UpOffset: 2
   FOVCoefficient: .75
   Radius: 4
 --- !u!114 &11400002
