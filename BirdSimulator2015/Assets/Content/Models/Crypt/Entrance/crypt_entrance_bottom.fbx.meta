@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1fbffc5f95ddd1443b41806b22884cac
+guid: fe472276a82fb704e8dd3f20ca100cc1
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -7,7 +7,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: MountRavenmore
+    4300000: crypt_entrance_bottom
     6400000: //RootNode
     9500000: //RootNode
   materials:
@@ -29,7 +29,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 3000
+    globalScale: 1
     meshCompression: 0
     addColliders: 1
     importBlendShapes: 1
