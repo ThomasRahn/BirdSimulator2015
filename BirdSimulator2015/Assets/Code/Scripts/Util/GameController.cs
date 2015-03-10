@@ -37,6 +37,8 @@ public class GameController : ScriptableObject
 
 	public static void LoadWorld()
 	{
+        GameObject.Destroy(GameObject.Find("MenuCamera"));
+
 		loadChunks();
 		
 		// player has been instantiated already, so we can get this reference
