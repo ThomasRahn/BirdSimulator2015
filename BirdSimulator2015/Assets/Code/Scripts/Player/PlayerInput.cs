@@ -56,7 +56,7 @@ public class PlayerInput : MonoBehaviour
         JoystickButton4 = Input.GetButton("JoystickButton4");
         JoystickButton5 = Input.GetButton("JoystickButton5");
         JoystickButton6 = Input.GetButton("JoystickButton6");
-		JoystickButton7 = Input.GetKeyDown(KeyCode.T);//Input.GetButtonDown("JoystickButton7");
+		JoystickButton7 = Input.GetButtonDown("JoystickButton7");
         JoystickButton8 = Input.GetButton("JoystickButton8");
         JoystickButton9 = Input.GetButton("JoystickButton9");
         JoystickButton10 = Input.GetButton("JoystickButton10");
