@@ -9,7 +9,8 @@ public class GameController : ScriptableObject
     [HideInInspector] public static GamepadPopup GamepadPopup;
     [HideInInspector] public static GamepadSetup Gamepad;
 	public GameObject Canvas;
-	static Transform World;
+    private static GameObject canvas;
+	private static Transform world;
 
     void Awake()
     {
@@ -21,12 +22,13 @@ public class GameController : ScriptableObject
 	{
 		// hide the canvas until runtime because it's really annoying in the scene view
 		Canvas.SetActive(true);
+        canvas = Canvas;
 
         // setup everything related to the ui
         GamepadPopup = GameObject.Find("GamepadPopup").GetComponent<GamepadPopup>();
 
 		// just for organizing the world
-		World = GameObject.Find("World").transform;
+		world = GameObject.Find("World").transform;
 	}
 
 	void Update()
@@ -61,19 +63,24 @@ public class GameController : ScriptableObject
 		{
 			//Debug.Log("Loading chunk: " + g.name);
 			GameObject h = GameObject.Instantiate(g) as GameObject;
-			h.transform.parent = World;
+			h.transform.parent = world;
 		}
 		
 		foreach (GameObject g in Resources.LoadAll("World/Dungeon", typeof(GameObject)))
 		{
 			GameObject h = GameObject.Instantiate(g) as GameObject;
-			h.transform.parent = World;
+			h.transform.parent = world;
 		}
 		
 		foreach (GameObject g in Resources.LoadAll("World/Environment", typeof(GameObject)))
 		{
 			GameObject h = GameObject.Instantiate(g) as GameObject;
-			h.transform.parent = World;
+			h.transform.parent = world;
 		}
 	}
+
+    public static GameObject GetCanvas()
+    {
+        return canvas;
+    }
 }
