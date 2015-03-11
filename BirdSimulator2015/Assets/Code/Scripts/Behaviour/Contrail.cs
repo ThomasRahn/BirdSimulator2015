@@ -21,7 +21,12 @@ public class Contrail : MonoBehaviour
 	
 	void Update()
     {
-        if (rb.velocity.magnitude > 20f && ps.GetState() == PlayerState.BirdState.Gliding)
+        if (rb.velocity.magnitude > 20f
+            && (
+                ps.GetState() == PlayerState.BirdState.Gliding
+                || ps.GetState() == PlayerState.BirdState.TurningLeft
+                || ps.GetState() == PlayerState.BirdState.TurningRight
+            ))
         {
             tr.enabled = true;
         }

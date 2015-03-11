@@ -46,7 +46,7 @@ public class PlayerState : MonoBehaviour
     private Dictionary<int, BirdState> hash = new Dictionary<int, BirdState>();
     private BirdState state;
 
-    const float MAX_FORWARD_VELOCITY = 25f;
+    const float MAX_FORWARD_VELOCITY = 35f;
     const float MAX_DOWNWARD_VELOCITY = 40f;
     const float DOWNWARD_ACCELERATION = 1f;
     const float MAX_UPWARD_VELOCITY = 5f;
@@ -410,8 +410,9 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case BirdState.QuickAscending:
+                ease();
 				tiltTowards(0);
-				this.rigidbody.velocity += Vector3.up * 0.5f;
+				this.rigidbody.velocity += Vector3.up * 0.2f;
                 break;
 
             case BirdState.RollingLeft:

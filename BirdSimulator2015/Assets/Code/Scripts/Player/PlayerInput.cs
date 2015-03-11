@@ -39,29 +39,6 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        JoystickAxisX = Input.GetAxisRaw("JoystickAxisX");
-        JoystickAxisY = Input.GetAxisRaw("JoystickAxisY");
-        JoystickAxis3 = Input.GetAxisRaw("JoystickAxis3");
-        JoystickAxis4 = Input.GetAxisRaw("JoystickAxis4");
-        JoystickAxis5 = Input.GetAxisRaw("JoystickAxis5");
-        JoystickAxis6 = Input.GetAxisRaw("JoystickAxis6");
-        JoystickAxis7 = Input.GetAxisRaw("JoystickAxis7");
-        JoystickAxis8 = Input.GetAxisRaw("JoystickAxis8");
-
-        JoystickButton0 = Input.GetButton("JoystickButton0");
-        JoystickButton1 = Input.GetButton("JoystickButton1");
-        JoystickButton2 = Input.GetButton("JoystickButton2");
-        JoystickButton3 = Input.GetButton("JoystickButton3");
-        JoystickButton4 = Input.GetButton("JoystickButton4");
-        JoystickButton5 = Input.GetButton("JoystickButton5");
-        JoystickButton6 = Input.GetButton("JoystickButton6");
-        JoystickButton7 = Input.GetButton("JoystickButton7");
-        JoystickButton8 = Input.GetButton("JoystickButton8");
-        JoystickButton9 = Input.GetButton("JoystickButton9");
-        JoystickButton10 = Input.GetButton("JoystickButton10");
-        JoystickButton11 = Input.GetButton("JoystickButton11");
-        JoystickButton12 = Input.GetButton("JoystickButton12");
-
         animator.ResetTrigger("t_DashForward");
         animator.ResetTrigger("t_Decelerate");
         animator.ResetTrigger("t_QuickAscend");
@@ -72,55 +49,84 @@ public class PlayerInput : MonoBehaviour
 
         if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.LOGITECHF310)
         {
-            animator.SetFloat("Horizontal", JoystickAxisX);
-            animator.SetFloat("Vertical", JoystickAxisY * invertY);
+            JoystickAxisX = Input.GetAxisRaw("JoystickAxisX");
+            JoystickAxisY = Input.GetAxisRaw("JoystickAxisY");
+            JoystickAxis3 = Input.GetAxisRaw("JoystickAxis3");
+            JoystickAxis4 = Input.GetAxisRaw("JoystickAxis4");
+            JoystickAxis5 = Input.GetAxisRaw("JoystickAxis5");
+            JoystickAxis6 = Input.GetAxisRaw("JoystickAxis6");
+            JoystickAxis7 = Input.GetAxisRaw("JoystickAxis7");
+            JoystickAxis8 = Input.GetAxisRaw("JoystickAxis8");
 
-            if (JoystickButton0)
-            {
-                this.GetComponent<PlayerSync>().SendTrigger("t_DashForward");
-                animator.SetTrigger("t_DashForward");
-            }
+            JoystickButton0 = Input.GetButton("JoystickButton0");
+            JoystickButton1 = Input.GetButton("JoystickButton1");
+            JoystickButton2 = Input.GetButton("JoystickButton2");
+            JoystickButton3 = Input.GetButton("JoystickButton3");
+            JoystickButton4 = Input.GetButton("JoystickButton4");
+            JoystickButton5 = Input.GetButton("JoystickButton5");
+            JoystickButton6 = Input.GetButton("JoystickButton6");
+            JoystickButton7 = Input.GetButton("JoystickButton7");
+            JoystickButton8 = Input.GetButton("JoystickButton8");
+            JoystickButton9 = Input.GetButton("JoystickButton9");
+            JoystickButton10 = Input.GetButton("JoystickButton10");
+            JoystickButton11 = Input.GetButton("JoystickButton11");
+            JoystickButton12 = Input.GetButton("JoystickButton12");
 
-            if (JoystickButton1)
+        }
+        else if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.KEYBOARD)
+        {
+            JoystickAxisX = Input.GetAxisRaw("KeyboardAxisX");
+            JoystickAxisY = Input.GetAxisRaw("KeyboardAxisY");
+        }
+
+        animator.SetFloat("Horizontal", JoystickAxisX);
+        animator.SetFloat("Vertical", JoystickAxisY * invertY);
+
+        if (JoystickButton0)
+        {
+            this.GetComponent<PlayerSync>().SendTrigger("t_DashForward");
+            animator.SetTrigger("t_DashForward");
+        }
+
+        if (JoystickButton1)
+        {
+            // knees weak moms spaghetti
+            if (this.GetComponent<PlayerState>().CanLand)
             {
-                // knees weak moms spaghetti
-                if (this.GetComponent<PlayerState>().CanLand)
+                if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Grounded)
                 {
-                    if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Grounded)
-                    {
-                        // make some sort of liftoff animation or something
-                        animator.SetBool("b_Grounded", false);
-                    }
-                    else
-                    {
-                        this.GetComponent<PlayerSync>().SendTrigger("t_Land");
+                    // make some sort of liftoff animation or something
+                    animator.SetBool("b_Grounded", false);
+                }
+                else
+                {
+                    this.GetComponent<PlayerSync>().SendTrigger("t_Land");
 
-                        animator.SetTrigger("t_Land");
-                    }
+                    animator.SetTrigger("t_Land");
                 }
             }
-
-            // limit this, obviously
-            if (JoystickButton2)
-            {
-                this.GetComponent<PlayerSync>().SendTrigger("t_Decelerate");
-                animator.SetTrigger("t_Decelerate");
-            }
-
-			if (JoystickButton3)
-            {
-                this.GetComponent<PlayerSync>().SendTrigger("t_QuickAscend");
-                animator.SetTrigger("t_QuickAscend");
-            }
-			
-            if (JoystickAxis3 > JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
-                animator.SetTrigger("t_DashRight");
-            if (JoystickAxis3 < -JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
-                animator.SetTrigger("t_DashLeft");
-            if (JoystickAxis4 > JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
-                animator.SetTrigger("t_DashUp");
-            if (JoystickAxis4 < -JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
-                animator.SetTrigger("t_DashDown");
         }
+
+        // limit this, obviously
+        if (JoystickButton2)
+        {
+            this.GetComponent<PlayerSync>().SendTrigger("t_Decelerate");
+            animator.SetTrigger("t_Decelerate");
+        }
+
+		if (JoystickButton3)
+        {
+            this.GetComponent<PlayerSync>().SendTrigger("t_QuickAscend");
+            animator.SetTrigger("t_QuickAscend");
+        }
+			
+        if (JoystickAxis3 > JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
+            animator.SetTrigger("t_DashRight");
+        if (JoystickAxis3 < -JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
+            animator.SetTrigger("t_DashLeft");
+        if (JoystickAxis4 > JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
+            animator.SetTrigger("t_DashUp");
+        if (JoystickAxis4 < -JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
+            animator.SetTrigger("t_DashDown");
     }
 }

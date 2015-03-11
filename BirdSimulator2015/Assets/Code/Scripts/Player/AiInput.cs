@@ -33,6 +33,10 @@ public class AiInput : MonoBehaviour
         {
             StartCoroutine(coLand(1));
         }
+        else if (s == "RoundRoom_Dive")
+        {
+            StartCoroutine(coRoundRoomDive());
+        }
     }
 
 
@@ -66,5 +70,20 @@ public class AiInput : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         animator.SetTrigger("t_Land");
         yield return new WaitForSeconds(5f);
+    }
+
+    IEnumerator coRoundRoomDive()
+    {
+        this.GetComponent<PlayerState>().SetTargetVelocity(this.transform.forward * 20f);
+        this.GetComponent<PlayerState>().SetCurrentMaxSpeed(20f);
+        animator.SetFloat("Vertical", 0.2f);
+        yield return new WaitForSeconds(0.1f);
+        animator.SetFloat("Vertical", 0f);
+
+        yield return new WaitForSeconds(1f);
+        animator.SetFloat("Vertical", 1);
+        yield return new WaitForSeconds(3f);
+
+        GameObject.Destroy(this.gameObject, 3f);
     }
 }
