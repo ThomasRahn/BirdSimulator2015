@@ -25,9 +25,13 @@ public class AiInput : MonoBehaviour
         {
             StartCoroutine(coDive());
         }
-        else if (s == "Tutorial_Land")
+        else if (s == "Tutorial_Land_L")
         {
-            StartCoroutine(coLand());
+            StartCoroutine(coLand(-1));
+        }
+        else if (s == "Tutorial_Land_R")
+        {
+            StartCoroutine(coLand(1));
         }
     }
 
@@ -42,7 +46,7 @@ public class AiInput : MonoBehaviour
         animator.SetFloat("Vertical", 0);
     }
 
-    IEnumerator coLand()
+    IEnumerator coLand(int i)
     {
         this.GetComponent<PlayerState>().SetTargetVelocity(this.transform.forward * 10f);
         this.GetComponent<PlayerState>().SetCurrentMaxSpeed(10f);
@@ -52,8 +56,8 @@ public class AiInput : MonoBehaviour
         animator.SetFloat("Vertical", 0f);
         yield return new WaitForSeconds(3f);
 
-        // turn left towards landing zone
-        animator.SetFloat("Horizontal", -1f);
+        // turn left or right towards landing zone
+        animator.SetFloat("Horizontal", i);
         yield return new WaitForSeconds(1.1f);
         // stop turning
         animator.SetFloat("Horizontal", 0f);
