@@ -490,10 +490,12 @@ public class PlayerState : MonoBehaviour
         animator.SetFloat("Momentum", momentum);
         animator.SetFloat("Velocity", this.transform.rigidbody.velocity.magnitude);
 
-        this.GetComponent<PlayerSync>().SendFloat("Rotation", this.transform.localEulerAngles.x);
-        this.GetComponent<PlayerSync>().SendFloat("Momentum", momentum);
-        this.GetComponent<PlayerSync>().SendFloat("Velocity", this.transform.rigidbody.velocity.magnitude);
-
+        if (this.GetComponent<PlayerSync>() != null)
+        {
+            this.GetComponent<PlayerSync>().SendFloat("Rotation", this.transform.localEulerAngles.x);
+            this.GetComponent<PlayerSync>().SendFloat("Momentum", momentum);
+            this.GetComponent<PlayerSync>().SendFloat("Velocity", this.transform.rigidbody.velocity.magnitude);
+        }
     }
 
     void dive()
@@ -525,5 +527,15 @@ public class PlayerState : MonoBehaviour
     public BirdState GetState()
     {
         return state;
+    }
+
+    public void SetTargetVelocity(Vector3 v)
+    {
+        targetVelocity = v;
+    }
+
+    public void SetCurrentMaxSpeed(float f)
+    {
+        currentMaxSpeed = f;
     }
 }

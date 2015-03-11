@@ -1306,7 +1306,7 @@ Transition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: Vertical
-    m_EventTreshold: .5
+    m_EventTreshold: .100000001
     m_ExitTime: .318181813
   m_Atomic: 1
   m_Solo: 0
