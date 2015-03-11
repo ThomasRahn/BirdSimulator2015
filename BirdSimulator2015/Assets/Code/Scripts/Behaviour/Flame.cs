@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Flame : MonoBehaviour
+public class Flame : Tauntable
 {
     public bool IsLit = true;
 
@@ -61,4 +61,10 @@ public class Flame : MonoBehaviour
             this.GetComponent<Light>().enabled = true;
         }
     }
+
+	public override void Taunted(GameObject player)
+	{
+		Debug.Log ("hi");
+		ToggleLit ();
+	}
 }

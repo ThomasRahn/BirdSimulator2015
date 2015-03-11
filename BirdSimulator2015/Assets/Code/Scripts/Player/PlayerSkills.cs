@@ -8,7 +8,7 @@ namespace BS2015.Code.Scripts.Player
 
 		const float BLINK_DISTANCE = 20.0f;
 		const float DASH_FORCE = 100.0f;
-		const float TAUNT_DISTANCE = 5000.0f;
+		const float TAUNT_DISTANCE = 50.0f;
 
 		const float BLINK_COOLDOWN = 3.0f;
 		const float DASH_COOLDOWN = 3.0f;
@@ -57,23 +57,23 @@ namespace BS2015.Code.Scripts.Player
 			if(Time.time > tauntCooldown)
 			{
 				tauntCooldown = Time.time + TAUNT_COOLDOWN;
-				GameObject taunt = Instantiate(Resources.Load("Player/TauntEffect"),this.transform.position, Quaternion.identity) as GameObject;
-				Destroy (taunt, 0.5f);
+				GameObject taunt_effect = Instantiate(Resources.Load("Player/TauntEffect"),this.transform.position, Quaternion.identity) as GameObject;
+				Destroy (taunt_effect, 0.5f);
 				//Call overlap shpere
-
 				Collider[] colliders = Physics.OverlapSphere (this.transform.position, TAUNT_DISTANCE);
-				Debug.Log(colliders.Length);
 				if (colliders.Length > 0) 
 				{
 					for(int i = 0; i < colliders.Length; i++)
 					{
-						Tauntable taunted = colliders[i].gameObject.GetComponent<Tauntable>();
-						if(taunted != null)
+						Tauntable[] tauntables = colliders[i].gameObject.GetComponentsInChildren<Tauntable>();
+
+						foreach(Tauntable taunted in tauntables)
 						{
 							taunted.Taunted(this.gameObject);
 						}
 					}
 				}
+
 			}
 		}
 
