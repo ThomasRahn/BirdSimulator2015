@@ -4,9 +4,9 @@ using System.Collections;
 
 public class GamepadPopup : MonoBehaviour
 {
-    private const float FADE_IN_TIME = 2f;
-    private const float FADE_OUT_TIME = 2f;
-    private const float FADE_OUT_DELAY = 4f;
+    private const float FADE_IN_TIME = 1f;
+    private const float FADE_OUT_TIME = 1f;
+    private const float FADE_OUT_DELAY = 1f;
 
     private Image image;
 
