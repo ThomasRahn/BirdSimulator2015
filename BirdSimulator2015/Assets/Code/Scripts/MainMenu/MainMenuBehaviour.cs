@@ -7,7 +7,7 @@ using System;
 public class MainMenuBehaviour : MonoBehaviour
 {
 	string ip = "127.0.0.1";
-	int port = 7100;
+	int port = 10001;
 	
 	void Start()
 	{
