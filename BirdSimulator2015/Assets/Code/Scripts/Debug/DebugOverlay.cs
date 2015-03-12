@@ -48,7 +48,7 @@ public class DebugOverlay : MonoBehaviour
 			//t += GameObject.FindWithTag("Player").GetComponent<PlayerState>().currentState + "\n";
             //t += "rotationY= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().rotationY + "\n";
             //t += "momentum= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().momentum + "\n";
-			//t += "velocity= " + GameObject.FindWithTag("Player").rigidbody.velocity + "\n";
+			t += "velocity= " + GameObject.FindWithTag("Player").rigidbody.velocity + "\n";
            // t += "currentMaxSpeed= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().currentMaxSpeed + "\n";
            // t += "currentTurnSpeed= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().currentTurnSpeed + "\n";
 			Left.text = t;

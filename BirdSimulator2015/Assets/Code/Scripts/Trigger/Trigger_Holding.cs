@@ -6,7 +6,7 @@ public class Trigger_Holding : MonoBehaviour
     public GameObject[] Items; // items that must be present for true
     public GameObject[] Triggerables;
 
-    private bool alreadyTriggered = false;
+    //private bool alreadyTriggered = false;
 
 	void Start()
     {
@@ -18,13 +18,13 @@ public class Trigger_Holding : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        if (!alreadyTriggered)
-        {
+        //if (!alreadyTriggered)
+        //{
             foreach (GameObject i in Items)
             {
-                if (i.name == c.name)
+                if (i.name == c.name || i.name + "(Clone)" == c.name)
                 {
-                    alreadyTriggered = true;
+                    //alreadyTriggered = true;
 
                     foreach (GameObject g in Triggerables)
                     {
@@ -33,6 +33,6 @@ public class Trigger_Holding : MonoBehaviour
                     }
                 }
             }
-        }
+        //}
     }
 }

@@ -52,10 +52,9 @@ public class GameController : ScriptableObject
         if (uLink.Network.isServer)
         {
             Debug.Log("Server load objects");
-            uLink.Network.Instantiate(uLink.Network.player, "doodad_egg", "doodad_egg", "doodad_egg", new Vector3(780f, 1309.7f, -151.5f), Quaternion.identity, 0);
+            uLink.Network.Instantiate(uLink.Network.player, "doodad_egg", "doodad_egg", "doodad_egg", new Vector3(976.3f, 1310f, -146.5f), Quaternion.identity, 0);
+            uLink.Network.Instantiate(uLink.Network.player, "doodad_egg", "doodad_egg", "doodad_egg", new Vector3(976.3f, 1310f, -832.4f), Quaternion.identity, 0);
         }
-
-
 	}
 
 	static void loadChunks()

@@ -52,8 +52,8 @@ public class AiInput : MonoBehaviour
 
     IEnumerator coLand(int i)
     {
-        this.GetComponent<PlayerState>().SetTargetVelocity(this.transform.forward * 10f);
-        this.GetComponent<PlayerState>().SetCurrentMaxSpeed(10f);
+        this.GetComponent<PlayerState>().SetTargetVelocity(this.transform.forward * 15f);
+        this.GetComponent<PlayerState>().SetCurrentMaxSpeed(15f);
 
         animator.SetFloat("Vertical", 0.2f);
         yield return new WaitForSeconds(0.5f);
@@ -62,12 +62,14 @@ public class AiInput : MonoBehaviour
 
         // turn left or right towards landing zone
         animator.SetFloat("Horizontal", i);
-        yield return new WaitForSeconds(1.1f);
+        yield return new WaitForSeconds(0.5f);
         // stop turning
         animator.SetFloat("Horizontal", 0f);
 
         // go forward a bit
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
+        animator.SetFloat("Vertical", 1);
+        yield return new WaitForSeconds(1.5f);
         animator.SetTrigger("t_Land");
         yield return new WaitForSeconds(5f);
     }

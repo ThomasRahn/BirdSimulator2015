@@ -37,13 +37,13 @@ public class Triggerable_BirdMouth : BaseTriggerable<BaseTriggerable>
         {
             StopAllCoroutines();
             StartCoroutine(coOpenSesame());
-            networkView.RPC("RPC_BirdMouth_Open", uLink.RPCMode.Others);
+            //networkView.RPC("RPC_BirdMouth_Open", uLink.RPCMode.Others);
         }
         else
         {
             StopAllCoroutines();
             StartCoroutine(coCloseSesame());
-            networkView.RPC("RPC_BirdMouth_Close", uLink.RPCMode.Others);
+            //networkView.RPC("RPC_BirdMouth_Close", uLink.RPCMode.Others);
         }
         base.Trigger(c, g);
     }

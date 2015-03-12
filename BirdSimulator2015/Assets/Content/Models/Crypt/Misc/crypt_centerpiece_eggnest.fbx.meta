@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e6ce055e02a09184485ecc626f9c7a03
+guid: 05b9475132bb92d418e5bf59a682283e
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -7,11 +7,11 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: SpawnTreeSizeTest
+    4300000: egg_nest:crypt_centerpiece_eggnest
     6400000: //RootNode
     9500000: //RootNode
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:

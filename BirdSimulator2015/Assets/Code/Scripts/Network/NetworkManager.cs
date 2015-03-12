@@ -11,10 +11,13 @@ public class NetworkManager : MonoBehaviour
     //Vector3 PLAYER_SPAWN = new Vector3(-2238f, 2531f, 254f);
 
     // entrance
-    //Vector3 PLAYER_SPAWN = new Vector3(300f, 2050, -495f);
+    Vector3 PLAYER_SPAWN = new Vector3(300f, 2050, -495f);
 
     // pillar
-    Vector3 PLAYER_SPAWN = new Vector3(556f, 1965f, -502f);
+    //Vector3 PLAYER_SPAWN = new Vector3(556f, 1965f, -502f);
+
+    // lower
+    //Vector3 PLAYER_SPAWN = new Vector3(900f, 1365f, -502f);
 
 	void uLink_OnServerInitialized()
 	{

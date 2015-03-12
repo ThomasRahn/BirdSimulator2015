@@ -7,7 +7,7 @@ public class Trigger_Enter : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.tag == "Player")
+        if (c.name == "Player(Clone)" || c.name == "PlayerProxy(Clone)")
         {
             foreach (GameObject g in Triggerables)
             {
@@ -19,7 +19,7 @@ public class Trigger_Enter : MonoBehaviour
 
     void OnTriggerExit(Collider c)
     {
-        if (c.tag == "Player")
+        if (c.name == "Player(Clone)" || c.name == "PlayerProxy(Clone)")
         {
             foreach (GameObject g in Triggerables)
             {
