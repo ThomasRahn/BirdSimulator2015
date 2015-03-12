@@ -46,7 +46,7 @@ public class PlayerState : MonoBehaviour
     private Dictionary<int, BirdState> hash = new Dictionary<int, BirdState>();
     private BirdState state;
 
-    const float MAX_FORWARD_VELOCITY = 35f;
+    const float MAX_FORWARD_VELOCITY = 30f;
     const float MAX_DOWNWARD_VELOCITY = 40f;
     const float DOWNWARD_ACCELERATION = 1f;
     const float MAX_UPWARD_VELOCITY = 5f;
@@ -85,7 +85,7 @@ public class PlayerState : MonoBehaviour
     private int tilting = 0;
 
     // collision trigger (landing)
-    public Vector3 LandPos = Vector3.zero;
+    public Transform LandPos;
     public bool CanLand = false;
 
     void Awake()
@@ -435,7 +435,15 @@ public class PlayerState : MonoBehaviour
                 targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
 
                 // move this body to the center of the landing zone
-                this.rigidbody.MovePosition(this.rigidbody.position + (LandPos - this.transform.position) * Time.deltaTime);
+                this.rigidbody.MovePosition(this.rigidbody.position + (LandPos.position - this.transform.position) * Time.deltaTime * 2f);
+
+                Vector3 eulerAngleVelocity = new Vector3(0, 1, 0);
+
+                float r = Mathf.Lerp(this.transform.localEulerAngles.y, LandPos.localEulerAngles.y, Time.deltaTime * 2f);
+                Vector3 rotation = this.transform.localEulerAngles;
+                rotation.y= r;
+                this.transform.localEulerAngles = rotation;
+
                 if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 0.3f))
                 {
                     if (hit.collider.tag != "Player")

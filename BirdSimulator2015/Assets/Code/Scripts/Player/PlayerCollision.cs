@@ -19,7 +19,7 @@ public class PlayerCollision : MonoBehaviour
             GameController.GamepadPopup.SetImage(GamepadSetup.GamepadAction.A);
             GameController.GamepadPopup.FadeIn();
             // TODO refactor into base later (important!!!!!!!!!!!!!!!!!!!!)
-            this.GetComponent<PlayerState>().LandPos = other.GetComponent<LandingZone>().Target.position;
+            this.GetComponent<PlayerState>().LandPos = other.GetComponent<LandingZone>().Target;
             this.GetComponent<PlayerState>().CanLand = true;
         }
     }
