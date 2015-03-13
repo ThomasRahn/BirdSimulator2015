@@ -41,6 +41,28 @@ public class GamepadSetup
             s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_Y");
             lookup.Add(GamepadAction.Y, s);
         }
+        else if (type == GamepadType.XBOX360)
+        {
+            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_A");
+            lookup.Add(GamepadAction.A, s);
+            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_B");
+            lookup.Add(GamepadAction.B, s);
+            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_X");
+            lookup.Add(GamepadAction.X, s);
+            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_Y");
+            lookup.Add(GamepadAction.Y, s);
+        }
+        else if (type == GamepadType.KEYBOARD)
+        {
+            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_A");
+            lookup.Add(GamepadAction.A, s);
+            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_B");
+            lookup.Add(GamepadAction.B, s);
+            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_X");
+            lookup.Add(GamepadAction.X, s);
+            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_Y");
+            lookup.Add(GamepadAction.Y, s);
+        }
     }
 
     public Sprite GetSprite(GamepadAction ia)
