@@ -8,6 +8,7 @@ public class Flame : MonoBehaviour
     private int currentFrame = 0;
     private int totalFrames;
     private float frameDelay = 0.03f;
+    private float intensity = 1f;
 
     void Awake()
     {
@@ -26,6 +27,8 @@ public class Flame : MonoBehaviour
 
     void Update()
     {
+        intensity = Random.Range(0.7f, 2f);
+        this.light.intensity = Mathf.Lerp(this.light.intensity, intensity, 0.1f);
     }
 
     IEnumerator Flamey()
