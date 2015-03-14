@@ -177,7 +177,7 @@ public class PlayerState : MonoBehaviour
         this.transform.GetChild(0).transform.localEulerAngles = rot;
 
         // decelerate over time, maybe remove this?
-        currentMaxSpeed -= Time.deltaTime * 0.1f;
+        currentMaxSpeed += Time.deltaTime * 0.1f;
         currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
 
         switch (state)
