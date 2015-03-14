@@ -7,7 +7,7 @@ public class LandingZone : MonoBehaviour
 
     void Start()
     {
-        Target.renderer.enabled = false;
+        Target.GetComponent<Renderer>().enabled = false;
     }
 	
 	void Update()

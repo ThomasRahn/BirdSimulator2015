@@ -29,7 +29,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 
 		private void LateUpdate()
 		{
-			velocity = target.rigidbody.velocity.magnitude;
+			velocity = target.GetComponent<Rigidbody>().velocity.magnitude;
 			UpdatePosition();
             UpdateFieldOfView();
 			collisionResolution();

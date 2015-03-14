@@ -23,11 +23,11 @@ public class Egg : MonoBehaviour
         if (c.tag == "Player")
         {
             //this.transform.parent.collider.enabled = false;
-            this.collider.enabled = false;
+            this.GetComponent<Collider>().enabled = false;
             this.transform.parent.SetParent(c.transform, false);
             this.transform.parent.position = Vector3.zero;
             this.transform.parent.localPosition = c.transform.forward * 4f;
-            this.transform.parent.rigidbody.isKinematic = true;
+            this.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }
