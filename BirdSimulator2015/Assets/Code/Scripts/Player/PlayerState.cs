@@ -103,7 +103,7 @@ public class PlayerState : MonoBehaviour
 
     void FixedUpdate()
     {
-        state = hash[animator.GetCurrentAnimatorStateInfo(0).nameHash];
+        state = hash[animator.GetCurrentAnimatorStateInfo(0).fullPathHash];
 
         Debug.DrawRay(this.transform.position, this.GetComponent<Rigidbody>().velocity * 5f, Color.magenta);
         Debug.DrawRay(this.transform.position, this.transform.up * 1f, Color.blue);
