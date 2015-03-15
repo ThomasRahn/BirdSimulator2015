@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Egg : MonoBehaviour
 {
-    private Vector3 spawn;
 	private static GameObject link;
+    private Vector3 spawn;
+	private List<GameObject> links;
 
     void Awake()
     {
@@ -12,6 +14,7 @@ public class Egg : MonoBehaviour
 		{
 			link = Resources.Load("Misc/ChainLink") as GameObject;
 		}
+		links = new List<GameObject>();
         spawn = this.transform.position;
     }
 
@@ -27,8 +30,7 @@ public class Egg : MonoBehaviour
     {
         if (c.tag == "Player")
         {
-			Vector3 currentLinkPosition = this.transform.parent.position 
-										+ this.transform.parent.up * this.transform.parent.renderer.bounds.max.y;
+			Vector3 currentLinkPosition = this.transform.parent.renderer.bounds.max;
 			Vector3 birdDirection = c.transform.position - currentLinkPosition;
 
 			// Get any vector perpindicular to the direction towards the bird in order to get the Quaternion
@@ -44,8 +46,8 @@ public class Egg : MonoBehaviour
 			{
 				currentLink = GameObject.Instantiate(link, currentLinkPosition, linkRotation) as GameObject;
 				currentLink.transform.parent = this.transform.parent;
-				Debug.Log(currentLinkPosition);
 				currentLinkPosition += currentLink.transform.up * linkHeight;
+				links.Add(currentLink);
 				
 				ConnectJoint(prevBody.GetComponent<ConfigurableJoint>(), currentLink.rigidbody);
 				prevBody = currentLink.rigidbody;
@@ -66,5 +68,13 @@ public class Egg : MonoBehaviour
 		previous.xMotion = ConfigurableJointMotion.Locked;
 		previous.yMotion = ConfigurableJointMotion.Locked;
 		previous.zMotion = ConfigurableJointMotion.Locked;
+	}
+
+	public void Detach()
+	{
+		for(int i = 0; i < links.Count; i++)
+		{
+			Destroy(links[i]);
+		}
 	}
 }
