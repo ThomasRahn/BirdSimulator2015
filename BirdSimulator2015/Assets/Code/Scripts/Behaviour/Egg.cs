@@ -27,14 +27,16 @@ public class Egg : MonoBehaviour
     {
         if (c.tag == "Player")
         {
-			Vector3 birdDirection = c.transform.position - this.transform.position;
+			Vector3 currentLinkPosition = this.transform.parent.position 
+										+ this.transform.parent.up * this.transform.parent.renderer.bounds.max.y;
+			Vector3 birdDirection = c.transform.position - currentLinkPosition;
+
+			// Get any vector perpindicular to the direction towards the bird in order to get the Quaternion
 			Vector3 forward = Vector3.RotateTowards(birdDirection, -birdDirection, Mathf.PI/2f, 0);
 			Quaternion linkRotation = Quaternion.LookRotation(forward, birdDirection);
 			
-			Vector3 currentLinkPosition = this.transform.position;
-			float linkHeight = link.renderer.bounds.max.y;
-			
 			GameObject currentLink = link;
+			float linkHeight = link.renderer.bounds.max.y * 2;
 			Rigidbody prevBody = transform.parent.rigidbody;
 			prevBody.useGravity = true;
 			
@@ -45,17 +47,24 @@ public class Egg : MonoBehaviour
 				Debug.Log(currentLinkPosition);
 				currentLinkPosition += currentLink.transform.up * linkHeight;
 				
-				currentLink.GetComponent<ConfigurableJoint>().connectedBody = prevBody;
+				ConnectJoint(prevBody.GetComponent<ConfigurableJoint>(), currentLink.rigidbody);
 				prevBody = currentLink.rigidbody;
 			}
-			
-			ConfigurableJoint birdHook = currentLink.AddComponent<ConfigurableJoint>();
-			birdHook.connectedBody = c.rigidbody;
-			birdHook.xMotion = ConfigurableJointMotion.Locked;
-			birdHook.yMotion = ConfigurableJointMotion.Locked;
-			birdHook.zMotion = ConfigurableJointMotion.Locked;
+
+			ConnectJoint(currentLink.GetComponent<ConfigurableJoint>(), c.rigidbody);
+			currentLink.collider.enabled = false; // To prevent triggering fly backwards
 
 			this.collider.enabled = false;
         }
     }
+
+	private void ConnectJoint(ConfigurableJoint previous, Rigidbody next)
+	{
+		previous.connectedBody = next;
+		previous.autoConfigureConnectedAnchor = true;
+
+		previous.xMotion = ConfigurableJointMotion.Locked;
+		previous.yMotion = ConfigurableJointMotion.Locked;
+		previous.zMotion = ConfigurableJointMotion.Locked;
+	}
 }
