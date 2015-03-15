@@ -77,6 +77,29 @@ public class PlayerInput : MonoBehaviour
         {
             JoystickAxisX = Input.GetAxisRaw("KeyboardAxisX");
             JoystickAxisY = Input.GetAxisRaw("KeyboardAxisY");
+
+            JoystickButton0 = Input.GetButton("KeyboardE");
+            JoystickButton1 = Input.GetButton("KeyboardX");
+            JoystickButton2 = Input.GetButton("KeyboardF");
+            JoystickButton3 = Input.GetButton("KeyboardQ");
+        }
+        else if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.XBOX360)
+        {
+            JoystickAxisX = Input.GetAxisRaw("JoystickAxisX");
+            JoystickAxisY = Input.GetAxisRaw("JoystickAxisY");
+
+#if UNITY_STANDALONE_WIN
+            JoystickButton0 = Input.GetButton("JoystickButton2");
+            JoystickButton1 = Input.GetButton("JoystickButton0");
+            JoystickButton2 = Input.GetButton("JoystickButton1");
+            JoystickButton3 = Input.GetButton("JoystickButton3");
+#endif
+#if UNITY_STANDALONE_OSX
+            JoystickButton0 = Input.GetButton("JoystickButton18");
+            JoystickButton1 = Input.GetButton("JoystickButton16");
+            JoystickButton2 = Input.GetButton("JoystickButton17");
+            JoystickButton3 = Input.GetButton("JoystickButton19");
+#endif
         }
 
         animator.SetFloat("Horizontal", JoystickAxisX);

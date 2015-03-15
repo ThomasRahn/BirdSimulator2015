@@ -39,8 +39,6 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
             players.Remove(g);
         }
 
-        Debug.Log(uLink.Network.networkViewCount);
-
         if (players.Count > uLink.Network.connections.GetLength(0) && locked)
         {
             locked = false;

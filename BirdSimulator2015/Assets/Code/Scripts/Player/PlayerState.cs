@@ -46,7 +46,7 @@ public class PlayerState : MonoBehaviour
     private Dictionary<int, BirdState> hash = new Dictionary<int, BirdState>();
     private BirdState state;
 
-    const float MAX_FORWARD_VELOCITY = 30f;
+    const float MAX_FORWARD_VELOCITY = 25f;
     const float MAX_DOWNWARD_VELOCITY = 40f;
     const float DOWNWARD_ACCELERATION = 1f;
     const float MAX_UPWARD_VELOCITY = 5f;
@@ -177,7 +177,7 @@ public class PlayerState : MonoBehaviour
         this.transform.GetChild(0).transform.localEulerAngles = rot;
 
         // decelerate over time, maybe remove this?
-        currentMaxSpeed -= Time.deltaTime * 0.1f;
+        currentMaxSpeed += Time.deltaTime * 0.1f;
         currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
 
         switch (state)
