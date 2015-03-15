@@ -4,13 +4,15 @@ using System.Collections;
 public class Egg : MonoBehaviour
 {
     private Vector3 spawn;
-	private FixedJoint birdHook;
+	private static GameObject link;
 
     void Awake()
     {
+		if(link == null)
+		{
+			link = Resources.Load("Misc/ChainLink") as GameObject;
+		}
         spawn = this.transform.position;
-		GameObject lastLink = transform.parent.Find("ChainLink5").gameObject;
-		birdHook = lastLink.GetComponent<FixedJoint>();
     }
 
 	void Start()
@@ -25,19 +27,35 @@ public class Egg : MonoBehaviour
     {
         if (c.tag == "Player")
         {
-            //this.transform.parent.collider.enabled = false;
-//            this.collider.enabled = false;
-//            this.transform.parent.SetParent(c.transform, false);
-//            this.transform.parent.position = Vector3.zero;
-//            this.transform.parent.localPosition = c.transform.forward * 4f;
-//            this.transform.parent.rigidbody.isKinematic = true;
-
-			float height = birdHook.GetComponent<MeshFilter>().mesh.bounds.max.y;
-			Vector3 position = c.transform.position;
-			position.y -= height/2;
-
-			birdHook.transform.position = position;
+			Vector3 birdDirection = c.transform.position - this.transform.position;
+			Vector3 forward = Vector3.RotateTowards(birdDirection, -birdDirection, Mathf.PI/2f, 0);
+			Quaternion linkRotation = Quaternion.LookRotation(forward, birdDirection);
+			
+			Vector3 currentLinkPosition = this.transform.position;
+			float linkHeight = link.renderer.bounds.max.y;
+			
+			GameObject currentLink = link;
+			Rigidbody prevBody = transform.parent.rigidbody;
+			prevBody.useGravity = true;
+			
+			while(Vector3.Distance(currentLinkPosition, c.transform.position) > linkHeight)
+			{
+				currentLink = GameObject.Instantiate(link, currentLinkPosition, linkRotation) as GameObject;
+				currentLink.transform.parent = this.transform.parent;
+				Debug.Log(currentLinkPosition);
+				currentLinkPosition += currentLink.transform.up * linkHeight;
+				
+				currentLink.GetComponent<ConfigurableJoint>().connectedBody = prevBody;
+				prevBody = currentLink.rigidbody;
+			}
+			
+			ConfigurableJoint birdHook = currentLink.AddComponent<ConfigurableJoint>();
 			birdHook.connectedBody = c.rigidbody;
+			birdHook.xMotion = ConfigurableJointMotion.Locked;
+			birdHook.yMotion = ConfigurableJointMotion.Locked;
+			birdHook.zMotion = ConfigurableJointMotion.Locked;
+
+			this.collider.enabled = false;
         }
     }
 }
