@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 139caff362d7a44f0a5c898935ec6b6a
+guid: ac87209d094aa0f4d98409e210e64a0b
 TrueTypeFontImporter:
   serializedVersion: 2
   fontSize: 11
@@ -12,3 +12,5 @@ TrueTypeFontImporter:
   customCharacters: 
   fontRenderingMode: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

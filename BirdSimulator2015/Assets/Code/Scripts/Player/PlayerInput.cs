@@ -49,10 +49,10 @@ public class PlayerInput : MonoBehaviour
 
         if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.LOGITECHF310)
         {
-            JoystickAxisX = Input.GetAxisRaw("JoystickAxisX");
-            JoystickAxisY = Input.GetAxisRaw("JoystickAxisY");
-            JoystickAxis3 = Input.GetAxisRaw("JoystickAxis3");
-            JoystickAxis4 = Input.GetAxisRaw("JoystickAxis4");
+            JoystickAxisX = Input.GetAxis("JoystickAxisX");
+            JoystickAxisY = Input.GetAxis("JoystickAxisY");
+            JoystickAxis3 = Input.GetAxis("JoystickAxis3");
+            JoystickAxis4 = Input.GetAxis("JoystickAxis4");
             JoystickAxis5 = Input.GetAxisRaw("JoystickAxis5");
             JoystickAxis6 = Input.GetAxisRaw("JoystickAxis6");
             JoystickAxis7 = Input.GetAxisRaw("JoystickAxis7");
@@ -89,9 +89,9 @@ public class PlayerInput : MonoBehaviour
             JoystickAxisY = Input.GetAxisRaw("JoystickAxisY");
 
 #if UNITY_STANDALONE_WIN
-            JoystickButton0 = Input.GetButton("JoystickButton2");
-            JoystickButton1 = Input.GetButton("JoystickButton0");
-            JoystickButton2 = Input.GetButton("JoystickButton1");
+            JoystickButton0 = Input.GetButton("JoystickButton0");
+            JoystickButton1 = Input.GetButton("JoystickButton1");
+            JoystickButton2 = Input.GetButton("JoystickButton2");
             JoystickButton3 = Input.GetButton("JoystickButton3");
 #endif
 #if UNITY_STANDALONE_OSX
@@ -134,22 +134,33 @@ public class PlayerInput : MonoBehaviour
         if (JoystickButton2)
         {
             this.GetComponent<PlayerSync>().SendTrigger("t_Decelerate");
-            animator.SetTrigger("t_Decelerate");
+            //animator.SetTrigger("t_Decelerate");
+			animator.SetBool("b_Decelerating", true);
         }
-
+		else
+		{
+			//this.GetComponent<PlayerSync>().SetBool("b_Decelerating", false);
+			//animator.SetTrigger("t_Decelerate");
+			animator.SetBool("b_Decelerating", false);
+		}
+		
 		if (JoystickButton3)
-        {
-            this.GetComponent<PlayerSync>().SendTrigger("t_QuickAscend");
+		{
+			this.GetComponent<PlayerSync>().SendTrigger("t_QuickAscend");
             animator.SetTrigger("t_QuickAscend");
         }
 			
-        if (JoystickAxis3 > JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
-            animator.SetTrigger("t_DashRight");
-        if (JoystickAxis3 < -JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
+        if (JoystickButton4)
             animator.SetTrigger("t_DashLeft");
-        if (JoystickAxis4 > JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
-            animator.SetTrigger("t_DashUp");
-        if (JoystickAxis4 < -JOYSTICK_ALT_THUMBSTICK_THRESHOLD)
-            animator.SetTrigger("t_DashDown");
-    }
+		if (JoystickButton5)
+		{
+			animator.SetBool("b_Diving", true);
+		}
+		else
+		{
+			animator.SetBool("b_Diving", false);
+		}
+
+
+	}
 }
