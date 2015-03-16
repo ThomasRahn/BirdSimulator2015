@@ -7,6 +7,7 @@ public class Contrail : MonoBehaviour
     private TrailRenderer tr;
     private Rigidbody rb;
     private PlayerState ps;
+	private float SPEED_THRESHOLD = 15f;
 
     void Awake()
     {
@@ -21,7 +22,7 @@ public class Contrail : MonoBehaviour
 	
 	void Update()
     {
-        if (rb.velocity.magnitude > 20f
+		if (rb.velocity.magnitude > SPEED_THRESHOLD
             && (
                 ps.GetState() == PlayerState.BirdState.Gliding
                 || ps.GetState() == PlayerState.BirdState.TurningLeft
