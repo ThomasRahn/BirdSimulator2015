@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class Egg : MonoBehaviour
 {
 	private static GameObject link;
-    private Vector3 spawn;
 	private List<GameObject> links;
 
     void Awake()
@@ -15,7 +14,6 @@ public class Egg : MonoBehaviour
 			link = Resources.Load("Misc/ChainLink") as GameObject;
 		}
 		links = new List<GameObject>();
-        spawn = this.transform.position;
     }
 
 	void Start()
@@ -30,17 +28,22 @@ public class Egg : MonoBehaviour
     {
         if (c.tag == "Player")
         {
-			Vector3 currentLinkPosition = this.transform.parent.GetComponent<Renderer>().bounds.max;
+			// Set up the egg for carrying and link for copying
+			GameObject currentLink = link;
+			float linkHeight = link.GetComponent<Renderer>().bounds.max.y * 2;
+			Rigidbody prevBody = transform.parent.GetComponent<Rigidbody>();
+			prevBody.useGravity = true;
+
+			float towardsPlayerDistance = this.GetComponent<SphereCollider>().radius;
+			transform.parent.position = Vector3.MoveTowards(transform.parent.position, c.transform.position, towardsPlayerDistance);
+
+			float eggHeight = transform.parent.GetComponent<MeshFilter>().mesh.bounds.extents.y;
+			Vector3 currentLinkPosition = transform.parent.position + (transform.parent.up * (eggHeight + linkHeight/2));
 			Vector3 birdDirection = c.transform.position - currentLinkPosition;
 
 			// Get any vector perpindicular to the direction towards the bird in order to get the Quaternion
 			Vector3 forward = Vector3.RotateTowards(birdDirection, -birdDirection, Mathf.PI/2f, 0);
 			Quaternion linkRotation = Quaternion.LookRotation(forward, birdDirection);
-			
-			GameObject currentLink = link;
-			float linkHeight = link.GetComponent<Renderer>().bounds.max.y * 2;
-			Rigidbody prevBody = transform.parent.GetComponent<Rigidbody>();
-			prevBody.useGravity = true;
 			
 			while(Vector3.Distance(currentLinkPosition, c.transform.position) > linkHeight)
 			{
@@ -54,16 +57,16 @@ public class Egg : MonoBehaviour
 			}
 
 			ConnectJoint(currentLink.GetComponent<ConfigurableJoint>(), c.GetComponent<Rigidbody>());
+			currentLink.GetComponent<ConfigurableJoint>().autoConfigureConnectedAnchor = true; // Attach last link to bird using autoconfigure
 			currentLink.GetComponent<Collider>().enabled = false; // To prevent triggering fly backwards
 
-			this.GetComponent<Collider>().enabled = false;
+			GetComponent<Collider>().enabled = false; // Preven picking up the egg again
         }
     }
 
 	private void ConnectJoint(ConfigurableJoint previous, Rigidbody next)
 	{
 		previous.connectedBody = next;
-		previous.autoConfigureConnectedAnchor = true;
 
 		previous.xMotion = ConfigurableJointMotion.Locked;
 		previous.yMotion = ConfigurableJointMotion.Locked;

@@ -11,9 +11,9 @@ GameObject:
   - 33: {fileID: 3370126}
   - 23: {fileID: 2370126}
   - 54: {fileID: 5422844}
-  - 153: {fileID: 15322844}
-  - 136: {fileID: 13626570}
-  m_Layer: 2
+  - 153: {fileID: 15361442}
+  - 136: {fileID: 13679372}
+  m_Layer: 0
   m_Name: ChainLink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 170126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .150000006, y: .150000006, z: .150000006}
+  m_LocalScale: {x: .0500000007, y: .150000006, z: .0500000007}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -42,7 +42,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 52fe4790bce8c7c4d9479eb85106e864, type: 2}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -78,7 +78,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &13626570
+--- !u!136 &13679372
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -91,7 +91,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!153 &15322844
+--- !u!153 &15361442
 ConfigurableJoint:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -101,7 +101,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 1, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: .150000006, z: 0}
+  m_ConnectedAnchor: {x: 0, y: -1, z: 0}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -180,8 +180,8 @@ ConfigurableJoint:
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.40282347e+38
-  m_ProjectionMode: 2
-  m_ProjectionDistance: .100000001
+  m_ProjectionMode: 1
+  m_ProjectionDistance: 0
   m_ProjectionAngle: 5
   m_ConfiguredInWorldSpace: 0
   m_SwapBodies: 0
