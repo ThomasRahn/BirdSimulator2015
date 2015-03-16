@@ -20,6 +20,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 		
 		private float shakeAmplitude = 0.01f;
 		private GameObject target;
+		private Renderer playerBody;
 
 		protected virtual void Awake()
 		{
@@ -56,18 +57,22 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 		{
 			Vector3 towardsPlayer = target.transform.position - transform.position;
 			RaycastHit hitInfo;
-			if(Physics.Raycast(transform.position, towardsPlayer, out hitInfo, towardsPlayer.magnitude) && hitInfo.collider.gameObject != target)
+
+			if(!playerBody.isVisible)
 			{
-				Vector3 toObstruction = Vector3.Project(hitInfo.point - target.transform.position, hitInfo.normal) * 0.75f;
-				Vector3 parallelObstruction = (hitInfo.point - (target.transform.position + toObstruction)).normalized;
+				if(Physics.Raycast(transform.position, towardsPlayer, out hitInfo, towardsPlayer.magnitude) && hitInfo.collider.gameObject != target)
+				{
+					Vector3 toObstruction = Vector3.Project(hitInfo.point - target.transform.position, hitInfo.normal) * 0.75f;
+					Vector3 parallelObstruction = (hitInfo.point - (target.transform.position + toObstruction)).normalized;
 
-				// Make a triangle to calculate where the new camera position should be to keep the same radius
-				float distanceAlongObstruction = Mathf.Sqrt(Mathf.Pow(Radius, 2) - Mathf.Pow(toObstruction.magnitude, 2));
+					// Make a triangle to calculate where the new camera position should be to keep the same radius
+					float distanceAlongObstruction = Mathf.Sqrt(Mathf.Pow(Radius, 2) - Mathf.Pow(toObstruction.magnitude, 2));
 
-				Vector3 finalPosition = target.transform.position + toObstruction + distanceAlongObstruction * parallelObstruction;
-				finalPosition -= Vector3.up * UpOffset;
+					Vector3 finalPosition = target.transform.position + toObstruction + distanceAlongObstruction * parallelObstruction;
+					finalPosition -= Vector3.up * UpOffset;
 
-				parent.transform.rotation = Quaternion.LookRotation(target.transform.position - finalPosition);
+					parent.transform.rotation = Quaternion.LookRotation(target.transform.position - finalPosition);
+				}
 			}
 		}
 
@@ -93,6 +98,8 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			{
 				root = root.parent;
 			}
+
+			playerBody = root.Find("Raven/Raven").GetComponent<Renderer>();
 
 			Rigidbody targetRigidbody = root.GetComponentInChildren<Rigidbody>();
 			this.target = targetRigidbody.gameObject;
