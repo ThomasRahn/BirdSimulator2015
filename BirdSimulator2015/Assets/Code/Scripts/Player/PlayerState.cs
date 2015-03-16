@@ -105,7 +105,7 @@ public class PlayerState : MonoBehaviour
     {
         state = hash[animator.GetCurrentAnimatorStateInfo(0).nameHash];
 
-        Debug.DrawRay(this.transform.position, this.rigidbody.velocity * 5f, Color.magenta);
+        Debug.DrawRay(this.transform.position, this.GetComponent<Rigidbody>().velocity * 5f, Color.magenta);
         Debug.DrawRay(this.transform.position, this.transform.up * 1f, Color.blue);
         Debug.DrawRay(this.transform.position, this.transform.forward * 1f, Color.green);
         Debug.DrawRay(this.transform.position, Vector3.down * 1f, Color.red);
@@ -296,7 +296,7 @@ public class PlayerState : MonoBehaviour
                 tiltTowards(0);
                 currentMaxSpeed = 0;
                 targetVelocity = Vector3.zero;
-                this.rigidbody.velocity = this.rigidbody.velocity * 0.4f;
+                this.GetComponent<Rigidbody>().velocity = this.GetComponent<Rigidbody>().velocity * 0.4f;
                 break;
 
             case BirdState.TurningLeft:
@@ -390,7 +390,7 @@ public class PlayerState : MonoBehaviour
                 momentum = 0f;
                 currentMaxSpeed = 0f;
 
-                this.rigidbody.velocity = Vector3.zero;
+                this.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
                 break;
 
@@ -412,17 +412,17 @@ public class PlayerState : MonoBehaviour
             case BirdState.QuickAscending:
                 ease();
 				tiltTowards(0);
-				this.rigidbody.velocity += Vector3.up * 0.2f;
+				this.GetComponent<Rigidbody>().velocity += Vector3.up * 0.2f;
                 break;
 
             case BirdState.RollingLeft:
                 tiltTowards(TILT_LIMIT / 2);
-                this.rigidbody.velocity -= this.transform.right;
+                this.GetComponent<Rigidbody>().velocity -= this.transform.right;
                 break;
 
             case BirdState.RollingRight:
                 tiltTowards(-TILT_LIMIT / 2);
-                this.rigidbody.velocity += this.transform.right;
+                this.GetComponent<Rigidbody>().velocity += this.transform.right;
                 break;
 
             case BirdState.Landing:
@@ -431,11 +431,11 @@ public class PlayerState : MonoBehaviour
                 momentum = 0f;
                 currentMaxSpeed = 0f;
 
-                this.rigidbody.velocity = Vector3.zero;
+                this.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
 
                 // move this body to the center of the landing zone
-                this.rigidbody.MovePosition(this.rigidbody.position + (LandPos.position - this.transform.position) * Time.deltaTime * 2f);
+                this.GetComponent<Rigidbody>().MovePosition(this.GetComponent<Rigidbody>().position + (LandPos.position - this.transform.position) * Time.deltaTime * 2f);
 
                 Vector3 eulerAngleVelocity = new Vector3(0, 1, 0);
 
@@ -457,19 +457,19 @@ public class PlayerState : MonoBehaviour
                 momentum = 0f;
                 currentMaxSpeed = 0f;
 
-                this.rigidbody.velocity = Vector3.zero;
+                this.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
                 break;
 
             case BirdState.LiftingOff:
                 tiltTowards(0);
-                this.rigidbody.velocity += Vector3.up * Time.deltaTime;
+                this.GetComponent<Rigidbody>().velocity += Vector3.up * Time.deltaTime;
                 targetVelocity = Vector3.zero;
                 break;
 
             case BirdState.DashingForward:
                 tiltTowards(0);
-                this.rigidbody.velocity += this.transform.forward * 0.5f; // instant impulse
+                this.GetComponent<Rigidbody>().velocity += this.transform.forward * 0.5f; // instant impulse
                 currentMaxSpeed += Time.deltaTime * 10f;
                 break;
 
@@ -492,18 +492,18 @@ public class PlayerState : MonoBehaviour
         }
 
         // update the actual body
-        this.rigidbody.velocity = Vector3.Lerp(this.rigidbody.velocity, targetVelocity, Time.deltaTime);
+        this.GetComponent<Rigidbody>().velocity = Vector3.Lerp(this.GetComponent<Rigidbody>().velocity, targetVelocity, Time.deltaTime);
 
         // update the animator
         animator.SetFloat("Rotation", this.transform.localEulerAngles.x);
         animator.SetFloat("Momentum", momentum);
-        animator.SetFloat("Velocity", this.transform.rigidbody.velocity.magnitude);
+        animator.SetFloat("Velocity", this.transform.GetComponent<Rigidbody>().velocity.magnitude);
 
         if (this.GetComponent<PlayerSync>() != null)
         {
             this.GetComponent<PlayerSync>().SendFloat("Rotation", this.transform.localEulerAngles.x);
             this.GetComponent<PlayerSync>().SendFloat("Momentum", momentum);
-            this.GetComponent<PlayerSync>().SendFloat("Velocity", this.transform.rigidbody.velocity.magnitude);
+            this.GetComponent<PlayerSync>().SendFloat("Velocity", this.transform.GetComponent<Rigidbody>().velocity.magnitude);
         }
     }
 

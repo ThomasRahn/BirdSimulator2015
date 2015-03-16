@@ -30,7 +30,7 @@ public class Egg : MonoBehaviour
     {
         if (c.tag == "Player")
         {
-			Vector3 currentLinkPosition = this.transform.parent.renderer.bounds.max;
+			Vector3 currentLinkPosition = this.transform.parent.GetComponent<Renderer>().bounds.max;
 			Vector3 birdDirection = c.transform.position - currentLinkPosition;
 
 			// Get any vector perpindicular to the direction towards the bird in order to get the Quaternion
@@ -38,8 +38,8 @@ public class Egg : MonoBehaviour
 			Quaternion linkRotation = Quaternion.LookRotation(forward, birdDirection);
 			
 			GameObject currentLink = link;
-			float linkHeight = link.renderer.bounds.max.y * 2;
-			Rigidbody prevBody = transform.parent.rigidbody;
+			float linkHeight = link.GetComponent<Renderer>().bounds.max.y * 2;
+			Rigidbody prevBody = transform.parent.GetComponent<Rigidbody>();
 			prevBody.useGravity = true;
 			
 			while(Vector3.Distance(currentLinkPosition, c.transform.position) > linkHeight)
@@ -49,14 +49,14 @@ public class Egg : MonoBehaviour
 				currentLinkPosition += currentLink.transform.up * linkHeight;
 				links.Add(currentLink);
 				
-				ConnectJoint(prevBody.GetComponent<ConfigurableJoint>(), currentLink.rigidbody);
-				prevBody = currentLink.rigidbody;
+				ConnectJoint(prevBody.GetComponent<ConfigurableJoint>(), currentLink.GetComponent<Rigidbody>());
+				prevBody = currentLink.GetComponent<Rigidbody>();
 			}
 
-			ConnectJoint(currentLink.GetComponent<ConfigurableJoint>(), c.rigidbody);
-			currentLink.collider.enabled = false; // To prevent triggering fly backwards
+			ConnectJoint(currentLink.GetComponent<ConfigurableJoint>(), c.GetComponent<Rigidbody>());
+			currentLink.GetComponent<Collider>().enabled = false; // To prevent triggering fly backwards
 
-			this.collider.enabled = false;
+			this.GetComponent<Collider>().enabled = false;
         }
     }
 

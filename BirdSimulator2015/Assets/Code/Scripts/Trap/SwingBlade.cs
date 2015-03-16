@@ -24,7 +24,7 @@ namespace Code.Scripts.Trap
 
 		private void resetTrap()
 		{
-			rigidbody.velocity = Vector3.zero;
+			GetComponent<Rigidbody>().velocity = Vector3.zero;
 			transform.rotation = Quaternion.Euler(Vector3.forward * rotationAngle);
 		}
 	}

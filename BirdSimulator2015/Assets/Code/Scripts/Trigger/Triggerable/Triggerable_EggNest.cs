@@ -23,9 +23,9 @@ public class Triggerable_EggNest : BaseTriggerable<BaseTriggerable>
         eggz++;
 
         c.transform.position = this.transform.position + Vector3.up;
-		c.rigidbody.useGravity = false;
-		c.rigidbody.velocity = Vector3.zero;
-		c.rigidbody.angularVelocity = Vector3.zero;
+		c.GetComponent<Rigidbody>().useGravity = false;
+		c.GetComponent<Rigidbody>().velocity = Vector3.zero;
+		c.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 		c.GetComponentInChildren<Egg>().Detach();
 
         if (eggz == 1)
