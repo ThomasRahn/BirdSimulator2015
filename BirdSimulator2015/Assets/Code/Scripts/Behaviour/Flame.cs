@@ -28,7 +28,7 @@ public class Flame : MonoBehaviour
     void Update()
     {
         intensity = Random.Range(0.7f, 2f);
-        this.light.intensity = Mathf.Lerp(this.light.intensity, intensity, 0.1f);
+        this.GetComponent<Light>().intensity = Mathf.Lerp(this.GetComponent<Light>().intensity, intensity, 0.1f);
     }
 
     IEnumerator Flamey()

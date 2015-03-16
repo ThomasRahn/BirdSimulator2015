@@ -14,7 +14,7 @@ public class GameController : ScriptableObject
 
     void Awake()
     {
-        Gamepad = new GamepadSetup(GamepadSetup.GamepadType.LOGITECHF310);
+        Gamepad = new GamepadSetup(GamepadSetup.GamepadType.KEYBOARD);
     }
 
 	void Start()

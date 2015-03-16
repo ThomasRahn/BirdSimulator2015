@@ -11,7 +11,7 @@ public class Contrail : MonoBehaviour
     void Awake()
     {
         tr = this.GetComponent<TrailRenderer>();
-        rb = root.rigidbody;
+        rb = root.GetComponent<Rigidbody>();
         ps = root.GetComponent<PlayerState>();
     }
 

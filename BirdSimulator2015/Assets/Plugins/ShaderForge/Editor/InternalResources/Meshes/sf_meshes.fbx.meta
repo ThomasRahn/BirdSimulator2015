@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 27cd3ffabf618924f9c9eeefb09b60e0
+guid: e61f57bc3b82abc469c9d6106fb3e29d
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: dodecahedron_soft
     100002: plant
@@ -113,11 +113,13 @@ ModelImporter:
     generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
@@ -140,3 +142,5 @@ ModelImporter:
   animationType: 0
   additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -8,7 +8,7 @@ public class SpookySpawner : MonoBehaviour
 
     void Awake()
     {
-        this.transform.GetChild(0).renderer.enabled = false;
+        this.transform.GetChild(0).GetComponent<Renderer>().enabled = false;
     }
 
 	void Start()

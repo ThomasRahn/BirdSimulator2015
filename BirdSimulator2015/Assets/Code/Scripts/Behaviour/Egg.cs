@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Egg : MonoBehaviour
 {
+	private static GameObject link;
     private Vector3 spawn;
+	private List<GameObject> links;
 
     void Awake()
     {
+		if(link == null)
+		{
+			link = Resources.Load("Misc/ChainLink") as GameObject;
+		}
+		links = new List<GameObject>();
         spawn = this.transform.position;
     }
 
@@ -22,12 +30,51 @@ public class Egg : MonoBehaviour
     {
         if (c.tag == "Player")
         {
-            //this.transform.parent.collider.enabled = false;
-            this.collider.enabled = false;
-            this.transform.parent.SetParent(c.transform, false);
-            this.transform.parent.position = Vector3.zero;
-            this.transform.parent.localPosition = c.transform.forward * 4f;
-            this.transform.parent.rigidbody.isKinematic = true;
+			Vector3 currentLinkPosition = this.transform.parent.GetComponent<Renderer>().bounds.max;
+			Vector3 birdDirection = c.transform.position - currentLinkPosition;
+
+			// Get any vector perpindicular to the direction towards the bird in order to get the Quaternion
+			Vector3 forward = Vector3.RotateTowards(birdDirection, -birdDirection, Mathf.PI/2f, 0);
+			Quaternion linkRotation = Quaternion.LookRotation(forward, birdDirection);
+			
+			GameObject currentLink = link;
+			float linkHeight = link.GetComponent<Renderer>().bounds.max.y * 2;
+			Rigidbody prevBody = transform.parent.GetComponent<Rigidbody>();
+			prevBody.useGravity = true;
+			
+			while(Vector3.Distance(currentLinkPosition, c.transform.position) > linkHeight)
+			{
+				currentLink = GameObject.Instantiate(link, currentLinkPosition, linkRotation) as GameObject;
+				currentLink.transform.parent = this.transform.parent;
+				currentLinkPosition += currentLink.transform.up * linkHeight;
+				links.Add(currentLink);
+				
+				ConnectJoint(prevBody.GetComponent<ConfigurableJoint>(), currentLink.GetComponent<Rigidbody>());
+				prevBody = currentLink.GetComponent<Rigidbody>();
+			}
+
+			ConnectJoint(currentLink.GetComponent<ConfigurableJoint>(), c.GetComponent<Rigidbody>());
+			currentLink.GetComponent<Collider>().enabled = false; // To prevent triggering fly backwards
+
+			this.GetComponent<Collider>().enabled = false;
         }
     }
+
+	private void ConnectJoint(ConfigurableJoint previous, Rigidbody next)
+	{
+		previous.connectedBody = next;
+		previous.autoConfigureConnectedAnchor = true;
+
+		previous.xMotion = ConfigurableJointMotion.Locked;
+		previous.yMotion = ConfigurableJointMotion.Locked;
+		previous.zMotion = ConfigurableJointMotion.Locked;
+	}
+
+	public void Detach()
+	{
+		for(int i = 0; i < links.Count; i++)
+		{
+			Destroy(links[i]);
+		}
+	}
 }
