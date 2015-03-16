@@ -256,6 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Owner: {fileID: 100000, guid: 9a0d93ee5a7406141a6a20f1a96d5b47, type: 2}
   Proxy: {fileID: 100000, guid: f33abf837d9642142b25dddee4494239, type: 2}
+  Tether: {fileID: 129566, guid: 12b90d90b8ade3f4aa375a0de001d588, type: 2}
 --- !u!4 &110167385
 Transform:
   m_ObjectHideFlags: 0
@@ -283,6 +284,7 @@ MonoBehaviour:
   - {fileID: 100000, guid: 9a0d93ee5a7406141a6a20f1a96d5b47, type: 2}
   - {fileID: 100000, guid: f33abf837d9642142b25dddee4494239, type: 2}
   - {fileID: 153410, guid: ddba06cc3256c704baddaa9f13e697a4, type: 2}
+  - {fileID: 129566, guid: 12b90d90b8ade3f4aa375a0de001d588, type: 2}
   replaceIfExists: 0
 --- !u!1001 &169002555
 Prefab:
