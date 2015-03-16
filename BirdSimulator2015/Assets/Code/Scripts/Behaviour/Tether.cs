@@ -12,9 +12,15 @@ public class Tether : MonoBehaviour
 
 	private LineRenderer line;
 
-	private void Start()
+	private void Awake()
 	{
 		line = GetComponent<LineRenderer>();
+		line.enabled = false;
+		this.enabled = false;
+	}
+
+	private void Start()
+	{
 		attached1 = GameObject.FindGameObjectWithTag("Player");
 		attached2 = GameObject.FindGameObjectWithTag("Proxy");
 	}
@@ -23,7 +29,6 @@ public class Tether : MonoBehaviour
 	{
 		transform.position = (attached1.transform.position + attached2.transform.position)/2;
 		float distance = Vector3.Distance(attached1.transform.position, attached2.transform.position);
-		Debug.Log(distance);
 		if(distance > tetherDistance)
 		{
 			float scale = (distance - tetherDistance)/10;
@@ -33,5 +38,11 @@ public class Tether : MonoBehaviour
 
 		line.SetPosition(0, attached1.transform.position);
 		line.SetPosition(1, attached2.transform.position);
+	}
+
+	public void Attach()
+	{
+		this.enabled = true;
+		line.enabled = true;
 	}
 }
