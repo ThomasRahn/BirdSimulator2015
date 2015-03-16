@@ -19,6 +19,8 @@ public class GamepadSetup
         B,
         X,
         Y,
+		BUMPER_L,
+		BUMPER_R,
 
     }
 
@@ -51,6 +53,10 @@ public class GamepadSetup
             lookup.Add(GamepadAction.X, s);
             s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_Y");
             lookup.Add(GamepadAction.Y, s);
+			s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_Y");
+			lookup.Add(GamepadAction.BUMPER_L, s);
+			s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_Y");
+			lookup.Add(GamepadAction.BUMPER_R, s);
         }
         else if (type == GamepadType.KEYBOARD)
         {

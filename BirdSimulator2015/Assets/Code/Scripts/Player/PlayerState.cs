@@ -51,8 +51,8 @@ public class PlayerState : MonoBehaviour
 
 	const float MIN_FORWARD_VELOCITY = 15f;
     const float MAX_FORWARD_VELOCITY = 25f;
-    const float MAX_DOWNWARD_VELOCITY = 40f;
-    const float DOWNWARD_ACCELERATION = 1f;
+    const float MAX_DOWNWARD_VELOCITY = 80f;
+    const float DOWNWARD_ACCELERATION = 5f;
     const float MAX_UPWARD_VELOCITY = 5f;
     const float MAX_FORWARD_VELOCITY_WHEN_ASCENDING = 25f;
     const float DESCENT_RATE = 50f;
@@ -219,7 +219,7 @@ public class PlayerState : MonoBehaviour
                 currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
                 ease();
                 tiltTowards(0);
-                targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY + Vector3.up * MAX_FORWARD_VELOCITY;
+                targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY + Vector3.up * -this.GetComponent<Rigidbody>().velocity.y;
                 break;
 
             case BirdState.EasingAndTurningLeft:

@@ -14,7 +14,7 @@ GameObject:
   - 64: {fileID: 6452716}
   - 59: {fileID: 5911468}
   - 114: {fileID: 11441544}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: trap_swingblade
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,14 +13,13 @@ public class LocationZone : MonoBehaviour
     void Update()
     {
     }
-
-    void OnTriggerEnter(Collider c)
-    {
-        GameObject g = GameObject.Instantiate(Resources.Load("Prefabs/Toolbox/Res/LocationPopup")) as GameObject;
-        g.transform.SetParent(GameController.GetCanvas().transform);
-        g.transform.localScale = new Vector3(1f, 1f, 1f);
-        g.transform.position = new Vector3(0f, 0f, 0f);
-        g.transform.localPosition = new Vector3(0f, 0f, 0f); 
-        g.GetComponent<Text>().text = Text;
-    }
+	
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.tag == "Player")
+		{
+			GameController.LocationPopup.SetText(Text);
+			GameController.LocationPopup.Popup();
+		}
+	}
 }

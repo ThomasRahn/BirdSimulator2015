@@ -160,7 +160,10 @@ public class PlayerInput : MonoBehaviour
 		{
 			animator.SetBool("b_Diving", false);
 		}
+	}
 
-
+	public void SetTrigger(string s)
+	{
+		animator.SetTrigger(s);
 	}
 }

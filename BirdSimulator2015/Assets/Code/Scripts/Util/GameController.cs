@@ -7,7 +7,8 @@ public class GameController : ScriptableObject
 	[HideInInspector] public static GameObject CameraTarget;
 	[HideInInspector] public static GameObject Player;
     [HideInInspector] public static GamepadPopup GamepadPopup;
-    [HideInInspector] public static GamepadSetup Gamepad;
+	[HideInInspector] public static LocationPopup LocationPopup;
+	[HideInInspector] public static GamepadSetup Gamepad;
 	public GameObject Canvas;
     private static GameObject canvas;
 	private static Transform world;
@@ -25,6 +26,7 @@ public class GameController : ScriptableObject
 
         // setup everything related to the ui
         GamepadPopup = GameObject.Find("GamepadPopup").GetComponent<GamepadPopup>();
+		LocationPopup = GameObject.Find("LocationPopup").GetComponent<LocationPopup>();
 
 		// just for organizing the world
 		world = GameObject.Find("World").transform;
@@ -47,6 +49,9 @@ public class GameController : ScriptableObject
 		// camera setup (make sure this comes after the player is loaded)
 		CameraTarget = GameObject.Instantiate(Resources.Load("Player/CameraTarget")) as GameObject;
 		CameraTarget.BroadcastMessage("SetTarget", Player);
+
+		// land on branch
+		Player.GetComponent<PlayerInput>().SetTrigger("t_Land");
 
         // if server, load in all objects that must be networked
         if (uLink.Network.isServer)

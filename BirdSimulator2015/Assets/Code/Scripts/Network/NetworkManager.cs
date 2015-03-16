@@ -5,22 +5,10 @@ public class NetworkManager : MonoBehaviour
 	public GameObject Owner;
 	public GameObject Proxy;
 
-    Vector3 PLAYER_ROTATION = new Vector3(0f, 90f, 0f); 
+    Vector3 PLAYER_ROTATION = new Vector3(0f, 260f, 0f); 
 
     // ravenhome
-    Vector3 PLAYER_SPAWN = new Vector3(0f, 50f, 0);
-
-    // outside entrance
-    //Vector3 PLAYER_SPAWN = new Vector3(-580f, 2236f, -523f);
-
-    // entrance
-    //Vector3 PLAYER_SPAWN = new Vector3(300f, 2050, -495f);
-
-    // pillar
-    //Vector3 PLAYER_SPAWN = new Vector3(556f, 1965f, -502f);
-
-    // lower
-    //Vector3 PLAYER_SPAWN = new Vector3(900f, 1365f, -502f);
+	Vector3 PLAYER_SPAWN = new Vector3(-7.84f, 70f, 0);
 
 	void uLink_OnServerInitialized()
 	{

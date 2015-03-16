@@ -1,37 +1,33 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
-public class LandingZone : MonoBehaviour
+public class GamepadZone : MonoBehaviour
 {
-    public Transform Target;
-
-    void Start()
-    {
-        Target.GetComponent<Renderer>().enabled = false;
-    }
+	public GamepadSetup.GamepadAction Action;
+	
+	void Start()
+	{
+	}
 	
 	void Update()
-    {
+	{
 	}
-
+	
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.tag == "Player")
 		{
 			GameController.GamepadPopup.SetImage(GamepadSetup.GamepadAction.A);
 			GameController.GamepadPopup.FadeIn();
-
-			GameController.Player.GetComponent<PlayerState>().LandPos = Target;
-			GameController.Player.GetComponent<PlayerState>().CanLand = true;
 		}
 	}
-	
+
 	void OnTriggerExit(Collider other)
 	{
 		if (other.tag == "Player")
 		{
 			GameController.GamepadPopup.FadeOut();
-			GameController.Player.GetComponent<PlayerState>().CanLand = false;
 		}
 	}
 }
