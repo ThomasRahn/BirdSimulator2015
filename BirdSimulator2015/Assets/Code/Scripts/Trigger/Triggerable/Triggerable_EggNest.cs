@@ -7,6 +7,7 @@ public class Triggerable_EggNest : BaseTriggerable<BaseTriggerable>
     public GameObject[] Pillars;
 
     private int eggz = 0;
+	private float VERTICAL_OFFSET = 5f;
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class Triggerable_EggNest : BaseTriggerable<BaseTriggerable>
     {
         eggz++;
 
-        c.transform.position = this.transform.position + Vector3.up;
+		c.transform.position = this.transform.position - Vector3.up * VERTICAL_OFFSET;
 		c.GetComponent<Rigidbody>().velocity = Vector3.zero;
 		c.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 		c.GetComponentInChildren<Egg>().Detach();
