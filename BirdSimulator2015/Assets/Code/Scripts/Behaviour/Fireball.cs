@@ -21,9 +21,6 @@ public class Fireball : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (player != null) {
-
-			Debug.Log(Vector3.Distance(this.transform.position,player.transform.position));
-			Debug.Log(Vector3.Distance(this.transform.position, origin.transform.position));
 			//If the player is a certain distance from the fireball AND the fireball is in the zone.
 			if(Vector3.Distance(this.transform.position,player.transform.position) < CHASE_ZONE){
 				Vector3 accel = (MaxAcceleration) * (player.transform.position - this.transform.position).normalized;
@@ -61,7 +58,6 @@ public class Fireball : MonoBehaviour {
 		if(col.gameObject.CompareTag("Player")){
 			Debug.Log ("Kill player");
 		}
-		Debug.Log ("Kill player2");
 
 	}
 }
