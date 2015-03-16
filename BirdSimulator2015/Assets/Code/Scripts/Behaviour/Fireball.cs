@@ -27,10 +27,19 @@ public class Fireball : MonoBehaviour {
 
 			if (Velocity.sqrMagnitude > 0f)
 				transform.rotation = Quaternion.LookRotation (Velocity.normalized, Vector3.up);
-		
+
 		}
 		 else {
 			player = GameObject.FindGameObjectWithTag ("Player");
 		}
+	}
+
+	void OnCollisionEnter(Collision col)
+	{
+		if(col.gameObject.CompareTag("Player")){
+			Debug.Log ("Kill player");
+		}
+		Debug.Log ("Kill player2");
+
 	}
 }
