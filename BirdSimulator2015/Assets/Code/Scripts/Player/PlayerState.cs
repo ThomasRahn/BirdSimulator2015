@@ -118,7 +118,7 @@ public class PlayerState : MonoBehaviour
         Vector3 from = this.transform.position;
         Vector3 direction = this.transform.forward;
 
-		if (Physics.Raycast(from, this.GetComponent<Rigidbody>().velocity, out hit, this.GetComponent<Rigidbody>().velocity.magnitude))
+		if (Physics.Raycast(from, this.GetComponent<Rigidbody>().velocity, out hit, 3f))
         {
             if (state != BirdState.AboutFacing && state != BirdState.FlappingForward)
             {

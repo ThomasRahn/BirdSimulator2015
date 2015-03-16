@@ -14,7 +14,7 @@ public class GameController : ScriptableObject
 
     void Awake()
     {
-        Gamepad = new GamepadSetup(GamepadSetup.GamepadType.KEYBOARD);
+        Gamepad = new GamepadSetup(GamepadSetup.GamepadType.LOGITECHF310);
     }
 
 	void Start()
@@ -52,7 +52,7 @@ public class GameController : ScriptableObject
         if (uLink.Network.isServer)
         {
             Debug.Log("Server load objects");
-            uLink.Network.Instantiate(uLink.Network.player, "doodad_egg", "doodad_egg", "doodad_egg", new Vector3(976.3f, 1310f, -146.5f), Quaternion.identity, 0);
+			uLink.Network.Instantiate(uLink.Network.player, "doodad_egg", "doodad_egg", "doodad_egg", new Vector3(-2400f, -832f, 226.9f), Quaternion.identity, 0);
             uLink.Network.Instantiate(uLink.Network.player, "doodad_egg", "doodad_egg", "doodad_egg", new Vector3(976.3f, 1310f, -832.4f), Quaternion.identity, 0);
         }
 	}
