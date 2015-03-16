@@ -4,10 +4,14 @@ using System.Collections;
 public class Fireball : MonoBehaviour {
 
 	public GameObject player;
+	public GameObject origin;
 
 	public float MaxAcceleration = 10.0f;
 	public Vector3 Velocity = Vector3.zero;
 	public float MaxVelocity = 5.0f;
+	const float CHASE_ZONE = 40.0f;
+	public bool has_left_zone = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -17,16 +21,34 @@ public class Fireball : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (player != null) {
-			Vector3 accel = (MaxAcceleration) * (player.transform.position - this.transform.position).normalized;
 
-			Velocity = Velocity + accel * Time.deltaTime;
-			
-			Velocity = Vector3.ClampMagnitude (Velocity, MaxVelocity);
-			
-			this.transform.position = this.transform.position + Velocity * Time.deltaTime;
+			Debug.Log(Vector3.Distance(this.transform.position,player.transform.position));
+			Debug.Log(Vector3.Distance(this.transform.position, origin.transform.position));
+			//If the player is a certain distance from the fireball AND the fireball is in the zone.
+			if(Vector3.Distance(this.transform.position,player.transform.position) < CHASE_ZONE){
+				Vector3 accel = (MaxAcceleration) * (player.transform.position - this.transform.position).normalized;
 
-			if (Velocity.sqrMagnitude > 0f)
-				transform.rotation = Quaternion.LookRotation (Velocity.normalized, Vector3.up);
+				Velocity = Velocity + accel * Time.deltaTime;
+				
+				Velocity = Vector3.ClampMagnitude (Velocity, MaxVelocity);
+				
+				this.transform.position = this.transform.position + Velocity * Time.deltaTime;
+
+				if (Velocity.sqrMagnitude > 0f)
+					transform.rotation = Quaternion.LookRotation (Velocity.normalized, Vector3.up);
+			}else{
+				has_left_zone = true;
+			}
+			if (Vector3.Distance (this.transform.position, origin.transform.position) > CHASE_ZONE) {
+				has_left_zone = true;
+			}
+
+			if(has_left_zone)
+			{
+				this.transform.position = Vector3.Lerp(this.transform.position, origin.transform.position, 2.5f * Time.deltaTime);
+				if(Vector3.Distance(this.transform.position, origin.transform.position) < 1.0f)
+					has_left_zone = false;
+			}
 
 		}
 		 else {
