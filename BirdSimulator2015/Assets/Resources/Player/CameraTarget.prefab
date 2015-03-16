@@ -132,9 +132,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FOVThreshold: 50
-  UpOffset: 1.79999995
+  UpOffset: 1
   FOVCoefficient: .75
-  Radius: 5
+  Radius: 4
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threshold: .25
-  intensity: .75
+  intensity: 1.5
   blurSize: 1
   blurIterations: 1
   blurType: 0
