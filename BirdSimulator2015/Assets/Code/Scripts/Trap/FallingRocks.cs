@@ -4,19 +4,16 @@ using System.Collections.Generic;
 
 public class FallingRocks : MonoBehaviour
 {
+	public float TimerMin = 1f;
+	public float TimerMax = 2f;
     public float Width = 0f;
+    public GameObject[] Rocks;
 
-    private List<Object> rocks = new List<Object>();
-    private float timer = 1f;
+	private float timer;
 
 	void Start()
     {
-        Object r1 = Resources.Load("Prefabs/Crypt/Environment/pf_Env_FallingRock1");
-        Object r2 = Resources.Load("Prefabs/Crypt/Environment/pf_Env_FallingRock2");
-        Object r3 = Resources.Load("Prefabs/Crypt/Environment/pf_Env_FallingRock3");
-        rocks.Add(r1);
-        rocks.Add(r2);
-        rocks.Add(r3);
+		timer = TimerMin;
 	}
 	
 	void Update()
@@ -25,9 +22,9 @@ public class FallingRocks : MonoBehaviour
 
         if (timer < 0)
         {
-            timer = Random.Range(1f, 5f);
-            int r = Random.Range(0, rocks.Count);
-            GameObject g = GameObject.Instantiate(rocks[0]) as GameObject;
+			timer = Random.Range(TimerMin, TimerMax);
+			int r = Random.Range(0, Rocks.GetLength(0));
+			GameObject g = GameObject.Instantiate(Rocks[r]) as GameObject;
             g.transform.rotation = Random.rotation;
             Vector3 v = this.transform.position;
             v.x += Random.Range(-Width, Width);
