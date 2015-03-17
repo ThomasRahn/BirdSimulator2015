@@ -1,0 +1,140 @@
+fileFormatVersion: 2
+guid: bf8ec56ba8cfffd4980704f06ee5c5e6
+timeCreated: 1426549565
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: pCube6
+    100002: polySurface1
+    100004: polySurface3
+    100006: polySurface5
+    100008: polySurface6
+    100010: polySurface7
+    100012: polySurface8
+    100014: ruin_arch1
+    100016: ruin_arch2
+    100018: ruin_arch3
+    100020: ruin_archcolumn1
+    100022: ruin_archcolumn2
+    100024: //RootNode
+    400000: pCube6
+    400002: polySurface1
+    400004: polySurface3
+    400006: polySurface5
+    400008: polySurface6
+    400010: polySurface7
+    400012: polySurface8
+    400014: ruin_arch1
+    400016: ruin_arch2
+    400018: ruin_arch3
+    400020: ruin_archcolumn1
+    400022: ruin_archcolumn2
+    400024: //RootNode
+    2300000: pCube6
+    2300002: polySurface1
+    2300004: polySurface3
+    2300006: polySurface5
+    2300008: polySurface6
+    2300010: polySurface7
+    2300012: polySurface8
+    2300014: ruin_arch1
+    2300016: ruin_arch2
+    2300018: ruin_arch3
+    2300020: ruin_archcolumn1
+    2300022: ruin_archcolumn2
+    3300000: pCube6
+    3300002: polySurface1
+    3300004: polySurface3
+    3300006: polySurface5
+    3300008: polySurface6
+    3300010: polySurface7
+    3300012: polySurface8
+    3300014: ruin_arch1
+    3300016: ruin_arch2
+    3300018: ruin_arch3
+    3300020: ruin_archcolumn1
+    3300022: ruin_archcolumn2
+    4300000: ruin_arch3
+    4300002: ruin_arch1
+    4300004: polySurface1
+    4300006: ruin_archcolumn1
+    4300008: polySurface3
+    4300010: ruin_archcolumn2
+    4300012: polySurface5
+    4300014: polySurface6
+    4300016: ruin_arch2
+    4300018: polySurface7
+    4300020: polySurface8
+    4300022: pCube6
+    6400000: pCube6
+    6400002: polySurface1
+    6400004: polySurface3
+    6400006: polySurface5
+    6400008: polySurface6
+    6400010: polySurface7
+    6400012: polySurface8
+    6400014: ruin_arch1
+    6400016: ruin_arch2
+    6400018: ruin_arch3
+    6400020: ruin_archcolumn1
+    6400022: ruin_archcolumn2
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
