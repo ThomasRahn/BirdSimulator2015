@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!23 &2391940
-Renderer:
+MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -39,18 +39,22 @@ Renderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: ecdd300470cb0f54ca74a7ee7be793b5, type: 2}
-  - {fileID: 2100000, guid: ecdd300470cb0f54ca74a7ee7be793b5, type: 2}
-  - {fileID: 2100000, guid: ecdd300470cb0f54ca74a7ee7be793b5, type: 2}
-  - {fileID: 2100000, guid: ecdd300470cb0f54ca74a7ee7be793b5, type: 2}
+  - {fileID: 2100000, guid: b3a76f5734ab50e4ca92e87612db91c5, type: 2}
+  - {fileID: 2100000, guid: b3a76f5734ab50e4ca92e87612db91c5, type: 2}
+  - {fileID: 2100000, guid: b3a76f5734ab50e4ca92e87612db91c5, type: 2}
+  - {fileID: 2100000, guid: b3a76f5734ab50e4ca92e87612db91c5, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!33 &3391940
@@ -70,7 +74,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: a0a0c0ef99a02a04dbabfbe2b298c9c3, type: 3}
 --- !u!1001 &100100000
@@ -84,4 +87,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 191940}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

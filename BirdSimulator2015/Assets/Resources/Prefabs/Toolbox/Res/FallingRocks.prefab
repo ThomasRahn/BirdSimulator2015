@@ -40,6 +40,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Width: 0
+  Rocks:
+  - {fileID: 119604, guid: 3915b120ef876884fae12384e8c52afa, type: 2}
+  - {fileID: 100396, guid: 7c7180e3fb3741843897e75fff63cdba, type: 2}
+  - {fileID: 180336, guid: 2555803cb5bc38c4b9dd7f09b058069c, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -51,4 +55,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 103988}
   m_IsPrefabParent: 1
-  m_IsExploded: 1
