@@ -450,10 +450,8 @@ public class PlayerState : MonoBehaviour
 
                 Vector3 eulerAngleVelocity = new Vector3(0, 1, 0);
 
-                float r = Mathf.Lerp(this.transform.localEulerAngles.y, LandPos.localEulerAngles.y, Time.deltaTime * 2f);
-                Vector3 rotation = this.transform.localEulerAngles;
-                rotation.y= r;
-                this.transform.localEulerAngles = rotation;
+				float r = Mathf.Lerp(rotationY, LandPos.eulerAngles.y, Time.deltaTime * 2f);
+                rotationY = r;
 
                 if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 0.3f))
                 {
