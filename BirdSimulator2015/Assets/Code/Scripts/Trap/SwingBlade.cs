@@ -14,7 +14,7 @@ namespace Code.Scripts.Trap
 		{
 			joint = gameObject.GetComponent<HingeJoint>();
 			joint.connectedAnchor = transform.position;
-			resetTrap();
+			//resetTrap();
 		}
 
 		private void OnCollisionEnter()
