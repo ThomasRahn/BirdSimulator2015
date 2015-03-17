@@ -448,8 +448,6 @@ public class PlayerState : MonoBehaviour
                 // move this body to the center of the landing zone
                 this.GetComponent<Rigidbody>().MovePosition(this.GetComponent<Rigidbody>().position + (LandPos.position - this.transform.position) * Time.deltaTime * 2f);
 
-                Vector3 eulerAngleVelocity = new Vector3(0, 1, 0);
-
 				float r = Mathf.Lerp(rotationY, LandPos.eulerAngles.y, Time.deltaTime * 2f);
                 rotationY = r;
 
