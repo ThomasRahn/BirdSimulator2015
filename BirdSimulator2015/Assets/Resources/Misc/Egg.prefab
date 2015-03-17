@@ -33,7 +33,7 @@ GameObject:
   - 114: {fileID: 11435734}
   - 153: {fileID: 15308304}
   m_Layer: 0
-  m_Name: doodad_egg
+  m_Name: Egg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

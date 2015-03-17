@@ -66,7 +66,8 @@ public class NestedPrefab : MonoBehaviour
 			components.Add(
 				new Components()
 				{
-					mesh = renderer.GetComponent<MeshFilter>().sharedMesh,
+					//mesh = renderer.GetComponent<MeshFilter>().sharedMesh,
+					mesh = (renderer.GetComponent<MeshFilter>() ? renderer.GetComponent<MeshFilter>().sharedMesh : null),
 					matrix = matrix * renderer.transform.localToWorldMatrix,
 					materials = new List<Material>(renderer.sharedMaterials)
 				}
@@ -121,7 +122,8 @@ public class NestedPrefab : MonoBehaviour
 		foreach (Components c in components)
 		{
 			Gizmos.matrix = matrix * c.matrix;
-			Gizmos.DrawCube(c.mesh.bounds.center, c.mesh.bounds.size);
+			if (c.mesh)
+				Gizmos.DrawCube(c.mesh.bounds.center, c.mesh.bounds.size);
 		}		
 	}
 	

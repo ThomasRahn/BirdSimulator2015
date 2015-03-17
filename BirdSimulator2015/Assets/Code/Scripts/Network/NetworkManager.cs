@@ -4,7 +4,6 @@ public class NetworkManager : MonoBehaviour
 {
 	public GameObject Owner;
 	public GameObject Proxy;
-	public GameObject Tether;
 
     Vector3 PLAYER_ROTATION = new Vector3(0f, 260f, 0f); 
 
@@ -22,7 +21,6 @@ public class NetworkManager : MonoBehaviour
 	{
 		Debug.Log("OnConnectedToServer()");
 		uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Proxy, PLAYER_SPAWN, Quaternion.identity, 0);
-		uLink.Network.Instantiate(uLink.Network.player, Tether, Tether, Tether, PLAYER_SPAWN, Quaternion.identity, 0);
 		GameController.LoadWorld();
 	}
 

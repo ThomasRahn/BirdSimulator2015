@@ -40,7 +40,7 @@ public class GameController : ScriptableObject
 	{
         GameObject.Destroy(GameObject.Find("MenuCamera"));
 
-		loadChunks();
+		//loadChunks();
 		
 		// player has been instantiated already, so we can get this reference
 		Player = GameObject.FindWithTag("Player");
@@ -56,9 +56,11 @@ public class GameController : ScriptableObject
         // if server, load in all objects that must be networked
         if (uLink.Network.isServer)
         {
-            Debug.Log("Server load objects");
-			uLink.Network.Instantiate(uLink.Network.player, "doodad_egg", "doodad_egg", "doodad_egg", new Vector3(-2400f, -832f, 226.9f), Quaternion.identity, 0);
-            uLink.Network.Instantiate(uLink.Network.player, "doodad_egg", "doodad_egg", "doodad_egg", new Vector3(976.3f, 1310f, -832.4f), Quaternion.identity, 0);
+			Debug.Log("Server load objects");
+			uLink.Network.Instantiate(uLink.Network.player, "Egg", "Egg", "Egg", new Vector3(-2400f, -832f, 226.9f), Quaternion.identity, 0);
+			uLink.Network.Instantiate(uLink.Network.player, "Egg", "Egg", "Egg", new Vector3(976.3f, 1310f, -832.4f), Quaternion.identity, 0);
+
+			GameObject.Instantiate(Resources.Load(Registry.Prefab.FireballZone), new Vector3(-1314f, -10f, -637f), Quaternion.identity);
         }
 	}
 
