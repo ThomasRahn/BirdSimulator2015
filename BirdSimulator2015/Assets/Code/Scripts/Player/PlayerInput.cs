@@ -141,7 +141,7 @@ public class PlayerInput : MonoBehaviour
         if (JoystickButton1)
         {
             // knees weak moms spaghetti
-            if (this.GetComponent<PlayerState>().CanLand)
+            if (this.GetComponent<PlayerState>().LandTarget != null)
             {
                 if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Grounded)
                 {
@@ -192,5 +192,10 @@ public class PlayerInput : MonoBehaviour
     public float GetAxisHorizontal()
     {
         return JoystickAxisX;
+    }
+
+    public float GetAxisVertical()
+    {
+        return JoystickAxisY;
     }
 }

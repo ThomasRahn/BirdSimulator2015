@@ -20,8 +20,7 @@ public class LandingZone : MonoBehaviour
 			GameController.GamepadPopup.SetImage(GamepadSetup.GamepadAction.A);
 			GameController.GamepadPopup.FadeIn();
 
-			GameController.Player.GetComponent<PlayerState>().LandPos = Target;
-			GameController.Player.GetComponent<PlayerState>().CanLand = true;
+			GameController.Player.GetComponent<PlayerState>().LandTarget = Target;
 		}
 	}
 	
@@ -30,7 +29,7 @@ public class LandingZone : MonoBehaviour
 		if (other.tag == "Player")
 		{
 			GameController.GamepadPopup.FadeOut();
-			GameController.Player.GetComponent<PlayerState>().CanLand = false;
+            GameController.Player.GetComponent<PlayerState>().LandTarget = null;
 		}
 	}
 }

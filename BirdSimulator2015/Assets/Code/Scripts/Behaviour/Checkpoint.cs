@@ -18,7 +18,7 @@ public class Checkpoint : MonoBehaviour
 		if (c.tag == "Player")
 		{
 			Debug.Log("Set checkpoint as " + Spawn.position);
-			GameController.SetLastCheckpoint(Spawn.position);
+			GameController.SetLastCheckpoint(Spawn);
 		}
 	}
 }

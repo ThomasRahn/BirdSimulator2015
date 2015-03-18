@@ -15,7 +15,7 @@ GameObject:
   - 95: {fileID: 9556094}
   - 114: {fileID: 11426824}
   - 136: {fileID: 13674698}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerProxy
   m_TagString: Proxy
   m_Icon: {fileID: 0}
@@ -3803,7 +3803,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .200000003
+  m_Radius: .300000012
   m_Height: 1
   m_Direction: 2
   m_Center: {x: 0, y: -.0500000007, z: 0}

@@ -69,7 +69,8 @@ public class PlayerState : MonoBehaviour
 	const float EASE_RATE = 100f;
     const float MOMENTUM_LOSS_RATE = 50f;
     const float TURN_SHARPNESS = 1.4f;
-    const float DECELERATION_RATE = 200f;
+    const float DECELERATION_RATE = 500f;
+    const float DIVE_STRAFE_RATE = 40f;
 
     const float TILT_LIMIT = 70f;
 
@@ -94,8 +95,7 @@ public class PlayerState : MonoBehaviour
     private int tilting = 0;
 
     // collision trigger (landing)
-    public Transform LandPos;
-    public bool CanLand = false;
+    public Transform LandTarget;
 
     void Awake()
     {
@@ -138,7 +138,6 @@ public class PlayerState : MonoBehaviour
                 {
                     animator.SetTrigger("t_AboutFace");
                 }
-
             }
         }
 
@@ -201,7 +200,7 @@ public class PlayerState : MonoBehaviour
             case BirdState.Hovering:
                 ease();
                 tiltTowards(0);
-				rotationY += Input.GetAxisRaw("JoystickAxisX") * Time.deltaTime * TURN_RATE_WHEN_IDLE;
+                rotationY += this.GetComponent<PlayerInput>().GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
 				break;
 
             case BirdState.Gliding:
@@ -295,8 +294,8 @@ public class PlayerState : MonoBehaviour
 
 				//rotationY += Input.GetAxisRaw("JoystickAxisX") * Time.deltaTime * TURN_RATE_WHEN_IDLE;
 
-				Vector3 leftright = Input.GetAxis("JoystickAxisX") * this.transform.right * 20f;
-			    Vector3 updown = Input.GetAxis("JoystickAxisY") * this.transform.up * 20f;
+                Vector3 leftright = this.GetComponent<PlayerInput>().GetAxisHorizontal() * this.transform.right * DIVE_STRAFE_RATE;
+                Vector3 updown = this.GetComponent<PlayerInput>().GetAxisVertical() * this.transform.up * DIVE_STRAFE_RATE;
 
 			    targetVelocity = leftright + updown + Vector3.down * MAX_DOWNWARD_VELOCITY;
                 break;
@@ -318,11 +317,18 @@ public class PlayerState : MonoBehaviour
 				break;
 			
 			case BirdState.Decelerating:
-                //ease();
                 tiltTowards(0);
                 currentMaxSpeed -= Time.deltaTime * DECELERATION_RATE;
 				targetVelocity = Vector3.zero;
-				//this.GetComponent<Rigidbody>().velocity = this.GetComponent<Rigidbody>().velocity * 0.4f;
+
+                // copy pasta from turning code
+                intendedTurnSpeed = this.GetComponent<PlayerInput>().GetAxisHorizontal() * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+                if (intendedTurnSpeed != 0)
+                {
+                    currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
+                    currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, -TURN_RATE_MAX, TURN_RATE_MAX);
+				    rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+                }
                 break;
 
             case BirdState.TurningLeft:
@@ -450,23 +456,23 @@ public class PlayerState : MonoBehaviour
                 targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
 
                 Vector3 dest;
-                dest.x = LandPos.position.x;
+                dest.x = LandTarget.position.x;
                 dest.y = this.transform.position.y;
-                dest.z = LandPos.position.z;
+                dest.z = LandTarget.position.z;
 
                 if (Vector3.Distance(this.transform.position, dest) < 2f)
                 {
-                    dest.y = LandPos.position.y;
+                    dest.y = LandTarget.position.y;
                 }
 
                 // move this body to the center of the landing zone
                 this.GetComponent<Rigidbody>().MovePosition(this.GetComponent<Rigidbody>().position + (dest - this.transform.position) * Time.deltaTime * 2f);
 
-				float r = Mathf.Lerp(rotationY, LandPos.eulerAngles.y, Time.deltaTime * 2f);
+				float r = Mathf.Lerp(rotationY, LandTarget.eulerAngles.y, Time.deltaTime * 2f);
                 rotationY = r;
 
                 //if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 0.3f))
-                if (Vector3.Distance(this.transform.position, LandPos.position) < 0.5f)
+                if (Vector3.Distance(this.transform.position, LandTarget.position) < 0.5f)
                 {
                     //if (hit.collider.tag != "Player")
                         animator.SetBool("b_Grounded", true);
@@ -495,15 +501,15 @@ public class PlayerState : MonoBehaviour
                 currentMaxSpeed += Time.deltaTime * 10f;
                 break;
 
-			case BirdState.HoveringAndTurningLeft:
-				rotationY -= 50f * Time.deltaTime * TURN_SHARPNESS;								
-				tiltTowards(-TILT_LIMIT * 0.2f);
-				break;
+			//case BirdState.HoveringAndTurningLeft:
+				//rotationY -= 50f * Time.deltaTime * TURN_SHARPNESS;								
+				//tiltTowards(-TILT_LIMIT * 0.2f);
+				//break;
 				
-			case BirdState.HoveringAndTurningRight:
-				rotationY += 50f * Time.deltaTime * TURN_SHARPNESS;	
-				tiltTowards(TILT_LIMIT * 0.2f);
-				break;
+			//case BirdState.HoveringAndTurningRight:
+				//rotationY += 50f * Time.deltaTime * TURN_SHARPNESS;	
+				//tiltTowards(TILT_LIMIT * 0.2f);
+				//break;
 
 			case BirdState.Dying:
                 tiltTowards(0);
@@ -540,7 +546,8 @@ public class PlayerState : MonoBehaviour
 
                 if (this.GetComponent<uLinkNetworkView>().isMine)
                 {
-                    this.GetComponent<Rigidbody>().MovePosition(GameController.LastCheckpoint);
+                    this.GetComponent<Rigidbody>().MovePosition(GameController.LastCheckpoint.position);
+                    this.GetComponent<Rigidbody>().MoveRotation(GameController.LastCheckpoint.rotation);
                     GameController.SetInputLock(false);
                 }
                 break;

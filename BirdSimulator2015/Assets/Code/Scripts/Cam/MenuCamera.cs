@@ -13,11 +13,11 @@ public class MenuCamera : MonoBehaviour
     {
         this.transform.Rotate(Vector3.up, rate * Time.deltaTime);
 
-        if (this.transform.localRotation.eulerAngles.y < 120)
+        if (this.transform.localRotation.eulerAngles.y < 240)
         {
             rate *= -1;
         }
-        else if (this.transform.localRotation.eulerAngles.y > 140)
+        else if (this.transform.localRotation.eulerAngles.y > 260)
         {
             rate *= -1;
         }

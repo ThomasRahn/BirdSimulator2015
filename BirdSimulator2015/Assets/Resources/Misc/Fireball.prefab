@@ -8,9 +8,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 492246}
+  - 54: {fileID: 5411340}
+  - 135: {fileID: 13561486}
   - 114: {fileID: 11474604}
   - 199: {fileID: 19934614}
-  - 54: {fileID: 5411340}
   - 114: {fileID: 11454028}
   - 198: {fileID: 19801008}
   m_Layer: 2
@@ -86,6 +87,18 @@ MonoBehaviour:
   rpcReceiver: 1
   listOfGameObjects: []
   _prefabRoot: {fileID: 163156}
+--- !u!135 &13561486
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163156}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 13
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &19801008
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -24,8 +24,7 @@ public class Contrail : MonoBehaviour
     {
 		if (rb.velocity.magnitude > SPEED_THRESHOLD
             && (
-                ps.GetState() == PlayerState.BirdState.Gliding
-                || ps.GetState() == PlayerState.BirdState.TurningLeft
+                ps.GetState() == PlayerState.BirdState.TurningLeft
                 || ps.GetState() == PlayerState.BirdState.TurningRight
             ))
         {
