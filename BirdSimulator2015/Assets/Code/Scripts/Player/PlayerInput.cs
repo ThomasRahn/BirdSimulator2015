@@ -90,6 +90,7 @@ public class PlayerInput : MonoBehaviour
             JoystickButton1 = Input.GetButton("KeyboardX");
             JoystickButton2 = Input.GetButton("KeyboardF");
             JoystickButton3 = Input.GetButton("KeyboardQ");
+			JoystickButton5 = Input.GetButton("KeyboardShift");
         }
         else if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.XBOX360)
         {

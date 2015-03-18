@@ -8,5 +8,7 @@
         public const string Fireball = "Fireball(Clone)";
 		public const string FireballZone = "Misc/FireballZone";
         public const string FeatherPoof = "Misc/FeatherPoof";
+		public const string ChainLink = "Misc/ChainLink";
+		public const string TrapTrigger = "Misc/TrapTrigger";
 	}
 }

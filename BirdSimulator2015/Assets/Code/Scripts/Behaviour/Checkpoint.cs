@@ -15,7 +15,7 @@ public class Checkpoint : MonoBehaviour
 
 	void OnTriggerEnter(Collider c)
 	{
-		if (c.tag == "Player")
+		if (c.tag == Registry.Tag.Player)
 		{
 			Debug.Log("Set checkpoint as " + Spawn.position);
 			GameController.SetLastCheckpoint(Spawn);

@@ -16,7 +16,7 @@ public class GamepadZone : MonoBehaviour
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.tag == Registry.Tag.Player)
 		{
             GameController.GamepadPopup.SetImage(Action);
 			GameController.GamepadPopup.FadeIn();
@@ -25,7 +25,7 @@ public class GamepadZone : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.tag == Registry.Tag.Player)
 		{
 			GameController.GamepadPopup.FadeOut();
 		}

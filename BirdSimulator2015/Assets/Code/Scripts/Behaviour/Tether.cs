@@ -21,8 +21,8 @@ public class Tether : MonoBehaviour
 
 	private void Start()
 	{
-		attached1 = GameObject.FindGameObjectWithTag("Player");
-		attached2 = GameObject.FindGameObjectWithTag("Proxy");
+		attached1 = GameObject.FindGameObjectWithTag(Registry.Tag.Player);
+		attached2 = GameObject.FindGameObjectWithTag(Registry.Tag.Proxy);
 	}
 	
 	private void Update() 

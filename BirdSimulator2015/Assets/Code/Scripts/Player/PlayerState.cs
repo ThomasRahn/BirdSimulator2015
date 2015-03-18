@@ -50,6 +50,7 @@ public class PlayerState : MonoBehaviour
 	}
 	
 	private Animator animator;
+	private PlayerInput input;
     private Dictionary<int, BirdState> hash = new Dictionary<int, BirdState>();
     private BirdState state;
 
@@ -100,6 +101,7 @@ public class PlayerState : MonoBehaviour
     void Awake()
     {
         animator = this.GetComponent<Animator>();
+		input = this.GetComponent<PlayerInput>();
     }
 
     void Start()
@@ -200,7 +202,7 @@ public class PlayerState : MonoBehaviour
             case BirdState.Hovering:
                 ease();
                 tiltTowards(0);
-                rotationY += this.GetComponent<PlayerInput>().GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
+				rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
 				break;
 
             case BirdState.Gliding:
@@ -292,10 +294,8 @@ public class PlayerState : MonoBehaviour
                 dive();
                 tiltTowards(0);
 
-				//rotationY += Input.GetAxisRaw("JoystickAxisX") * Time.deltaTime * TURN_RATE_WHEN_IDLE;
-
-                Vector3 leftright = this.GetComponent<PlayerInput>().GetAxisHorizontal() * this.transform.right * DIVE_STRAFE_RATE;
-                Vector3 updown = this.GetComponent<PlayerInput>().GetAxisVertical() * this.transform.up * DIVE_STRAFE_RATE;
+				Vector3 leftright = input.GetAxisHorizontal() * this.transform.right * DIVE_STRAFE_RATE;
+				Vector3 updown = input.GetAxisVertical() * this.transform.up * DIVE_STRAFE_RATE;
 
 			    targetVelocity = leftright + updown + Vector3.down * MAX_DOWNWARD_VELOCITY;
                 break;
@@ -336,7 +336,7 @@ public class PlayerState : MonoBehaviour
                 {
 					tiltTowards(-TILT_LIMIT);
 
-                    intendedTurnSpeed = Mathf.Abs(this.GetComponent<PlayerInput>().GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+                    intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
 					currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
                     currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
 					rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
@@ -351,7 +351,7 @@ public class PlayerState : MonoBehaviour
                 {
 					tiltTowards(TILT_LIMIT);
 
-                    intendedTurnSpeed = Mathf.Abs(this.GetComponent<PlayerInput>().GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+                    intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
 					currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
 					currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
 					rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
@@ -374,7 +374,7 @@ public class PlayerState : MonoBehaviour
                 tiltTowards(-TILT_LIMIT);
 
 				rotationX = transform.localEulerAngles.x - DESCENT_RATE * Time.deltaTime;
-				intendedTurnSpeed = Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+				intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
 				currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
 				currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
 				rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
@@ -387,7 +387,7 @@ public class PlayerState : MonoBehaviour
 				tiltTowards(TILT_LIMIT);
 				
 				rotationX = transform.localEulerAngles.x - DESCENT_RATE * Time.deltaTime;
-				intendedTurnSpeed = Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+				intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
 				currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
 				currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
 				rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;

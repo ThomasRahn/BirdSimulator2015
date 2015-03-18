@@ -4,15 +4,10 @@ using System.Collections.Generic;
 
 public class Egg : MonoBehaviour
 {
-	private static GameObject link;
 	private List<GameObject> links;
 
     void Awake()
     {
-		if(link == null)
-		{
-			link = Resources.Load("Misc/ChainLink") as GameObject;
-		}
 		links = new List<GameObject>();
     }
 
@@ -26,10 +21,10 @@ public class Egg : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.tag == "Player")
+        if (c.tag == Registry.Tag.Player)
         {
 			// Set up the egg for carrying and link for copying
-			GameObject currentLink = link;
+			GameObject link = ResourceFactory.GetInstance().GetChainLink();
 			float linkHeight = link.GetComponent<Renderer>().bounds.max.y * 2;
 			Rigidbody prevBody = transform.parent.GetComponent<Rigidbody>();
 			prevBody.useGravity = true;
@@ -44,7 +39,8 @@ public class Egg : MonoBehaviour
 			// Get any vector perpindicular to the direction towards the bird in order to get the Quaternion
 			Vector3 forward = Vector3.RotateTowards(birdDirection, -birdDirection, Mathf.PI/2f, 0);
 			Quaternion linkRotation = Quaternion.LookRotation(forward, birdDirection);
-			
+
+			GameObject currentLink = null;
 			while(Vector3.Distance(currentLinkPosition, c.transform.position) > linkHeight)
 			{
 				currentLink = GameObject.Instantiate(link, currentLinkPosition, linkRotation) as GameObject;
