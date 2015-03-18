@@ -18,7 +18,7 @@ public class GamepadZone : MonoBehaviour
 	{
 		if (other.tag == "Player")
 		{
-			GameController.GamepadPopup.SetImage(GamepadSetup.GamepadAction.A);
+            GameController.GamepadPopup.SetImage(Action);
 			GameController.GamepadPopup.FadeIn();
 		}
 	}

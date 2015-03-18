@@ -145,7 +145,6 @@ public class PlayerInput : MonoBehaviour
             {
                 if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Grounded)
                 {
-                    // make some sort of liftoff animation or something
                     animator.SetBool("b_Grounded", false);
                 }
                 else

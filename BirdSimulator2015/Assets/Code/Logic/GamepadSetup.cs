@@ -32,7 +32,7 @@ public class GamepadSetup
         this.type = type;
 
         Sprite s;
-        if (type == GamepadType.LOGITECHF310 || type == GamepadType.XBOX360)
+        if (type == GamepadType.LOGITECHF310 || type == GamepadType.XBOX360 || type == GamepadType.KEYBOARD)
         {
             s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_XBOX360_A");
             lookup.Add(GamepadAction.A, s);
@@ -46,17 +46,6 @@ public class GamepadSetup
 			lookup.Add(GamepadAction.BUMPER_L, s);
             s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_XBOX360_RB");
 			lookup.Add(GamepadAction.BUMPER_R, s);
-        }
-        else if (type == GamepadType.KEYBOARD)
-        {
-            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_A");
-            lookup.Add(GamepadAction.A, s);
-            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_B");
-            lookup.Add(GamepadAction.B, s);
-            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_X");
-            lookup.Add(GamepadAction.X, s);
-            s = Resources.Load<Sprite>("UI/Gamepad/Gamepad_F310_Y");
-            lookup.Add(GamepadAction.Y, s);
         }
     }
 

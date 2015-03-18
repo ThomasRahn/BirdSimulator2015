@@ -449,15 +449,26 @@ public class PlayerState : MonoBehaviour
                 this.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
 
+                Vector3 dest;
+                dest.x = LandPos.position.x;
+                dest.y = this.transform.position.y;
+                dest.z = LandPos.position.z;
+
+                if (Vector3.Distance(this.transform.position, dest) < 2f)
+                {
+                    dest.y = LandPos.position.y;
+                }
+
                 // move this body to the center of the landing zone
-                this.GetComponent<Rigidbody>().MovePosition(this.GetComponent<Rigidbody>().position + (LandPos.position - this.transform.position) * Time.deltaTime * 2f);
+                this.GetComponent<Rigidbody>().MovePosition(this.GetComponent<Rigidbody>().position + (dest - this.transform.position) * Time.deltaTime * 2f);
 
 				float r = Mathf.Lerp(rotationY, LandPos.eulerAngles.y, Time.deltaTime * 2f);
                 rotationY = r;
 
-                if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 0.3f))
+                //if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 0.3f))
+                if (Vector3.Distance(this.transform.position, LandPos.position) < 0.5f)
                 {
-                    if (hit.collider.tag != "Player")
+                    //if (hit.collider.tag != "Player")
                         animator.SetBool("b_Grounded", true);
                 }
 
