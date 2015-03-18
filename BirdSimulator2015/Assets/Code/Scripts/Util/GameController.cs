@@ -9,6 +9,8 @@ public class GameController : ScriptableObject
     [HideInInspector] public static GamepadPopup GamepadPopup;
 	[HideInInspector] public static LocationPopup LocationPopup;
 	[HideInInspector] public static GamepadSetup Gamepad;
+    [HideInInspector] public static Vector3 LastCheckpoint = Vector3.zero;
+
 	public GameObject Canvas;
     private static GameObject canvas;
 	private static Transform world;
@@ -57,8 +59,8 @@ public class GameController : ScriptableObject
         if (uLink.Network.isServer)
         {
 			Debug.Log("Server load objects");
-			uLink.Network.Instantiate(uLink.Network.player, "Egg", "Egg", "Egg", new Vector3(-2400f, -832f, 226.9f), Quaternion.identity, 0);
-			uLink.Network.Instantiate(uLink.Network.player, "Egg", "Egg", "Egg", new Vector3(976.3f, 1310f, -832.4f), Quaternion.identity, 0);
+			uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -832f, 226.9f), Quaternion.identity, 0);
+			uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(976.3f, 1310f, -832.4f), Quaternion.identity, 0);
 
 			GameObject.Instantiate(Resources.Load(Registry.Prefab.FireballZone), new Vector3(-1314f, -10f, -637f), Quaternion.identity);
         }
@@ -95,4 +97,9 @@ public class GameController : ScriptableObject
     {
         Player.GetComponent<PlayerInput>().Locked = b;
     }
+
+	public static void SetLastCheckpoint(Vector3 v)
+	{
+        LastCheckpoint = v;
+	}
 }

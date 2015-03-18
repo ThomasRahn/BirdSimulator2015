@@ -495,8 +495,7 @@ public class PlayerState : MonoBehaviour
 				break;
 
 			case BirdState.Dying:
-                GameController.SetInputLock(true);
-				tiltTowards(0);
+                tiltTowards(0);
 				currentMaxSpeed = 0f;
 				this.GetComponent<Rigidbody>().velocity = Vector3.zero;
 				targetVelocity = Vector3.zero;
@@ -514,19 +513,25 @@ public class PlayerState : MonoBehaviour
                     GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof), this.transform.position, Quaternion.identity);
                 }
 
-                StartCoroutine(coRespawn());
+                if (this.GetComponent<uLinkNetworkView>().isMine)
+                {
+                    GameController.SetInputLock(true);
+                    StartCoroutine(coRespawn());
+                }
 				break;
 
             case BirdState.Respawning:
-                this.GetComponent<Rigidbody>().MovePosition(Vector3.zero);
-
                 // turn on all renderers
                 foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
                 {
                     renderer.enabled = true;
                 }
 
-                GameController.SetInputLock(false);
+                if (this.GetComponent<uLinkNetworkView>().isMine)
+                {
+                    this.GetComponent<Rigidbody>().MovePosition(GameController.LastCheckpoint);
+                    GameController.SetInputLock(false);
+                }
                 break;
 
         }
