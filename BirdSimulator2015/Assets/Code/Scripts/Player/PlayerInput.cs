@@ -126,7 +126,6 @@ public class PlayerInput : MonoBehaviour
 			Cameras.Radial(false);
 			Cameras.Input(JoystickAxis4, JoystickAxis5);
 		}
-		Cameras.Input(JoystickAxis4, JoystickAxis5);
 
         if (JoystickButton0)
         {

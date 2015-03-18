@@ -6,7 +6,9 @@ namespace Code.Scripts.Trap
 	[RequireComponent(typeof(HingeJoint))]
 	public class SwingBlade : MonoBehaviour 
 	{
-		public float rotationAngle;
+		public float maxAngle;
+		public float period;
+		public float phaseShift;
 
 		private HingeJoint joint;
 
@@ -14,13 +16,12 @@ namespace Code.Scripts.Trap
 		{
 			joint = gameObject.GetComponent<HingeJoint>();
 			joint.connectedAnchor = transform.position;
-			//resetTrap();
 		}
 
-		private void resetTrap()
+		private void FixedUpdate()
 		{
-			GetComponent<Rigidbody>().velocity = Vector3.zero;
-			transform.rotation = Quaternion.Euler(Vector3.forward * rotationAngle);
+			float rotation = maxAngle * Mathf.Cos((2*Mathf.PI/period) * Time.time + phaseShift);
+			transform.rotation = Quaternion.AngleAxis(rotation, transform.forward);
 		}
 	}
 }
