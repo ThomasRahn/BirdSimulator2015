@@ -11,7 +11,7 @@ public class Egg : MonoBehaviour
     {
 		if(link == null)
 		{
-			link = Resources.Load("Misc/ChainLink") as GameObject;
+			link = Resources.Load(Registry.Prefab.ChainLink) as GameObject;
 		}
 		links = new List<GameObject>();
     }
@@ -26,7 +26,7 @@ public class Egg : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.tag == "Player")
+        if (c.tag == Registry.Tag.Player)
         {
 			// Set up the egg for carrying and link for copying
 			GameObject currentLink = link;

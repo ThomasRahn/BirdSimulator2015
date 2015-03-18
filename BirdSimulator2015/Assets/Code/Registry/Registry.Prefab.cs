@@ -7,5 +7,6 @@
 		public const string EggProxy = "Egg";
 		public const string FireballZone = "Misc/FireballZone";
         public const string FeatherPoof = "Misc/FeatherPoof";
+		public const string ChainLink = "Misc/ChainLink";
 	}
 }

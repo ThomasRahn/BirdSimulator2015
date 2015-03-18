@@ -41,14 +41,14 @@ public class DebugOverlay : MonoBehaviour
 			frames = 0;
 		}
 
-		if (GameObject.FindWithTag("Player"))
+		if (GameObject.FindWithTag(Registry.Tag.Player))
 		{
 			string t = "";
 			//t += "rotationZ= " + GameObject.FindWithTag("Player").transform.GetChild(0).transform.localEulerAngles.z + "\n";
 			//t += GameObject.FindWithTag("Player").GetComponent<PlayerState>().currentState + "\n";
             //t += "rotationY= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().rotationY + "\n";
             //t += "momentum= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().momentum + "\n";
-			t += "velocity= " + GameObject.FindWithTag("Player").GetComponent<Rigidbody>().velocity + "\n";
+			t += "velocity= " + GameObject.FindWithTag(Registry.Tag.Player).GetComponent<Rigidbody>().velocity + "\n";
            // t += "currentMaxSpeed= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().currentMaxSpeed + "\n";
            // t += "currentTurnSpeed= " + GameObject.FindWithTag("Player").GetComponent<PlayerState>().currentTurnSpeed + "\n";
 			Left.text = t;

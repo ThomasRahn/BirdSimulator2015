@@ -15,7 +15,7 @@ public class LandingZone : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.tag == Registry.Tag.Player)
 		{
 			GameController.GamepadPopup.SetImage(GamepadSetup.GamepadAction.A);
 			GameController.GamepadPopup.FadeIn();
@@ -27,7 +27,7 @@ public class LandingZone : MonoBehaviour
 	
 	void OnTriggerExit(Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.tag == Registry.Tag.Player)
 		{
 			GameController.GamepadPopup.FadeOut();
 			GameController.Player.GetComponent<PlayerState>().CanLand = false;

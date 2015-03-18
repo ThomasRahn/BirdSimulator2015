@@ -36,7 +36,7 @@ public class FireballZone : MonoBehaviour
 
 	void OnTriggerEnter(Collider c)
 	{
-		if (c.tag == "Player" || c.tag == "Proxy")
+		if (c.tag == Registry.Tag.Player || c.tag == Registry.Tag.Proxy)
 		{
 			targets.Add(c.transform);
 		}
@@ -44,7 +44,7 @@ public class FireballZone : MonoBehaviour
 	
 	void OnTriggerExit(Collider c)
 	{
-		if (c.tag == "Player" || c.tag == "Proxy")
+		if (c.tag == Registry.Tag.Player || c.tag == Registry.Tag.Proxy)
 		{
 			targets.Remove(c.transform);
 		}

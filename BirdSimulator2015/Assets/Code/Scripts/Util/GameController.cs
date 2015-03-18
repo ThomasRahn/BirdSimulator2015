@@ -45,7 +45,7 @@ public class GameController : ScriptableObject
 		//loadChunks();
 		
 		// player has been instantiated already, so we can get this reference
-		Player = GameObject.FindWithTag("Player");
+		Player = GameObject.FindWithTag(Registry.Tag.Player);
 		//Debug.Log(Player);
 
 		// camera setup (make sure this comes after the player is loaded)
