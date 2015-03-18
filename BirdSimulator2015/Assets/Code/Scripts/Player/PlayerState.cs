@@ -330,7 +330,7 @@ public class PlayerState : MonoBehaviour
                 {
 					tiltTowards(-TILT_LIMIT);
 
-					intendedTurnSpeed = Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+                    intendedTurnSpeed = Mathf.Abs(this.GetComponent<PlayerInput>().GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
 					currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
                     currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
 					rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
@@ -344,8 +344,8 @@ public class PlayerState : MonoBehaviour
                 if (tilting != 1)
                 {
 					tiltTowards(TILT_LIMIT);
-					
-					intendedTurnSpeed = Mathf.Abs(Input.GetAxisRaw("JoystickAxisX")) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+
+                    intendedTurnSpeed = Mathf.Abs(this.GetComponent<PlayerInput>().GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
 					currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
 					currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
 					rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;

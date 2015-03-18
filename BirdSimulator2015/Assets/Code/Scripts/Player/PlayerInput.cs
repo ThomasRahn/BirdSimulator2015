@@ -189,4 +189,9 @@ public class PlayerInput : MonoBehaviour
 	{
 		animator.SetTrigger(s);
 	}
+
+    public float GetAxisHorizontal()
+    {
+        return JoystickAxisX;
+    }
 }
