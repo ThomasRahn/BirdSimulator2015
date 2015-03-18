@@ -8,7 +8,7 @@ public class NetworkManager : MonoBehaviour
     Vector3 PLAYER_ROTATION = new Vector3(0f, 260f, 0f); 
 
     // ravenhome
-	Vector3 PLAYER_SPAWN = new Vector3(-7.84f, 70f, 0);
+    Vector3 PLAYER_SPAWN = new Vector3(73.1f, 105f, 19.9f);
 
 	void uLink_OnServerInitialized()
 	{
