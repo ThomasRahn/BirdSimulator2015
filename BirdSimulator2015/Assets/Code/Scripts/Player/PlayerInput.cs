@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PlayerInput : MonoBehaviour
 {
     [HideInInspector] public bool Locked = false;
+	public CameraContainer Cameras { get; set; }
 
     protected float JoystickAxisX = 0f;
     protected float JoystickAxisY = 0f;
@@ -83,6 +84,8 @@ public class PlayerInput : MonoBehaviour
         {
             JoystickAxisX = Input.GetAxisRaw("KeyboardAxisX");
             JoystickAxisY = Input.GetAxisRaw("KeyboardAxisY");
+			JoystickAxis4 = Input.GetAxis("Mouse X");
+			JoystickAxis5 = Input.GetAxis("Mouse Y");
 
             JoystickButton0 = Input.GetButton("KeyboardE");
             JoystickButton1 = Input.GetButton("KeyboardX");
@@ -113,6 +116,17 @@ public class PlayerInput : MonoBehaviour
 
         animator.SetFloat("Horizontal", JoystickAxisX);
         animator.SetFloat("Vertical", JoystickAxisY * invertY);
+
+		if(JoystickAxisX != 0 || JoystickAxisY != 0)
+		{
+			Cameras.Radial(true);
+		}
+		else if(JoystickAxis4 != 0 || JoystickAxis5 != 0)
+		{
+			Cameras.Radial(false);
+			Cameras.Input(JoystickAxis4, JoystickAxis5);
+		}
+		Cameras.Input(JoystickAxis4, JoystickAxis5);
 
         if (JoystickButton0)
         {

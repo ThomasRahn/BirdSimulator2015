@@ -7,7 +7,6 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 	{
 		public float angularVelocity = 20f;
 
-
 		protected override void Awake() 
 		{
 			base.Awake ();
@@ -16,15 +15,11 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 		
 		protected override void UpdatePosition()
 		{
-			updateAngles();
 			positionBehind();
 		}
 
-		private void updateAngles()
+		public void UpdateAngles(float horizontal, float vertical)
 		{
-			float horizontal = Input.GetAxis("Mouse X");
-			float vertical = -Input.GetAxis("Mouse Y");
-			
 			Vector3 angles = parent.rotation.eulerAngles;
 			
 			float deltaX = vertical * angularVelocity * Time.deltaTime;
