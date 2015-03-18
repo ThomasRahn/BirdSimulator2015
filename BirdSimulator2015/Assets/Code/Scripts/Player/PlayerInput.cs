@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class PlayerInput : MonoBehaviour
 {
+    [HideInInspector] public bool Locked = false;
+
     protected float JoystickAxisX = 0f;
     protected float JoystickAxisY = 0f;
     protected float JoystickAxis3 = 0f;
@@ -36,6 +38,10 @@ public class PlayerInput : MonoBehaviour
     {
         animator = this.GetComponent<Animator>();
     }
+
+	void Start()
+	{
+	}
 
     void Update()
     {
@@ -101,6 +107,9 @@ public class PlayerInput : MonoBehaviour
             JoystickButton3 = Input.GetButton("JoystickButton19");
 #endif
         }
+
+        if (Locked)
+            return;
 
         animator.SetFloat("Horizontal", JoystickAxisX);
         animator.SetFloat("Vertical", JoystickAxisY * invertY);

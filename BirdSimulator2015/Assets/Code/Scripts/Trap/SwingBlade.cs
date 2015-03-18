@@ -17,11 +17,6 @@ namespace Code.Scripts.Trap
 			//resetTrap();
 		}
 
-		private void OnCollisionEnter()
-		{
-			//TODO hit the bird?
-		}
-
 		private void resetTrap()
 		{
 			GetComponent<Rigidbody>().velocity = Vector3.zero;

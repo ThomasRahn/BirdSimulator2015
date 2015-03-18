@@ -2,7 +2,8 @@
 {
 	public static class Prefab
 	{
-		public const string LandingZone = "";
+		public const string SwingBlade = "trap_swingblade(Clone)";
 		public const string FireballZone = "Misc/FireballZone";
+        public const string FeatherPoof = "Misc/FeatherPoof";
 	}
 }

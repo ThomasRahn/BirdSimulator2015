@@ -43,6 +43,10 @@ public class PlayerState : MonoBehaviour
         RollingRight,
 		QuickAscending,
 		DashingForward,
+
+		Dying,
+        Respawning,
+
 	}
 	
 	private Animator animator;
@@ -292,9 +296,9 @@ public class PlayerState : MonoBehaviour
 				//rotationY += Input.GetAxisRaw("JoystickAxisX") * Time.deltaTime * TURN_RATE_WHEN_IDLE;
 
 				Vector3 leftright = Input.GetAxis("JoystickAxisX") * this.transform.right * 20f;
-			Vector3 updown = Input.GetAxis("JoystickAxisY") * this.transform.up * 20f;
+			    Vector3 updown = Input.GetAxis("JoystickAxisY") * this.transform.up * 20f;
 
-			targetVelocity = leftright + updown + Vector3.down * MAX_DOWNWARD_VELOCITY;
+			    targetVelocity = leftright + updown + Vector3.down * MAX_DOWNWARD_VELOCITY;
                 break;
 
             case BirdState.DivingAndTurningLeft:
@@ -490,6 +494,41 @@ public class PlayerState : MonoBehaviour
 				tiltTowards(TILT_LIMIT * 0.2f);
 				break;
 
+			case BirdState.Dying:
+                GameController.SetInputLock(true);
+				tiltTowards(0);
+				currentMaxSpeed = 0f;
+				this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+				targetVelocity = Vector3.zero;
+
+                // turn off all renderers
+				foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
+
+                // create feather poof
+                if (!flipped)
+                {
+                    flipped = true;
+                    GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof), this.transform.position, Quaternion.identity);
+                }
+
+                StartCoroutine(coRespawn());
+				break;
+
+            case BirdState.Respawning:
+                this.GetComponent<Rigidbody>().MovePosition(Vector3.zero);
+
+                // turn on all renderers
+                foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = true;
+                }
+
+                GameController.SetInputLock(false);
+                break;
+
         }
 
 		transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
@@ -541,6 +580,13 @@ public class PlayerState : MonoBehaviour
     void addMomentum()
     {
         momentum += MOMENTUM_GAIN * Time.deltaTime;
+    }
+
+    IEnumerator coRespawn()
+    {
+        yield return new WaitForSeconds(5f);
+        animator.SetTrigger("t_Respawn");
+        yield return null;
     }
 
     public BirdState GetState()

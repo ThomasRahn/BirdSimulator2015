@@ -90,4 +90,9 @@ public class GameController : ScriptableObject
     {
         return canvas;
     }
+
+    public static void SetInputLock(bool b)
+    {
+        Player.GetComponent<PlayerInput>().Locked = b;
+    }
 }
