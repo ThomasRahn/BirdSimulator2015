@@ -1117,6 +1117,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: t_DashForward
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: b_Grounded
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 110203948}
   m_Solo: 0
@@ -1363,6 +1366,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: b_Diving
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: b_Grounded
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 110251008}

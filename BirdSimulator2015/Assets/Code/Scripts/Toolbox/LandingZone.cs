@@ -17,8 +17,8 @@ public class LandingZone : MonoBehaviour
 	{
 		if (other.tag == Registry.Tag.Player)
 		{
-			GameController.GamepadPopup.SetImage(GamepadSetup.GamepadAction.A);
-			GameController.GamepadPopup.FadeIn();
+			//GameController.GamepadPopup.SetImage(GamepadSetup.GamepadAction.A);
+			//GameController.GamepadPopup.FadeIn();
 
 			GameController.Player.GetComponent<PlayerState>().LandTarget = Target;
 		}
@@ -28,7 +28,7 @@ public class LandingZone : MonoBehaviour
 	{
 		if (other.tag == Registry.Tag.Player)
 		{
-			GameController.GamepadPopup.FadeOut();
+			//GameController.GamepadPopup.FadeOut();
             GameController.Player.GetComponent<PlayerState>().LandTarget = null;
 		}
 	}

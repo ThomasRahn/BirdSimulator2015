@@ -6,6 +6,7 @@ public class GameController : ScriptableObject
 {
 	[HideInInspector] public static GameObject CameraTarget;
 	[HideInInspector] public static GameObject Player;
+    [HideInInspector] public static bool IsWhite = true;
     [HideInInspector] public static GamepadPopup GamepadPopup;
 	[HideInInspector] public static LocationPopup LocationPopup;
 	[HideInInspector] public static GamepadSetup Gamepad;
@@ -44,6 +45,12 @@ public class GameController : ScriptableObject
 
 		//loadChunks();
 		
+        // disable the wrong spawn
+        if (IsWhite)
+            GameObject.FindWithTag(Registry.Tag.SpawnBlack).SetActive(false);
+        else
+            GameObject.FindWithTag(Registry.Tag.SpawnWhite).SetActive(false);
+
 		// player has been instantiated already, so we can get this reference
 		Player = GameObject.FindWithTag(Registry.Tag.Player);
 		//Debug.Log(Player);
