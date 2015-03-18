@@ -46,6 +46,8 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			this.bird = bird;
 			transform.position = bird.transform.position;
 			transform.rotation = bird.transform.rotation;
+
+			bird.GetComponent<PlayerInput>().Cameras = GetComponent<CameraContainer>();
 		}
 	}
 }
