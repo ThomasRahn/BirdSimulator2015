@@ -14,14 +14,16 @@ namespace Code.Scripts.Trap
 
 		private void Start() 
 		{
+            phaseShift = this.transform.parent.localEulerAngles.z;
 			joint = gameObject.GetComponent<HingeJoint>();
 			joint.connectedAnchor = transform.position;
+
 		}
 
 		private void FixedUpdate()
 		{
-			float rotation = maxAngle * Mathf.Cos((2*Mathf.PI/period) * Time.time + phaseShift);
-			transform.rotation = Quaternion.AngleAxis(rotation, transform.forward);
+			float rotation = maxAngle * Mathf.Cos((2 * Mathf.PI/period) * Time.time + phaseShift);
+            transform.rotation = Quaternion.AngleAxis(rotation, transform.forward);
 		}
 	}
 }

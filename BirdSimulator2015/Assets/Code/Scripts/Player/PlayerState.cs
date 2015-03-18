@@ -54,7 +54,7 @@ public class PlayerState : MonoBehaviour
     private BirdState state;
 
 	const float MIN_FORWARD_VELOCITY = 15f;
-    const float MAX_FORWARD_VELOCITY = 25f;
+    const float MAX_FORWARD_VELOCITY = 35f;
     const float MAX_DOWNWARD_VELOCITY = 80f;
     const float DOWNWARD_ACCELERATION = 5f;
     const float MAX_UPWARD_VELOCITY = 5f;
@@ -511,12 +511,12 @@ public class PlayerState : MonoBehaviour
                 {
                     flipped = true;
                     GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof), this.transform.position, Quaternion.identity);
-                }
 
-                if (this.GetComponent<uLinkNetworkView>().isMine)
-                {
-                    GameController.SetInputLock(true);
-                    StartCoroutine(coRespawn());
+                    if (this.GetComponent<uLinkNetworkView>().isMine)
+                    {
+                        GameController.SetInputLock(true);
+                        StartCoroutine(coRespawn());
+                    }
                 }
 				break;
 

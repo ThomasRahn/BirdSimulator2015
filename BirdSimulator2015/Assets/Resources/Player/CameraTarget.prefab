@@ -13,12 +13,12 @@ GameObject:
   - 124: {fileID: 12400000}
   - 81: {fileID: 8100000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11494654}
   - 45: {fileID: 4537258}
   - 114: {fileID: 11414502}
   - 114: {fileID: 11464086}
   - 114: {fileID: 11404408}
   - 114: {fileID: 11447126}
-  - 114: {fileID: 11494654}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487f21872ea76484bb7ad54e480d4935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FOVThreshold: 50
+  FOVThreshold: 55
   UpOffset: 1
   FOVCoefficient: .75
   Radius: 4

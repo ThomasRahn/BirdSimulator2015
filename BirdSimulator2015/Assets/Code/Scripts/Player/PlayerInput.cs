@@ -34,6 +34,7 @@ public class PlayerInput : MonoBehaviour
     private float invertY = -1f;
 
     private const float JOYSTICK_ALT_THUMBSTICK_THRESHOLD = 0.2f;
+    private float cameraMultiplier = 1f;
 
     void Awake()
     {
@@ -56,14 +57,12 @@ public class PlayerInput : MonoBehaviour
 
         if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.LOGITECHF310)
         {
-            JoystickAxisX = Input.GetAxis("JoystickAxisX");
-            JoystickAxisY = Input.GetAxis("JoystickAxisY");
-            JoystickAxis3 = Input.GetAxis("JoystickAxis3");
-            JoystickAxis4 = Input.GetAxis("JoystickAxis4");
-            JoystickAxis5 = Input.GetAxisRaw("JoystickAxis5");
-            JoystickAxis6 = Input.GetAxisRaw("JoystickAxis6");
-            JoystickAxis7 = Input.GetAxisRaw("JoystickAxis7");
-            JoystickAxis8 = Input.GetAxisRaw("JoystickAxis8");
+            cameraMultiplier = 5f;
+
+            JoystickAxisX = Input.GetAxisRaw("JoystickAxisX");
+            JoystickAxisY = Input.GetAxisRaw("JoystickAxisY");
+            JoystickAxis4 = Input.GetAxisRaw("JoystickAxis3");
+            JoystickAxis5 = Input.GetAxisRaw("JoystickAxis4");
 
             JoystickButton0 = Input.GetButton("JoystickButton0");
             JoystickButton1 = Input.GetButton("JoystickButton1");
@@ -94,16 +93,22 @@ public class PlayerInput : MonoBehaviour
         }
         else if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.XBOX360)
         {
+            cameraMultiplier = 5f;
+
             JoystickAxisX = Input.GetAxisRaw("JoystickAxisX");
             JoystickAxisY = Input.GetAxisRaw("JoystickAxisY");
 
 #if UNITY_STANDALONE_WIN
+            JoystickAxis4 = Input.GetAxisRaw("JoystickAxis4");
+            JoystickAxis5 = Input.GetAxisRaw("JoystickAxis5");
             JoystickButton0 = Input.GetButton("JoystickButton0");
             JoystickButton1 = Input.GetButton("JoystickButton1");
             JoystickButton2 = Input.GetButton("JoystickButton2");
             JoystickButton3 = Input.GetButton("JoystickButton3");
 #endif
 #if UNITY_STANDALONE_OSX
+            JoystickAxis4 = Input.GetAxisRaw("JoystickAxis3");
+            JoystickAxis5 = Input.GetAxisRaw("JoystickAxis4");
             JoystickButton0 = Input.GetButton("JoystickButton18");
             JoystickButton1 = Input.GetButton("JoystickButton16");
             JoystickButton2 = Input.GetButton("JoystickButton17");
@@ -117,14 +122,14 @@ public class PlayerInput : MonoBehaviour
         animator.SetFloat("Horizontal", JoystickAxisX);
         animator.SetFloat("Vertical", JoystickAxisY * invertY);
 
-		if(JoystickAxisX != 0 || JoystickAxisY != 0)
+        if (JoystickAxisX != 0 || JoystickAxisY != 0 || JoystickButton5)
 		{
 			Cameras.Radial(true);
 		}
 		else if(JoystickAxis4 != 0 || JoystickAxis5 != 0)
 		{
 			Cameras.Radial(false);
-			Cameras.Input(JoystickAxis4, JoystickAxis5);
+            Cameras.Input(JoystickAxis4 * cameraMultiplier, JoystickAxis5 * cameraMultiplier);
 		}
 
         if (JoystickButton0)
@@ -146,23 +151,19 @@ public class PlayerInput : MonoBehaviour
                 else
                 {
                     this.GetComponent<PlayerSync>().SendTrigger("t_Land");
-
                     animator.SetTrigger("t_Land");
                 }
             }
         }
 
-        // limit this, obviously
         if (JoystickButton2)
         {
-            this.GetComponent<PlayerSync>().SendTrigger("t_Decelerate");
-            //animator.SetTrigger("t_Decelerate");
+            this.GetComponent<PlayerSync>().SendBool("b_Decelerating", true);
 			animator.SetBool("b_Decelerating", true);
         }
 		else
 		{
-			//this.GetComponent<PlayerSync>().SetBool("b_Decelerating", false);
-			//animator.SetTrigger("t_Decelerate");
+			this.GetComponent<PlayerSync>().SendBool("b_Decelerating", false);
 			animator.SetBool("b_Decelerating", false);
 		}
 		
@@ -171,15 +172,15 @@ public class PlayerInput : MonoBehaviour
 			this.GetComponent<PlayerSync>().SendTrigger("t_QuickAscend");
             animator.SetTrigger("t_QuickAscend");
         }
-			
-        if (JoystickButton4)
-            animator.SetTrigger("t_DashLeft");
+
 		if (JoystickButton5)
 		{
-			animator.SetBool("b_Diving", true);
+            this.GetComponent<PlayerSync>().SendBool("b_Diving", true);
+            animator.SetBool("b_Diving", true);
 		}
 		else
 		{
+            this.GetComponent<PlayerSync>().SendBool("b_Diving", false);
 			animator.SetBool("b_Diving", false);
 		}
 	}

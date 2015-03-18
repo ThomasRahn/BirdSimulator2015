@@ -134,9 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d98a20a9980544ca3a620f0e81f040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAngle: 45
-  period: 2
-  phaseShift: 0
+  maxAngle: 60
+  period: 5
+  phaseShift: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

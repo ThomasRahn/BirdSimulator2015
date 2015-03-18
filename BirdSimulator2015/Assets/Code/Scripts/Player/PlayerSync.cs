@@ -19,6 +19,18 @@ public class PlayerSync : uLink.MonoBehaviour
 	}
 
     [RPC]
+    public void SendBool(string s, bool b)
+    {
+        networkView.RPC("SendBool_Proxy", uLink.RPCMode.Others, s, b);
+    }
+
+    [RPC]
+    public void SendBool_Proxy(string s, bool b)
+    {
+        animator.SetBool(s, b);
+    }
+
+    [RPC]
     public void SendTrigger(string s)
     {
         //Debug.Log("Send " + s);
