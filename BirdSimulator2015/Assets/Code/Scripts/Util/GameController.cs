@@ -6,7 +6,7 @@ public class GameController : ScriptableObject
 {
 	[HideInInspector] public static GameObject CameraTarget;
 	[HideInInspector] public static GameObject Player;
-    [HideInInspector] public static bool IsWhite = true;
+    [HideInInspector] public static bool IsWhite = false;
     [HideInInspector] public static GamepadPopup GamepadPopup;
 	[HideInInspector] public static LocationPopup LocationPopup;
 	[HideInInspector] public static GamepadSetup Gamepad;
@@ -54,6 +54,24 @@ public class GameController : ScriptableObject
 		// player has been instantiated already, so we can get this reference
 		Player = GameObject.FindWithTag(Registry.Tag.Player);
 		//Debug.Log(Player);
+
+        // set up player colours
+
+            foreach (Renderer renderer in Player.GetComponentsInChildren<Renderer>())
+            {
+                foreach (Material material in renderer.materials)
+                {
+                    if (IsWhite)
+                    {
+                        material.color = Color.white;
+                    }
+                    else
+                    {
+                        material.color = Color.black;
+                    }
+                }
+            }
+
 
 		// camera setup (make sure this comes after the player is loaded)
 		CameraTarget = GameObject.Instantiate(Resources.Load("Player/CameraTarget")) as GameObject;

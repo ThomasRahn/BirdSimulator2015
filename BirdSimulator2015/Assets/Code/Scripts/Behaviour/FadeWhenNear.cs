@@ -18,8 +18,6 @@ public class FadeWhenNear : MonoBehaviour
         if (GameController.Player == null)
             return;
 
-        Debug.Log(Vector3.Distance(this.transform.position, GameController.Player.transform.position));
-
         if (!triggered && Vector3.Distance(this.transform.position, GameController.Player.transform.position) < DISTANCE)
         {
             triggered = true;

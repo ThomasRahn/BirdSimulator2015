@@ -74,6 +74,7 @@ public class PlayerState : MonoBehaviour
     const float DIVE_STRAFE_RATE = 40f;
 
     const float TILT_LIMIT = 70f;
+    const float ABOUT_FACE_ANGLE = 35f;
 
     // we need this so we don't slowly descend (usually when gliding forward and turning at low speeds)
     // for some dumb reason, the y component of the velocity vector becomes -0.5f, so the player will slowly
@@ -116,10 +117,10 @@ public class PlayerState : MonoBehaviour
     {
         state = hash[animator.GetCurrentAnimatorStateInfo(0).fullPathHash];
 
-        Debug.DrawRay(this.transform.position, this.GetComponent<Rigidbody>().velocity * 5f, Color.magenta);
-        Debug.DrawRay(this.transform.position, this.transform.up * 1f, Color.blue);
-        Debug.DrawRay(this.transform.position, this.transform.forward * 1f, Color.green);
-        Debug.DrawRay(this.transform.position, Vector3.down * 1f, Color.red);
+        //Debug.DrawRay(this.transform.position, this.GetComponent<Rigidbody>().velocity * 5f, Color.magenta);
+        //Debug.DrawRay(this.transform.position, this.transform.up * 1f, Color.blue);
+        //Debug.DrawRay(this.transform.position, this.transform.forward * 1f, Color.green);
+        //Debug.DrawRay(this.transform.position, Vector3.down * 1f, Color.red);
 
         Vector3 from = this.transform.position;
         Vector3 direction = this.transform.forward;
@@ -128,23 +129,15 @@ public class PlayerState : MonoBehaviour
         {
             if (state != BirdState.AboutFacing && state != BirdState.FlappingForward)
             {
-                //Debug.DrawRay(hit.point, hit.normal, Color.red, 5f);
-                //Debug.Log(Vector3.Angle(hit.normal, -direction));
-
-				if (Vector3.Angle(hit.normal, Vector3.up) < 10f)
-				{
-					// TODO land or swoop up
-				}
-
-                if (Vector3.Angle(hit.normal, -direction) < 35f)
+                if (Vector3.Angle(hit.normal, -direction) < ABOUT_FACE_ANGLE)
                 {
                     animator.SetTrigger("t_AboutFace");
                 }
             }
         }
 
-        Debug.DrawRay(from, (this.transform.forward + this.transform.right) * 0.8f, Color.black);
-        Debug.DrawRay(from, (this.transform.forward - this.transform.right) * 0.8f, Color.black);
+        //Debug.DrawRay(from, (this.transform.forward + this.transform.right) * 0.8f, Color.black);
+       // Debug.DrawRay(from, (this.transform.forward - this.transform.right) * 0.8f, Color.black);
         if (Physics.Raycast(from, this.transform.forward + this.transform.right, out hit, 1f))
         {
             tilting = 1; // right
@@ -172,17 +165,39 @@ public class PlayerState : MonoBehaviour
         {
             tilting = 0; // none
         }
+
+        Debug.DrawRay(this.transform.position, (this.transform.forward + Vector3.down ) *0.5f, Color.magenta);
+        if (Physics.Raycast(from, this.transform.forward + Vector3.down, out hit, 0.5f))
+        {
+            if (rotationX < 360 & rotationX > 50)
+            {
+            }
+            else
+            {
+                rotationX -= 100f * Time.deltaTime;
+                this.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
+            }
+        }
+
+        if (checkDiveCollision())
+        {
+            animator.SetBool("b_CanDive", false);
+            animator.SetBool("b_Diving", false);
+        }
+        else
+        {
+            animator.SetBool("b_CanDive", true);
+        }
     }
 
 	float intendedTurnSpeed;
     void Update()
     {
-        // prolly make this better or something
-        animator.ResetTrigger("t_RandomFlap");
-        if (Random.Range(1, 50) == 2)
-        {
-            animator.SetTrigger("t_RandomFlap");
-        }
+        //animator.ResetTrigger("t_RandomFlap");
+        //if (Random.Range(1, 50) == 2)
+        //{
+        //    animator.SetTrigger("t_RandomFlap");
+        //}
 
         // update body rotation
         rotationX = transform.localEulerAngles.x;
@@ -262,21 +277,21 @@ public class PlayerState : MonoBehaviour
 			    targetVelocity = leftright + updown + Vector3.down * MAX_DOWNWARD_VELOCITY;
                 break;
 
-            case BirdState.DivingAndTurningLeft:
-                //addMomentum();
-				dive();
-				tiltTowards(0);
+            //case BirdState.DivingAndTurningLeft:
+            //    addMomentum();
+			//	dive();
+			//	tiltTowards(0);
 
-                targetVelocity = -this.transform.right * 50f + this.transform.forward + Vector3.down * MAX_DOWNWARD_VELOCITY;
-                break;
+            //    targetVelocity = -this.transform.right * 50f + this.transform.forward + Vector3.down * MAX_DOWNWARD_VELOCITY;
+            //    break;
 
-            case BirdState.DivingAndTurningRight:
-                //addMomentum();
-				dive();
-				tiltTowards(0);
+            //case BirdState.DivingAndTurningRight:
+            //    addMomentum();
+			//	dive();
+			//	tiltTowards(0);
 
-				targetVelocity = this.transform.right * 50f + this.transform.forward + Vector3.down * MAX_DOWNWARD_VELOCITY;
-				break;
+			//	targetVelocity = this.transform.right * 50f + this.transform.forward + Vector3.down * MAX_DOWNWARD_VELOCITY;
+			//	break;
 
             case BirdState.Easing:
                 // TODO diddle with momentum numbers
@@ -605,6 +620,21 @@ public class PlayerState : MonoBehaviour
     void addMomentum()
     {
         momentum += MOMENTUM_GAIN * Time.deltaTime;
+    }
+
+    const float DIVE_SWOOP_DISTANCE = 7f;
+    bool checkDiveCollision()
+    {
+        float f = Mathf.Abs(this.GetComponent<Rigidbody>().velocity.y);
+        if (f < DIVE_SWOOP_DISTANCE)
+            f = DIVE_SWOOP_DISTANCE;
+
+        Debug.DrawRay(this.transform.position, Vector3.down * f, Color.black);
+        if (Physics.Raycast(this.transform.position, Vector3.down, out hit, f))
+        {
+            return true;
+        }
+        return false;
     }
 
     IEnumerator coRespawn()
