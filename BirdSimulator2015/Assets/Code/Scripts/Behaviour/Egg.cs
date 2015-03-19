@@ -22,16 +22,14 @@ public class Egg : MonoBehaviour
     {
         if (c.tag == Registry.Tag.Player)
         {
+
 			Rigidbody egg = transform.parent.GetComponent<Rigidbody>();
 			egg.useGravity = true;
 
-			float distance = this.GetComponent<SphereCollider>().radius/1.5f;
-			transform.parent.position = Vector3.MoveTowards(transform.parent.position, c.transform.position, distance);
+			Vector3 initialPosition = transform.parent.position;
+			initialPosition.y = transform.parent.GetComponent<Renderer>().bounds.max.y;
 
-			float eggHeight = transform.parent.GetComponent<MeshFilter>().mesh.bounds.extents.y;
-			Vector3 initialPosition = transform.parent.position + transform.parent.up * eggHeight;
-
-			links = ChainLinker.Link(initialPosition, c.transform.position, egg.GetComponent<Joint>(), c.attachedRigidbody);
+			links = ChainLinker.Link(initialPosition, c.transform.position, egg.GetComponent<Joint>(), c.attachedRigidbody, true);
 
 			GetComponent<Collider>().enabled = false; // Prevent picking up the egg again
 			player = c.GetComponent<PlayerState>();
