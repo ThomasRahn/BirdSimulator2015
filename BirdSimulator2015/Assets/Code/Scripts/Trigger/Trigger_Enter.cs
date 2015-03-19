@@ -7,24 +7,24 @@ public class Trigger_Enter : MonoBehaviour
 
     void OnTriggerEnter(Collider c)
     {
-        if (c.name == "Player(Clone)" || c.name == "PlayerProxy(Clone)")
+        if (c.tag == Registry.Tag.Player || c.tag == Registry.Tag.Proxy)
         {
             foreach (GameObject g in Triggerables)
             {
                 if (g != null)
-                    g.GetComponent<BaseTriggerable>().Trigger(c, this.gameObject);
+                    g.GetComponentInChildren<BaseTriggerable>().Trigger(c, this.gameObject);
             }
         }
     }
 
     void OnTriggerExit(Collider c)
     {
-        if (c.name == "Player(Clone)" || c.name == "PlayerProxy(Clone)")
+        if (c.tag == Registry.Tag.Player || c.tag == Registry.Tag.Proxy)
         {
             foreach (GameObject g in Triggerables)
             {
                 if (g != null)
-                    g.GetComponent<BaseTriggerable>().Trigger(c, this.gameObject);
+                    g.GetComponentInChildren<BaseTriggerable>().Trigger(c, this.gameObject);
             }
         }
     }

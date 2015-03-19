@@ -15,8 +15,8 @@ public class Tether : MonoBehaviour
 	private void Awake()
 	{
 		line = GetComponent<LineRenderer>();
-		line.enabled = false;
-		this.enabled = false;
+		//line.enabled = false;
+		//this.enabled = false;
 	}
 
 	private void Start()

@@ -8,19 +8,22 @@ public class NetworkManager : MonoBehaviour
     Vector3 PLAYER_ROTATION = new Vector3(0f, 260f, 0f); 
 
     // ravenhome
-    Vector3 PLAYER_SPAWN = new Vector3(77.9f, 104f, 20.9f);
+    //Vector3 PLAYER_SPAWN = new Vector3(77.9f, 104f, 20.9f);
+
+    Vector3 WHITE_SPAWN = new Vector3(-2306f, -875f, 10f);
+    Vector3 BLACK_SPAWN = new Vector3(-2306f, -880f, -10f);
 
 	void uLink_OnServerInitialized()
 	{
 		Debug.Log("OnServerInitialized()");
-        uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Owner, PLAYER_SPAWN, Quaternion.Euler(PLAYER_ROTATION), 0);
+        uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Owner, BLACK_SPAWN, Quaternion.Euler(PLAYER_ROTATION), 0);
 		GameController.LoadWorld();
 	}
 
 	void uLink_OnConnectedToServer()
 	{
 		Debug.Log("OnConnectedToServer()");
-		uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Proxy, PLAYER_SPAWN, Quaternion.identity, 0);
+        uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Proxy, WHITE_SPAWN, Quaternion.identity, 0);
 		GameController.LoadWorld();
 	}
 

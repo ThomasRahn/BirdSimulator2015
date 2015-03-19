@@ -166,7 +166,7 @@ public class PlayerState : MonoBehaviour
             tilting = 0; // none
         }
 
-        Debug.DrawRay(this.transform.position, (this.transform.forward + Vector3.down ) *0.5f, Color.magenta);
+        //Debug.DrawRay(this.transform.position, (this.transform.forward + Vector3.down ) *0.5f, Color.magenta);
         if (Physics.Raycast(from, this.transform.forward + Vector3.down, out hit, 0.5f))
         {
             if (rotationX < 360 & rotationX > 50)
@@ -174,8 +174,8 @@ public class PlayerState : MonoBehaviour
             }
             else
             {
-                rotationX -= 100f * Time.deltaTime;
-                this.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
+                //rotationX -= 100f * Time.deltaTime;
+                //this.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
             }
         }
 
@@ -488,7 +488,7 @@ public class PlayerState : MonoBehaviour
                 rotationY = r;
 
                 //if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 0.3f))
-                Debug.Log(Vector3.Distance(this.transform.position, LandTarget.position));
+                //Debug.Log(Vector3.Distance(this.transform.position, LandTarget.position));
                 if (Vector3.Distance(this.transform.position, LandTarget.position) < 0.5f)
                 {
                     //if (hit.collider.tag != "Player")

@@ -55,6 +55,9 @@ public class PlayerInput : MonoBehaviour
         animator.ResetTrigger("t_DashUp");
         animator.ResetTrigger("t_DashDown");
 
+        if (Locked)
+            return;
+
         if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.LOGITECHF310)
         {
             cameraMultiplier = 5f;
@@ -116,9 +119,6 @@ public class PlayerInput : MonoBehaviour
             JoystickButton3 = Input.GetButton("JoystickButton19");
 #endif
         }
-
-        if (Locked)
-            return;
 
         animator.SetFloat("Horizontal", JoystickAxisX);
         animator.SetFloat("Vertical", JoystickAxisY * invertY);
@@ -187,8 +187,15 @@ public class PlayerInput : MonoBehaviour
 
 	public void SetTrigger(string s)
 	{
+        this.GetComponent<PlayerSync>().SendTrigger(s);
 		animator.SetTrigger(s);
 	}
+
+    public void SetBool(string s, bool b)
+    {
+        this.GetComponent<PlayerSync>().SendBool(s, b);
+        animator.SetBool(s, b);
+    }
 
     public float GetAxisHorizontal()
     {
