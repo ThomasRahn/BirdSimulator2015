@@ -282,7 +282,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 163.100006
+      scalar: 168.570007
       maxCurve:
         serializedVersion: 2
         m_Curve:
