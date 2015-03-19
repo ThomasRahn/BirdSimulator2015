@@ -98,6 +98,7 @@ public class PlayerState : MonoBehaviour
 
     // collision trigger (landing)
     public Transform LandTarget;
+	public Egg HeldEgg {get; set;}
 
     void Awake()
     {
@@ -539,7 +540,11 @@ public class PlayerState : MonoBehaviour
                 {
                     renderer.enabled = false;
                 }
-
+				// Let go of held items
+				if (HeldEgg != null)
+				{
+					HeldEgg.Reset();
+				}
                 // create feather poof
                 if (!flipped)
                 {

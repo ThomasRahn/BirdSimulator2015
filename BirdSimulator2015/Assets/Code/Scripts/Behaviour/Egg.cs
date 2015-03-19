@@ -5,20 +5,19 @@ using System.Collections.Generic;
 public class Egg : MonoBehaviour
 {
 	private List<GameObject> links;
+	private Vector3 spawn;
+	private PlayerState player;
 
     void Awake()
     {
 		links = new List<GameObject>();
     }
 
-	void Start()
+	private void Start()
     {
+		spawn = transform.parent.position;
 	}
 	
-	void Update()
-    {
-	}
-
     void OnTriggerEnter(Collider c)
     {
         if (c.tag == Registry.Tag.Player)
@@ -56,7 +55,9 @@ public class Egg : MonoBehaviour
 			currentLink.GetComponent<ConfigurableJoint>().autoConfigureConnectedAnchor = true; // Attach last link to bird using autoconfigure
 			currentLink.GetComponent<Collider>().enabled = false; // To prevent triggering fly backwards
 
-			GetComponent<Collider>().enabled = false; // Preven picking up the egg again
+			GetComponent<Collider>().enabled = false; // Prevent picking up the egg again
+			player = c.GetComponent<PlayerState>();
+			player.HeldEgg = this;
         }
     }
 
@@ -75,5 +76,14 @@ public class Egg : MonoBehaviour
 		{
 			Destroy(links[i]);
 		}
+		GetComponentInParent<Rigidbody>().useGravity = false;
+		player.HeldEgg = null;
+	}
+
+	public void Reset()
+	{
+		Detach();
+		GetComponent<Collider>().enabled = true;
+		transform.parent.position = spawn;
 	}
 }
