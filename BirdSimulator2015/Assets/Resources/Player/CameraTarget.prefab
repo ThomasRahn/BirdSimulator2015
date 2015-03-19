@@ -134,9 +134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FOVThreshold: 55
-  UpOffset: 1
+  UpOffset: 3
   FOVCoefficient: .75
-  Radius: 4
+  Radius: 12
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -352,9 +352,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FOVThreshold: 50
-  UpOffset: 1
+  UpOffset: 3
   FOVCoefficient: .75
-  Radius: 4
+  Radius: 12
   angularVelocity: 20
 --- !u!114 &11495582
 MonoBehaviour:
