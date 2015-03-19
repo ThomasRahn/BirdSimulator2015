@@ -42,7 +42,14 @@ public class GameController : ScriptableObject
 	public static void LoadWorld()
 	{
         GameObject.Destroy(GameObject.Find("MenuCamera"));
-
+		if (uLink.Network.isServer) 
+		{
+			IsWhite = true;
+		}
+		else 
+		{
+			IsWhite = false;
+		}
 		//loadChunks();
 		
         // disable the wrong spawn
