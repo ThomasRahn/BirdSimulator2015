@@ -17,7 +17,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			followRotation = false;
 		}
 
-		private void Update() 
+		private void FixedUpdate() 
 		{
 			transform.position = bird.transform.position;
 

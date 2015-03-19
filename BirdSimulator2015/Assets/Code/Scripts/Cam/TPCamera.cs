@@ -28,7 +28,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			parent = transform.parent;
 		}
 
-		private void LateUpdate()
+		private void FixedUpdate()
 		{
 			velocity = target.GetComponent<Rigidbody>().velocity.magnitude;
 			UpdatePosition();
