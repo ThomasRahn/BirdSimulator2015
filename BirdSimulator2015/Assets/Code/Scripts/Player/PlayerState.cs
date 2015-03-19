@@ -95,6 +95,9 @@ public class PlayerState : MonoBehaviour
     private RaycastHit hit;
     private bool flipped = false;
     private int tilting = 0;
+    
+    // do once triggers
+    private bool respawnOnce = false;
 
     // collision trigger (landing)
     public Transform LandTarget;
@@ -227,8 +230,9 @@ public class PlayerState : MonoBehaviour
                 momentum = 0f;
                 currentTurnSpeed = TURN_RATE_INITIAL;
                 animator.SetBool("b_Grounded", false); // just in case
+				respawnOnce = false;
 
-                // make sure we're not slamming against a wall, since the gliding state applies there also
+				// make sure we're not slamming against a wall, since the gliding state applies there also
                 if (tilting == 0)
                     tiltTowards(0);
 
@@ -560,18 +564,21 @@ public class PlayerState : MonoBehaviour
 				break;
 
             case BirdState.Respawning:
-                // turn on all renderers
-                foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
-                {
-                    renderer.enabled = true;
-                }
-
-                if (this.GetComponent<uLinkNetworkView>().isMine)
-                {
-                    this.GetComponent<Rigidbody>().MovePosition(GameController.LastCheckpoint.position);
-                    this.GetComponent<Rigidbody>().MoveRotation(GameController.LastCheckpoint.rotation);
-                    GameController.SetInputLock(false);
-                }
+				if (!respawnOnce)
+				{
+					// turn on all renderers
+	                foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
+	                {
+	                    renderer.enabled = true;
+	                }
+	
+	                if (this.GetComponent<uLinkNetworkView>().isMine)
+	                {
+	                    this.GetComponent<Rigidbody>().MovePosition(GameController.LastCheckpoint.position);
+	                    this.GetComponent<Rigidbody>().MoveRotation(GameController.LastCheckpoint.rotation);
+	                    GameController.SetInputLock(false);
+	                }
+				}
                 break;
 
         }
