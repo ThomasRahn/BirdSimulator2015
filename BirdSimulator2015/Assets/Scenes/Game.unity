@@ -12015,7 +12015,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 489242, guid: d0cf5882039bab648a7669ce79160d72, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 489242, guid: d0cf5882039bab648a7669ce79160d72, type: 2}
       propertyPath: m_LocalScale.x

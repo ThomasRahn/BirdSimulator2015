@@ -14,14 +14,16 @@ public class SpikeLog : SwingOnceTrap
 		rotation.x += 75;
 		transform.parent.rotation = Quaternion.Euler(rotation);
 
-		Vector3 rightHook = transform.position + transform.right * 10f + transform.up * 2f;
-		Vector3 leftHook = transform.position - transform.right * 10f + transform.up * 2f;
+		float halfLogWidth = GetComponent<CapsuleCollider>().bounds.size.x * 2;
+		float hookHeight = GetComponent<CapsuleCollider>().bounds.size.y/2;
+		Vector3 rightHook = transform.position + transform.right * halfLogWidth + transform.up * hookHeight;
+		Vector3 leftHook = transform.position - transform.right * halfLogWidth + transform.up * hookHeight;
 		Joint[] joints = GetComponents<Joint>();
 
 		links = new List<Rigidbody>();
 
-		CreateChain(rightHook, transform.parent.position + transform.right * 10f, joints[0]);
-		CreateChain(leftHook, transform.parent.position - transform.right * 10f, joints[1]);
+		CreateChain(rightHook, transform.parent.position + transform.right * halfLogWidth, joints[0]);
+		CreateChain(leftHook, transform.parent.position - transform.right * halfLogWidth, joints[1]);
 
 		PlaceTrigger(originalPosition);
 	}

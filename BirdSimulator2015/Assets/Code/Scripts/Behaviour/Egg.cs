@@ -29,7 +29,7 @@ public class Egg : MonoBehaviour
 			Rigidbody prevBody = transform.parent.GetComponent<Rigidbody>();
 			prevBody.useGravity = true;
 
-			float towardsPlayerDistance = this.GetComponent<SphereCollider>().radius;
+			float towardsPlayerDistance = this.GetComponent<SphereCollider>().radius/1.5f;
 			transform.parent.position = Vector3.MoveTowards(transform.parent.position, c.transform.position, towardsPlayerDistance);
 
 			float eggHeight = transform.parent.GetComponent<MeshFilter>().mesh.bounds.extents.y;
