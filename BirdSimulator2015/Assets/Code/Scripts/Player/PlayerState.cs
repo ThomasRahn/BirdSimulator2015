@@ -515,6 +515,7 @@ public class PlayerState : MonoBehaviour
                 tiltTowards(0);
                 this.GetComponent<Rigidbody>().velocity += Vector3.up * Time.deltaTime;
                 targetVelocity = Vector3.zero;
+				LandTarget = null;
                 break;
 
             case BirdState.DashingForward:
