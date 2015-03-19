@@ -3,13 +3,12 @@ using System.Collections.Generic;
 
 public class ChainLinker
 {
-	public static List<GameObject> Link(Vector3 currentPosition, Vector3 finalPosition, Joint hook, Rigidbody anchor)
+	public static List<GameObject> Link(Vector3 currentPosition, Vector3 finalPosition, Joint hook, Rigidbody anchor, bool gravity)
 	{
 		List<GameObject> links = new List<GameObject>();
 
 		GameObject link = ResourceFactory.GetInstance().GetChainLink();
 		float linkHeight = link.GetComponent<Renderer>().bounds.max.y * 2;
-		Debug.Log(linkHeight);
 
 		// Get any vector perpindicular to the direction towards the bird in order to get the Quaternion
 		Vector3 direction = finalPosition - currentPosition;
@@ -17,7 +16,7 @@ public class ChainLinker
 		Quaternion linkRotation = Quaternion.LookRotation(forward, direction);
         
         GameObject currentLink = null;
-		Rigidbody prevBody = null;
+		ConfigurableJoint prevBody = null;
 		while(Vector3.Distance(currentPosition, finalPosition) > linkHeight)
 		{
 			currentLink = GameObject.Instantiate(link, currentPosition, linkRotation) as GameObject;
@@ -27,15 +26,17 @@ public class ChainLinker
 
 			links.Add(currentLink);
 
+			Rigidbody currentBody = currentLink.GetComponent<Rigidbody>();
+			currentBody.useGravity = gravity;
 			if(hook.connectedBody == null)
 			{
-				hook.connectedBody = currentLink.GetComponent<Rigidbody>();
+				hook.connectedBody = currentBody;
 			}
 			else
 			{
-				ConnectJoint(prevBody.GetComponent<ConfigurableJoint>(), currentLink.GetComponent<Rigidbody>());
+				ConnectJoint(prevBody, currentBody);
 			}
-			prevBody = currentLink.GetComponent<Rigidbody>();
+			prevBody = currentLink.GetComponent<ConfigurableJoint>();
 		}
 
 		if(anchor != null)

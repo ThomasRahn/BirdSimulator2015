@@ -23,23 +23,23 @@ public class SpikeLog : SwingOnceTrap
 		Vector3 rightAnchor = transform.parent.position + transform.right * halfLogWidth;
 		Vector3 leftAnchor = transform.parent.position - transform.right * halfLogWidth;
 
-		Debug.Log(Vector3.Distance(rightHook, rightAnchor));
-
 		Joint[] joints = GetComponents<Joint>();
 
 		links = new List<Rigidbody>();
 		links.AddRange(
-			ChainLinker.Link(rightHook, rightAnchor, joints[0], null).ConvertAll(l => {
+			ChainLinker.Link(rightHook, rightAnchor, joints[0], null, false).ConvertAll(l => {
 				return l.GetComponent<Rigidbody>();
 			})
 		);
 		links.AddRange(
-			ChainLinker.Link(leftHook, leftAnchor, joints[1], null).ConvertAll(l => {
+			ChainLinker.Link(leftHook, leftAnchor, joints[1], null, false).ConvertAll(l => {
 				return l.GetComponent<Rigidbody>();
 			})
 		);
 
 		PlaceTrigger(originalPosition);
+
+		Invoke("Swing", 3f);
 	}
 	
 	public override void Swing()
@@ -49,5 +49,6 @@ public class SpikeLog : SwingOnceTrap
 		{
 			links[i].useGravity = true;
         }
+//		GetComponent<Rigidbody>().AddForce(transform.forward * 0.05f);
     }
 }
