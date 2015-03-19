@@ -38,8 +38,6 @@ public class SpikeLog : SwingOnceTrap
 		);
 
 		PlaceTrigger(originalPosition);
-
-		Invoke("Swing", 3f);
 	}
 	
 	public override void Swing()
@@ -49,6 +47,5 @@ public class SpikeLog : SwingOnceTrap
 		{
 			links[i].useGravity = true;
         }
-//		GetComponent<Rigidbody>().AddForce(transform.forward * 0.05f);
     }
 }
