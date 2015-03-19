@@ -99,7 +99,7 @@ public class PlayerInput : MonoBehaviour
             JoystickAxisX = Input.GetAxisRaw("JoystickAxisX");
             JoystickAxisY = Input.GetAxisRaw("JoystickAxisY");
 
-#if UNITY_STANDALONE_WIN
+#if UNITY_EDITOR_WIN
             JoystickAxis4 = Input.GetAxisRaw("JoystickAxis4");
             JoystickAxis5 = Input.GetAxisRaw("JoystickAxis5");
             JoystickButton0 = Input.GetButton("JoystickButton0");
@@ -107,17 +107,18 @@ public class PlayerInput : MonoBehaviour
             JoystickButton2 = Input.GetButton("JoystickButton2");
             JoystickButton3 = Input.GetButton("JoystickButton3");
 #endif
-#if UNITY_STANDALONE_OSX
+#if UNITY_EDITOR_OSX
             JoystickAxis4 = Input.GetAxisRaw("JoystickAxis3");
             JoystickAxis5 = Input.GetAxisRaw("JoystickAxis4");
             JoystickButton0 = Input.GetButton("JoystickButton18");
             JoystickButton1 = Input.GetButton("JoystickButton16");
             JoystickButton2 = Input.GetButton("JoystickButton17");
             JoystickButton3 = Input.GetButton("JoystickButton19");
+			JoystickButton5 = Input.GetButton("JoystickButton14");
 #endif
-        }
-
-        if (Locked)
+		}
+		
+		if (Locked)
             return;
 
         animator.SetFloat("Horizontal", JoystickAxisX);

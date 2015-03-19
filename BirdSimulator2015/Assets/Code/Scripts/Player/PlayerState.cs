@@ -489,8 +489,8 @@ public class PlayerState : MonoBehaviour
                 rotationY = r;
 
                 //if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 0.3f))
-                Debug.Log(Vector3.Distance(this.transform.position, LandTarget.position));
-                if (Vector3.Distance(this.transform.position, LandTarget.position) < 0.5f)
+                //Debug.Log(Vector3.Distance(this.transform.position, LandTarget.position));
+                if (Vector3.Distance(this.transform.position, LandTarget.position) < 1.5f)
                 {
                     //if (hit.collider.tag != "Player")
                         animator.SetBool("b_Grounded", true);
