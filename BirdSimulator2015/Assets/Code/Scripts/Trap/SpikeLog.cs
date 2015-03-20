@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class SpikeLog : SwingOnceTrap 
 {
+    private const float TRIGGER_LOOKAHEAD = 100f;
 	private List<Rigidbody> links;
 
 	private void Start() 
@@ -37,7 +38,7 @@ public class SpikeLog : SwingOnceTrap
 			})
 		);
 
-		PlaceTrigger(originalPosition);
+        PlaceTrigger(originalPosition + this.transform.up * TRIGGER_LOOKAHEAD);
 	}
 	
 	public override void Swing()

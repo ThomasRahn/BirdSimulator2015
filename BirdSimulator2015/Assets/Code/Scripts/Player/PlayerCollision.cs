@@ -38,10 +38,13 @@ public class PlayerCollision : MonoBehaviour
 
 	void OnTriggerEnter(Collider c)
 	{
-		if (c.name == Registry.Prefab.SwingBlade)
-		{
-			animator.SetTrigger("t_Die");
-		}
+        if (c.name == Registry.Prefab.SwingBlade
+            || c.name == Registry.Prefab.SpikeLog
+            || c.name == Registry.Prefab.SpikeRock)
+        {
+            animator.SetTrigger("t_Die");
+
+        }
 	}
 
     void OnTriggerExit(Collider c)

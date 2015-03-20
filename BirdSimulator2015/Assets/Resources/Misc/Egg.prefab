@@ -34,7 +34,7 @@ GameObject:
   - 114: {fileID: 11428360}
   - 114: {fileID: 11459030}
   - 114: {fileID: 11474124}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Egg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,8 +137,8 @@ MonoBehaviour:
   proxyPrefab: 
   ownerPrefab: 
   serverPrefab: 
-  _parent: {fileID: 0}
-  _childIndex: -1
+  _parent: {fileID: 11459030}
+  _childIndex: 0
   _children: []
   stateSynchronization: 2
   securable: 3
@@ -163,14 +163,15 @@ MonoBehaviour:
   serverPrefab: 
   _parent: {fileID: 0}
   _childIndex: -1
-  _children: []
+  _children:
+  - {fileID: 11432450}
   stateSynchronization: 2
   securable: 3
   observed: {fileID: 11474124}
   _manualViewID: 0
   rpcReceiver: 2
   listOfGameObjects: []
-  _prefabRoot: {fileID: 0}
+  _prefabRoot: {fileID: 153410}
 --- !u!114 &11474124
 MonoBehaviour:
   m_ObjectHideFlags: 1

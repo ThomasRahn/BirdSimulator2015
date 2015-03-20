@@ -3,6 +3,8 @@
 	public static class Prefab
 	{
 		public const string SwingBlade = "trap_swingblade(Clone)";
+        public const string SpikeLog = "Log";
+        public const string SpikeRock = "spikerock";
 		public const string Egg = "Egg";
 		public const string EggProxy = "Egg";
         public const string Fireball = "Fireball(Clone)";

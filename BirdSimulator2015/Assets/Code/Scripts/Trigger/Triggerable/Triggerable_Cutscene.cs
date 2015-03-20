@@ -35,9 +35,12 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
             locked = false;
 
             Debug.Log("Linking players");
-            //GameObject tether = uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.Tether, Registry.Prefab.Tether, Registry.Prefab.Tether, this.transform.position, Quaternion.identity, 0);
-            //tether.GetComponent<Tether>().attached1 = players[0];
-            //tether.GetComponent<Tether>().attached2 = players[1];
+            if (players.Count > 1)
+            {
+                GameObject tether = uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.Tether, Registry.Prefab.Tether, Registry.Prefab.Tether, this.transform.position, Quaternion.identity, 0);
+                tether.GetComponent<Tether>().attached1 = players[0];
+                tether.GetComponent<Tether>().attached2 = players[1];
+            }
 
             StartCoroutine(coStartCutscene());
             this.networkView.RPC("RPC_StartCutscene", uLink.RPCMode.Others);

@@ -104,6 +104,7 @@ public class PlayerState : MonoBehaviour
     // do once triggers
     private bool respawnOnce = false;
     private bool skillOnce = false;
+    private bool yodoYouOnlyDieOnce = false;
 
     // collision trigger (landing)
     public Transform LandTarget;
@@ -238,6 +239,8 @@ public class PlayerState : MonoBehaviour
                 momentum = 0f;
                 currentTurnSpeed = TURN_RATE_INITIAL;
                 animator.SetBool("b_Grounded", false); // just in case
+
+                yodoYouOnlyDieOnce = false;
 				respawnOnce = false;
                 skillOnce = false;
 
@@ -549,20 +552,23 @@ public class PlayerState : MonoBehaviour
 				this.GetComponent<Rigidbody>().velocity = Vector3.zero;
 				targetVelocity = Vector3.zero;
 
-                // turn off all renderers
-				foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
+                if (!yodoYouOnlyDieOnce)
                 {
-                    renderer.enabled = false;
-                }
-				// Let go of held items
-				if (HeldEgg != null)
-				{
-					HeldEgg.Reset();
-				}
-                // create feather poof
-                if (!flipped)
-                {
-                    flipped = true;
+                    yodoYouOnlyDieOnce = true;
+
+                    SetSpeedyMode(false, Vector3.zero);
+
+                    // turn off all renderers
+                    foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
+                    {
+                        renderer.enabled = false;
+                    }
+                    // Let go of held items
+                    if (HeldEgg != null)
+                    {
+                        HeldEgg.Reset();
+                    }
+
                     GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof), this.transform.position, Quaternion.identity);
 
                     if (this.GetComponent<uLinkNetworkView>().isMine)
@@ -597,8 +603,20 @@ public class PlayerState : MonoBehaviour
                 rotationZ = 0f;
                 tiltTowards(input.GetAxisHorizontal() * TILT_LIMIT);
 
-				leftright = input.GetAxisHorizontal() * this.transform.right * 100f;
+
+                leftright = input.GetAxisHorizontal() * this.transform.right * 100f;
 				updown = input.GetAxisVertical() * this.transform.up * 100f;
+
+                if (Physics.Raycast(this.transform.position, leftright + updown, out hit, 10f))
+                {
+                    Debug.DrawRay(this.transform.position, leftright + updown, Color.red);
+                    leftright = Vector3.zero;
+                    updown = Vector3.zero;
+                }
+                else
+                {
+                    Debug.DrawRay(this.transform.position, leftright + updown, Color.green);
+                }
 
 			    targetVelocity = leftright + updown + SpeedyModeForward * 50f;
                 break;
