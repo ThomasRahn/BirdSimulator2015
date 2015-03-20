@@ -9,17 +9,19 @@ public class NetworkManager : MonoBehaviour
     Vector3 WHITE_SPAWN = new Vector3(38.8f, 118f, -3.8f);
     Vector3 BLACK_SPAWN = new Vector3(38.8f, 118f, -3.8f);
 
+    Quaternion SPAWN_ROTATION = Quaternion.Euler(new Vector3(0f, 260f, 0f));
+
 	void uLink_OnServerInitialized()
 	{
 		Debug.Log("OnServerInitialized()");
-        uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Owner, WHITE_SPAWN, Quaternion.identity, 0);
+        uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Owner, WHITE_SPAWN, SPAWN_ROTATION, 0);
 		GameController.LoadWorld();
 	}
 
 	void uLink_OnConnectedToServer()
 	{
 		Debug.Log("OnConnectedToServer()");
-        uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Proxy, BLACK_SPAWN, Quaternion.identity, 0);
+        uLink.Network.Instantiate(uLink.Network.player, Proxy, Owner, Proxy, BLACK_SPAWN, SPAWN_ROTATION, 0);
 		GameController.LoadWorld();
 	}
 
