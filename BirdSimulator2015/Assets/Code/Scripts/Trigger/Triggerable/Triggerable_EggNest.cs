@@ -28,8 +28,6 @@ public class Triggerable_EggNest : BaseTriggerable<BaseTriggerable>
         eggz++;
 
 		c.transform.position = this.transform.position - Vector3.up * VERTICAL_OFFSET;
-		c.GetComponent<Rigidbody>().velocity = Vector3.zero;
-		c.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 		c.GetComponentInChildren<Egg>().Detach();
 
         if (eggz == 1)

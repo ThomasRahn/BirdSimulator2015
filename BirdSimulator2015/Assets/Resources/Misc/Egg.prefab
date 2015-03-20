@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 419090}
   - 135: {fileID: 13519090}
   - 114: {fileID: 11488780}
+  - 114: {fileID: 11432450}
   m_Layer: 2
   m_Name: Pickup
   m_TagString: Untagged
@@ -29,10 +30,10 @@ GameObject:
   - 23: {fileID: 2353410}
   - 135: {fileID: 13526800}
   - 54: {fileID: 5459606}
-  - 114: {fileID: 11435732}
-  - 114: {fileID: 11435734}
   - 153: {fileID: 15375384}
   - 114: {fileID: 11428360}
+  - 114: {fileID: 11459030}
+  - 114: {fileID: 11474124}
   m_Layer: 0
   m_Name: Egg
   m_TagString: Untagged
@@ -122,15 +123,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070f5a1ac34ef4b41994d5a2f96acfc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11435732
+--- !u!114 &11432450
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 153410}
+  m_GameObject: {fileID: 119090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -68052387, guid: b6514755f9868d8479e26d7ca3d69431, type: 3}
+  m_Script: {fileID: 11500000, guid: f9be5429cbf387c4f9140f7d1908fb9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   proxyPrefab: 
@@ -141,12 +142,36 @@ MonoBehaviour:
   _children: []
   stateSynchronization: 2
   securable: 3
-  observed: {fileID: 11435734}
+  observed: {fileID: 0}
   _manualViewID: 0
   rpcReceiver: 2
   listOfGameObjects: []
-  _prefabRoot: {fileID: 153410}
---- !u!114 &11435734
+  _prefabRoot: {fileID: 0}
+--- !u!114 &11459030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9be5429cbf387c4f9140f7d1908fb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proxyPrefab: 
+  ownerPrefab: 
+  serverPrefab: 
+  _parent: {fileID: 0}
+  _childIndex: -1
+  _children: []
+  stateSynchronization: 2
+  securable: 3
+  observed: {fileID: 11474124}
+  _manualViewID: 0
+  rpcReceiver: 2
+  listOfGameObjects: []
+  _prefabRoot: {fileID: 0}
+--- !u!114 &11474124
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
