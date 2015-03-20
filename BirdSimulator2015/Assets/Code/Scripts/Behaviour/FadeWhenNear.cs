@@ -4,13 +4,23 @@ using System.Collections;
 
 public class FadeWhenNear : MonoBehaviour
 {
-    private const float FADE_OUT_TIME = 2f;
-    private const float DISTANCE = 20f;
+    public bool FadeIn = false; // fade in or out
+    public float Distance = 0f;
+    public float Time = 2f;
+
     private bool triggered = false;
 
 	void Start()
     {
-        this.GetComponent<Image>().CrossFadeAlpha(1f, 0f, false);
+        if (FadeIn)
+        {
+            this.GetComponent<Image>().CrossFadeAlpha(0f, 0f, false);
+        }
+        else
+        {
+            this.GetComponent<Image>().CrossFadeAlpha(1f, 0f, false);
+        }
+
 	}
 
 	void Update()
@@ -18,12 +28,49 @@ public class FadeWhenNear : MonoBehaviour
         if (GameController.Player == null)
             return;
 
-        if (!triggered && Vector3.Distance(this.transform.position, GameController.Player.transform.position) < DISTANCE)
+        if (!triggered && Vector3.Distance(this.transform.position, GameController.Player.transform.position) < Distance)
         {
             triggered = true;
-            fadeOut();
+            if (FadeIn)
+            {
+                fadeIn();
+            }
+            else
+            {
+                fadeOut();
+            }
         }
 	}
+
+    void OnTriggerEnter(Collider c)
+    {
+        if (GameController.Player == null)
+            return;
+
+        if (!triggered)
+        {
+            triggered = true;
+            if (FadeIn)
+            {
+                fadeIn();
+            }
+            else
+            {
+                fadeOut();
+            }
+        }
+    }
+
+    void fadeIn()
+    {
+        StartCoroutine(coFadeIn());
+    }
+
+    IEnumerator coFadeIn()
+    {
+        this.GetComponent<Image>().CrossFadeAlpha(1f, Time, false);
+        yield return null;
+    }
 
     void fadeOut()
     {
@@ -32,7 +79,7 @@ public class FadeWhenNear : MonoBehaviour
 
     IEnumerator coFadeOut()
     {
-        this.GetComponent<Image>().CrossFadeAlpha(0f, FADE_OUT_TIME, false);
+        this.GetComponent<Image>().CrossFadeAlpha(0f, Time, false);
         yield return null;
     }
 }

@@ -15,7 +15,6 @@ public class GameController : ScriptableObject
 
 	public GameObject Canvas;
     private static GameObject canvas;
-	private static Transform world;
 
     void Awake()
     {
@@ -32,9 +31,6 @@ public class GameController : ScriptableObject
         GamepadPopup = GameObject.Find("GamepadPopup").GetComponent<GamepadPopup>();
 		LocationPopup = GameObject.Find("LocationPopup").GetComponent<LocationPopup>();
         CinematicPopup = GameObject.Find("CinematicPopup").GetComponent<CinematicPopup>();
-
-		// just for organizing the world
-		world = GameObject.Find("World").transform;
 	}
 
 	void Update()
@@ -54,8 +50,7 @@ public class GameController : ScriptableObject
 		{
 			IsWhite = false;
 		}
-		//loadChunks();
-		
+
         // disable the wrong spawn
         if (IsWhite)
             GameObject.FindWithTag(Registry.Tag.SpawnBlack).SetActive(false);
@@ -97,6 +92,7 @@ public class GameController : ScriptableObject
 		{
 			Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnBlack).transform;
 		}
+        Player.GetComponent<PlayerInput>().SetTrigger("t_Land");
 
         // if server, load in all objects that must be networked
         if (uLink.Network.isServer)
@@ -107,28 +103,6 @@ public class GameController : ScriptableObject
 
 			GameObject.Instantiate(Resources.Load(Registry.Prefab.FireballZone), new Vector3(-1314f, -10f, -637f), Quaternion.identity);
         }
-	}
-
-	static void loadChunks()
-	{
-		foreach (GameObject g in Resources.LoadAll("World/Chunk", typeof(GameObject)))
-		{
-			//Debug.Log("Loading chunk: " + g.name);
-			GameObject h = GameObject.Instantiate(g) as GameObject;
-			h.transform.parent = world;
-		}
-		
-		foreach (GameObject g in Resources.LoadAll("World/Dungeon", typeof(GameObject)))
-		{
-			GameObject h = GameObject.Instantiate(g) as GameObject;
-			h.transform.parent = world;
-		}
-		
-		foreach (GameObject g in Resources.LoadAll("World/Environment", typeof(GameObject)))
-		{
-			GameObject h = GameObject.Instantiate(g) as GameObject;
-			h.transform.parent = world;
-		}
 	}
 
     public static GameObject GetCanvas()

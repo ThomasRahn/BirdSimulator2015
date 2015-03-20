@@ -19,7 +19,6 @@ public class LandingZone : MonoBehaviour
 		{
 			//GameController.GamepadPopup.SetImage(GamepadSetup.GamepadAction.A);
 			//GameController.GamepadPopup.FadeIn();
-
 			GameController.Player.GetComponent<PlayerState>().LandTarget = Target;
 		}
 	}
