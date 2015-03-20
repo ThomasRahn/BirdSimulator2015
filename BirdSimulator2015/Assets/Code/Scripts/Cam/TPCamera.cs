@@ -9,10 +9,10 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 	[RequireComponent(typeof(Camera))]
 	public abstract class TPCamera : MonoBehaviour 
 	{
-        public float FOVThreshold = 25;
-        public float UpOffset = 0.15f;
-		public float FOVCoefficient = 0.75f;
-		public float Radius = 1.0f;
+        public float FOVThreshold;
+        public float UpOffset;
+		public float FOVCoefficient;
+		public float Radius;
 		
 		protected Camera cam;
 		protected float velocity;
@@ -20,7 +20,6 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 		
 		private float shakeAmplitude = 0.01f;
 		private GameObject target;
-		private Renderer playerBody;
 
 		protected virtual void Awake()
 		{
@@ -56,24 +55,42 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 		private void collisionResolution()
 		{
 			Vector3 towardsPlayer = target.transform.position - transform.position;
-			RaycastHit hitInfo;
-
-			if(!playerBody.isVisible)
+			RaycastHit hit;
+			if(Physics.Raycast(target.transform.position, -towardsPlayer, out hit, towardsPlayer.magnitude))
 			{
-				if(Physics.Raycast(transform.position, towardsPlayer, out hitInfo, towardsPlayer.magnitude) && hitInfo.collider.gameObject != target)
+				reposition(hit, true);
+			}
+			else if(Physics.Raycast(transform.position, towardsPlayer, out hit, towardsPlayer.magnitude))
+			{
+				reposition(hit, false);
+			}
+		}
+
+		private void reposition(RaycastHit hit, bool reverse)
+		{
+			float offset = (transform.position - target.transform.position).magnitude * Mathf.Tan(Mathf.PI/6);
+			Vector3 rightOffset = transform.position + transform.right * offset;
+			Vector3 leftOffset = transform.position - transform.right * offset;
+
+			Vector3 rightDirection = target.transform.position - rightOffset;
+			Vector3 leftDirection = target.transform.position - leftOffset;
+			if(reverse)
+			{
+				if(!Physics.Raycast(target.transform.position, -rightDirection, rightDirection.magnitude) &&
+				   !Physics.Raycast(target.transform.position, -leftDirection, rightDirection.magnitude))
 				{
-					Vector3 toObstruction = Vector3.Project(hitInfo.point - target.transform.position, hitInfo.normal) * 0.75f;
-					Vector3 parallelObstruction = (hitInfo.point - (target.transform.position + toObstruction)).normalized;
-
-					// Make a triangle to calculate where the new camera position should be to keep the same radius
-					float distanceAlongObstruction = Mathf.Sqrt(Mathf.Pow(Radius, 2) - Mathf.Pow(toObstruction.magnitude, 2));
-
-					Vector3 finalPosition = target.transform.position + toObstruction + distanceAlongObstruction * parallelObstruction;
-					finalPosition -= Vector3.up * UpOffset;
-
-					parent.transform.rotation = Quaternion.LookRotation(target.transform.position - finalPosition);
+					return;
 				}
 			}
+			else
+			{
+				if(!Physics.Raycast(transform.position, rightDirection, rightDirection.magnitude) &&
+				   !Physics.Raycast(transform.position, leftDirection, rightDirection.magnitude))
+				{
+					return;
+				}
+			}
+			this.transform.position = hit.point + hit.normal * Camera.main.nearClipPlane * 2;
 		}
 
 		private void shake()
@@ -98,8 +115,6 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			{
 				root = root.parent;
 			}
-
-			playerBody = root.Find("Raven/Raven").GetComponent<Renderer>();
 
 			Rigidbody targetRigidbody = root.GetComponentInChildren<Rigidbody>();
 			this.target = targetRigidbody.gameObject;
