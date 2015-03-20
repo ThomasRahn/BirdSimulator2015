@@ -291,7 +291,7 @@ ModelImporter:
     13700004: RightWing
     13700006: Tail
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:

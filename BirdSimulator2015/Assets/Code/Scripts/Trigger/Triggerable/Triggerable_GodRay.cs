@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class Triggerable_GodRay : BaseTriggerable<BaseTriggerable>
 {
     public GameObject Light;
+    public float Intensity = 8;
+    public float MaxAlpha = 40f;
+    public float Speed = 0.1f;
     private List<GameObject> players = new List<GameObject>();
 
     void Start()
@@ -42,14 +45,14 @@ public class Triggerable_GodRay : BaseTriggerable<BaseTriggerable>
     {
         while (true)
         {
-            if (Light.GetComponent<Light>().intensity < 8)
+            if (Light.GetComponent<Light>().intensity < Intensity)
             {
                 Light.GetComponent<Light>().intensity += Time.deltaTime;
             }
-            if (Light.transform.GetChild(0).GetComponent<MeshRenderer>().material.color.a < 0.15f)
+            if (Light.transform.GetChild(0).GetComponent<MeshRenderer>().material.color.a < MaxAlpha / 255f)
             {
                 Color c = Light.transform.GetChild(0).GetComponent<MeshRenderer>().material.color;
-                c.a += Time.deltaTime * 0.1f;
+                c.a += Time.deltaTime * Speed;
                 Light.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = c;
             }
 

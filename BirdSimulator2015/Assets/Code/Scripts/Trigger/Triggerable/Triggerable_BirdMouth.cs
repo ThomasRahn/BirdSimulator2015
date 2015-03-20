@@ -53,7 +53,7 @@ public class Triggerable_BirdMouth : BaseTriggerable<BaseTriggerable>
 
     IEnumerator coOpenSesame()
     {
-        while (Mathf.Abs(BirdMouth.transform.localPosition.y - original.y) < 50)
+        while (Mathf.Abs(BirdMouth.transform.localPosition.y - original.y) < 45)
         {
             if (EyeLeft.GetComponent<MeshRenderer>().sharedMaterial.GetColor("_EmissionColor").r < 1f)
             {
