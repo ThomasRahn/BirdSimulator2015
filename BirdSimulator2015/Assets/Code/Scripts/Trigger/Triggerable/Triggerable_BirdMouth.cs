@@ -6,6 +6,8 @@ public class Triggerable_BirdMouth : BaseTriggerable<BaseTriggerable>
 {
     public float Speed;
     public Transform BirdMouth;
+    public GameObject EyeLeft;
+    public GameObject EyeRight;
 
     private Vector3 original;
     private List<GameObject> players = new List<GameObject>();
@@ -17,6 +19,8 @@ public class Triggerable_BirdMouth : BaseTriggerable<BaseTriggerable>
 
     void Start()
     {
+        EyeLeft.GetComponent<MeshRenderer>().sharedMaterial.EnableKeyword("_EMISSION");
+        EyeLeft.GetComponent<MeshRenderer>().sharedMaterial.SetColor("_EmissionColor", new Color(0.1f, 0.1f, 0.1f, 0f));
     }
 
     void Update()
@@ -51,6 +55,15 @@ public class Triggerable_BirdMouth : BaseTriggerable<BaseTriggerable>
     {
         while (Mathf.Abs(BirdMouth.transform.localPosition.y - original.y) < 50)
         {
+            if (EyeLeft.GetComponent<MeshRenderer>().sharedMaterial.GetColor("_EmissionColor").r < 1f)
+            {
+                Color c = EyeLeft.GetComponent<MeshRenderer>().sharedMaterial.GetColor("_EmissionColor");
+                c.r += Time.deltaTime * 0.1f;
+                c.g += Time.deltaTime * 0.1f;
+                c.b += Time.deltaTime * 0.1f;
+                EyeLeft.GetComponent<MeshRenderer>().sharedMaterial.SetColor("_EmissionColor", c);
+            }
+
             BirdMouth.Translate(Vector3.down * Time.deltaTime * Speed);
             yield return null;
         }
