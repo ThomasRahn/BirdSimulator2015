@@ -1009,6 +1009,7 @@ GameObject:
   - 114: {fileID: 11436358}
   - 114: {fileID: 11480142}
   - 114: {fileID: 11410978}
+  - 114: {fileID: 11450034}
   - 95: {fileID: 9583706}
   - 136: {fileID: 13678260}
   m_Layer: 2
@@ -3904,6 +3905,27 @@ MonoBehaviour:
   interpolationBackTimeMs: 200
   maxExtrapolationTimeMs: 500
   rotationDamping: .850000024
+--- !u!114 &11450034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8103a122f2d7c0641a489bea50da57df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaterialFeathersWhite: {fileID: 2100000, guid: 333bcf21f150de745b35ee59809d6bbd,
+    type: 2}
+  MaterialBodyWhite: {fileID: 2100000, guid: 062c962449a78f44296001d6c264ca72, type: 2}
+  MaterialFeathersBlack: {fileID: 2100000, guid: 333bcf21f150de745b35ee59809d6bbd,
+    type: 2}
+  MaterialBodyBlack: {fileID: 2100000, guid: 888efda5566ede841acf159cf3ab6903, type: 2}
+  LeftWing: {fileID: 13750738}
+  RightWing: {fileID: 13765272}
+  Body: {fileID: 13724632}
+  Tail: {fileID: 13742426}
 --- !u!114 &11452334
 MonoBehaviour:
   m_ObjectHideFlags: 1

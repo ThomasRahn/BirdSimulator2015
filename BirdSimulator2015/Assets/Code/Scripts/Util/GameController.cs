@@ -62,22 +62,7 @@ public class GameController : ScriptableObject
 		//Debug.Log(Player);
 
         // set up player colours
-
-            foreach (Renderer renderer in Player.GetComponentsInChildren<Renderer>())
-            {
-                foreach (Material material in renderer.materials)
-                {
-                    if (IsWhite)
-                    {
-                        material.color = Color.white;
-                    }
-                    else
-                    {
-                        material.color = Color.black;
-                    }
-                }
-            }
-
+        Player.GetComponent<PlayerWardrobe>().MisterDressup(IsWhite);
 
 		// camera setup (make sure this comes after the player is loaded)
 		CameraTarget = GameObject.Instantiate(Resources.Load("Player/CameraTarget")) as GameObject;
