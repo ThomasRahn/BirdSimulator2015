@@ -49,6 +49,9 @@ public class PlayerState : MonoBehaviour
 
         SpeedyMode,
 
+        Tornadoing,
+        Flashing,
+
 	}
 	
 	private Animator animator;
@@ -596,6 +599,17 @@ public class PlayerState : MonoBehaviour
 			    targetVelocity = leftright + updown + SpeedyModeForward * 50f;
                 break;
 
+            case BirdState.Tornadoing:
+                // insert tim's sweet particles here
+                targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
+
+                break;
+
+            case BirdState.Flashing:
+                // insert tim's sweet particles here
+                targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
+
+                break;
         }
 
 		transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);

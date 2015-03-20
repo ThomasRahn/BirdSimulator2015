@@ -51,6 +51,8 @@ public class PlayerInput : MonoBehaviour
         animator.ResetTrigger("t_DashLeft");
         animator.ResetTrigger("t_DashUp");
         animator.ResetTrigger("t_DashDown");
+        animator.ResetTrigger("t_Tornado");
+        animator.ResetTrigger("t_Flash");
 
         if (Locked)
             return;
@@ -110,7 +112,6 @@ public class PlayerInput : MonoBehaviour
 
         if (JoystickButton0)
         {
-            // knees weak moms spaghetti
             if (this.GetComponent<PlayerState>().LandTarget != null)
             {
                 if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Grounded)
@@ -121,6 +122,18 @@ public class PlayerInput : MonoBehaviour
                 {
                     this.GetComponent<PlayerSync>().SendTrigger("t_Land");
                     animator.SetTrigger("t_Land");
+                }
+            }
+            else
+            {
+                if (GameController.IsWhite)
+                {
+                    animator.SetTrigger("t_Tornado");
+                    //animator.SetTrigger("t_Flash");
+                }
+                else
+                {
+                    animator.SetTrigger("t_Tornado");
                 }
             }
         }
