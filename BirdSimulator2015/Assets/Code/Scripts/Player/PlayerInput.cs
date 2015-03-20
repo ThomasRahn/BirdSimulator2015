@@ -102,7 +102,7 @@ public class PlayerInput : MonoBehaviour
             JoystickAxisX = Input.GetAxisRaw("JoystickAxisX");
             JoystickAxisY = Input.GetAxisRaw("JoystickAxisY");
 
-#if UNITY_STANDALONE_WIN
+#if UNITY_EDITOR_WIN
             JoystickAxis4 = Input.GetAxisRaw("JoystickAxis4");
             JoystickAxis5 = Input.GetAxisRaw("JoystickAxis5");
             JoystickButton0 = Input.GetButton("JoystickButton0");
@@ -127,7 +127,7 @@ public class PlayerInput : MonoBehaviour
 		{
 			Cameras.Radial(true);
 		}
-		else if(JoystickAxis4 != 0 || JoystickAxis5 != 0)
+        else if (JoystickAxis4 != 0 || JoystickAxis5 != 0)
 		{
 			Cameras.Radial(false);
             Cameras.Input(JoystickAxis4 * cameraMultiplier, JoystickAxis5 * cameraMultiplier);

@@ -47,6 +47,8 @@ public class PlayerState : MonoBehaviour
 		Dying,
         Respawning,
 
+        SpeedyMode,
+
 	}
 	
 	private Animator animator;
@@ -569,6 +571,18 @@ public class PlayerState : MonoBehaviour
                 }
                 break;
 
+            case BirdState.SpeedyMode:
+                rotationX = 0f;
+                rotationY = 90f;
+                rotationZ = 0f;
+                tiltTowards(input.GetAxisHorizontal() * TILT_LIMIT);
+
+				leftright = input.GetAxisHorizontal() * this.transform.right * 100f;
+				updown = input.GetAxisVertical() * this.transform.up * 100f;
+
+			    targetVelocity = leftright + updown + SpeedyModeForward * 50f;
+                break;
+
         }
 
 		transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
@@ -657,5 +671,12 @@ public class PlayerState : MonoBehaviour
     public void SetCurrentMaxSpeed(float f)
     {
         currentMaxSpeed = f;
+    }
+
+    private Vector3 SpeedyModeForward;
+    public void SetSpeedyMode(bool b, Vector3 v)
+    {
+        animator.SetBool("b_SpeedyGiuseppe", b);
+        SpeedyModeForward = v;
     }
 }
