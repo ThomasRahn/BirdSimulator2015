@@ -38,4 +38,13 @@ public class ResourceFactory
 		}
 		return resources[Registry.Prefab.TrapTrigger];
 	}
+
+    public GameObject GetTether()
+    {
+        if (!resources.ContainsKey(Registry.Prefab.Tether))
+        {
+            resources.Add(Registry.Prefab.Tether, Resources.Load(Registry.Prefab.Tether) as GameObject);
+        }
+        return resources[Registry.Prefab.Tether];
+    }
 }

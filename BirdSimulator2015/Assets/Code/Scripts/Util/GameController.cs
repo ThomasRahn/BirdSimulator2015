@@ -9,6 +9,7 @@ public class GameController : ScriptableObject
     [HideInInspector] public static bool IsWhite = false;
     [HideInInspector] public static GamepadPopup GamepadPopup;
 	[HideInInspector] public static LocationPopup LocationPopup;
+    [HideInInspector] public static CinematicPopup CinematicPopup;
 	[HideInInspector] public static GamepadSetup Gamepad;
     [HideInInspector] public static Transform LastCheckpoint;
 
@@ -30,6 +31,7 @@ public class GameController : ScriptableObject
         // setup everything related to the ui
         GamepadPopup = GameObject.Find("GamepadPopup").GetComponent<GamepadPopup>();
 		LocationPopup = GameObject.Find("LocationPopup").GetComponent<LocationPopup>();
+        CinematicPopup = GameObject.Find("CinematicPopup").GetComponent<CinematicPopup>();
 
 		// just for organizing the world
 		world = GameObject.Find("World").transform;
@@ -93,7 +95,6 @@ public class GameController : ScriptableObject
 		{
 			Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnBlack).transform;
 		}
-		Player.GetComponent<PlayerInput>().SetTrigger("t_Land");
 
         // if server, load in all objects that must be networked
         if (uLink.Network.isServer)

@@ -47,6 +47,8 @@ public class PlayerState : MonoBehaviour
 		Dying,
         Respawning,
 
+        SpeedyMode,
+
 	}
 	
 	private Animator animator;
@@ -170,7 +172,7 @@ public class PlayerState : MonoBehaviour
             tilting = 0; // none
         }
 
-        Debug.DrawRay(this.transform.position, (this.transform.forward + Vector3.down ) *0.5f, Color.magenta);
+        //Debug.DrawRay(this.transform.position, (this.transform.forward + Vector3.down ) *0.5f, Color.magenta);
         if (Physics.Raycast(from, this.transform.forward + Vector3.down, out hit, 0.5f))
         {
             if (rotationX < 360 & rotationX > 50)
@@ -178,8 +180,8 @@ public class PlayerState : MonoBehaviour
             }
             else
             {
-                rotationX -= 100f * Time.deltaTime;
-                this.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
+                //rotationX -= 100f * Time.deltaTime;
+                //this.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
             }
         }
 
@@ -582,6 +584,18 @@ public class PlayerState : MonoBehaviour
 				}
                 break;
 
+            case BirdState.SpeedyMode:
+                rotationX = 0f;
+                rotationY = 90f;
+                rotationZ = 0f;
+                tiltTowards(input.GetAxisHorizontal() * TILT_LIMIT);
+
+				leftright = input.GetAxisHorizontal() * this.transform.right * 100f;
+				updown = input.GetAxisVertical() * this.transform.up * 100f;
+
+			    targetVelocity = leftright + updown + SpeedyModeForward * 50f;
+                break;
+
         }
 
 		transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
@@ -670,5 +684,12 @@ public class PlayerState : MonoBehaviour
     public void SetCurrentMaxSpeed(float f)
     {
         currentMaxSpeed = f;
+    }
+
+    private Vector3 SpeedyModeForward;
+    public void SetSpeedyMode(bool b, Vector3 v)
+    {
+        animator.SetBool("b_SpeedyGiuseppe", b);
+        SpeedyModeForward = v;
     }
 }

@@ -10,5 +10,6 @@
         public const string FeatherPoof = "Misc/FeatherPoof";
 		public const string ChainLink = "Misc/ChainLink";
 		public const string TrapTrigger = "Misc/TrapTrigger";
+        public const string Tether = "Misc/Tether";
 	}
 }

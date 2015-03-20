@@ -39,7 +39,7 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
             players.Remove(g);
         }
 
-        if (players.Count > uLink.Network.connections.GetLength(0) && locked)
+        if (players.Count == Registry.Constant.PLAYERS && locked)
         {
             locked = false;
             StartCoroutine(coUnlockDoors());
