@@ -128,8 +128,7 @@ public class PlayerInput : MonoBehaviour
             {
                 if (GameController.IsWhite)
                 {
-                    animator.SetTrigger("t_Tornado");
-                    //animator.SetTrigger("t_Flash");
+                    animator.SetTrigger("t_Flash");
                 }
                 else
                 {

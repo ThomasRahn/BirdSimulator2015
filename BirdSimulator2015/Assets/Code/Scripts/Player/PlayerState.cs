@@ -103,6 +103,7 @@ public class PlayerState : MonoBehaviour
     
     // do once triggers
     private bool respawnOnce = false;
+    private bool skillOnce = false;
 
     // collision trigger (landing)
     public Transform LandTarget;
@@ -224,6 +225,8 @@ public class PlayerState : MonoBehaviour
         switch (state)
         {
             case BirdState.Hovering:
+                skillOnce = false;
+
                 ease();
                 tiltTowards(0);
 				rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
@@ -236,6 +239,7 @@ public class PlayerState : MonoBehaviour
                 currentTurnSpeed = TURN_RATE_INITIAL;
                 animator.SetBool("b_Grounded", false); // just in case
 				respawnOnce = false;
+                skillOnce = false;
 
 				// make sure we're not slamming against a wall, since the gliding state applies there also
                 if (tilting == 0)
@@ -601,12 +605,26 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.Tornadoing:
                 // insert tim's sweet particles here
+                if (!skillOnce)
+                {
+                    skillOnce = true;
+                    GameObject g = GameObject.Instantiate(Resources.Load(Registry.Prefab.WhirlyWind), this.transform.position, Quaternion.identity) as GameObject;
+                    g.transform.SetParent(this.transform);
+                }
+
                 targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
 
                 break;
 
             case BirdState.Flashing:
                 // insert tim's sweet particles here
+                if (!skillOnce)
+                {
+                    skillOnce = true;
+                    GameObject g = GameObject.Instantiate(Resources.Load(Registry.Prefab.FlashyFlash), this.transform.position, Quaternion.identity) as GameObject;
+                    g.transform.SetParent(this.transform);
+                }
+
                 targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
 
                 break;
