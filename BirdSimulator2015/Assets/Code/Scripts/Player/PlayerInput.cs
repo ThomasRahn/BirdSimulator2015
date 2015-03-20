@@ -31,9 +31,6 @@ public class PlayerInput : MonoBehaviour
     protected bool JoystickButton12 = false;
 
     private Animator animator;
-    private float invertY = -1f;
-
-    private const float JOYSTICK_ALT_THUMBSTICK_THRESHOLD = 0.2f;
     private float cameraMultiplier = 1f;
 
     void Awake()
@@ -60,10 +57,10 @@ public class PlayerInput : MonoBehaviour
 
         if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.XBOX360)
         {
-            cameraMultiplier = 5f;
+            cameraMultiplier = 7f;
 
-            JoystickAxisX = Input.GetAxisRaw("JoystickAxisX"); // left thumbstick horizontal
-            JoystickAxisY = Input.GetAxisRaw("JoystickAxisY"); // left thumbstick vertical
+            JoystickAxisX = Input.GetAxis("JoystickAxisX"); // left thumbstick horizontal
+            JoystickAxisY = Input.GetAxis("JoystickAxisY"); // left thumbstick vertical
 
 #if UNITY_EDITOR_WIN
             DoXBOXWin();
@@ -80,8 +77,8 @@ public class PlayerInput : MonoBehaviour
         }
         else if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.KEYBOARD)
         {
-            JoystickAxisX = Input.GetAxisRaw("KeyboardAxisX");
-            JoystickAxisY = Input.GetAxisRaw("KeyboardAxisY");
+            JoystickAxisX = Input.GetAxis("KeyboardAxisX");
+            JoystickAxisY = Input.GetAxis("KeyboardAxisY");
             JoystickAxis4 = Input.GetAxis("Mouse X");
             JoystickAxis5 = Input.GetAxis("Mouse Y");
 
@@ -93,7 +90,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         animator.SetFloat("Horizontal", JoystickAxisX);
-        animator.SetFloat("Vertical", JoystickAxisY * invertY);
+        animator.SetFloat("Vertical", JoystickAxisY * GameController.Gamepad.Inverted);
 
         if (JoystickAxisX != 0 || JoystickAxisY != 0 || JoystickButton5)
 		{
@@ -181,9 +178,9 @@ public class PlayerInput : MonoBehaviour
 
     private void DoXBOXWin()
     {
-        JoystickAxis3 = Input.GetAxisRaw("JoystickAxis3"); // right and left trigger
-        JoystickAxis4 = Input.GetAxisRaw("JoystickAxis4"); // right thumbstick horizontal
-        JoystickAxis5 = Input.GetAxisRaw("JoystickAxis5"); // right thumbstick vertical
+        JoystickAxis3 = Input.GetAxis("JoystickAxis3"); // right and left trigger
+        JoystickAxis4 = Input.GetAxis("JoystickAxis4"); // right thumbstick horizontal
+        JoystickAxis5 = Input.GetAxis("JoystickAxis5"); // right thumbstick vertical
 
         JoystickButton0 = Input.GetButton("JoystickButton0"); // bottom button
         JoystickButton1 = Input.GetButton("JoystickButton1"); // right button
@@ -201,8 +198,8 @@ public class PlayerInput : MonoBehaviour
 
     private void DoXBOXMac()
     {
-        JoystickAxis4 = Input.GetAxisRaw("JoystickAxis3"); // right thumbstick horizontal
-        JoystickAxis5 = Input.GetAxisRaw("JoystickAxis4"); // right thumbstick vertical
+        JoystickAxis4 = Input.GetAxis("JoystickAxis3"); // right thumbstick horizontal
+        JoystickAxis5 = Input.GetAxis("JoystickAxis4"); // right thumbstick vertical
 
         JoystickButton0 = Input.GetButton("JoystickButton16"); // bottom button
         JoystickButton1 = Input.GetButton("JoystickButton17"); // right button

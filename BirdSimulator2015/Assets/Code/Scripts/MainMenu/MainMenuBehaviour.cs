@@ -34,6 +34,7 @@ public class MainMenuBehaviour : MonoBehaviour
     {
         toggleMenu("MainMenu", false);
         toggleMenu("OptionsMenu", true);
+        GameObject.Find("IsInverted").GetComponent<Text>().text = (GameController.Gamepad.Inverted == 1 ? "Yes" : "No");
         GameObject.Find("Gamepad").GetComponent<Text>().text = GameController.Gamepad.GetGamepadType() + "";
         EventSystem.current.SetSelectedGameObject(GameObject.Find("Back"));
     }
@@ -59,6 +60,12 @@ public class MainMenuBehaviour : MonoBehaviour
         GameObject.Find("Gamepad").GetComponent<Text>().text = GameController.Gamepad.GetGamepadType() + "";
     }
 
+    public void Options_InvertY()
+    {
+        GameController.Gamepad.Inverted = -GameController.Gamepad.Inverted;
+        GameObject.Find("IsInverted").GetComponent<Text>().text = (GameController.Gamepad.Inverted == 1 ? "Yes" : "No");
+    }
+
     public void Options_Back()
     {
         toggleMenu("OptionsMenu", false);
@@ -66,7 +73,7 @@ public class MainMenuBehaviour : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(GameObject.Find("Play"));
     }
 
-    void toggleMenu(string s, bool b)
+    private void toggleMenu(string s, bool b)
     {
         GameObject menu = GameObject.Find(s);
         int children = menu.transform.childCount;

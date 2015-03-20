@@ -39,6 +39,8 @@ public class GameController : ScriptableObject
 
 	void Update()
 	{
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 	}
 
 	public static void LoadWorld()

@@ -24,7 +24,8 @@ public class GamepadSetup
 
     }
 
-    GamepadType type;
+    public int Inverted = 1;
+    private GamepadType type;
     private Dictionary<GamepadAction, Sprite> lookup = new Dictionary<GamepadAction, Sprite>(); 
 
     public GamepadSetup(GamepadType type)
