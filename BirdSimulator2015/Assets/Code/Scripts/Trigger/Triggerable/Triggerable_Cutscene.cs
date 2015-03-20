@@ -29,7 +29,7 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
             players.Remove(c.gameObject);
         }
 
-        if (players.Count == Registry.Constant.PLAYERS && locked)
+        if (players.Count >= Registry.Constant.PLAYERS && locked)
         {
             Debug.Log("Cutscene triggered");
             locked = false;
