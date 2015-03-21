@@ -222,7 +222,7 @@ public class PlayerState : MonoBehaviour
         // accelerate over time
         currentMaxSpeed += Time.deltaTime * 0.1f;
 		currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, MIN_FORWARD_VELOCITY, MAX_FORWARD_VELOCITY);
-
+		Debug.Log (state.ToString ());
         switch (state)
         {
             case BirdState.Hovering:
@@ -520,7 +520,7 @@ public class PlayerState : MonoBehaviour
                 currentMaxSpeed = 0f;
 
                 this.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
+				targetVelocity = Vector3.zero;
                 break;
 
             case BirdState.LiftingOff:
