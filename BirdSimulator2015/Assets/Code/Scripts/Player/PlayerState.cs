@@ -505,8 +505,6 @@ public class PlayerState : MonoBehaviour
                 {
                     yodoYouOnlyDieOnce = true;
 
-                    SetSpeedyMode(false, Vector3.zero);
-
                     // turn off all renderers
                     foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
                     {
