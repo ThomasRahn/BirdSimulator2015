@@ -15,8 +15,6 @@ public class Tether : MonoBehaviour
 	private void Awake()
 	{
 		line = GetComponent<LineRenderer>();
-		//line.enabled = false;
-		//this.enabled = false;
 	}
 
 	private void Start()
@@ -38,11 +36,5 @@ public class Tether : MonoBehaviour
 
 		line.SetPosition(0, attached1.transform.position);
 		line.SetPosition(1, attached2.transform.position);
-	}
-
-	public void Attach()
-	{
-		this.enabled = true;
-		line.enabled = true;
 	}
 }
