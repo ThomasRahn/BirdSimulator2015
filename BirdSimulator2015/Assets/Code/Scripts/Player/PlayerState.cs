@@ -219,6 +219,8 @@ public class PlayerState : MonoBehaviour
         rot.z = rotationZ;
         this.transform.GetChild(0).transform.localEulerAngles = rot;
 
+		float speedChange = 1.0f;
+
         // accelerate over time
         currentMaxSpeed += Time.deltaTime * 0.1f;
 		currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, MIN_FORWARD_VELOCITY, MAX_FORWARD_VELOCITY);
@@ -352,7 +354,7 @@ public class PlayerState : MonoBehaviour
                 tiltTowards(0);
                 currentMaxSpeed -= Time.deltaTime * DECELERATION_RATE;
 				targetVelocity = Vector3.zero;
-
+				speedChange = 3.0f;
                 // copy pasta from turning code
                 intendedTurnSpeed = this.GetComponent<PlayerInput>().GetAxisHorizontal() * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
                 if (intendedTurnSpeed != 0)
@@ -650,7 +652,7 @@ public class PlayerState : MonoBehaviour
 		transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
 
         // update the actual body
-        this.GetComponent<Rigidbody>().velocity = Vector3.Lerp(this.GetComponent<Rigidbody>().velocity, targetVelocity, Time.deltaTime);
+        this.GetComponent<Rigidbody>().velocity = Vector3.Lerp(this.GetComponent<Rigidbody>().velocity, targetVelocity, speedChange * Time.deltaTime);
 
         // update the animator
         animator.SetFloat("Rotation", this.transform.localEulerAngles.x);
