@@ -11,7 +11,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 		private GameObject bird;
 		private bool followRotation;
 		private float turn_speed = 5.0f;
-
+		private const float ROTATION_THRESHOLD = 15.0f;
 		private void Awake()
 		{
 			followRotation = false;
@@ -35,11 +35,13 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 
 				transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetRotation), 2 * Time.deltaTime);
 
-                /*
+                
 				//Want to turn faster then you ascend/descend, but still slow down after turning.
 				Vector3 turn_vector = new Vector3(transform.eulerAngles.x, targetRotation.y, transform.eulerAngles.z);
 
-				if((turn_vector.y - transform.eulerAngles.y) < 20)
+				float rotation_change = turn_vector.y - transform.eulerAngles.y;
+
+				if(rotation_change < ROTATION_THRESHOLD || rotation_change > -ROTATION_THRESHOLD)
 				{
 					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(turn_vector), 2.0f * Time.deltaTime);
 				}
@@ -47,7 +49,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 				{
 					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(turn_vector), turn_speed * Time.deltaTime);
 				}
-                */
+                
 			}
 		}
 
