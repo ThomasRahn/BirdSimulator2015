@@ -1430,6 +1430,7 @@ GameObject:
   - 114: {fileID: 11433770}
   - 114: {fileID: 11411164}
   - 114: {fileID: 11451938}
+  - 114: {fileID: 11490266}
   - 95: {fileID: 9552350}
   - 136: {fileID: 13618050}
   m_Layer: 2
@@ -3953,6 +3954,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 175142}
+--- !u!114 &11490266
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8103a122f2d7c0641a489bea50da57df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaterialFeathersWhite: {fileID: 2100000, guid: 333bcf21f150de745b35ee59809d6bbd,
+    type: 2}
+  MaterialBodyWhite: {fileID: 2100000, guid: 062c962449a78f44296001d6c264ca72, type: 2}
+  MaterialFeathersBlack: {fileID: 2100000, guid: 333bcf21f150de745b35ee59809d6bbd,
+    type: 2}
+  MaterialBodyBlack: {fileID: 2100000, guid: 888efda5566ede841acf159cf3ab6903, type: 2}
+  LeftWing: {fileID: 13741540}
+  RightWing: {fileID: 13759722}
+  Body: {fileID: 13761672}
+  Tail: {fileID: 13705982}
 --- !u!136 &13618050
 CapsuleCollider:
   m_ObjectHideFlags: 1

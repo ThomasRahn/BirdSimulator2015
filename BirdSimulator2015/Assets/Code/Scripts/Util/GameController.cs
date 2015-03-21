@@ -63,9 +63,6 @@ public class GameController : ScriptableObject
 		Player = GameObject.FindWithTag(Registry.Tag.Player);
 		//Debug.Log(Player);
 
-        // set up player colours
-        Player.GetComponent<PlayerWardrobe>().MisterDressup(IsWhite);
-
 		// camera setup (make sure this comes after the player is loaded)
 		CameraTarget = GameObject.Instantiate(Resources.Load(Registry.Prefab.CameraTarget)) as GameObject;
 		CameraTarget.BroadcastMessage("SetTarget", Player);
@@ -85,12 +82,12 @@ public class GameController : ScriptableObject
         if (uLink.Network.isServer)
         {
 			Debug.Log("Server load objects");
-			uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -872f, 227f), Quaternion.identity, 0);
-            uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -872f, -233f), Quaternion.identity, 0);
+			//uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -872f, 227f), Quaternion.identity, 0);
+            //uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -872f, -233f), Quaternion.identity, 0);
 
             // CHASE TEST
-            //uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -882f, 0f), Quaternion.identity, 0);
-            //uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -882f, 0f), Quaternion.identity, 0);
+            uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -882f, 0f), Quaternion.identity, 0);
+            uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -882f, 0f), Quaternion.identity, 0);
 
 			GameObject.Instantiate(Resources.Load(Registry.Prefab.FireballZone), new Vector3(-1314f, -10f, -637f), Quaternion.identity);
         }

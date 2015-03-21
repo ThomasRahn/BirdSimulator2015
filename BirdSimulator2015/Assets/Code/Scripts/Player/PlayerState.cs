@@ -419,11 +419,7 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.QuickAscending:
                 tiltTowards(0);
-
-            	if (rotationX > 0 & rotationX < 90)
-				{
-					ease();
-				}
+				ease();
 
 				this.GetComponent<Rigidbody>().velocity += Vector3.up * 0.2f;
                 break;
@@ -626,13 +622,20 @@ public class PlayerState : MonoBehaviour
     void dive()
     {
         rotationX = transform.localEulerAngles.x + DESCENT_RATE * Time.deltaTime;
-        rotationX = Mathf.Clamp(rotationX, 1f, 85f);
+        //rotationX = Mathf.Clamp(rotationX, 1f, 85f);
 	}
 
     void ease()
     {
-		rotationX = rotationX - EASE_RATE * Time.deltaTime;
-        rotationX = Mathf.Clamp(rotationX, 1f, 85f);
+        if (rotationX > 0 & rotationX < 90)
+        {
+            rotationX = rotationX - EASE_RATE * Time.deltaTime;
+            rotationX = Mathf.Clamp(rotationX, 1f, 85f);
+        }
+        else
+        {
+            rotationX = rotationX + EASE_RATE * Time.deltaTime;
+        }
     }
 
 	float clampAngle(float f)

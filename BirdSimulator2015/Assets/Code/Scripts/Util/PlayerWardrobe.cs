@@ -13,6 +13,24 @@ public class PlayerWardrobe : MonoBehaviour
     public Renderer Body;
     public Renderer Tail;
 
+    public void Start()
+    {
+        if (uLink.Network.isServer)
+        {
+            if (this.tag == "Player")
+                MisterDressup(true);
+            else
+                MisterDressup(false);
+        }
+        else
+        {
+            if (this.tag == "Player")
+                MisterDressup(false);
+            else
+                MisterDressup(true);
+        }
+    }
+
     public void MisterDressup(bool b)
     {
         if (b)
