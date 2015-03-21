@@ -67,7 +67,10 @@ public class PlayerSync : uLink.MonoBehaviour
     [RPC]
     public void ToggleRenderer_Proxy(bool b)
     {
-        this.GetComponent<Renderer>().enabled = b;
+        foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
+        {
+            renderer.enabled = b;
+        }
     }
 
     public void SpawnPrefab(string prefab, Vector3 position, Quaternion rotation)

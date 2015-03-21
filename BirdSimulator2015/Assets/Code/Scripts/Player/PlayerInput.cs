@@ -116,6 +116,7 @@ public class PlayerInput : MonoBehaviour
             {
                 if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Grounded)
                 {
+                    this.GetComponent<PlayerSync>().SendBool("b_Grounded", false);
                     animator.SetBool("b_Grounded", false);
                 }
                 else
@@ -128,10 +129,12 @@ public class PlayerInput : MonoBehaviour
             {
                 if (GameController.IsWhite)
                 {
+                    this.GetComponent<PlayerSync>().SendTrigger("t_Flash");
                     animator.SetTrigger("t_Flash");
                 }
                 else
                 {
+                    this.GetComponent<PlayerSync>().SendTrigger("t_Tornado");
                     animator.SetTrigger("t_Tornado");
                 }
             }

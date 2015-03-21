@@ -7,9 +7,13 @@ public class NetworkManager : MonoBehaviour
 
     // ravenhome
     Vector3 WHITE_SPAWN = new Vector3(38.8f, 118f, -3.8f);
-    Vector3 BLACK_SPAWN = new Vector3(38.8f, 118f, -3.8f);
+    Vector3 BLACK_SPAWN = new Vector3(38.8f, 118f, 1.8f);
 
-    Quaternion SPAWN_ROTATION = Quaternion.Euler(new Vector3(0f, 260f, 0f));
+    // TESTING BIGROOM
+    //Vector3 WHITE_SPAWN = new Vector3(-2400f, -800f, -3.8f);
+    //Vector3 BLACK_SPAWN = new Vector3(-2400f, -800f, -3.8f);
+
+    Quaternion SPAWN_ROTATION = Quaternion.Euler(new Vector3(0f, 270f, 0f));
 
 	void uLink_OnServerInitialized()
 	{

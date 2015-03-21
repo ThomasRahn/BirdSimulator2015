@@ -140,6 +140,7 @@ public class PlayerState : MonoBehaviour
             {
                 if (Vector3.Angle(hit.normal, -direction) < ABOUT_FACE_ANGLE)
                 {
+                    this.GetComponent<PlayerSync>().SendTrigger("t_AboutFace");
                     animator.SetTrigger("t_AboutFace");
                 }
             }
@@ -190,11 +191,14 @@ public class PlayerState : MonoBehaviour
 
         if (checkDiveCollision())
         {
+            this.GetComponent<PlayerSync>().SendBool("b_CanDive", false);
+            this.GetComponent<PlayerSync>().SendBool("b_Diving", false);
             animator.SetBool("b_CanDive", false);
             animator.SetBool("b_Diving", false);
         }
         else
         {
+            this.GetComponent<PlayerSync>().SendBool("b_CanDive", true);
             animator.SetBool("b_CanDive", true);
         }
     }
@@ -206,9 +210,8 @@ public class PlayerState : MonoBehaviour
         speedChange = 1.0f;
 
         // update body rotation
-        //rotationX = transform.localEulerAngles.x;
-        //rotationY = transform.localEulerAngles.y;
-        //Debug.Log("X: " + rotationX);
+        rotationX = transform.localEulerAngles.x;
+        rotationY = transform.localEulerAngles.y;
 
         // update model rotation (tilt)
         Vector3 rot = this.transform.GetChild(0).transform.localEulerAngles;
@@ -238,6 +241,7 @@ public class PlayerState : MonoBehaviour
                 flipOnce = false;
                 momentum = 0f;
                 currentTurnSpeed = TURN_RATE_INITIAL;
+                this.GetComponent<PlayerSync>().SendBool("b_Grounded", false);
                 animator.SetBool("b_Grounded", false); // just in case
 
                 yodoYouOnlyDieOnce = false;
@@ -330,13 +334,16 @@ public class PlayerState : MonoBehaviour
                 currentMaxSpeed -= Time.deltaTime * DECELERATION_RATE;
 				targetVelocity = Vector3.zero;
 				speedChange = 3.0f;
-                // copy pasta from turning code
-                intendedTurnSpeed = this.GetComponent<PlayerInput>().GetAxisHorizontal() * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
-                if (intendedTurnSpeed != 0)
+
+                float f = this.GetComponent<PlayerInput>().GetAxisHorizontal();
+
+                if (f < 0)
                 {
-                    currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
-                    currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, -TURN_RATE_MAX, TURN_RATE_MAX);
-				    rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+                    turnLeft();
+                }
+                else if (f > 0)
+                {
+                    turnRight();
                 }
                 break;
 
@@ -458,7 +465,8 @@ public class PlayerState : MonoBehaviour
                 if (Vector3.Distance(this.transform.position, LandTarget.position) < 1.5f)
                 {
                     //if (hit.collider.tag != "Player")
-                        animator.SetBool("b_Grounded", true);
+                    this.GetComponent<PlayerSync>().SendBool("b_Grounded", true);
+                    animator.SetBool("b_Grounded", true);
                 }
                 break;
 
@@ -510,7 +518,7 @@ public class PlayerState : MonoBehaviour
                     foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
                     {
                         this.GetComponent<PlayerSync>().ToggleRenderer(false);
-                        this.GetComponent<Renderer>().enabled = false;
+                        renderer.enabled = false;
                     }
                     // let go of held items
                     if (HeldEgg != null)
@@ -536,7 +544,7 @@ public class PlayerState : MonoBehaviour
 	                foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
 	                {
                         this.GetComponent<PlayerSync>().ToggleRenderer(true);
-                        this.GetComponent<Renderer>().enabled = true;
+                        renderer.enabled = true;
 	                }
 	
 	                if (this.GetComponent<uLinkNetworkView>().isMine)
@@ -578,8 +586,7 @@ public class PlayerState : MonoBehaviour
                 {
                     skillOnce = true;
                     this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.WhirlyWind, this.transform.position, Quaternion.identity);
-                    GameObject g = GameObject.Instantiate(Resources.Load(Registry.Prefab.WhirlyWind), this.transform.position, Quaternion.identity) as GameObject;
-                    //g.transform.SetParent(this.transform);
+                    GameObject.Instantiate(Resources.Load(Registry.Prefab.WhirlyWind), this.transform.position, Quaternion.identity);
                 }
 
                 targetVelocity = this.transform.forward * currentMaxSpeed;
@@ -591,8 +598,7 @@ public class PlayerState : MonoBehaviour
                 {
                     skillOnce = true;
                     this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.FlashyFlash, this.transform.position, Quaternion.identity);
-                    GameObject g = GameObject.Instantiate(Resources.Load(Registry.Prefab.FlashyFlash), this.transform.position, Quaternion.identity) as GameObject;
-                    //g.transform.SetParent(this.transform);
+                    GameObject.Instantiate(Resources.Load(Registry.Prefab.FlashyFlash), this.transform.position, Quaternion.identity);
                 }
 
                 targetVelocity = this.transform.forward * currentMaxSpeed;
@@ -716,6 +722,7 @@ public class PlayerState : MonoBehaviour
     private Vector3 SpeedyModeForward;
     public void SetSpeedyMode(bool b, Vector3 v)
     {
+        this.GetComponent<PlayerSync>().SendBool("b_SpeedyGiuseppe", b);
         animator.SetBool("b_SpeedyGiuseppe", b);
         SpeedyModeForward = v;
     }
