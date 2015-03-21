@@ -17,7 +17,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			followRotation = false;
 		}
 
-		private void FixedUpdate() 
+		private void LateUpdate() 
 		{
 			transform.position = bird.transform.position;
 
@@ -33,8 +33,9 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 					targetRotation.z = Mathf.Clamp(targetRotation.z, 0, 30);
 				}
 
-				transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetRotation), 2*Time.deltaTime);
+				transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetRotation), 2 * Time.deltaTime);
 
+                /*
 				//Want to turn faster then you ascend/descend, but still slow down after turning.
 				Vector3 turn_vector = new Vector3(transform.eulerAngles.x, targetRotation.y, transform.eulerAngles.z);
 
@@ -46,7 +47,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 				{
 					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(turn_vector), turn_speed * Time.deltaTime);
 				}
-
+                */
 			}
 		}
 

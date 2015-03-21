@@ -622,7 +622,11 @@ public class PlayerState : MonoBehaviour
     void dive()
     {
         rotationX = transform.localEulerAngles.x + DESCENT_RATE * Time.deltaTime;
-        //rotationX = Mathf.Clamp(rotationX, 1f, 85f);
+
+        if (rotationX > 0 & rotationX < 90)
+        {
+            rotationX = Mathf.Clamp(rotationX, 1f, 85f);
+        }
 	}
 
     void ease()
@@ -660,7 +664,8 @@ public class PlayerState : MonoBehaviour
         intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
         currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
         currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
-        rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+        //rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+        rotationY = Mathf.Lerp(rotationY, rotationY - currentTurnSpeed * TURN_SHARPNESS, Time.deltaTime);
     }
 
     void turnRight()
@@ -668,7 +673,8 @@ public class PlayerState : MonoBehaviour
         intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
         currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
         currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
-        rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+        //rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+        rotationY = Mathf.Lerp(rotationY, rotationY + currentTurnSpeed * TURN_SHARPNESS, Time.deltaTime);
     }
 
     const float MOMENTUM_GAIN = 5f;
