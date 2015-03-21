@@ -155,8 +155,8 @@ public class PlayerInput : MonoBehaviour
 			this.GetComponent<PlayerSync>().SendBool("b_Decelerating", false);
 			animator.SetBool("b_Decelerating", false);
 		}
-		
-		if (JoystickButton3)
+
+        if (JoystickButton3 & this.GetComponent<PlayerState>().GetState() != PlayerState.BirdState.QuickAscending)
 		{
 			this.GetComponent<PlayerSync>().SendTrigger("t_QuickAscend");
             animator.SetTrigger("t_QuickAscend");
