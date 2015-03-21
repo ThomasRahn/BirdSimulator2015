@@ -222,7 +222,6 @@ public class PlayerState : MonoBehaviour
         // accelerate over time
         currentMaxSpeed += Time.deltaTime * 0.1f;
 		currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, MIN_FORWARD_VELOCITY, MAX_FORWARD_VELOCITY);
-		Debug.Log (state.ToString ());
         switch (state)
         {
             case BirdState.Hovering:
