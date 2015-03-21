@@ -18,7 +18,6 @@ public class PlayerSync : uLink.MonoBehaviour
     {
 	}
 
-    [RPC]
     public void SendBool(string s, bool b)
     {
         networkView.RPC("SendBool_Proxy", uLink.RPCMode.Others, s, b);
@@ -30,10 +29,8 @@ public class PlayerSync : uLink.MonoBehaviour
         animator.SetBool(s, b);
     }
 
-    [RPC]
     public void SendTrigger(string s)
     {
-        //Debug.Log("Send " + s);
         networkView.RPC("SendTrigger_Proxy", uLink.RPCMode.Others, s);
     }
 
@@ -48,21 +45,39 @@ public class PlayerSync : uLink.MonoBehaviour
         animator.ResetTrigger("t_DashUp");
         animator.ResetTrigger("t_DashDown");
 
-        //Debug.Log("Receive " + s);
         animator.SetTrigger(s);
     }
 
-    [RPC]
     public void SendFloat(string s, float f)
     {
-        //Debug.Log("Send " + s);
         networkView.RPC("SendFloat_Proxy", uLink.RPCMode.Others, s, f);
     }
 
     [RPC]
     public void SendFloat_Proxy(string s, float f)
     {
-        //Debug.Log("Receive " + s);
         animator.SetFloat(s, f);
+    }
+
+    public void ToggleRenderer(bool b)
+    {
+        networkView.RPC("ToggleRenderer_Proxy", uLink.RPCMode.Others, b);
+    }
+
+    [RPC]
+    public void ToggleRenderer_Proxy(bool b)
+    {
+        this.GetComponent<Renderer>().enabled = b;
+    }
+
+    public void SpawnPrefab(string prefab, Vector3 position, Quaternion rotation)
+    {
+        networkView.RPC("SpawnPrefab_Proxy", uLink.RPCMode.Others, prefab, position, rotation);
+    }
+
+    [RPC]
+    public void SpawnPrefab_Proxy(string prefab, Vector3 position, Quaternion rotation)
+    {
+        GameObject.Instantiate(Resources.Load(prefab), position, rotation);
     }
 }

@@ -61,7 +61,7 @@ public class PlayerState : MonoBehaviour
 
 	const float MIN_FORWARD_VELOCITY = 15f;
     const float MAX_FORWARD_VELOCITY = 35f;
-    const float MAX_DOWNWARD_VELOCITY = 80f;
+    const float MAX_DOWNWARD_VELOCITY = 60f;
     const float DOWNWARD_ACCELERATION = 5f;
     const float MAX_UPWARD_VELOCITY = 5f;
     const float MAX_FORWARD_VELOCITY_WHEN_ASCENDING = 25f;
@@ -74,6 +74,7 @@ public class PlayerState : MonoBehaviour
 	const float TURN_RATE_WHEN_IDLE = 80f;
 	const float EASE_RATE = 100f;
     const float MOMENTUM_LOSS_RATE = 50f;
+    const float MOMENTUM_GAIN_MULTI = 2f;
     const float TURN_SHARPNESS = 1.4f;
     const float DECELERATION_RATE = 500f;
     const float DIVE_STRAFE_RATE = 40f;
@@ -81,10 +82,7 @@ public class PlayerState : MonoBehaviour
     const float TILT_LIMIT = 70f;
     const float ABOUT_FACE_ANGLE = 35f;
 
-    // we need this so we don't slowly descend (usually when gliding forward and turning at low speeds)
-    // for some dumb reason, the y component of the velocity vector becomes -0.5f, so the player will slowly
-    // descend and start hitting stuff. this is really annoying, so we compensate.
-    const float LIFT_OFFSET = 0.5f;
+    const float ROTATION_X_LIMIT = 40f;
 
 
     private float currentMaxSpeed = 0f;
@@ -98,7 +96,7 @@ public class PlayerState : MonoBehaviour
 
     // collision
     private RaycastHit hit;
-    private bool flipped = false;
+    private bool flipOnce = false;
     private int tilting = 0;
     
     // do once triggers
@@ -202,41 +200,42 @@ public class PlayerState : MonoBehaviour
     }
 
 	float intendedTurnSpeed;
+    float speedChange;
     void Update()
     {
-        //animator.ResetTrigger("t_RandomFlap");
-        //if (Random.Range(1, 50) == 2)
-        //{
-        //    animator.SetTrigger("t_RandomFlap");
-        //}
+        speedChange = 1.0f;
 
         // update body rotation
-        rotationX = transform.localEulerAngles.x;
-        rotationY = transform.localEulerAngles.y;
+        //rotationX = transform.localEulerAngles.x;
+        //rotationY = transform.localEulerAngles.y;
+        //Debug.Log("X: " + rotationX);
 
         // update model rotation (tilt)
         Vector3 rot = this.transform.GetChild(0).transform.localEulerAngles;
         rot.z = rotationZ;
         this.transform.GetChild(0).transform.localEulerAngles = rot;
 
-		float speedChange = 1.0f;
-
         // accelerate over time
         currentMaxSpeed += Time.deltaTime * 0.1f;
 		currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, MIN_FORWARD_VELOCITY, MAX_FORWARD_VELOCITY);
+
         switch (state)
         {
             case BirdState.Hovering:
+                // reset some stuff
+                yodoYouOnlyDieOnce = false;
+                respawnOnce = false;
                 skillOnce = false;
 
                 ease();
                 tiltTowards(0);
 				rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
+                targetVelocity = Vector3.zero;
 				break;
 
             case BirdState.Gliding:
                 // reset some stuff
-                flipped = false;
+                flipOnce = false;
                 momentum = 0f;
                 currentTurnSpeed = TURN_RATE_INITIAL;
                 animator.SetBool("b_Grounded", false); // just in case
@@ -249,105 +248,81 @@ public class PlayerState : MonoBehaviour
                 if (tilting == 0)
                     tiltTowards(0);
 
-                targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
+                targetVelocity = this.transform.forward * currentMaxSpeed;// + Vector3.up * LIFT_OFFSET;
                 break;
 
             case BirdState.Descending:
 				tiltTowards(0);
 
 				rotationX = transform.localEulerAngles.x + DESCENT_RATE * Time.deltaTime;
-				if (rotationX > 40 & rotationX < 90)
-					rotationX = 40f;
+				if (rotationX > ROTATION_X_LIMIT & rotationX < 90)
+                    rotationX = ROTATION_X_LIMIT;
 
 				targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY_WHEN_ASCENDING + Vector3.down * MAX_UPWARD_VELOCITY;
                 break;
 
 			case BirdState.DescendingAndTurningLeft:
-				rotationX = transform.localEulerAngles.x + DESCENT_RATE * Time.deltaTime;
-				tiltTowards(-TILT_LIMIT);
-				rotationY -= currentTurnSpeed * Time.deltaTime;
+                tiltTowards(-TILT_LIMIT);
 
-				if (rotationX > 40 & rotationX < 90)
-					rotationX = 40f;
+				rotationX = transform.localEulerAngles.x + DESCENT_RATE * Time.deltaTime;
+                if (rotationX > ROTATION_X_LIMIT & rotationX < 90)
+                    rotationX = ROTATION_X_LIMIT;
+
+                rotationY -= currentTurnSpeed * Time.deltaTime;
 
 				targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY_WHEN_ASCENDING + Vector3.down * MAX_UPWARD_VELOCITY;
 				break;
 
 			case BirdState.DescendingAndTurningRight:
+                tiltTowards(TILT_LIMIT);
+
 				rotationX = transform.localEulerAngles.x + DESCENT_RATE * Time.deltaTime;
-				tiltTowards(TILT_LIMIT);
-				rotationY += currentTurnSpeed * Time.deltaTime;
-			
-				if (rotationX > 40 & rotationX < 90)
-					rotationX = 40f;
+                if (rotationX > ROTATION_X_LIMIT & rotationX < 90)
+                    rotationX = ROTATION_X_LIMIT;
+
+                rotationY += currentTurnSpeed * Time.deltaTime;
 
 				targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY_WHEN_ASCENDING + Vector3.down * MAX_UPWARD_VELOCITY;
 				break;
 					
 			case BirdState.Diving:
+                tiltTowards(0);
                 addMomentum();
                 dive();
-                tiltTowards(0);
 
 				Vector3 leftright = input.GetAxisHorizontal() * this.transform.right * DIVE_STRAFE_RATE;
 				Vector3 updown = input.GetAxisVertical() * this.transform.up * DIVE_STRAFE_RATE;
-
 			    targetVelocity = leftright + updown + Vector3.down * MAX_DOWNWARD_VELOCITY;
                 break;
 
-            //case BirdState.DivingAndTurningLeft:
-            //    addMomentum();
-			//	dive();
-			//	tiltTowards(0);
-
-            //    targetVelocity = -this.transform.right * 50f + this.transform.forward + Vector3.down * MAX_DOWNWARD_VELOCITY;
-            //    break;
-
-            //case BirdState.DivingAndTurningRight:
-            //    addMomentum();
-			//	dive();
-			//	tiltTowards(0);
-
-			//	targetVelocity = this.transform.right * 50f + this.transform.forward + Vector3.down * MAX_DOWNWARD_VELOCITY;
-			//	break;
-
             case BirdState.Easing:
-                // TODO diddle with momentum numbers
-                currentMaxSpeed += momentum * 2f * Time.deltaTime;
-                currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
-                ease();
                 tiltTowards(0);
-                targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY + Vector3.up * -this.GetComponent<Rigidbody>().velocity.y;
+                ease();
+
+                currentMaxSpeed += momentum * MOMENTUM_GAIN_MULTI * Time.deltaTime;
+                targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY + Vector3.up * MAX_FORWARD_VELOCITY;
                 break;
 
             case BirdState.EasingAndTurningLeft:
-                /*
-                rotationY -= currentTurnSpeed * Time.deltaTime;
-                currentTurnSpeed += TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed;
-                currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
-
-                currentMaxSpeed += momentum * Time.deltaTime;
-                currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
-                ease();
                 tiltTowards(-TILT_LIMIT);
+                ease();
 
+                turnLeft();
+
+                currentMaxSpeed += momentum * MOMENTUM_GAIN_MULTI * Time.deltaTime;
+                currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
                 targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY + Vector3.up * MAX_FORWARD_VELOCITY - this.transform.right * currentMaxSpeed;
-                */
                 break;
 
             case BirdState.EasingAndTurningRight:
-                /*
-                rotationY += currentTurnSpeed * Time.deltaTime;
-                currentTurnSpeed += TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed;
-                currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
-
-                currentMaxSpeed += momentum * Time.deltaTime;
-                currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
-                ease();
                 tiltTowards(TILT_LIMIT);
+                ease();
 
+                turnRight();
+
+                currentMaxSpeed += momentum * MOMENTUM_GAIN_MULTI * Time.deltaTime;
+                currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
                 targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY + Vector3.up * MAX_FORWARD_VELOCITY + this.transform.right * currentMaxSpeed;
-                */
                 break;
 			
 			case BirdState.Decelerating:
@@ -369,125 +344,98 @@ public class PlayerState : MonoBehaviour
                 if (tilting != -1)
                 {
 					tiltTowards(-TILT_LIMIT);
-
-                    intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
-					currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
-                    currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
-					rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
-
+                    turnLeft();
                     targetVelocity = this.transform.forward * currentMaxSpeed - this.transform.right * currentMaxSpeed;
                 }
-                else { targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET; }
+                else { targetVelocity = this.transform.forward * currentMaxSpeed; }
                 break;
 
             case BirdState.TurningRight:
                 if (tilting != 1)
                 {
-					tiltTowards(TILT_LIMIT);
-
-                    intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
-					currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
-					currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
-					rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
-					
-					targetVelocity = this.transform.forward * currentMaxSpeed + this.transform.right * currentMaxSpeed;
-				}
-				else { targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET; }
+                    tiltTowards(TILT_LIMIT);
+                    turnRight();
+                    targetVelocity = this.transform.forward * currentMaxSpeed + this.transform.right * currentMaxSpeed;
+                }
+                else { targetVelocity = this.transform.forward * currentMaxSpeed; }
                 break;
 
             case BirdState.Ascending:
                 tiltTowards(0);
 
                 rotationX = transform.localEulerAngles.x - DESCENT_RATE * Time.deltaTime;
-				clampAngle();
+                rotationX = clampAngle(rotationX);
 
-                targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * MAX_UPWARD_VELOCITY;
+                targetVelocity = this.transform.forward * currentMaxSpeed;
                 break;
 
             case BirdState.AscendingAndTurningLeft:
                 tiltTowards(-TILT_LIMIT);
+                turnLeft();
 
 				rotationX = transform.localEulerAngles.x - DESCENT_RATE * Time.deltaTime;
-				intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
-				currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
-				currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
-				rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
-				clampAngle();
+                rotationX = clampAngle(rotationX);
 
                 targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * MAX_UPWARD_VELOCITY - this.transform.right * currentMaxSpeed;
                 break;
 
             case BirdState.AscendingAndTurningRight:
 				tiltTowards(TILT_LIMIT);
-				
-				rotationX = transform.localEulerAngles.x - DESCENT_RATE * Time.deltaTime;
-				intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
-				currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
-				currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
-				rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
-				clampAngle();
+                turnRight();
+
+                rotationX = transform.localEulerAngles.x - DESCENT_RATE * Time.deltaTime;
+                rotationX = clampAngle(rotationX);
 				
 				targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * MAX_UPWARD_VELOCITY + this.transform.right * currentMaxSpeed;
 			break;
 			
 			case BirdState.AboutFacing:
-                //tiltTowards(0);
+                tiltTowards(0);
+
                 momentum = 0f;
-                //currentMaxSpeed = 0f;
-
-
-				tiltTowards(0);
 				currentMaxSpeed -= Time.deltaTime * DECELERATION_RATE;
-				//targetVelocity = Vector3.zero;
-
-				//this.GetComponent<Rigidbody>().velocity = currentMaxSpeed;
-                targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
+                targetVelocity = Vector3.zero;
                 break;
 
             case BirdState.FlappingForward:
-			    if (!flipped)
+			    if (!flipOnce)
 			    {
-                    // flip once
-                    flipped = true;
+                    flipOnce = true;
 					rotationY += 180;
-				    //this.transform.localEulerAngles = new Vector3(this.transform.localEulerAngles.x, this.transform.localEulerAngles.y + 180f, this.transform.localEulerAngles.z);
 			    }
 
-			    //Debug.DrawRay (this.transform.position, hit.normal * 5f, Color.cyan, 2f);
-			    currentMaxSpeed = 10f;
+			    currentMaxSpeed = MIN_FORWARD_VELOCITY;
+
 			    // instant or velocity over time?
 			    targetVelocity = hit.normal * currentMaxSpeed;
-			    //this.rigidbody.velocity = hit.normal * currentMaxSpeed;
                 break;
 
             case BirdState.QuickAscending:
-            	if (rotationX > 0 & rotationX < 300)
+                tiltTowards(0);
+
+            	if (rotationX > 0 & rotationX < 90)
 				{
 					ease();
 				}
 
-				tiltTowards(0);
 				this.GetComponent<Rigidbody>().velocity += Vector3.up * 0.2f;
                 break;
 
-            case BirdState.RollingLeft:
-                tiltTowards(TILT_LIMIT / 2);
-                this.GetComponent<Rigidbody>().velocity -= this.transform.right;
-                break;
+            //case BirdState.RollingLeft:
+            //    tiltTowards(TILT_LIMIT / 2);
+            //    this.GetComponent<Rigidbody>().velocity -= this.transform.right;
+            //    break;
 
-            case BirdState.RollingRight:
-                tiltTowards(-TILT_LIMIT / 2);
-                this.GetComponent<Rigidbody>().velocity += this.transform.right;
-                break;
+            //case BirdState.RollingRight:
+            //    tiltTowards(-TILT_LIMIT / 2);
+            //    this.GetComponent<Rigidbody>().velocity += this.transform.right;
+            //    break;
 
             case BirdState.Landing:
-                ease();
                 tiltTowards(0);
-                momentum = 0f;
-                currentMaxSpeed = 0f;
+                ease();
 
-                this.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                targetVelocity = Vector3.zero + Vector3.up * LIFT_OFFSET;
+                zeroAllForces();
 
                 Vector3 dest;
                 dest.x = LandTarget.position.x;
@@ -512,20 +460,19 @@ public class PlayerState : MonoBehaviour
                     //if (hit.collider.tag != "Player")
                         animator.SetBool("b_Grounded", true);
                 }
-
                 break;
 
             case BirdState.Grounded:
                 tiltTowards(0);
-                momentum = 0f;
-                currentMaxSpeed = 0f;
+                ease();
 
-                this.GetComponent<Rigidbody>().velocity = Vector3.zero;
-				targetVelocity = Vector3.zero;
+                zeroAllForces();
+
                 break;
 
             case BirdState.LiftingOff:
                 tiltTowards(0);
+
                 this.GetComponent<Rigidbody>().velocity += Vector3.up * Time.deltaTime;
                 targetVelocity = Vector3.zero;
 				LandTarget = null;
@@ -533,25 +480,25 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.DashingForward:
                 tiltTowards(0);
+
                 this.GetComponent<Rigidbody>().velocity += this.transform.forward * 0.5f; // instant impulse
-                currentMaxSpeed += Time.deltaTime * 10f;
+                currentMaxSpeed += Time.deltaTime * MIN_FORWARD_VELOCITY;
                 break;
 
 			//case BirdState.HoveringAndTurningLeft:
-				//rotationY -= 50f * Time.deltaTime * TURN_SHARPNESS;								
-				//tiltTowards(-TILT_LIMIT * 0.2f);
-				//break;
+			//  rotationY -= 50f * Time.deltaTime * TURN_SHARPNESS;								
+			//  tiltTowards(-TILT_LIMIT * 0.2f);
+			//  break;
 				
 			//case BirdState.HoveringAndTurningRight:
-				//rotationY += 50f * Time.deltaTime * TURN_SHARPNESS;	
-				//tiltTowards(TILT_LIMIT * 0.2f);
-				//break;
+			//  rotationY += 50f * Time.deltaTime * TURN_SHARPNESS;	
+			//  tiltTowards(TILT_LIMIT * 0.2f);
+			//  break;
 
 			case BirdState.Dying:
                 tiltTowards(0);
-				currentMaxSpeed = 0f;
-				this.GetComponent<Rigidbody>().velocity = Vector3.zero;
-				targetVelocity = Vector3.zero;
+
+                zeroAllForces();
 
                 if (!yodoYouOnlyDieOnce)
                 {
@@ -562,14 +509,16 @@ public class PlayerState : MonoBehaviour
                     // turn off all renderers
                     foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
                     {
-                        renderer.enabled = false;
+                        this.GetComponent<PlayerSync>().ToggleRenderer(false);
+                        this.GetComponent<Renderer>().enabled = false;
                     }
-                    // Let go of held items
+                    // let go of held items
                     if (HeldEgg != null)
                     {
                         HeldEgg.Reset();
                     }
 
+                    this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.FeatherPoof, this.transform.position, Quaternion.identity);
                     GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof), this.transform.position, Quaternion.identity);
 
                     if (this.GetComponent<uLinkNetworkView>().isMine)
@@ -586,7 +535,8 @@ public class PlayerState : MonoBehaviour
 					// turn on all renderers
 	                foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
 	                {
-	                    renderer.enabled = true;
+                        this.GetComponent<PlayerSync>().ToggleRenderer(true);
+                        this.GetComponent<Renderer>().enabled = true;
 	                }
 	
 	                if (this.GetComponent<uLinkNetworkView>().isMine)
@@ -627,12 +577,12 @@ public class PlayerState : MonoBehaviour
                 if (!skillOnce)
                 {
                     skillOnce = true;
+                    this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.WhirlyWind, this.transform.position, Quaternion.identity);
                     GameObject g = GameObject.Instantiate(Resources.Load(Registry.Prefab.WhirlyWind), this.transform.position, Quaternion.identity) as GameObject;
-                    g.transform.SetParent(this.transform);
+                    //g.transform.SetParent(this.transform);
                 }
 
-                targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
-
+                targetVelocity = this.transform.forward * currentMaxSpeed;
                 break;
 
             case BirdState.Flashing:
@@ -640,12 +590,12 @@ public class PlayerState : MonoBehaviour
                 if (!skillOnce)
                 {
                     skillOnce = true;
+                    this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.FlashyFlash, this.transform.position, Quaternion.identity);
                     GameObject g = GameObject.Instantiate(Resources.Load(Registry.Prefab.FlashyFlash), this.transform.position, Quaternion.identity) as GameObject;
-                    g.transform.SetParent(this.transform);
+                    //g.transform.SetParent(this.transform);
                 }
 
-                targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * LIFT_OFFSET;
-
+                targetVelocity = this.transform.forward * currentMaxSpeed;
                 break;
         }
 
@@ -679,13 +629,15 @@ public class PlayerState : MonoBehaviour
         rotationX = Mathf.Clamp(rotationX, 1f, 85f);
     }
 
-	void clampAngle()
+	float clampAngle(float f)
 	{
-		if (rotationX < 0)
-			rotationX += 360f;
+		if (f < 0)
+			f += 360f;
 		
-		if (rotationX > 85 & rotationX < 340)
-			rotationX = 340f;
+		if (f > 85 & f < 340)
+			f = 340f;
+
+        return f;
 	}
 	
 	const float TILT_EASE_RATE = 2f;
@@ -694,10 +646,34 @@ public class PlayerState : MonoBehaviour
         rotationZ = Mathf.Lerp(rotationZ, f, Time.deltaTime * TILT_EASE_RATE);
     }
 
+    void turnLeft()
+    {
+        intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+        currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
+        currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
+        rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+    }
+
+    void turnRight()
+    {
+        intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+        currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
+        currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
+        rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
+    }
+
     const float MOMENTUM_GAIN = 5f;
     void addMomentum()
     {
         momentum += MOMENTUM_GAIN * Time.deltaTime;
+    }
+
+    void zeroAllForces()
+    {
+        momentum = 0f;
+        currentMaxSpeed = 0f;
+        this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        targetVelocity = Vector3.zero;
     }
 
     const float DIVE_SWOOP_DISTANCE = 7f;
