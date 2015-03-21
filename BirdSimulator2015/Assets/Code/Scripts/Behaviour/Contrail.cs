@@ -25,13 +25,13 @@ public class Contrail : MonoBehaviour
     {
         foreach (PlayerState.BirdState state in (PlayerState.BirdState[])System.Enum.GetValues(typeof(PlayerState.BirdState)))
         {
-            hash.Add(Animator.StringToHash("Base Layer." + state.ToString()), state);
+            hash.Add(Animator.StringToHash(state.ToString()), state);
         }
 	}
 	
 	void Update()
     {
-        state = hash[animator.GetCurrentAnimatorStateInfo(0).fullPathHash];
+        state = hash[animator.GetCurrentAnimatorStateInfo(0).shortNameHash];
 
 		if (rb.velocity.magnitude > SPEED_THRESHOLD
             && (

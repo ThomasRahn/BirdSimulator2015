@@ -112,13 +112,13 @@ public class PlayerState : MonoBehaviour
     {
         foreach (BirdState state in (BirdState[])System.Enum.GetValues(typeof(BirdState)))
         {
-            hash.Add(Animator.StringToHash("Base Layer." + state.ToString()), state);
+            hash.Add(Animator.StringToHash(state.ToString()), state);
         }
     }
 	
     void FixedUpdate()
     {
-        state = hash[animator.GetCurrentAnimatorStateInfo(0).fullPathHash];
+        state = hash[animator.GetCurrentAnimatorStateInfo(0).shortNameHash];
 
         //Debug.DrawRay(this.transform.position, this.GetComponent<Rigidbody>().velocity * 5f, Color.magenta);
         //Debug.DrawRay(this.transform.position, this.transform.up * 1f, Color.blue);
@@ -508,8 +508,6 @@ public class PlayerState : MonoBehaviour
                 if (!yodoYouOnlyDieOnce)
                 {
                     yodoYouOnlyDieOnce = true;
-
-                    SetSpeedyMode(false, Vector3.zero);
 
                     // turn off all renderers
                     foreach (Renderer renderer in this.GetComponentsInChildren<Renderer>())
