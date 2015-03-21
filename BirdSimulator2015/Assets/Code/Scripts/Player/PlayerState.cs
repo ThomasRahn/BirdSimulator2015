@@ -308,7 +308,6 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case BirdState.EasingAndTurningLeft:
-                Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().enabled = false;
                 tiltTowards(-TILT_LIMIT);
                 ease();
 
