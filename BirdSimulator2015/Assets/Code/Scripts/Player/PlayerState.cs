@@ -7,8 +7,6 @@ public class PlayerState : MonoBehaviour
     public enum BirdState
     {
         Hovering,
-		HoveringAndTurningLeft,
-		HoveringAndTurningRight,
 
 		Gliding,
 		RandomFlapping,
@@ -26,8 +24,6 @@ public class PlayerState : MonoBehaviour
 		DescendingAndTurningLeft,
 		DescendingAndTurningRight,
 		Diving,
-        DivingAndTurningLeft,
-        DivingAndTurningRight,
 
         Ascending,
         AscendingAndTurningLeft,
@@ -39,8 +35,6 @@ public class PlayerState : MonoBehaviour
         Grounded,
 		LiftingOff,
 
-        RollingLeft,
-        RollingRight,
 		QuickAscending,
 		DashingForward,
 
@@ -51,7 +45,6 @@ public class PlayerState : MonoBehaviour
 
         Tornadoing,
         Flashing,
-
 	}
 	
 	private Animator animator;
@@ -66,6 +59,7 @@ public class PlayerState : MonoBehaviour
     const float MAX_UPWARD_VELOCITY = 5f;
     const float MAX_FORWARD_VELOCITY_WHEN_ASCENDING = 25f;
     const float DESCENT_RATE = 50f;
+    const float DIVE_RATE = 200f;
     const float TURN_RATE_INITIAL = 20f;
     const float TURN_RATE_MAX = 80f;
     const float TURN_ACCELERATION = 10f;
@@ -112,6 +106,9 @@ public class PlayerState : MonoBehaviour
     {
         animator = this.GetComponent<Animator>();
 		input = this.GetComponent<PlayerInput>();
+
+        rotationX = transform.localEulerAngles.x;
+        rotationY = transform.localEulerAngles.y;
     }
 
     void Start()
@@ -210,8 +207,8 @@ public class PlayerState : MonoBehaviour
         speedChange = 1.0f;
 
         // update body rotation
-        rotationX = transform.localEulerAngles.x;
-        rotationY = transform.localEulerAngles.y;
+        //rotationX = transform.localEulerAngles.x;
+        //rotationY = transform.localEulerAngles.y;
 
         // update model rotation (tilt)
         Vector3 rot = this.transform.GetChild(0).transform.localEulerAngles;
@@ -621,7 +618,7 @@ public class PlayerState : MonoBehaviour
 
     void dive()
     {
-        rotationX = transform.localEulerAngles.x + DESCENT_RATE * Time.deltaTime;
+        rotationX = transform.localEulerAngles.x + DIVE_RATE * Time.deltaTime;
 
         if (rotationX > 0 & rotationX < 90)
         {

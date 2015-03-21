@@ -104,7 +104,8 @@ public class PlayerInput : MonoBehaviour
             Cameras.Input(JoystickAxis4 * cameraMultiplier, JoystickAxis5 * cameraMultiplier);
 		}
 
-        if (JoystickButton2)
+        if (JoystickButton2 &
+            this.GetComponent<PlayerState>().GetState() != PlayerState.BirdState.Diving)
         {
             this.GetComponent<PlayerSync>().SendTrigger("t_DashForward");
             animator.SetTrigger("t_DashForward");
@@ -127,15 +128,19 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
-                if (GameController.IsWhite)
+                if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Hovering
+                    || this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Gliding)
                 {
-                    this.GetComponent<PlayerSync>().SendTrigger("t_Flash");
-                    animator.SetTrigger("t_Flash");
-                }
-                else
-                {
-                    this.GetComponent<PlayerSync>().SendTrigger("t_Tornado");
-                    animator.SetTrigger("t_Tornado");
+                    if (GameController.IsWhite)
+                    {
+                        this.GetComponent<PlayerSync>().SendTrigger("t_Flash");
+                        animator.SetTrigger("t_Flash");
+                    }
+                    else
+                    {
+                        this.GetComponent<PlayerSync>().SendTrigger("t_Tornado");
+                        animator.SetTrigger("t_Tornado");
+                    }
                 }
             }
         }
