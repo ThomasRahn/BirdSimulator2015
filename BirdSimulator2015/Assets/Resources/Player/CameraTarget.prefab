@@ -20,6 +20,7 @@ GameObject:
   - 114: {fileID: 11404408}
   - 114: {fileID: 11447126}
   - 114: {fileID: 11483784}
+  - 114: {fileID: 11416930}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -192,6 +193,20 @@ MonoBehaviour:
   shaderFXAAPreset3: {fileID: 4800000, guid: c182fa94a5a0a4c02870641efcd38cd5, type: 3}
   shaderFXAAII: {fileID: 4800000, guid: cd5b323dcc592457790ff18b528f5e67, type: 3}
   shaderFXAAIII: {fileID: 4800000, guid: c547503fff0e8482ea5793727057041c, type: 3}
+--- !u!114 &11416930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478a2083ad114a07d000fbfb8d76c639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 4800000, guid: e9ba2083ad114a07d000fbfb8d76c639, type: 3}
+  blurAmount: 0
+  extraBlur: 0
 --- !u!114 &11447126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -352,13 +367,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e9b95cf609d96409b6c40519432957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filterType: 2
+  filterType: 0
   preview: 0
   previewScale: {x: 1, y: 1, z: 1}
   movementScale: 0
   rotationScale: 1
   maxVelocity: 8
-  minVelocity: .100000001
+  minVelocity: .300000012
   velocityScale: .375
   softZDistance: .00499999989
   velocityDownsample: 1

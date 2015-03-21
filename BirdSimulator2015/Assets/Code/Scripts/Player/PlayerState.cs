@@ -71,7 +71,7 @@ public class PlayerState : MonoBehaviour
     const float MOMENTUM_GAIN_MULTI = 2f;
     const float TURN_SHARPNESS = 1.4f;
     const float DECELERATION_RATE = 500f;
-    const float DIVE_STRAFE_RATE = 40f;
+    const float DIVE_STRAFE_RATE = 20f;
 
     const float TILT_LIMIT = 70f;
     const float ABOUT_FACE_ANGLE = 35f;
@@ -90,10 +90,10 @@ public class PlayerState : MonoBehaviour
 
     // collision
     private RaycastHit hit;
-    private bool flipOnce = false;
     private int tilting = 0;
     
     // do once triggers
+    private bool flipOnce = false;
     private bool respawnOnce = false;
     private bool skillOnce = false;
     private bool yodoYouOnlyDieOnce = false;
@@ -106,9 +106,6 @@ public class PlayerState : MonoBehaviour
     {
         animator = this.GetComponent<Animator>();
 		input = this.GetComponent<PlayerInput>();
-
-        rotationX = transform.localEulerAngles.x;
-        rotationY = transform.localEulerAngles.y;
     }
 
     void Start()
@@ -131,20 +128,34 @@ public class PlayerState : MonoBehaviour
         Vector3 from = this.transform.position;
         Vector3 direction = this.transform.forward;
 
-		if (Physics.Raycast(from, this.GetComponent<Rigidbody>().velocity, out hit, 3f))
+        //Debug.Log(this.GetComponent<Rigidbody>().velocity.magnitude);
+        if (checkDiveCollision())
         {
-            if (state != BirdState.AboutFacing && state != BirdState.FlappingForward)
+            this.GetComponent<PlayerSync>().SendBool("b_CanDive", false);
+            this.GetComponent<PlayerSync>().SendBool("b_Diving", false);
+            animator.SetBool("b_CanDive", false);
+            animator.SetBool("b_Diving", false);
+        }
+        else
+        {
+            this.GetComponent<PlayerSync>().SendBool("b_CanDive", true);
+            animator.SetBool("b_CanDive", true);
+
+            if (Physics.Raycast(from, this.transform.forward, out hit, this.GetComponent<Rigidbody>().velocity.magnitude))
             {
-                if (Vector3.Angle(hit.normal, -direction) < ABOUT_FACE_ANGLE)
+                if (state != BirdState.AboutFacing && state != BirdState.FlappingForward)
                 {
-                    this.GetComponent<PlayerSync>().SendTrigger("t_AboutFace");
-                    animator.SetTrigger("t_AboutFace");
+                    if (Vector3.Angle(hit.normal, -direction) < ABOUT_FACE_ANGLE)
+                    {
+                        this.GetComponent<PlayerSync>().SendTrigger("t_AboutFace");
+                        animator.SetTrigger("t_AboutFace");
+                    }
                 }
             }
         }
 
         //Debug.DrawRay(from, (this.transform.forward + this.transform.right) * 0.8f, Color.black);
-       // Debug.DrawRay(from, (this.transform.forward - this.transform.right) * 0.8f, Color.black);
+        //Debug.DrawRay(from, (this.transform.forward - this.transform.right) * 0.8f, Color.black);
         if (Physics.Raycast(from, this.transform.forward + this.transform.right, out hit, 1f))
         {
             tilting = 1; // right
@@ -172,32 +183,6 @@ public class PlayerState : MonoBehaviour
         {
             tilting = 0; // none
         }
-
-        //Debug.DrawRay(this.transform.position, (this.transform.forward + Vector3.down ) *0.5f, Color.magenta);
-        if (Physics.Raycast(from, this.transform.forward + Vector3.down, out hit, 0.5f))
-        {
-            if (rotationX < 360 & rotationX > 50)
-            {
-            }
-            else
-            {
-                //rotationX -= 100f * Time.deltaTime;
-                //this.transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
-            }
-        }
-
-        if (checkDiveCollision())
-        {
-            this.GetComponent<PlayerSync>().SendBool("b_CanDive", false);
-            this.GetComponent<PlayerSync>().SendBool("b_Diving", false);
-            animator.SetBool("b_CanDive", false);
-            animator.SetBool("b_Diving", false);
-        }
-        else
-        {
-            this.GetComponent<PlayerSync>().SendBool("b_CanDive", true);
-            animator.SetBool("b_CanDive", true);
-        }
     }
 
 	float intendedTurnSpeed;
@@ -207,8 +192,8 @@ public class PlayerState : MonoBehaviour
         speedChange = 1.0f;
 
         // update body rotation
-        //rotationX = transform.localEulerAngles.x;
-        //rotationY = transform.localEulerAngles.y;
+        rotationX = transform.localEulerAngles.x;
+        rotationY = transform.localEulerAngles.y;
 
         // update model rotation (tilt)
         Vector3 rot = this.transform.GetChild(0).transform.localEulerAngles;
@@ -218,6 +203,17 @@ public class PlayerState : MonoBehaviour
         // accelerate over time
         currentMaxSpeed += Time.deltaTime * 0.1f;
 		currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, MIN_FORWARD_VELOCITY, MAX_FORWARD_VELOCITY);
+
+        // reset blur amount if not diving
+        if (state != BirdState.Diving)
+        {
+            float b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
+            if (b > 0)
+            {
+                b -= Time.deltaTime;
+                Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
+            }
+        }
 
         switch (state)
         {
@@ -249,7 +245,7 @@ public class PlayerState : MonoBehaviour
                 if (tilting == 0)
                     tiltTowards(0);
 
-                targetVelocity = this.transform.forward * currentMaxSpeed;// + Vector3.up * LIFT_OFFSET;
+                targetVelocity = this.transform.forward * currentMaxSpeed;
                 break;
 
             case BirdState.Descending:
@@ -287,6 +283,13 @@ public class PlayerState : MonoBehaviour
 				break;
 					
 			case BirdState.Diving:
+                float b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
+                if (b < 0.6)
+                {
+                    b += Time.deltaTime;
+                    Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
+                }
+
                 tiltTowards(0);
                 addMomentum();
                 dive();
@@ -301,18 +304,19 @@ public class PlayerState : MonoBehaviour
                 ease();
 
                 currentMaxSpeed += momentum * MOMENTUM_GAIN_MULTI * Time.deltaTime;
-                targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY + Vector3.up * MAX_FORWARD_VELOCITY;
+                targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * Mathf.Abs(this.GetComponent<Rigidbody>().velocity.y);
                 break;
 
             case BirdState.EasingAndTurningLeft:
+                Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().enabled = false;
                 tiltTowards(-TILT_LIMIT);
                 ease();
 
                 turnLeft();
 
-                currentMaxSpeed += momentum * MOMENTUM_GAIN_MULTI * Time.deltaTime;
-                currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
-                targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY + Vector3.up * MAX_FORWARD_VELOCITY - this.transform.right * currentMaxSpeed;
+                //currentMaxSpeed += momentum * MOMENTUM_GAIN_MULTI * Time.deltaTime;
+                //currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
+                targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * Mathf.Abs(this.GetComponent<Rigidbody>().velocity.y) - this.transform.right * currentMaxSpeed;
                 break;
 
             case BirdState.EasingAndTurningRight:
@@ -321,9 +325,9 @@ public class PlayerState : MonoBehaviour
 
                 turnRight();
 
-                currentMaxSpeed += momentum * MOMENTUM_GAIN_MULTI * Time.deltaTime;
-                currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
-                targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY + Vector3.up * MAX_FORWARD_VELOCITY + this.transform.right * currentMaxSpeed;
+                //currentMaxSpeed += momentum * MOMENTUM_GAIN_MULTI * Time.deltaTime;
+                //currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, 0, MAX_FORWARD_VELOCITY);
+                targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * Mathf.Abs(this.GetComponent<Rigidbody>().velocity.y) + this.transform.right * currentMaxSpeed;
                 break;
 			
 			case BirdState.Decelerating:
@@ -333,7 +337,6 @@ public class PlayerState : MonoBehaviour
 				speedChange = 3.0f;
 
                 float f = this.GetComponent<PlayerInput>().GetAxisHorizontal();
-
                 if (f < 0)
                 {
                     turnLeft();
@@ -416,7 +419,8 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.QuickAscending:
                 tiltTowards(0);
-				ease();
+                if (rotationX < 300)
+				    ease();
 
 				this.GetComponent<Rigidbody>().velocity += Vector3.up * 0.2f;
                 break;
@@ -618,24 +622,30 @@ public class PlayerState : MonoBehaviour
 
     void dive()
     {
-        rotationX = transform.localEulerAngles.x + DIVE_RATE * Time.deltaTime;
+        //rotationX = transform.localEulerAngles.x + DIVE_RATE * Time.deltaTime;
+        rotationX = rotationX + DIVE_RATE * Time.deltaTime;
 
-        if (rotationX > 0 & rotationX < 90)
+        if (rotationX > 300)
         {
-            rotationX = Mathf.Clamp(rotationX, 1f, 85f);
+
+        }
+        else
+        {
+            rotationX = Mathf.Clamp(rotationX, 0f, 85f);
         }
 	}
 
     void ease()
     {
-        if (rotationX > 0 & rotationX < 90)
+        
+        if (rotationX > 300)
         {
-            rotationX = rotationX - EASE_RATE * Time.deltaTime;
-            rotationX = Mathf.Clamp(rotationX, 1f, 85f);
+            rotationX = rotationX + EASE_RATE * Time.deltaTime;
         }
         else
         {
-            rotationX = rotationX + EASE_RATE * Time.deltaTime;
+            rotationX = rotationX - EASE_RATE * Time.deltaTime;
+            rotationX = Mathf.Clamp(rotationX, 0f, 85f);
         }
     }
 
@@ -695,7 +705,7 @@ public class PlayerState : MonoBehaviour
         if (f < DIVE_SWOOP_DISTANCE)
             f = DIVE_SWOOP_DISTANCE;
 
-        Debug.DrawRay(this.transform.position, Vector3.down * f, Color.black);
+        //Debug.DrawRay(this.transform.position, Vector3.down * f, Color.black);
         if (Physics.Raycast(this.transform.position, Vector3.down, out hit, f))
         {
             return true;
