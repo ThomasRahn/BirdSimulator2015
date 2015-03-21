@@ -10,6 +10,7 @@ public class GameController : ScriptableObject
     [HideInInspector] public static GamepadPopup GamepadPopup;
 	[HideInInspector] public static LocationPopup LocationPopup;
     [HideInInspector] public static CinematicPopup CinematicPopup;
+    [HideInInspector] public static LocatorPopup LocatorPopup;
 	[HideInInspector] public static GamepadSetup Gamepad;
     [HideInInspector] public static Transform LastCheckpoint;
 
@@ -31,6 +32,7 @@ public class GameController : ScriptableObject
         GamepadPopup = GameObject.Find("GamepadPopup").GetComponent<GamepadPopup>();
 		LocationPopup = GameObject.Find("LocationPopup").GetComponent<LocationPopup>();
         CinematicPopup = GameObject.Find("CinematicPopup").GetComponent<CinematicPopup>();
+        LocatorPopup = GameObject.Find("LocatorPopup").GetComponent<LocatorPopup>();
 	}
 
 	void Update()
@@ -85,6 +87,10 @@ public class GameController : ScriptableObject
 			Debug.Log("Server load objects");
 			uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -872f, 227f), Quaternion.identity, 0);
             uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -872f, -233f), Quaternion.identity, 0);
+
+            // CHASE TEST
+            //uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -882f, 0f), Quaternion.identity, 0);
+            //uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -882f, 0f), Quaternion.identity, 0);
 
 			GameObject.Instantiate(Resources.Load(Registry.Prefab.FireballZone), new Vector3(-1314f, -10f, -637f), Quaternion.identity);
         }

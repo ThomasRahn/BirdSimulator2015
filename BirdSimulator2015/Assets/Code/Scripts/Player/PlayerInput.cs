@@ -154,6 +154,11 @@ public class PlayerInput : MonoBehaviour
             animator.SetTrigger("t_QuickAscend");
         }
 
+        if (JoystickButton4)
+        {
+            GameController.LocatorPopup.ResetFade();
+        }
+
 		if (JoystickButton5)
 		{
             this.GetComponent<PlayerSync>().SendBool("b_Diving", true);
