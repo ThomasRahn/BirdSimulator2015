@@ -2,6 +2,6 @@
 {
     public static class Constant
     {
-        public const int PLAYERS = 1;
+        public const int PLAYERS = 2;
     }
 }
