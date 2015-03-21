@@ -141,7 +141,11 @@ public class PlayerState : MonoBehaviour
             this.GetComponent<PlayerSync>().SendBool("b_CanDive", true);
             animator.SetBool("b_CanDive", true);
 
-            if (Physics.Raycast(from, this.transform.forward, out hit, this.GetComponent<Rigidbody>().velocity.magnitude))
+            float check = DIVE_SWOOP_DISTANCE;
+            if (this.GetComponent<Rigidbody>().velocity.magnitude < check)
+                check = this.GetComponent<Rigidbody>().velocity.magnitude;
+
+            if (Physics.Raycast(from, this.transform.forward, out hit, check))
             {
                 if (state != BirdState.AboutFacing && state != BirdState.FlappingForward)
                 {
@@ -423,16 +427,6 @@ public class PlayerState : MonoBehaviour
 
 				this.GetComponent<Rigidbody>().velocity += Vector3.up * 0.2f;
                 break;
-
-            //case BirdState.RollingLeft:
-            //    tiltTowards(TILT_LIMIT / 2);
-            //    this.GetComponent<Rigidbody>().velocity -= this.transform.right;
-            //    break;
-
-            //case BirdState.RollingRight:
-            //    tiltTowards(-TILT_LIMIT / 2);
-            //    this.GetComponent<Rigidbody>().velocity += this.transform.right;
-            //    break;
 
             case BirdState.Landing:
                 tiltTowards(0);
