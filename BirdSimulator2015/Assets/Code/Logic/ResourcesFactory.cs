@@ -21,30 +21,12 @@ public class ResourceFactory
 		return instance;
 	}
 
-	public GameObject GetChainLink()
+	public GameObject GetPrefab(string prefab)
 	{
-		if(!resources.ContainsKey(Registry.Prefab.ChainLink))
+		if(!resources.ContainsKey(prefab))
 		{
-			resources.Add(Registry.Prefab.ChainLink, Resources.Load(Registry.Prefab.ChainLink) as GameObject);
+			resources.Add(prefab, Resources.Load(prefab) as GameObject);
 		}
-		return resources[Registry.Prefab.ChainLink];
+		return resources[prefab];
 	}
-
-	public GameObject GetTrapTrigger()
-	{
-		if(!resources.ContainsKey(Registry.Prefab.TrapTrigger))
-		{
-			resources.Add(Registry.Prefab.TrapTrigger, Resources.Load(Registry.Prefab.TrapTrigger) as GameObject);
-		}
-		return resources[Registry.Prefab.TrapTrigger];
-	}
-
-    public GameObject GetTether()
-    {
-        if (!resources.ContainsKey(Registry.Prefab.Tether))
-        {
-            resources.Add(Registry.Prefab.Tether, Resources.Load(Registry.Prefab.Tether) as GameObject);
-        }
-        return resources[Registry.Prefab.Tether];
-    }
 }

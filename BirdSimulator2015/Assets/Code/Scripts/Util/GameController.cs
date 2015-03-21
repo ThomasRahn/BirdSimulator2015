@@ -67,7 +67,7 @@ public class GameController : ScriptableObject
         Player.GetComponent<PlayerWardrobe>().MisterDressup(IsWhite);
 
 		// camera setup (make sure this comes after the player is loaded)
-		CameraTarget = GameObject.Instantiate(Resources.Load("Player/CameraTarget")) as GameObject;
+		CameraTarget = GameObject.Instantiate(Resources.Load(Registry.Prefab.CameraTarget)) as GameObject;
 		CameraTarget.BroadcastMessage("SetTarget", Player);
 
 		// land on branch

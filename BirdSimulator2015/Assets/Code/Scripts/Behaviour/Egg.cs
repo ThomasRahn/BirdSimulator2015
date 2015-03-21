@@ -32,8 +32,17 @@ public class Egg : MonoBehaviour
 			else // Give ownership to the player that picked it up
 			{
 				uLink.Network.Destroy(transform.parent.gameObject);
-				uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.Egg, Registry.Prefab.Egg, 
-				                          Registry.Prefab.Egg, transform.parent.position, transform.parent.rotation, 0);
+
+				if(uLink.Network.isServer)
+				{
+					uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, 
+				                          	  Registry.Prefab.Egg, transform.parent.position, transform.parent.rotation, 0);
+				}
+				else
+				{
+					uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, 
+					                          Registry.Prefab.EggProxy, transform.parent.position, transform.parent.rotation, 0);
+				}
 			}
         }
     }
@@ -41,15 +50,7 @@ public class Egg : MonoBehaviour
 	[RPC]
 	public void Attach(Vector3 birdPosition)
 	{
-		Collider[] all = Physics.OverlapSphere(birdPosition, 10);
-		for(int i = 0; i < all.Length; i++)
-		{
-			if(all[i].tag == Registry.Tag.Proxy)
-			{
-				link(all[i].GetComponent<Rigidbody>());
-				break;
-			}
-		}
+		GetComponent<Collider>().enabled = false;
 	}
 
 	private void link(Rigidbody bird)
@@ -60,7 +61,7 @@ public class Egg : MonoBehaviour
 		Vector3 initialPosition = transform.parent.position;
 		initialPosition.y = transform.parent.GetComponent<Renderer>().bounds.max.y;
 
-		links = ChainLinker.Link(initialPosition, bird.transform.position, egg.GetComponent<Joint>(), bird, true);
+		links = ChainLinker.NetworkLink(initialPosition, bird.transform.position, egg.GetComponent<Joint>(), bird, true);
 		GetComponent<Collider>().enabled = false; // Prevent picking up the egg again
 	}
 
@@ -68,7 +69,7 @@ public class Egg : MonoBehaviour
 	{
 		for(int i = 0; i < links.Count; i++)
 		{
-			Destroy(links[i]);
+			uLink.Network.Destroy(links[i]);
 		}
 		links.Clear();
 
@@ -86,7 +87,6 @@ public class Egg : MonoBehaviour
 
 	public void Reset()
 	{
-		Debug.Log("Reset");
 		Detach();
 		GetComponent<Collider>().enabled = true;
 		transform.parent.position = spawn;

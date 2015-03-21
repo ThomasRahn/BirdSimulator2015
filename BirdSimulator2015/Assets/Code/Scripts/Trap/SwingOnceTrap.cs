@@ -6,7 +6,7 @@ public abstract class SwingOnceTrap : MonoBehaviour
 {
 	protected void PlaceTrigger(Vector3 position)
 	{
-		GameObject trigger = ResourceFactory.GetInstance().GetTrapTrigger();
+		GameObject trigger = ResourceFactory.GetInstance().GetPrefab(Registry.Prefab.TrapTrigger);
 
 		trigger = GameObject.Instantiate(trigger, position, Quaternion.identity) as GameObject;
 		trigger.transform.parent = this.transform.parent;

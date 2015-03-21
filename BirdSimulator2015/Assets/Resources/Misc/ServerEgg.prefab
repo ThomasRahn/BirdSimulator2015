@@ -35,7 +35,7 @@ GameObject:
   - 114: {fileID: 11459030}
   - 114: {fileID: 11474124}
   m_Layer: 2
-  m_Name: Egg
+  m_Name: ServerEgg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
