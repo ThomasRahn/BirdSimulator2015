@@ -3997,7 +3997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6a803229e53e643b2327221b5ca82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistanceError: 8
+  maxDistanceError: 20
   interpolationBackTimeMs: 200
   maxExtrapolationTimeMs: 500
   rotationDamping: .850000024
