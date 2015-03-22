@@ -27,6 +27,7 @@ public class FallingRocks : MonoBehaviour
 			GameObject g = GameObject.Instantiate(Rocks[r]) as GameObject;
             g.transform.rotation = Random.rotation;
             Vector3 v = this.transform.position;
+            v.x += Random.Range(-Width, Width);
             v.z += Random.Range(-Width, Width);
             g.transform.position = v;
         }

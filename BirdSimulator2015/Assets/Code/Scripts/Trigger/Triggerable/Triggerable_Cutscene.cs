@@ -53,17 +53,23 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
     {
         GameController.SetInputLock(true);
         GameController.CinematicPopup.FadeIn();
+        // QUANGERINO MAKE THIS LERP
+        Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().Radius = 30f;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         GameController.Player.GetComponent<PlayerInput>().SetBool("b_Grounded", false);
 
         yield return new WaitForSeconds(2f);
         GameController.Player.GetComponent<PlayerInput>().SetTrigger("t_DashForward");
 
-        yield return new WaitForSeconds(1f);
+        // QUANGERINO THIS TOO
+        Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().Radius = 20f;
+        yield return new WaitForSeconds(0.1f);
         GameController.CinematicPopup.FadeOut();
 
         GameController.Player.GetComponent<PlayerState>().SetSpeedyMode(true, Vector3.right);
+
+        yield return new WaitForSeconds(3f);
         GameController.SetInputLock(false);
 
         yield return null;

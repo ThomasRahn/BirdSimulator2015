@@ -64,6 +64,9 @@ public class PlayerInput : MonoBehaviour
         animator.ResetTrigger("t_Tornado");
         animator.ResetTrigger("t_Flash");
 
+        JoystickAxisX = 0f;
+        JoystickAxisY = 0f;
+
         if (Locked)
             return;
 
@@ -73,6 +76,9 @@ public class PlayerInput : MonoBehaviour
 
             JoystickAxisX = Input.GetAxis("JoystickAxisX"); // left thumbstick horizontal
             JoystickAxisY = Input.GetAxis("JoystickAxisY"); // left thumbstick vertical
+
+            if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.SpeedyMode)
+                return;
 
 #if UNITY_EDITOR_WIN
             DoXBOXWin();
@@ -91,6 +97,10 @@ public class PlayerInput : MonoBehaviour
         {
             JoystickAxisX = Input.GetAxis("KeyboardAxisX");
             JoystickAxisY = Input.GetAxis("KeyboardAxisY");
+
+            if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.SpeedyMode)
+                return;
+
             JoystickAxis4 = Input.GetAxis("Mouse X");
             JoystickAxis5 = Input.GetAxis("Mouse Y");
 
@@ -222,6 +232,15 @@ public class PlayerInput : MonoBehaviour
             this.GetComponent<PlayerSync>().SendBool("b_Diving", false);
 			animator.SetBool("b_Diving", false);
 		}
+
+        if (JoystickButton8)
+        {
+            if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Hovering
+                || this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Gliding)
+            {
+                animator.SetTrigger("t_AboutFace");
+            }
+        }
 	}
 
 	public void SetTrigger(string s)

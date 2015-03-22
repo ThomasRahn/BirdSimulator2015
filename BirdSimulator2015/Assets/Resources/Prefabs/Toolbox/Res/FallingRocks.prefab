@@ -39,11 +39,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7673c0a314ca44a4c9223b00ac9eb909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TimerMin: 1
+  TimerMax: 2
   Width: 0
   Rocks:
-  - {fileID: 119604, guid: 3915b120ef876884fae12384e8c52afa, type: 2}
-  - {fileID: 100396, guid: 7c7180e3fb3741843897e75fff63cdba, type: 2}
-  - {fileID: 180336, guid: 2555803cb5bc38c4b9dd7f09b058069c, type: 2}
+  - {fileID: 178264, guid: 657d75e98136a4c44886f71990256189, type: 2}
+  - {fileID: 124232, guid: f66c68079ee3ac34b9d2b0b68adc70f6, type: 2}
+  - {fileID: 169560, guid: 6a4b96b80e75caa40b3cdf036edbc32a, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

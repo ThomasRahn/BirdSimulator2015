@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3349220}
   - 23: {fileID: 2349220}
   - 64: {fileID: 6449220}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: crypt_tunnel_b
   m_TagString: Untagged
   m_Icon: {fileID: 0}

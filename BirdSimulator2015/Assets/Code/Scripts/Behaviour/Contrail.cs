@@ -37,8 +37,25 @@ public class Contrail : MonoBehaviour
             && (
                 state == PlayerState.BirdState.TurningLeft
                 || state == PlayerState.BirdState.TurningRight
+                || state == PlayerState.BirdState.SpeedyMode
             ))
         {
+            if (state == PlayerState.BirdState.SpeedyMode && this.name == "ContrailRight")
+            {
+                Vector3 pos;
+                pos.x = -0.002f;
+                pos.y = 0.108f;
+                pos.z = 0.202f;
+                this.transform.localPosition = pos;
+            }
+            else
+            {
+                Vector3 pos = this.transform.position;
+                pos.x = 0.494f;
+                pos.y = -0.077f;
+                pos.z = 0.002f;
+            }
+
             tr.enabled = true;
         }
         else

@@ -8,6 +8,8 @@ public class Triggerable_BirdMouth : BaseTriggerable<BaseTriggerable>
     public Transform BirdMouth;
     public GameObject EyeLeft;
     public GameObject EyeRight;
+    public ParticleSystem DustLeft;
+    public ParticleSystem DustRight;
 
     private Vector3 original;
     private List<GameObject> players = new List<GameObject>();
@@ -40,6 +42,8 @@ public class Triggerable_BirdMouth : BaseTriggerable<BaseTriggerable>
 
         if (players.Count > 0)
         {
+            DustLeft.Play();
+            DustRight.Play();
             StopAllCoroutines();
             StartCoroutine(coOpenSesame());
         }
@@ -67,6 +71,9 @@ public class Triggerable_BirdMouth : BaseTriggerable<BaseTriggerable>
             BirdMouth.Translate(Vector3.down * Time.deltaTime * Speed);
             yield return null;
         }
+
+        DustLeft.Stop();
+        DustRight.Stop();
 
         yield return null;
     }

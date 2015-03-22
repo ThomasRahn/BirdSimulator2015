@@ -209,7 +209,7 @@ public class PlayerState : MonoBehaviour
 		currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, MIN_FORWARD_VELOCITY, MAX_FORWARD_VELOCITY);
 
         // reset blur amount if not diving
-        if (state != BirdState.Diving)
+        if (state != BirdState.Diving & state != BirdState.SpeedyMode)
         {
             float b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
             if (b > 0)
@@ -400,6 +400,8 @@ public class PlayerState : MonoBehaviour
 			break;
 			
 			case BirdState.AboutFacing:
+                animator.ResetTrigger("t_AboutFace");
+
                 tiltTowards(0);
 
                 momentum = 0f;
@@ -412,12 +414,13 @@ public class PlayerState : MonoBehaviour
 			    {
                     flipOnce = true;
 					rotationY += 180;
+
 			    }
 
 			    currentMaxSpeed = MIN_FORWARD_VELOCITY;
 
 			    // instant or velocity over time?
-			    targetVelocity = hit.normal * currentMaxSpeed;
+			    targetVelocity = this.transform.forward * currentMaxSpeed;
                 break;
 
             case BirdState.QuickAscending:
@@ -545,11 +548,17 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case BirdState.SpeedyMode:
+                b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
+                if (b < 0.4f)
+                {
+                    b += Time.deltaTime;
+                    Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
+                }
+
                 rotationX = 0f;
                 rotationY = 90f;
                 rotationZ = 0f;
                 tiltTowards(input.GetAxisHorizontal() * TILT_LIMIT);
-
 
                 leftright = input.GetAxisHorizontal() * this.transform.right * 100f;
 				updown = input.GetAxisVertical() * this.transform.up * 100f;
@@ -565,7 +574,8 @@ public class PlayerState : MonoBehaviour
                     Debug.DrawRay(this.transform.position, leftright + updown, Color.green);
                 }
 
-			    targetVelocity = leftright + updown + SpeedyModeForward * 50f;
+                speedChange = 3.0f;
+			    targetVelocity = leftright + updown + SpeedyModeForward * 70f;
                 break;
 
             case BirdState.Tornadoing:
@@ -726,7 +736,7 @@ public class PlayerState : MonoBehaviour
         currentMaxSpeed = f;
     }
 
-    private Vector3 SpeedyModeForward;
+    public Vector3 SpeedyModeForward;
     public void SetSpeedyMode(bool b, Vector3 v)
     {
         this.GetComponent<PlayerSync>().SendBool("b_SpeedyGiuseppe", b);
