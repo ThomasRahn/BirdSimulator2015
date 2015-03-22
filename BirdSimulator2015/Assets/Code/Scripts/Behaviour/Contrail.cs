@@ -33,7 +33,21 @@ public class Contrail : MonoBehaviour
     {
         state = hash[animator.GetCurrentAnimatorStateInfo(0).shortNameHash];
 
-		if (rb.velocity.magnitude > SPEED_THRESHOLD
+        tr.enabled = false;
+
+        if (state == PlayerState.BirdState.Tornadoing)
+        {
+            tr.startWidth = 0.4f;
+            tr.endWidth = 0.4f;
+            tr.enabled = true;
+        }
+        else
+        {
+            tr.startWidth = 0.01f;
+            tr.endWidth = 0.01f;
+        }
+
+        if (rb.velocity.magnitude > SPEED_THRESHOLD
             && (
                 state == PlayerState.BirdState.TurningLeft
                 || state == PlayerState.BirdState.TurningRight
@@ -57,10 +71,6 @@ public class Contrail : MonoBehaviour
             }
 
             tr.enabled = true;
-        }
-        else
-        {
-            tr.enabled = false;
         }
 	}
 }

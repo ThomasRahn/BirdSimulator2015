@@ -9,7 +9,8 @@
 		public const string EggProxy = "ProxyEgg";
         public const string Fireball = "Fireball(Clone)";
 		public const string FireballZone = "Misc/FireballZone";
-        public const string FeatherPoof = "Misc/FeatherPoof";
+        public const string FeatherPoof_White = "Misc/FeatherPoof_White";
+        public const string FeatherPoof_Black = "Misc/FeatherPoof_Black";
         public const string WhirlyWind = "Misc/WhirlyWind";
         public const string FlashyFlash = "Misc/FlashyFlash";
 		public const string ChainLink = "Misc/ChainLink";

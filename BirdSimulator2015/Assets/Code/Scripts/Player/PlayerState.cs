@@ -294,7 +294,7 @@ public class PlayerState : MonoBehaviour
                     Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
                 }
 
-                tiltTowards(0);
+                tiltTowards(input.GetAxisHorizontal() * TILT_LIMIT);
                 addMomentum();
                 dive();
 
@@ -517,8 +517,16 @@ public class PlayerState : MonoBehaviour
                         HeldEgg.Reset();
                     }
 
-                    this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.FeatherPoof, this.transform.position, Quaternion.identity);
-                    GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof), this.transform.position, Quaternion.identity);
+                    if (GameController.IsWhite)
+                    {
+                        this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.FeatherPoof_White, this.transform.position, Quaternion.identity);
+                        GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof_White), this.transform.position, Quaternion.identity);
+                    }
+                    else
+                    {
+                        this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.FeatherPoof_Black, this.transform.position, Quaternion.identity);
+                        GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof_Black), this.transform.position, Quaternion.identity);
+                    }
 
                     if (this.GetComponent<uLinkNetworkView>().isMine)
                     {
