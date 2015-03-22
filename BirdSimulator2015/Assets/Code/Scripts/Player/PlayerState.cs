@@ -421,7 +421,7 @@ public class PlayerState : MonoBehaviour
 			    {
                     flipOnce = true;
 					rotationY += 180;
-
+                    this.GetComponent<PlayerAudio>().PlaySwoop();
 			    }
 
 			    currentMaxSpeed = MIN_FORWARD_VELOCITY;
@@ -565,6 +565,8 @@ public class PlayerState : MonoBehaviour
                         GameController.SetInputLock(true);
                         StartCoroutine(coRespawn());
                     }
+
+                    GameController.DeathPopup.Activate();
                 }
 
 				break;
@@ -775,7 +777,7 @@ public class PlayerState : MonoBehaviour
 
     IEnumerator coRespawn()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3.5f);
         animator.SetTrigger("t_Respawn");
         yield return null;
     }

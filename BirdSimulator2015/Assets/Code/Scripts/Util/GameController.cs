@@ -11,6 +11,7 @@ public class GameController : ScriptableObject
 	[HideInInspector] public static LocationPopup LocationPopup;
     [HideInInspector] public static CinematicPopup CinematicPopup;
     [HideInInspector] public static LocatorPopup LocatorPopup;
+    [HideInInspector] public static DeathPopup DeathPopup;
 	[HideInInspector] public static GamepadSetup Gamepad;
     [HideInInspector] public static Transform LastCheckpoint;
 
@@ -33,6 +34,7 @@ public class GameController : ScriptableObject
 		LocationPopup = GameObject.Find("LocationPopup").GetComponent<LocationPopup>();
         CinematicPopup = GameObject.Find("CinematicPopup").GetComponent<CinematicPopup>();
         LocatorPopup = GameObject.Find("LocatorPopup").GetComponent<LocatorPopup>();
+        DeathPopup = GameObject.Find("DeathPopup").GetComponent<DeathPopup>();
 	}
 
 	void Update()
@@ -70,13 +72,13 @@ public class GameController : ScriptableObject
 		// land on branch
 		if(IsWhite)
 		{
-			//Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnWhite).transform;
+			Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnWhite).transform;
 		}
 		else
 		{
-			//Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnBlack).transform;
+			Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnBlack).transform;
 		}
-        //Player.GetComponent<PlayerInput>().SetTrigger("t_Land");
+        Player.GetComponent<PlayerInput>().SetTrigger("t_Land");
 
         // if server, load in all objects that must be networked
         if (uLink.Network.isServer)
