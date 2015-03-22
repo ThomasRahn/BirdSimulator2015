@@ -7,7 +7,6 @@ TagManager:
   - Proxy
   - SpawnWhite
   - SpawnBlack
-  - CloudWall
   layers:
   - Default
   - TransparentFX

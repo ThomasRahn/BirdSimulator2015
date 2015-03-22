@@ -20,7 +20,7 @@ public class Triggerable_TorchLit : BaseTriggerable<BaseTriggerable>
 		Flame flame_component = this.GetComponentInChildren<Flame> ();
 		if (!flame_component.IsLit) {
 			flame_component.ToggleLit();
-			GameObject.FindGameObjectWithTag("CloudWall").GetComponent<CloudWall>().PushBack();
+			GameObject.Find("CloudWall").GetComponent<CloudWall>().PushBack();
 		}
 
 		base.Trigger(c, g);

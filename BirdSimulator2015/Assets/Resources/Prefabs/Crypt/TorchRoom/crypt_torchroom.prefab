@@ -220,7 +220,7 @@ GameObject:
   - 114: {fileID: 11411830}
   m_Layer: 0
   m_Name: CloudWall
-  m_TagString: CloudWall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -456,7 +456,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2596.37915, y: -859.045105, z: -197.768066}
+  m_LocalPosition: {x: -2646.46948, y: -848.288452, z: -181.506348}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 470632}
@@ -791,7 +791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e7a230d1260b14dbe4adf7982ae132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move: 0
   level: 1
 --- !u!114 &11413576
 MonoBehaviour:
