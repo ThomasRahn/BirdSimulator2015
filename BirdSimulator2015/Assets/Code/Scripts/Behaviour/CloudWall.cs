@@ -3,7 +3,6 @@ using System.Collections;
 
 public class CloudWall : MonoBehaviour 
 {
-	public bool move;
 	public int level = 1;
 	// Use this for initialization
 	void Start () {
@@ -12,17 +11,7 @@ public class CloudWall : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		if (move) 
-		{
-			//if it has been moved twiced, remove it
-			if(level >= 3)
-			{
-				Destroy(this.gameObject);
-			}
-			level++;
-			this.transform.position = this.transform.position + new Vector3(0,0,-20.0f);
-			move = false;
-		}
+
 	}
 
 	void OnCollisionEnter(Collision col)
@@ -32,8 +21,13 @@ public class CloudWall : MonoBehaviour
 
 	public void PushBack()
 	{
-		move = true;
-		Debug.Log (move);
+		//if all 6 torches have been lit
+		if(level >= 6)
+		{
+			Destroy(this.gameObject);
+		}
+		level++;
+		this.transform.position = this.transform.position + new Vector3(0,0,-10.0f);
 	}
 
 }
