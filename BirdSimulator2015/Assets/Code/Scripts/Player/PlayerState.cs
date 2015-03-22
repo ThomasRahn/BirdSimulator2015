@@ -294,7 +294,7 @@ public class PlayerState : MonoBehaviour
 					
 			case BirdState.Diving:
                 float b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
-                if (b < 0.6)
+                if (b < 0.5f)
                 {
                     b += Time.deltaTime;
                     Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
@@ -436,6 +436,13 @@ public class PlayerState : MonoBehaviour
 				    ease();
 
 				this.GetComponent<Rigidbody>().velocity += Vector3.up * 1f;
+
+                if (!audioOnce)
+                {
+                    audioOnce = true;
+                    this.GetComponent<PlayerAudio>().PlaySwoop();
+                }
+
                 break;
 
             case BirdState.Landing:
@@ -488,7 +495,7 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.DashingForward:
                 b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
-                if (b < 0.7f)
+                if (b < 0.5f)
                 {
                     b += Time.deltaTime * 5f;
                     Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;

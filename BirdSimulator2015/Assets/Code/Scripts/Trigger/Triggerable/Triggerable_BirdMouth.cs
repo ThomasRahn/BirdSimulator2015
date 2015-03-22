@@ -46,6 +46,8 @@ public class Triggerable_BirdMouth : BaseTriggerable<BaseTriggerable>
             DustRight.Play();
             StopAllCoroutines();
             StartCoroutine(coOpenSesame());
+
+            this.GetComponent<AudioSource>().Play();
         }
         else
         {
