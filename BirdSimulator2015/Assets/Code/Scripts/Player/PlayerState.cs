@@ -72,7 +72,7 @@ public class PlayerState : MonoBehaviour
     const float TURN_SHARPNESS = 1.4f;
     const float DECELERATION_RATE = 500f;
     const float DIVE_STRAFE_RATE = 20f;
-
+	const float TAUNT_DISTANCE = 20.0f;
     const float TILT_LIMIT = 70f;
     const float ABOUT_FACE_ANGLE = 35f;
 
@@ -635,6 +635,20 @@ public class PlayerState : MonoBehaviour
                     GameObject.Instantiate(Resources.Load(Registry.Prefab.FlashyFlash), this.transform.position, Quaternion.identity);
 
                     this.GetComponent<PlayerAudio>().PlayFlash();
+					Collider[] colliders = Physics.OverlapSphere (this.transform.position, TAUNT_DISTANCE);
+					if (colliders.Length > 0) 
+					{
+						for(int i = 0; i < colliders.Length; i++)
+						{
+							Triggerable_TorchLit[] lightable_torches = colliders[i].gameObject.GetComponentsInChildren<Triggerable_TorchLit>();
+							
+							foreach(Triggerable_TorchLit torch in lightable_torches)
+							{
+								torch.Trigger(colliders[i],this.gameObject);
+							}
+						}
+					}
+					//End lightable torches section
                 }
 
                 targetVelocity = this.transform.forward * currentMaxSpeed;

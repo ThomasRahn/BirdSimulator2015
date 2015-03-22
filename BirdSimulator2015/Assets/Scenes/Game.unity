@@ -7396,8 +7396,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 150954, guid: 638390f27762d3b419a31ee6a3ac335a, type: 2}
       propertyPath: m_Name
-      value: pf_BladeRoom
+      value: pf_TorchRoom
       objectReference: {fileID: 0}
+    - target: {fileID: 11469282, guid: 638390f27762d3b419a31ee6a3ac335a, type: 2}
+      propertyPath: Prefab
+      value: 
+      objectReference: {fileID: 172910, guid: 69d7979b29fd8934391137c779b70795, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 638390f27762d3b419a31ee6a3ac335a, type: 2}
   m_IsPrefabParent: 0
