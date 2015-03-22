@@ -97,6 +97,7 @@ public class PlayerState : MonoBehaviour
     private bool respawnOnce = false;
     private bool skillOnce = false;
     private bool yodoYouOnlyDieOnce = false;
+    private bool audioOnce = false;
 
     public Transform LandTarget; // collision trigger (landing)
 	public LayerMask layerMask;
@@ -209,7 +210,7 @@ public class PlayerState : MonoBehaviour
 		currentMaxSpeed = Mathf.Clamp(currentMaxSpeed, MIN_FORWARD_VELOCITY, MAX_FORWARD_VELOCITY);
 
         // reset blur amount if not diving
-        if (state != BirdState.Diving & state != BirdState.SpeedyMode)
+        if (state != BirdState.Diving & state != BirdState.SpeedyMode & state != BirdState.DashingForward)
         {
             float b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
             if (b > 0)
@@ -226,6 +227,7 @@ public class PlayerState : MonoBehaviour
                 yodoYouOnlyDieOnce = false;
                 respawnOnce = false;
                 skillOnce = false;
+                audioOnce = false;
 
                 ease();
                 tiltTowards(0);
@@ -244,6 +246,7 @@ public class PlayerState : MonoBehaviour
                 yodoYouOnlyDieOnce = false;
 				respawnOnce = false;
                 skillOnce = false;
+                audioOnce = false;
 
 				// make sure we're not slamming against a wall, since the gliding state applies there also
                 if (tilting == 0)
@@ -484,7 +487,20 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case BirdState.DashingForward:
+                b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
+                if (b < 0.7f)
+                {
+                    b += Time.deltaTime * 5f;
+                    Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
+                }
+
                 tiltTowards(0);
+
+                if (!audioOnce)
+                {
+                    audioOnce = true;
+                    this.GetComponent<PlayerAudio>().PlaySwoop();
+                }
 
                 this.GetComponent<Rigidbody>().velocity += this.transform.forward * 0.5f; // instant impulse
                 currentMaxSpeed += Time.deltaTime * MIN_FORWARD_VELOCITY;
@@ -532,12 +548,18 @@ public class PlayerState : MonoBehaviour
                         GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof_Black), this.transform.position, Quaternion.identity);
                     }
 
+                    // sound
+                    this.GetComponent<PlayerAudio>().PlayDeath();
+                    // rumble
+                    this.GetComponent<PlayerRumble>().BumbleRumble(0.3f, 0.7f, 0.7f);
+
                     if (this.GetComponent<uLinkNetworkView>().isMine)
                     {
                         GameController.SetInputLock(true);
                         StartCoroutine(coRespawn());
                     }
                 }
+
 				break;
 
             case BirdState.Respawning:
@@ -597,6 +619,8 @@ public class PlayerState : MonoBehaviour
                     skillOnce = true;
                     this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.WhirlyWind, this.transform.position, Quaternion.identity);
                     GameObject.Instantiate(Resources.Load(Registry.Prefab.WhirlyWind), this.transform.position, Quaternion.identity);
+
+                    this.GetComponent<PlayerAudio>().PlayTornado();
                 }
 
                 targetVelocity = this.transform.forward * currentMaxSpeed;
@@ -609,6 +633,8 @@ public class PlayerState : MonoBehaviour
                     skillOnce = true;
                     this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.FlashyFlash, this.transform.position, Quaternion.identity);
                     GameObject.Instantiate(Resources.Load(Registry.Prefab.FlashyFlash), this.transform.position, Quaternion.identity);
+
+                    this.GetComponent<PlayerAudio>().PlayFlash();
                 }
 
                 targetVelocity = this.transform.forward * currentMaxSpeed;

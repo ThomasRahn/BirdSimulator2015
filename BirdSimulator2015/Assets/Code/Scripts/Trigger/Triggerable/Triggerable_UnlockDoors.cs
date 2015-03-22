@@ -44,6 +44,11 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
             locked = false;
             StartCoroutine(coUnlockDoors());
             networkView.RPC("RPC_UnlockDoors", uLink.RPCMode.Others);
+
+            GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(7.5f, 0.2f, 0.2f);
+            Left.GetComponentInChildren<AudioSource>().Play();
+            Right.GetComponentInChildren<AudioSource>().Play();
+
             base.Trigger(c, g);
         }
 	}
@@ -69,6 +74,9 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
             Length -= Time.deltaTime;
             yield return null;
         }
+
+        Left.GetComponentInChildren<AudioSource>().Stop();
+        Right.GetComponentInChildren<AudioSource>().Stop();
 
         yield return null;
     }
