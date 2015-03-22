@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 497040}
   - 33: {fileID: 3394486}
   - 23: {fileID: 2327574}
-  - 64: {fileID: 6427320}
   m_Layer: 2
   m_Name: crypt_evilpillar_brokenb
   m_TagString: Untagged
@@ -60,18 +59,6 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118068}
-  m_Mesh: {fileID: 4300000, guid: f6677689287ce994389f9743ad2e2654, type: 3}
---- !u!64 &6427320
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118068}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: f6677689287ce994389f9743ad2e2654, type: 3}
 --- !u!1001 &100100000
 Prefab:

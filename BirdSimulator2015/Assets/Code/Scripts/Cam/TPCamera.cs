@@ -12,8 +12,9 @@ namespace BirdSimulator2015.Code.Scripts.Cam
         public float FOVThreshold;
         public float UpOffset;
 		public float FOVCoefficient;
-		public float Radius;
-		
+        public float Radius;
+		[HideInInspector] public float TargetRadius;
+
 		protected Camera cam;
 		protected float velocity;
 		protected Transform parent;
@@ -23,6 +24,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 
 		protected virtual void Awake()
 		{
+            TargetRadius = Radius;
 	        cam = this.GetComponent<Camera>();
 			parent = transform.parent;
 		}
@@ -32,6 +34,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			velocity = target.GetComponent<Rigidbody>().velocity.magnitude;
 			UpdatePosition();
             UpdateFieldOfView();
+            UpdateRadius();
 			collisionResolution();
 		}
 
@@ -49,6 +52,14 @@ namespace BirdSimulator2015.Code.Scripts.Cam
             else
             {
                 cam.fieldOfView = Mathf.MoveTowards(cam.fieldOfView, 60, Time.deltaTime * 10);
+            }
+        }
+
+        private void UpdateRadius()
+        {
+            if (Radius != TargetRadius)
+            {
+                Radius = Mathf.Lerp(Radius, TargetRadius, Time.deltaTime);
             }
         }
 

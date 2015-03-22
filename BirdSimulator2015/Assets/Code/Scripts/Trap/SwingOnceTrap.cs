@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public abstract class SwingOnceTrap : MonoBehaviour 
 {
-    Vector3 OFFSET = new Vector3(-70f, -20f, 0f);
+    Vector3 OFFSET = new Vector3(-100f, -20f, 0f);
 
 	protected void PlaceTrigger(Vector3 position)
 	{

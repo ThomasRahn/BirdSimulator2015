@@ -12,6 +12,7 @@ GameObject:
   - 23: {fileID: 2324232}
   - 54: {fileID: 5484100}
   - 64: {fileID: 6424232}
+  - 114: {fileID: 11446738}
   m_Layer: 2
   m_Name: crypt_fallingrock2
   m_TagString: Untagged
@@ -89,6 +90,18 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 6b483f55f00bf2e4982a9addbca62e65, type: 3}
+--- !u!114 &11446738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d010ebccf821b94419534a1751e5adb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Lifetime: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
