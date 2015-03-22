@@ -3,20 +3,20 @@ using System.Collections;
 
 public class IgnoreCollisions : MonoBehaviour 
 {
-	private Collider collider;
+	private Collider col;
 
 	private void Awake()
 	{
-		this.collider = this.GetComponent<Collider>();
+		this.col = this.GetComponent<Collider>();
 	}
 
 	private void OnCollisionEnter(Collision c)
 	{
-		Physics.IgnoreCollision(c.collider, this.collider);
+		Physics.IgnoreCollision(c.collider, this.col);
 	}
 
 	private void OnCollisionStay(Collision c)
 	{
-		Physics.IgnoreCollision(c.collider, this.collider);
+		Physics.IgnoreCollision(c.collider, this.col);
 	}
 }
