@@ -53,8 +53,7 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
     {
         GameController.SetInputLock(true);
         GameController.CinematicPopup.FadeIn();
-        // QUANGERINO MAKE THIS LERP
-        Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().Radius = 30f;
+        Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 30f;
 
         yield return new WaitForSeconds(10f);
         GameController.Player.GetComponent<PlayerInput>().SetBool("b_Grounded", false);
@@ -62,8 +61,7 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
         yield return new WaitForSeconds(2f);
         GameController.Player.GetComponent<PlayerInput>().SetTrigger("t_DashForward");
 
-        // QUANGERINO THIS TOO
-        Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().Radius = 20f;
+        Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 20f;
         yield return new WaitForSeconds(0.1f);
         GameController.CinematicPopup.FadeOut();
 

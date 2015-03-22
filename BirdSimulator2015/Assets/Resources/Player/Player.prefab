@@ -3976,7 +3976,7 @@ MonoBehaviour:
   LandTarget: {fileID: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 4294967039
+    m_Bits: 19
   SpeedyModeForward: {x: 0, y: 0, z: 0}
 --- !u!114 &11483738
 MonoBehaviour:

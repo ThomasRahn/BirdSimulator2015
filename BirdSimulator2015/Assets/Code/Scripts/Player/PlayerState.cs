@@ -98,8 +98,7 @@ public class PlayerState : MonoBehaviour
     private bool skillOnce = false;
     private bool yodoYouOnlyDieOnce = false;
 
-    // collision trigger (landing)
-    public Transform LandTarget;
+    public Transform LandTarget; // collision trigger (landing)
 	public LayerMask layerMask;
 	public Egg HeldEgg {get; set;}
 
@@ -558,7 +557,7 @@ public class PlayerState : MonoBehaviour
 
                 rotationX = 0f;
                 rotationY = 90f;
-                rotationZ = 0f;
+                //rotationZ = 0f;
                 tiltTowards(input.GetAxisHorizontal() * TILT_LIMIT);
 
                 leftright = input.GetAxisHorizontal() * this.transform.right * 100f;

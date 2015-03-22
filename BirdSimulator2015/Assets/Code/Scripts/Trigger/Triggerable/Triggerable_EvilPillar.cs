@@ -22,6 +22,7 @@ public class Triggerable_EvilPillar : BaseTriggerable<BaseTriggerable>
         alreadyTriggered = true;
 
         GameController.SetInputLock(true);
+        GameController.CinematicPopup.FadeIn();
         GameController.Player.GetComponent<Rigidbody>().velocity = GameController.Player.GetComponent<PlayerState>().SpeedyModeForward;
 
         StartCoroutine(coMoveTowards());
