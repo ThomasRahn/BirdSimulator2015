@@ -14,7 +14,7 @@ GameObject:
   - 153: {fileID: 15361442}
   - 136: {fileID: 13679372}
   - 114: {fileID: 11497656}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: ChainLink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
