@@ -100,6 +100,7 @@ public class PlayerState : MonoBehaviour
 
     // collision trigger (landing)
     public Transform LandTarget;
+	public LayerMask layerMask;
 	public Egg HeldEgg {get; set;}
 
     void Awake()
@@ -145,7 +146,7 @@ public class PlayerState : MonoBehaviour
             if (this.GetComponent<Rigidbody>().velocity.magnitude < check)
                 check = this.GetComponent<Rigidbody>().velocity.magnitude;
 
-            if (Physics.Raycast(from, this.transform.forward, out hit, check))
+            if (Physics.Raycast(from, this.transform.forward, out hit, check, layerMask))
             {
                 if (state != BirdState.AboutFacing && state != BirdState.FlappingForward)
                 {
@@ -160,24 +161,24 @@ public class PlayerState : MonoBehaviour
 
         //Debug.DrawRay(from, (this.transform.forward + this.transform.right) * 0.8f, Color.black);
         //Debug.DrawRay(from, (this.transform.forward - this.transform.right) * 0.8f, Color.black);
-        if (Physics.Raycast(from, this.transform.forward + this.transform.right, out hit, 1f))
+        if (Physics.Raycast(from, this.transform.forward + this.transform.right, out hit, 1f, layerMask))
         {
             tilting = 1; // right
             tiltTowards(-TILT_LIMIT); // tilt away (opposite)
 
-            if (Physics.Raycast(from, this.transform.forward + this.transform.right, out hit, 0.7f))
+            if (Physics.Raycast(from, this.transform.forward + this.transform.right, out hit, 0.7f, layerMask))
             {
                 rotationY = Mathf.Lerp(rotationY, rotationY - 20f, Time.deltaTime);
                 this.transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
             }
 
         }
-        else if (Physics.Raycast(from, this.transform.forward - this.transform.right, out hit, 1f))
+        else if (Physics.Raycast(from, this.transform.forward - this.transform.right, out hit, 1f, layerMask))
         {
             tilting = -1; // left
             tiltTowards(TILT_LIMIT);
 
-            if (Physics.Raycast(from, this.transform.forward - this.transform.right, out hit, 0.7f))
+            if (Physics.Raycast(from, this.transform.forward - this.transform.right, out hit, 0.7f, layerMask))
             {
                 rotationY = Mathf.Lerp(rotationY, rotationY + 20f, Time.deltaTime);
                 this.transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY, 0);
@@ -563,7 +564,7 @@ public class PlayerState : MonoBehaviour
                 leftright = input.GetAxisHorizontal() * this.transform.right * 100f;
 				updown = input.GetAxisVertical() * this.transform.up * 100f;
 
-                if (Physics.Raycast(this.transform.position, leftright + updown, out hit, 10f))
+                if (Physics.Raycast(this.transform.position, leftright + updown, out hit, 10f, layerMask))
                 {
                     Debug.DrawRay(this.transform.position, leftright + updown, Color.red);
                     leftright = Vector3.zero;
@@ -707,7 +708,7 @@ public class PlayerState : MonoBehaviour
             f = DIVE_SWOOP_DISTANCE;
 
         //Debug.DrawRay(this.transform.position, Vector3.down * f, Color.black);
-        if (Physics.Raycast(this.transform.position, Vector3.down, out hit, f))
+        if (Physics.Raycast(this.transform.position, Vector3.down, out hit, f, layerMask))
         {
             return true;
         }
