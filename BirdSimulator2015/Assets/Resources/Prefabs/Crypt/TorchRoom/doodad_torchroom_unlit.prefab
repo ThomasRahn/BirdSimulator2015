@@ -28,6 +28,7 @@ GameObject:
   - 23: {fileID: 2306988}
   - 64: {fileID: 6462088}
   - 114: {fileID: 11431516}
+  - 148: {fileID: 14837982}
   m_Layer: 0
   m_Name: doodad_torchroom_unlit
   m_TagString: Untagged
@@ -126,6 +127,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 148956, guid: 96bd85da9112526439e7925de38848be, type: 2}
+--- !u!148 &14837982
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195924}
+  m_Enabled: 1
+  m_StateSynchronization: 0
+  m_Observed: {fileID: 417714}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
