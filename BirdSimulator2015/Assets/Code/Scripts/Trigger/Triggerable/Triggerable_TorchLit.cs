@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Triggerable_TorchLit : BaseTriggerable<BaseTriggerable> {
+public class Triggerable_TorchLit : BaseTriggerable<BaseTriggerable> 
+{
+
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +20,20 @@ public class Triggerable_TorchLit : BaseTriggerable<BaseTriggerable> {
 		Flame flame_component = this.GetComponentInChildren<Flame> ();
 		if (!flame_component.IsLit) {
 			flame_component.ToggleLit();
+			GameObject.Find("CloudWall").GetComponent<CloudWall>().PushBack();
+			this.gameObject.GetComponent<NetworkView>().RPC("lightTorch", RPCMode.Others);
 		}
+
 		base.Trigger(c, g);
+	}
+
+	[RPC]
+	public void lightTorch()
+	{
+		Flame flame_component = this.GetComponentInChildren<Flame> ();
+		if (!flame_component.IsLit) {
+			flame_component.ToggleLit();
+			GameObject.Find("CloudWall").GetComponent<CloudWall>().PushBack();
+		}
 	}
 }
