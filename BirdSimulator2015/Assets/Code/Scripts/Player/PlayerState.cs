@@ -294,7 +294,7 @@ public class PlayerState : MonoBehaviour
 					
 			case BirdState.Diving:
                 float b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
-                if (b < 0.6)
+                if (b < 0.5f)
                 {
                     b += Time.deltaTime;
                     Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
@@ -421,7 +421,7 @@ public class PlayerState : MonoBehaviour
 			    {
                     flipOnce = true;
 					rotationY += 180;
-
+                    this.GetComponent<PlayerAudio>().PlaySwoop();
 			    }
 
 			    currentMaxSpeed = MIN_FORWARD_VELOCITY;
@@ -436,6 +436,13 @@ public class PlayerState : MonoBehaviour
 				    ease();
 
 				this.GetComponent<Rigidbody>().velocity += Vector3.up * 1f;
+
+                if (!audioOnce)
+                {
+                    audioOnce = true;
+                    this.GetComponent<PlayerAudio>().PlaySwoop();
+                }
+
                 break;
 
             case BirdState.Landing:
@@ -488,7 +495,7 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.DashingForward:
                 b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
-                if (b < 0.7f)
+                if (b < 0.5f)
                 {
                     b += Time.deltaTime * 5f;
                     Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
@@ -558,6 +565,8 @@ public class PlayerState : MonoBehaviour
                         GameController.SetInputLock(true);
                         StartCoroutine(coRespawn());
                     }
+
+                    GameController.DeathPopup.Activate();
                 }
 
 				break;
@@ -768,7 +777,7 @@ public class PlayerState : MonoBehaviour
 
     IEnumerator coRespawn()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3.5f);
         animator.SetTrigger("t_Respawn");
         yield return null;
     }
