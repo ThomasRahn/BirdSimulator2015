@@ -21,7 +21,7 @@ public class Triggerable_TorchLit : BaseTriggerable<BaseTriggerable>
 		if (!flame_component.IsLit) {
 			flame_component.ToggleLit();
 			GameObject.Find("CloudWall").GetComponent<CloudWall>().PushBack();
-			this.gameObject.GetComponent<NetworkView>().RPC("lightTorch", RPCMode.Others);
+			uLink.NetworkView.Get (this).RPC("lightTorch", uLink.RPCMode.Others);
 		}
 
 		base.Trigger(c, g);
