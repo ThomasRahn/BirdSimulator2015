@@ -61,7 +61,7 @@ public class PlayerState : MonoBehaviour
     const float DESCENT_RATE = 50f;
     const float DIVE_RATE = 200f;
     const float TURN_RATE_INITIAL = 20f;
-    const float TURN_RATE_MAX = 80f;
+    const float TURN_RATE_MAX = 150f;
     const float TURN_ACCELERATION = 10f;
     const float TURN_ACCELERATION_WHILE_DIVING = 5f;
     const float TURN_RATE_WHEN_DIVING = 200f;
@@ -254,6 +254,7 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.Descending:
 				tiltTowards(0);
+                currentTurnSpeed = TURN_RATE_INITIAL;
 
 				rotationX = transform.localEulerAngles.x + DESCENT_RATE * Time.deltaTime;
 				if (rotationX > ROTATION_X_LIMIT & rotationX < 90)
@@ -269,6 +270,7 @@ public class PlayerState : MonoBehaviour
                 if (rotationX > ROTATION_X_LIMIT & rotationX < 90)
                     rotationX = ROTATION_X_LIMIT;
 
+                turnLeft();
                 rotationY -= currentTurnSpeed * Time.deltaTime;
 
 				targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY_WHEN_ASCENDING + Vector3.down * MAX_UPWARD_VELOCITY;
@@ -281,7 +283,8 @@ public class PlayerState : MonoBehaviour
                 if (rotationX > ROTATION_X_LIMIT & rotationX < 90)
                     rotationX = ROTATION_X_LIMIT;
 
-                rotationY += currentTurnSpeed * Time.deltaTime;
+                turnRight();
+                //rotationY += currentTurnSpeed * Time.deltaTime;
 
 				targetVelocity = this.transform.forward * MAX_FORWARD_VELOCITY_WHEN_ASCENDING + Vector3.down * MAX_UPWARD_VELOCITY;
 				break;
@@ -294,7 +297,7 @@ public class PlayerState : MonoBehaviour
                     Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
                 }
 
-                tiltTowards(0);
+                tiltTowards(input.GetAxisHorizontal() * TILT_LIMIT);
                 addMomentum();
                 dive();
 
@@ -372,6 +375,7 @@ public class PlayerState : MonoBehaviour
 
             case BirdState.Ascending:
                 tiltTowards(0);
+                currentTurnSpeed = TURN_RATE_INITIAL;
 
                 rotationX = transform.localEulerAngles.x - DESCENT_RATE * Time.deltaTime;
                 rotationX = clampAngle(rotationX);
@@ -428,7 +432,7 @@ public class PlayerState : MonoBehaviour
                 if (rotationX < 300)
 				    ease();
 
-				this.GetComponent<Rigidbody>().velocity += Vector3.up * 0.2f;
+				this.GetComponent<Rigidbody>().velocity += Vector3.up * 1f;
                 break;
 
             case BirdState.Landing:
@@ -517,8 +521,16 @@ public class PlayerState : MonoBehaviour
                         HeldEgg.Reset();
                     }
 
-                    this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.FeatherPoof, this.transform.position, Quaternion.identity);
-                    GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof), this.transform.position, Quaternion.identity);
+                    if (GameController.IsWhite)
+                    {
+                        this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.FeatherPoof_White, this.transform.position, Quaternion.identity);
+                        GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof_White), this.transform.position, Quaternion.identity);
+                    }
+                    else
+                    {
+                        this.GetComponent<PlayerSync>().SpawnPrefab(Registry.Prefab.FeatherPoof_Black, this.transform.position, Quaternion.identity);
+                        GameObject.Instantiate(Resources.Load(Registry.Prefab.FeatherPoof_Black), this.transform.position, Quaternion.identity);
+                    }
 
                     if (this.GetComponent<uLinkNetworkView>().isMine)
                     {
