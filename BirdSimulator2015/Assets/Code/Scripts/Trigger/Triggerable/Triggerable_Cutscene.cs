@@ -53,6 +53,7 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
     {
         GameController.SetInputLock(true);
         GameController.CinematicPopup.FadeIn();
+        GameObject.FindWithTag("AudioController").GetComponent<AudioController>().FadeOut();
         Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 30f;
 
         yield return new WaitForSeconds(10f);
@@ -67,6 +68,7 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
 
         GameController.Player.GetComponent<PlayerState>().SetSpeedyMode(true, Vector3.right);
 
+        GameObject.FindWithTag("AudioController").GetComponent<AudioController>().FadeIn(AudioController.BGMTrack.Chase);
         yield return new WaitForSeconds(3f);
         GameController.SetInputLock(false);
 
