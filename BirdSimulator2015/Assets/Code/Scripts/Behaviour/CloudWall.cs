@@ -6,7 +6,6 @@ public class CloudWall : MonoBehaviour
 	public int level = 1;
 	// Use this for initialization
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame

@@ -28,7 +28,7 @@ GameObject:
   - 23: {fileID: 2306988}
   - 64: {fileID: 6462088}
   - 114: {fileID: 11431516}
-  - 148: {fileID: 14837982}
+  - 114: {fileID: 11428584}
   m_Layer: 0
   m_Name: doodad_torchroom_unlit
   m_TagString: Untagged
@@ -104,6 +104,30 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 636c4d312440a174aaf67754c167178f, type: 3}
+--- !u!114 &11428584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9be5429cbf387c4f9140f7d1908fb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proxyPrefab: 
+  ownerPrefab: 
+  serverPrefab: 
+  _parent: {fileID: 0}
+  _childIndex: -1
+  _children: []
+  stateSynchronization: 2
+  securable: 3
+  observed: {fileID: 417714}
+  _manualViewID: 100
+  rpcReceiver: 2
+  listOfGameObjects: []
+  _prefabRoot: {fileID: 0}
 --- !u!114 &11431516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,18 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 148956, guid: 96bd85da9112526439e7925de38848be, type: 2}
---- !u!148 &14837982
-NetworkView:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 195924}
-  m_Enabled: 1
-  m_StateSynchronization: 0
-  m_Observed: {fileID: 417714}
-  m_ViewID:
-    m_ID: 0
-    m_Type: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

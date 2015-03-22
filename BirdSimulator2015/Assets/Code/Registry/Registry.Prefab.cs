@@ -19,5 +19,6 @@
 		public const string TrapTrigger = "Misc/TrapTrigger";
         public const string Tether = "Misc/Tether";
 		public const string CameraTarget = "Player/CameraTarget";
+		public const string TorchLight = "Prefabs/Crypt/TorchRoom/doodad_torchroom_unlit";
 	}
 }
