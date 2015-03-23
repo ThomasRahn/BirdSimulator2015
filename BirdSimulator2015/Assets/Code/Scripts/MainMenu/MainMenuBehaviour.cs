@@ -7,7 +7,7 @@ using System;
 public class MainMenuBehaviour : MonoBehaviour
 {
 	string ip = "127.0.0.1";
-	int port = 10001;
+	int port = 1337;
 	
 	void Start()
 	{
@@ -58,6 +58,34 @@ public class MainMenuBehaviour : MonoBehaviour
 
         GameController.Gamepad = new GamepadSetup((GamepadSetup.GamepadType)c);
         GameObject.Find("Gamepad").GetComponent<Text>().text = GameController.Gamepad.GetGamepadType() + "";
+    }
+
+    public void Options_Port()
+    {
+        EventSystem.current.SetSelectedGameObject(GameObject.Find("PortField"));
+    }
+
+    public void Options_Port_EndEdit(string s)
+    {
+        int p;
+        bool b = Int32.TryParse(this.GetComponent<InputField>().text, out p);
+        if (b) port = p;
+        Debug.Log("Port changed to: " + port);
+
+        EventSystem.current.SetSelectedGameObject(GameObject.Find("Port"));
+    }
+
+    public void Options_IP()
+    {
+        EventSystem.current.SetSelectedGameObject(GameObject.Find("IPField"));
+    }
+
+    public void Options_IP_EndEdit(string s)
+    {
+        ip = this.GetComponent<InputField>().text;
+        Debug.Log("IP changed to: " + ip);
+
+        EventSystem.current.SetSelectedGameObject(GameObject.Find("IP"));
     }
 
     public void Options_InvertY()
