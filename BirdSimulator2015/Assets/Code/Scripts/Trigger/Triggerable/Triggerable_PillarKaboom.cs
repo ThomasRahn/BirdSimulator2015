@@ -21,7 +21,6 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
 
     public override void Trigger(Collider c, GameObject g)
     {
-        // QUANGERINO MAKE THIS LERP
         Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 200f;
         Time.timeScale = 0.5f;
 
@@ -33,6 +32,8 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
             Kabooms.transform.GetChild(i).GetComponent<ParticleSystem>().Play();
             Kabooms.transform.GetChild(i).GetChild(0).GetComponent<ParticleSystem>().Play();
         }
+
+        StartCoroutine(coFadeOut());
 
         base.Trigger(c, g);
     }
@@ -51,6 +52,13 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
             yield return null;
         }
 
+        yield return null;
+    }
+
+    IEnumerator coFadeOut()
+    {
+        yield return new WaitForSeconds(5f);
+        GameController.EndingPopup.FadeIn();
         yield return null;
     }
 }
