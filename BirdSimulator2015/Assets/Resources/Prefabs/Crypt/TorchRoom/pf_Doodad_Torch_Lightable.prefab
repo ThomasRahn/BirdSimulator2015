@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 435710}
   - 114: {fileID: 11414158}
   m_Layer: 0
-  m_Name: pf_Doodad_Torch
+  m_Name: pf_Doodad_Torch_Lightable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23,7 +23,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 173332}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 422.871307, y: -295.620941, z: -1513.60962}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

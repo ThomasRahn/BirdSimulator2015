@@ -43,7 +43,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195924}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -949.187561, y: -603.89386, z: -1392.66309}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 462508}
@@ -121,11 +121,11 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _childIndex: -1
   _children: []
-  stateSynchronization: 2
+  stateSynchronization: 0
   securable: 3
-  observed: {fileID: 417714}
-  _manualViewID: 100
-  rpcReceiver: 2
+  observed: {fileID: 11431516}
+  _manualViewID: 0
+  rpcReceiver: 1
   listOfGameObjects: []
   _prefabRoot: {fileID: 0}
 --- !u!114 &11431516

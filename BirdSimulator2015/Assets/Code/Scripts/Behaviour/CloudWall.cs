@@ -5,20 +5,23 @@ public class CloudWall : MonoBehaviour
 {
 	public int level = 1;
 
-	void OnCollisionEnter(Collision col)
-	{
-		//Kill player?
-	}
-
 	public void PushBack()
 	{
-		//if all 6 torches have been lit
 		if(level >= 6)
 		{
-			Destroy(this.gameObject);
+			GameObject.Destroy(this.gameObject);
 		}
-		level++;
-		this.transform.position = this.transform.position + new Vector3(0,0,-10.0f);
+
+        StartCoroutine(coPushBack(this.transform.position));
+        level++;
 	}
 
+    IEnumerator coPushBack(Vector3 orig)
+    {
+        while (Vector3.Distance(this.transform.position, orig) < 15f)
+        {
+            this.transform.position += new Vector3(0, 0, -15.0f);
+            yield return null;
+        }
+    }
 }

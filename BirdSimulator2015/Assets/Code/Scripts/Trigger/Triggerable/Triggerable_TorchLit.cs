@@ -5,22 +5,27 @@ public class Triggerable_TorchLit : BaseTriggerable<BaseTriggerable>
 {
 	public override void Trigger(Collider c, GameObject g)
 	{
-		Flame flame_component = this.GetComponentInChildren<Flame> ();
-		if (!flame_component.IsLit) {
-			flame_component.ToggleLit();
+        if (!uLink.Network.isServer)
+            return;
+
+		Flame flame = this.GetComponentInChildren<Flame>();
+		if (!flame.IsLit)
+        {
+			flame.ToggleLit();
 			GameObject.Find("CloudWall").GetComponent<CloudWall>().PushBack();
-			uLink.NetworkView.Get (this).RPC("lightTorch", uLink.RPCMode.Others);
+			networkView.RPC("LightTorch", uLink.RPCMode.Others);
 		}
 
 		base.Trigger(c, g);
 	}
 
 	[RPC]
-	public void lightTorch()
+    public void LightTorch()
 	{
-		Flame flame_component = this.GetComponentInChildren<Flame> ();
-		if (!flame_component.IsLit) {
-			flame_component.ToggleLit();
+		Flame flame = this.GetComponentInChildren<Flame>();
+		if (!flame.IsLit)
+        {
+			flame.ToggleLit();
 			GameObject.Find("CloudWall").GetComponent<CloudWall>().PushBack();
 		}
 	}

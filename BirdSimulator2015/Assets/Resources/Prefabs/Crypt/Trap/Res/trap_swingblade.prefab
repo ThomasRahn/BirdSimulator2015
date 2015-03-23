@@ -14,6 +14,8 @@ GameObject:
   - 64: {fileID: 6452716}
   - 59: {fileID: 5911468}
   - 114: {fileID: 11441544}
+  - 114: {fileID: 11405768}
+  - 114: {fileID: 11460392}
   m_Layer: 2
   m_Name: trap_swingblade
   m_TagString: Untagged
@@ -232,6 +234,30 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &11405768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9be5429cbf387c4f9140f7d1908fb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proxyPrefab: 
+  ownerPrefab: 
+  serverPrefab: 
+  _parent: {fileID: 0}
+  _childIndex: -1
+  _children: []
+  stateSynchronization: 2
+  securable: 0
+  observed: {fileID: 11460392}
+  _manualViewID: 0
+  rpcReceiver: 0
+  listOfGameObjects: []
+  _prefabRoot: {fileID: 0}
 --- !u!114 &11441544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -246,6 +272,21 @@ MonoBehaviour:
   maxAngle: 60
   period: 5
   phaseShift: 5
+--- !u!114 &11460392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af6a803229e53e643b2327221b5ca82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistanceError: 15
+  interpolationBackTimeMs: 200
+  maxExtrapolationTimeMs: 500
+  rotationDamping: .850000024
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
