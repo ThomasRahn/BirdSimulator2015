@@ -34,7 +34,7 @@ public class Triggerable_EvilPillar : BaseTriggerable<BaseTriggerable>
     {
         Vector3 dest;
         dest.x = GameController.Player.transform.position.x;
-        dest.y = -878f;
+        dest.y = -888f;
 
         if (uLink.Network.isServer)
             dest.z = 15f;
