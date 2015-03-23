@@ -49,8 +49,8 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
 
     IEnumerator coStartCutscene()
     {
-		Camera.main.GetComponentInParent<CameraContainer>().Radial(true); // Force the radial camera
         GameController.SetInputLock(true);
+		Camera.main.GetComponentInParent<CameraContainer>().Radial(true); // Force the radial camera
         GameController.CinematicPopup.FadeIn();
         GameObject.FindWithTag("AudioController").GetComponent<AudioController>().FadeOut();
         Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 30f;

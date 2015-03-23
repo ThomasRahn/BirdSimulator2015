@@ -576,7 +576,7 @@ public class PlayerState : MonoBehaviour
             case BirdState.SpeedyMode:
 				resetBools();
                 b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
-                if (b < 0.4f)
+                if (b < 0.6f)
                 {
                     b += Time.deltaTime;
                     Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
@@ -590,15 +590,13 @@ public class PlayerState : MonoBehaviour
                 leftright = input.GetAxisHorizontal() * this.transform.right * 100f;
 				updown = input.GetAxisVertical() * this.transform.up * 100f;
 
-                if (Physics.Raycast(this.transform.position, leftright + updown, out hit, 10f, layerMask))
+                if (Physics.Raycast(this.transform.position, leftright, out hit, 10f, layerMask))
                 {
-                    Debug.DrawRay(this.transform.position, leftright + updown, Color.red);
-                    leftright = Vector3.zero;
-                    updown = Vector3.zero;
+                    leftright = -leftright;
                 }
-                else
+                if (Physics.Raycast(this.transform.position, updown, out hit, 10f, layerMask))
                 {
-                    Debug.DrawRay(this.transform.position, leftright + updown, Color.green);
+                    updown = -updown;
                 }
 
                 speedChange = 3.0f;

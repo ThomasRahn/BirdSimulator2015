@@ -8,8 +8,9 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
     public GameObject PillarB;
     public GameObject PillarC;
     public GameObject PillarD;
-
     public GameObject Kabooms;
+
+    private bool triggered = false;
 
     void Start()
     {
@@ -21,10 +22,13 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
 
     public override void Trigger(Collider c, GameObject g)
     {
+        if (triggered)
+            return;
+
+        triggered = true;
+
         Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 200f;
         Time.timeScale = 0.5f;
-
-        StartCoroutine(coMoveShit());
 
         int children = Kabooms.transform.childCount;
         for (int i = 0; i < children; i++)
@@ -33,6 +37,10 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
             Kabooms.transform.GetChild(i).GetChild(0).GetComponent<ParticleSystem>().Play();
         }
 
+        this.GetComponent<AudioSource>().Play();
+
+        StartCoroutine(coMoveShit());
+        StartCoroutine(coSaturate());
         StartCoroutine(coFadeOut());
 
         base.Trigger(c, g);
@@ -52,6 +60,17 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
             yield return null;
         }
 
+        yield return null;
+    }
+
+    IEnumerator coSaturate()
+    {
+        yield return new WaitForSeconds(3f);
+        while (Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>().saturation < 1.5f)
+        {
+            Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>().saturation += Time.deltaTime;
+            yield return null;
+        }
         yield return null;
     }
 
