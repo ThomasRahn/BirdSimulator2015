@@ -121,7 +121,7 @@ SubShader {
 		ZTest Always Cull Off ZWrite Off
 	
 		CGPROGRAM
-	
+		#pragma target 3.0
 		#pragma vertex vert
 		#pragma fragment frag
 		#pragma exclude_renderers d3d11_9x
@@ -132,7 +132,7 @@ SubShader {
 		ZTest Always Cull Off ZWrite Off
 	
 		CGPROGRAM
-	
+		#pragma target 3.0
 		#pragma vertex vert
 		#pragma fragment fragDebug
 		#pragma exclude_renderers d3d11_9x
