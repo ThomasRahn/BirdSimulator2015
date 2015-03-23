@@ -21,11 +21,9 @@ public class CloudWall : MonoBehaviour
     IEnumerator coPushBack(Vector3 orig)
     {
         float z = orig.z;
-        Debug.Log(Mathf.Abs(z - this.transform.localPosition.z));
         while (Mathf.Abs(z - this.transform.localPosition.z) < 15f)
         {
-            Debug.Log(Mathf.Abs(z - this.transform.localPosition.z));
-            this.transform.Translate(-this.transform.forward * Time.deltaTime * 2f);
+            this.transform.Translate(-this.transform.forward * Time.deltaTime * 20f);
             yield return null;
         }
     }
