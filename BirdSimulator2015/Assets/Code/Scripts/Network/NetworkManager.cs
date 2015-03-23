@@ -10,8 +10,8 @@ public class NetworkManager : MonoBehaviour
     //Vector3 BLACK_SPAWN = new Vector3(38.8f, 118f, 1.8f);
 
     // TESTING BIGROOM
-    Vector3 WHITE_SPAWN = new Vector3(-2306f, -878.968f, 10f);
-    Vector3 BLACK_SPAWN = new Vector3(-2306f, -878.968f, -10f);
+    Vector3 WHITE_SPAWN = new Vector3(-2206f, -878.968f, 10f);
+    Vector3 BLACK_SPAWN = new Vector3(-2206f, -878.968f, -10f);
 
     //TESTING PILLAR BREAK
     //Vector3 WHITE_SPAWN = new Vector3(1615.874f, -878.0509f, 14.89055f);
