@@ -34,9 +34,9 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
             Debug.Log("Cutscene triggered");
             locked = false;
 
-            Debug.Log("Linking players");
             if (players.Count > 1)
             {
+				Debug.Log("Linking players");
                 uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.Tether, Registry.Prefab.Tether, Registry.Prefab.Tether, this.transform.position, Quaternion.identity, 0);
             }
 
@@ -54,9 +54,8 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
 		camContainer.LockCameraSystem(true); // Prevent the free cam from activating during respawn
 
         GameController.SetInputLock(true);
-		Camera.main.GetComponentInParent<CameraContainer>().Radial(true); // Force the radial camera
         GameController.CinematicPopup.FadeIn();
-        GameObject.FindWithTag("AudioController").GetComponent<AudioController>().FadeOut();
+        GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().FadeOut();
         Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 30f;
 
         yield return new WaitForSeconds(10f);
@@ -71,7 +70,7 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
 
         GameController.Player.GetComponent<PlayerState>().SetSpeedyMode(true, Vector3.right);
 
-        GameObject.FindWithTag("AudioController").GetComponent<AudioController>().FadeIn(AudioController.BGMTrack.Chase);
+		GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().FadeIn(AudioController.BGMTrack.Chase);
         yield return new WaitForSeconds(3f);
         GameController.SetInputLock(false);
 

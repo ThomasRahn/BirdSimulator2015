@@ -22,7 +22,7 @@ public class Triggerable_EvilPillar : BaseTriggerable<BaseTriggerable>
         alreadyTriggered = true;
 
         GameController.SetInputLock(true);
-        GameObject.FindWithTag("AudioController").GetComponent<AudioController>().FadeOut();
+        GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().FadeOut();
         GameController.CinematicPopup.FadeIn();
         GameController.Player.GetComponent<Rigidbody>().velocity = GameController.Player.GetComponent<PlayerState>().SpeedyModeForward;
 

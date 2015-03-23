@@ -6,5 +6,6 @@ public static partial class Registry
 		public const string Proxy = "Proxy";
         public const string SpawnWhite = "SpawnWhite";
         public const string SpawnBlack = "SpawnBlack";
+		public const string AudioController = "AudioController";
 	}
 }
