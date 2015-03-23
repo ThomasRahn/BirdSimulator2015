@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class FireballZone : MonoBehaviour
+public class FireballZone : uLink.MonoBehaviour
 {
 	public float Speed = 3f;
 	public Transform Target;
@@ -45,14 +45,18 @@ public class FireballZone : MonoBehaviour
 	}
 
 	public void PushBack(Vector3 force){
-		fireball.GetComponent<Rigidbody> ().AddForce (force);
-		this.GetComponent<NetworkView> ().RPC ("NetworkPushBack", RPCMode.Others, force);
+		if (uLink.Network.isServer)
+			fireball.GetComponent<Rigidbody> ().AddForce (force);
+		else 
+			fireball.GetComponent<uLinkNetworkView>().RPC("NetworkPushBack", uLink.RPCMode.Server, force);
 	}
 
 	[RPC]
-	public void NetworkPushBack(Vector3 force){
+	public void NetworkPushBack(Vector3 force)
+	{
 		fireball.GetComponent<Rigidbody> ().AddForce (force);
 	}
+
 	void OnTriggerEnter(Collider c)
 	{
 		if (c.tag == Registry.Tag.Player || c.tag == Registry.Tag.Proxy)
