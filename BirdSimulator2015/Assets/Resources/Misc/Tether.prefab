@@ -43,8 +43,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tetherDistance: 30
   tetherForce: 3
-  attached1: {fileID: 0}
-  attached2: {fileID: 0}
+  player: {fileID: 0}
+  proxy: {fileID: 0}
 --- !u!114 &11497816
 MonoBehaviour:
   m_ObjectHideFlags: 1

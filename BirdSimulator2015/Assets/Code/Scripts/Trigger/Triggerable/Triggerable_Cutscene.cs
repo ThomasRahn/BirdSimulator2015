@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -38,8 +38,8 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
             if (players.Count > 1)
             {
                 GameObject tether = uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.Tether, Registry.Prefab.Tether, Registry.Prefab.Tether, this.transform.position, Quaternion.identity, 0);
-                tether.GetComponent<Tether>().attached1 = players[0];
-                tether.GetComponent<Tether>().attached2 = players[1];
+//                tether.GetComponent<Tether>().player = players[0];
+//                tether.GetComponent<Tether>().proxy = players[1];
             }
 
             StartCoroutine(coStartCutscene());
