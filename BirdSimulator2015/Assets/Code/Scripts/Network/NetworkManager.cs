@@ -5,17 +5,13 @@ public class NetworkManager : MonoBehaviour
 	public GameObject Owner;
 	public GameObject Proxy;
 
-    // ravenhome
+    // RAVENHOME
     //Vector3 WHITE_SPAWN = new Vector3(38.8f, 118f, -3.8f);
     //Vector3 BLACK_SPAWN = new Vector3(38.8f, 118f, 1.8f);
 
-    // TESTING BIGROOM
-    Vector3 WHITE_SPAWN = new Vector3(-2206f, -878.968f, 10f);
-    Vector3 BLACK_SPAWN = new Vector3(-2206f, -878.968f, -10f);
-
-    //TESTING PILLAR BREAK
-    //Vector3 WHITE_SPAWN = new Vector3(1615.874f, -878.0509f, 14.89055f);
-    //Vector3 BLACK_SPAWN = new Vector3(1400.874f, -878.0509f, 14.89055f);
+    // TESTING END STUFF
+    //Vector3 WHITE_SPAWN = new Vector3(-2306.3f, -878.8f, 5.9f);
+    //Vector3 BLACK_SPAWN = new Vector3(-2306.3f, -878.8f, -5.9f);
 
     Quaternion SPAWN_ROTATION = Quaternion.Euler(new Vector3(0f, 270f, 0f));
 
