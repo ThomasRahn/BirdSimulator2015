@@ -44,6 +44,15 @@ public class FireballZone : MonoBehaviour
 		fireball.transform.position = Vector3.MoveTowards(fireball.transform.position, Target.position, Time.deltaTime * Speed);
 	}
 
+	public void PushBack(Vector3 force){
+		fireball.GetComponent<Rigidbody> ().AddForce (force);
+		this.GetComponent<NetworkView> ().RPC ("NetworkPushBack", RPCMode.Others, force);
+	}
+
+	[RPC]
+	public void NetworkPushBack(Vector3 force){
+		fireball.GetComponent<Rigidbody> ().AddForce (force);
+	}
 	void OnTriggerEnter(Collider c)
 	{
 		if (c.tag == Registry.Tag.Player || c.tag == Registry.Tag.Proxy)
