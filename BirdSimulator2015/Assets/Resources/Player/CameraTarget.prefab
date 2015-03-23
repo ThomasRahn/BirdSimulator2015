@@ -139,6 +139,7 @@ MonoBehaviour:
   UpOffset: 3
   FOVCoefficient: .75
   Radius: 12
+  TargetRadius: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -403,6 +404,7 @@ MonoBehaviour:
   UpOffset: 3
   FOVCoefficient: .75
   Radius: 12
+  TargetRadius: 0
   angularVelocity: 20
 --- !u!114 &11495582
 MonoBehaviour:
