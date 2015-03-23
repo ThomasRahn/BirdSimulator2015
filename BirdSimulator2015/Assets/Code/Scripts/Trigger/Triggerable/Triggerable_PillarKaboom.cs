@@ -4,10 +4,7 @@ using System.Collections.Generic;
 
 public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
 {
-    public GameObject PillarA;
-    public GameObject PillarB;
-    public GameObject PillarC;
-    public GameObject PillarD;
+    public GameObject[] Pillars;
     public GameObject Kabooms;
 
     private bool triggered = false;
@@ -28,7 +25,6 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
         triggered = true;
 
         Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 200f;
-        Time.timeScale = 0.5f;
 
         int children = Kabooms.transform.childCount;
         for (int i = 0; i < children; i++)
@@ -50,13 +46,32 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
     {
         float t = 10f;
 
+        Vector3[] directions = new Vector3[Pillars.Length];
+
+        for (int i = 0; i < directions.Length; i++)
+        {
+            float forward = Random.Range(-1f, 1f);
+            float right = Random.Range(-1f, 1f);
+            float up = Random.Range(-1f, 1f);
+            directions[i] = (Vector3.forward * forward) + (Vector3.right * right) + (Vector3.up * up);
+        }
+
+
         while (t > 0)
         {
             t -= Time.deltaTime;
-            PillarA.transform.Translate((Vector3.down + Vector3.forward) * Time.deltaTime * 2f);
-            PillarB.transform.Translate((Vector3.down + Vector3.back) * Time.deltaTime * 2f);
-            PillarC.transform.Translate((Vector3.down + Vector3.forward) * Time.deltaTime * 2f);
-            PillarD.transform.Translate((Vector3.down + Vector3.back) * Time.deltaTime * 2f);
+
+            int i = 0;
+            foreach (GameObject g in Pillars)
+            {
+                g.transform.Translate(directions[i] * Time.deltaTime * 20f);
+                i++;
+            }
+            if (t < 9)
+            {
+                Time.timeScale = 0.3f;
+            }
+
             yield return null;
         }
 
