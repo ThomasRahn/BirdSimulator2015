@@ -513,16 +513,6 @@ public class PlayerState : MonoBehaviour
                 currentMaxSpeed += Time.deltaTime * MIN_FORWARD_VELOCITY;
                 break;
 
-			//case BirdState.HoveringAndTurningLeft:
-			//  rotationY -= 50f * Time.deltaTime * TURN_SHARPNESS;								
-			//  tiltTowards(-TILT_LIMIT * 0.2f);
-			//  break;
-				
-			//case BirdState.HoveringAndTurningRight:
-			//  rotationY += 50f * Time.deltaTime * TURN_SHARPNESS;	
-			//  tiltTowards(TILT_LIMIT * 0.2f);
-			//  break;
-
 			case BirdState.Dying:
                 tiltTowards(0);
 
@@ -644,6 +634,8 @@ public class PlayerState : MonoBehaviour
                     GameObject.Instantiate(Resources.Load(Registry.Prefab.FlashyFlash), this.transform.position, Quaternion.identity);
 
                     this.GetComponent<PlayerAudio>().PlayFlash();
+
+                    // light torches
 					Collider[] colliders = Physics.OverlapSphere (this.transform.position, TAUNT_DISTANCE);
 					if (colliders.Length > 0) 
 					{
@@ -657,7 +649,6 @@ public class PlayerState : MonoBehaviour
 							}
 						}
 					}
-					//End lightable torches section
                 }
 
                 targetVelocity = this.transform.forward * currentMaxSpeed;
