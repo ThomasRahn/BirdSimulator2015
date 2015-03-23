@@ -73,6 +73,7 @@ public class PlayerState : MonoBehaviour
     const float DECELERATION_RATE = 500f;
     const float DIVE_STRAFE_RATE = 20f;
 	const float TAUNT_DISTANCE = 20.0f;
+	const float WHIRLWIND_DISTANCE = 20.0f;
     const float TILT_LIMIT = 70f;
     const float ABOUT_FACE_ANGLE = 35f;
 
@@ -566,7 +567,13 @@ public class PlayerState : MonoBehaviour
 	
 	                if (this.GetComponent<uLinkNetworkView>().isMine)
 	                {
-	                    this.transform.position = GameController.LastCheckpoint.position;
+						Vector3 offset = GameController.LastCheckpoint.right * 5f;
+						if(!uLink.Network.isServer)
+						{
+							offset = -offset;
+						}
+
+	                    this.transform.position = GameController.LastCheckpoint.position + offset;
 	                    this.transform.rotation = GameController.LastCheckpoint.rotation;
 	                    GameController.SetInputLock(false);
 	                }
@@ -612,6 +619,17 @@ public class PlayerState : MonoBehaviour
                     GameObject.Instantiate(Resources.Load(Registry.Prefab.WhirlyWind), this.transform.position, Quaternion.identity);
 
                     this.GetComponent<PlayerAudio>().PlayTornado();
+					
+					Collider[] colliders = Physics.OverlapSphere (this.transform.position, WHIRLWIND_DISTANCE);
+					for(int i = 0; i < colliders.Length; i++)
+					{
+						FireballZone[] fbZone = colliders[i].gameObject.GetComponentsInChildren<FireballZone>();
+						if(fbZone.Length > 0)
+						{
+							Vector3 force = colliders[i].gameObject.transform.position - this.transform.position;
+							fbZone[0].PushBack(force * 10.0f);	
+						}
+					}
                 }
 
                 targetVelocity = this.transform.forward * currentMaxSpeed;
