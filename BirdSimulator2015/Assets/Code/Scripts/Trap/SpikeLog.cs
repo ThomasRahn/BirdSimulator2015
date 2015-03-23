@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class SpikeLog : SwingOnceTrap 
 {
     private const float TRIGGER_LOOKAHEAD = 100f;
-	private List<Rigidbody> links;
 
 	private void Start() 
 	{
@@ -26,27 +25,17 @@ public class SpikeLog : SwingOnceTrap
 
 		Joint[] joints = GetComponents<Joint>();
 
-		links = new List<Rigidbody>();
-		links.AddRange(
-			ChainLinker.Link(rightHook, rightAnchor, joints[0], null, false).ConvertAll(l => {
-				return l.GetComponent<Rigidbody>();
-			})
-		);
-		links.AddRange(
-			ChainLinker.Link(leftHook, leftAnchor, joints[1], null, false).ConvertAll(l => {
-				return l.GetComponent<Rigidbody>();
-			})
-		);
+		bodies.Add(GetComponent<Rigidbody>(), new TransformCopy(transform.position, transform.rotation));
+		foreach(GameObject link in ChainLinker.Link(rightHook, rightAnchor, joints[0], null, false))
+		{
+			bodies.Add(link.GetComponent<Rigidbody>(), new TransformCopy(link.transform.position, link.transform.rotation));
+		}
+
+		foreach(GameObject link in ChainLinker.Link(leftHook, leftAnchor, joints[1], null, false))
+		{
+			bodies.Add(link.GetComponent<Rigidbody>(), new TransformCopy(link.transform.position, link.transform.rotation));
+		}
 
         PlaceTrigger(originalPosition + this.transform.up * TRIGGER_LOOKAHEAD);
 	}
-	
-	public override void Swing()
-	{
-		GetComponent<Rigidbody>().useGravity = true;
-		for(int i = 0; i < links.Count; i++)
-		{
-			links[i].useGravity = true;
-        }
-    }
 }

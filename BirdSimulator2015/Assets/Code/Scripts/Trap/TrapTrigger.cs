@@ -12,9 +12,10 @@ public class TrapTrigger : MonoBehaviour
 
 	private void OnTriggerEnter(Collider c)
 	{
-		if(c.tag == Registry.Tag.Player)
+		if(c.tag == Registry.Tag.Player || c.tag == Registry.Tag.Proxy)
 		{
 			trap.Swing();
 		}
+		trap.Invoke("ResetTrap", 5f);
 	}
 }
