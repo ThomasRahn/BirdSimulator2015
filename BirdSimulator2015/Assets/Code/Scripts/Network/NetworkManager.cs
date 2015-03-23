@@ -6,8 +6,8 @@ public class NetworkManager : MonoBehaviour
 	public GameObject Proxy;
 
     // RAVENHOME
-    //Vector3 WHITE_SPAWN = new Vector3(38.8f, 118f, -3.8f);
-    //Vector3 BLACK_SPAWN = new Vector3(38.8f, 118f, 1.8f);
+    Vector3 WHITE_SPAWN = new Vector3(38.8f, 118f, -3.8f);
+    Vector3 BLACK_SPAWN = new Vector3(38.8f, 118f, 1.8f);
 
     // TESTING END STUFF
     //Vector3 WHITE_SPAWN = new Vector3(-2306.3f, -878.8f, 5.9f);
