@@ -55,6 +55,8 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
 
     IEnumerator coUnlockDoors()
     {
+        yield return new WaitForSeconds(2f);
+
         int l = 1;
         if (Lock) l = -1;
 
