@@ -17,7 +17,7 @@ public class BGMZone : MonoBehaviour
     {
         if (c.tag == Registry.Tag.Player)
         {
-            GameObject.FindWithTag("AudioController").GetComponent<AudioController>().PlayTrack(Track);
+            GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().PlayTrack(Track);
         }
     }
 }
