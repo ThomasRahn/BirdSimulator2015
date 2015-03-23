@@ -49,7 +49,10 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
 
     IEnumerator coStartCutscene()
     {
-		Camera.main.GetComponentInParent<CameraContainer>().Radial(true); // Force the radial camera
+		CameraContainer camContainer = Camera.main.GetComponentInParent<CameraContainer>();
+		camContainer.Radial(true); // Force the radial camera
+		camContainer.LockCameraSystem(true); // Prevent the free cam from activating during respawn
+
         GameController.SetInputLock(true);
         GameController.CinematicPopup.FadeIn();
         GameObject.FindWithTag("AudioController").GetComponent<AudioController>().FadeOut();
