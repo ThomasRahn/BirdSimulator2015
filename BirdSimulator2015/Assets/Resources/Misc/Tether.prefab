@@ -43,8 +43,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tetherDistance: 30
   tetherForce: 3
-  attached1: {fileID: 0}
-  attached2: {fileID: 0}
+  player: {fileID: 0}
+  proxySync: {fileID: 0}
+  proxyModel: {fileID: 0}
 --- !u!114 &11497816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -79,7 +80,7 @@ LineRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 52fe4790bce8c7c4d9479eb85106e864, type: 2}
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

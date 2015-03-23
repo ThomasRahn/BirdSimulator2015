@@ -83,4 +83,10 @@ public class PlayerSync : uLink.MonoBehaviour
     {
         GameObject.Instantiate(Resources.Load(prefab), position, rotation);
     }
+
+	[RPC]
+	public void Die()
+	{
+		animator.SetTrigger("t_Die");
+	}
 }

@@ -583,8 +583,8 @@ public class PlayerState : MonoBehaviour
 	
 	                if (this.GetComponent<uLinkNetworkView>().isMine)
 	                {
-	                    this.GetComponent<Rigidbody>().MovePosition(GameController.LastCheckpoint.position);
-	                    this.GetComponent<Rigidbody>().MoveRotation(GameController.LastCheckpoint.rotation);
+	                    this.transform.position = GameController.LastCheckpoint.position;
+	                    this.transform.rotation = GameController.LastCheckpoint.rotation;
 	                    GameController.SetInputLock(false);
 	                }
 				}

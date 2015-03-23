@@ -43,7 +43,6 @@ public class PlayerCollision : MonoBehaviour
             || c.name == Registry.Prefab.SpikeRock)
         {
             animator.SetTrigger("t_Die");
-
         }
 	}
 
