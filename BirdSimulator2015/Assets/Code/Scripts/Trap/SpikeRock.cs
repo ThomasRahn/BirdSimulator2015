@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class SpikeRock : SwingOnceTrap 
 {
-	private List<Rigidbody> links;
-	
 	private void Start() 
 	{
 		Vector3 originalPosition = transform.position;
@@ -20,25 +18,14 @@ public class SpikeRock : SwingOnceTrap
 		Vector3 anchor = transform.parent.position;
 		
 		Joint joint = GetComponent<Joint>();
-		
-		links = new List<Rigidbody>();
 
-		links.AddRange(
-			ChainLinker.Link(hook, anchor, joint, null, false).ConvertAll(l => {
-			return l.GetComponent<Rigidbody>();
-			})
-		);
+		bodies.Add(GetComponent<Rigidbody>(), new TransformCopy(transform.position, transform.rotation));
+		foreach(GameObject link in ChainLinker.Link(hook, anchor, joint, null, false))
+		{
+			bodies.Add(link.GetComponent<Rigidbody>(), new TransformCopy(link.transform.position, link.transform.rotation));
+		}
 		
 		PlaceTrigger(originalPosition);
-	}
-	
-	public override void Swing()
-	{
-		GetComponent<Rigidbody>().useGravity = true;
-		for(int i = 0; i < links.Count; i++)
-		{
-			links[i].useGravity = true;
-		}
 	}
 }
 
