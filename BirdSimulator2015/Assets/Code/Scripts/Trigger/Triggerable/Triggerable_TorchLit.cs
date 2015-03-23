@@ -12,7 +12,7 @@ public class Triggerable_TorchLit : BaseTriggerable<BaseTriggerable>
 		if (!flame.IsLit)
         {
 			flame.ToggleLit();
-			GameObject.Find("CloudWall").GetComponent<CloudWall>().PushBack();
+            GameObject.Find(Registry.Prefab.CloudWall).GetComponent<CloudWall>().PushBack();
 			networkView.RPC("LightTorch", uLink.RPCMode.Others);
 		}
 
