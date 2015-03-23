@@ -566,7 +566,13 @@ public class PlayerState : MonoBehaviour
 	
 	                if (this.GetComponent<uLinkNetworkView>().isMine)
 	                {
-	                    this.transform.position = GameController.LastCheckpoint.position;
+						Vector3 offset = GameController.LastCheckpoint.right * 5f;
+						if(!uLink.Network.isServer)
+						{
+							offset = -offset;
+						}
+
+	                    this.transform.position = GameController.LastCheckpoint.position + offset;
 	                    this.transform.rotation = GameController.LastCheckpoint.rotation;
 	                    GameController.SetInputLock(false);
 	                }
