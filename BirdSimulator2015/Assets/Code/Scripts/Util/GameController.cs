@@ -78,20 +78,26 @@ public class GameController : ScriptableObject
 		{
 			//Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnBlack).transform;
 		}
-        //Player.GetComponent<PlayerInput>().SetTrigger("t_Land");
+       // Player.GetComponent<PlayerInput>().SetTrigger("t_Land");
 
         // if server, load in all objects that must be networked
         if (uLink.Network.isServer)
         {
 			Debug.Log("Server load objects");
-			//uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -872f, 227f), Quaternion.identity, 0);
-            //uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -872f, -233f), Quaternion.identity, 0);
+            
+			uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -873f, 227f), Quaternion.identity, 0);
+            uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -873f, -267f), Quaternion.identity, 0);
 
             // CHASE TEST
-            uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -882f, 0f), Quaternion.identity, 0);
-            uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -882f, 0f), Quaternion.identity, 0);
+            //uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -882f, 0f), Quaternion.identity, 0);
+            //uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.EggProxy, Registry.Prefab.Egg, Registry.Prefab.Egg, new Vector3(-2400f, -882f, 0f), Quaternion.identity, 0);
 
+            // outside
 			GameObject.Instantiate(Resources.Load(Registry.Prefab.FireballZone), new Vector3(-1314f, -10f, -637f), Quaternion.identity);
+
+            // torch room
+            GameObject.Instantiate(Resources.Load(Registry.Prefab.FireballZoneMini), new Vector3(-2392f, -874f, -232f), Quaternion.identity);
+            GameObject.Instantiate(Resources.Load(Registry.Prefab.FireballZoneMini), new Vector3(-2412f, -874f, -232f), Quaternion.identity);
         }
 	}
 

@@ -24,7 +24,8 @@ public class PlayerCollision : MonoBehaviour
 
     void OnTriggerStay(Collider c)
     {
-        if (c.name == Registry.Prefab.Fireball)
+        if (c.name == Registry.Prefab.Fireball + "(Clone)"
+            || c.name == Registry.Prefab.FireballMini + "(Clone)")
         {
             fireballTimer -= Time.deltaTime;
 

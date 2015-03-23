@@ -3,24 +3,29 @@ using System.Collections;
 
 public class CloudWall : MonoBehaviour 
 {
-	public int level = 1;
+	public int level = 0;
 
 	public void PushBack()
 	{
-		if(level >= 6)
+		if(level >= 5)
 		{
 			GameObject.Destroy(this.gameObject);
 		}
 
-        StartCoroutine(coPushBack(this.transform.position));
+        if (level % 2 == 0)
+            StartCoroutine(coPushBack(this.transform.localPosition));
+
         level++;
 	}
 
     IEnumerator coPushBack(Vector3 orig)
     {
-        while (Vector3.Distance(this.transform.position, orig) < 15f)
+        float z = orig.z;
+        Debug.Log(Mathf.Abs(z - this.transform.localPosition.z));
+        while (Mathf.Abs(z - this.transform.localPosition.z) < 15f)
         {
-            this.transform.position += new Vector3(0, 0, -15.0f);
+            Debug.Log(Mathf.Abs(z - this.transform.localPosition.z));
+            this.transform.Translate(-this.transform.forward * Time.deltaTime * 2f);
             yield return null;
         }
     }

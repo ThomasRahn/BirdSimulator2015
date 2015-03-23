@@ -2,13 +2,15 @@
 {
 	public static class Prefab
 	{
-		public const string SwingBlade = "trap_swingblade(Clone)";
+		public const string SwingBlade = "trap_swingblade";
         public const string SpikeLog = "Log";
         public const string SpikeRock = "spikerock";
 		public const string Egg = "ServerEgg";
 		public const string EggProxy = "ProxyEgg";
-        public const string Fireball = "Fireball(Clone)";
+        public const string Fireball = "Fireball";
+        public const string FireballMini = "FireballMini";
 		public const string FireballZone = "Misc/FireballZone";
+        public const string FireballZoneMini = "Misc/FireballZoneMini";
         public const string CloudWall = "CloudWall(Clone)";
         public const string FeatherPoof_White = "Misc/FeatherPoof_White";
         public const string FeatherPoof_Black = "Misc/FeatherPoof_Black";

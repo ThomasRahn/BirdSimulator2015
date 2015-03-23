@@ -6,13 +6,23 @@ public class FireballZone : MonoBehaviour
 {
 	public float Speed = 3f;
 	public Transform Target;
+    public bool IsMini = false;
 
 	private List<Transform> targets = new List<Transform>();
 	private Transform fireball;
 
 	void Awake()
 	{
-		GameObject g = uLink.Network.Instantiate(uLink.Network.player, "Fireball", "Fireball", "Fireball", new Vector3(-1313f, -25f, -637f), Quaternion.identity, 0);
+        GameObject g;
+        if (IsMini)
+        {
+            g = uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.FireballMini, Registry.Prefab.FireballMini, Registry.Prefab.FireballMini, this.transform.position, Quaternion.identity, 0);
+        }
+        else
+        {
+            g = uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.Fireball, Registry.Prefab.Fireball, Registry.Prefab.Fireball, this.transform.position + Vector3.up * 15f, Quaternion.identity, 0);
+        }
+		
 		fireball = g.transform;
 	}
 
