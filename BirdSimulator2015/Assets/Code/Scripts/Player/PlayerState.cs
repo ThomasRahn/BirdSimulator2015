@@ -223,11 +223,7 @@ public class PlayerState : MonoBehaviour
         switch (state)
         {
             case BirdState.Hovering:
-                // reset some stuff
-                yodoYouOnlyDieOnce = false;
-                respawnOnce = false;
-                skillOnce = false;
-                audioOnce = false;
+				resetBools();
 
                 ease();
                 tiltTowards(0);
@@ -243,10 +239,7 @@ public class PlayerState : MonoBehaviour
                 this.GetComponent<PlayerSync>().SendBool("b_Grounded", false);
                 animator.SetBool("b_Grounded", false); // just in case
 
-                yodoYouOnlyDieOnce = false;
-				respawnOnce = false;
-                skillOnce = false;
-                audioOnce = false;
+				resetBools();
 
 				// make sure we're not slamming against a wall, since the gliding state applies there also
                 if (tilting == 0)
@@ -591,6 +584,7 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case BirdState.SpeedyMode:
+				resetBools();
                 b = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount;
                 if (b < 0.4f)
                 {
@@ -782,6 +776,14 @@ public class PlayerState : MonoBehaviour
         yield return null;
     }
 
+	private void resetBools()
+	{
+		yodoYouOnlyDieOnce = false;
+		respawnOnce = false;
+		skillOnce = false;
+		audioOnce = false;
+	}
+    
     public BirdState GetState()
     {
         return state;
