@@ -45,7 +45,7 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
             StartCoroutine(coUnlockDoors());
             networkView.RPC("RPC_UnlockDoors", uLink.RPCMode.Others);
 
-            GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(7.5f, 0.2f, 0.2f);
+            GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(Length - 0.5f, 0.2f, 0.2f);
             Left.GetComponentInChildren<AudioSource>().Play();
             Right.GetComponentInChildren<AudioSource>().Play();
 
