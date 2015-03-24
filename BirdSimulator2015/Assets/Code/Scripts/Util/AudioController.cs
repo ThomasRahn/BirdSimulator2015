@@ -9,6 +9,7 @@ public class AudioController : MonoBehaviour
         Overworld,
         Underworld,
         Chase,
+        Ending,
 
     }
 
@@ -16,6 +17,7 @@ public class AudioController : MonoBehaviour
     public AudioClip Overworld;
     public AudioClip Underworld;
     public AudioClip Chase;
+    public AudioClip Ending;
 
     public void PlayTrack(BGMTrack track)
     {
@@ -27,6 +29,9 @@ public class AudioController : MonoBehaviour
 
         if (track == BGMTrack.Chase)
             StartCoroutine(coFadeOut(Chase));
+
+        if (track == BGMTrack.Ending)
+            StartCoroutine(coFadeOut(Ending));
     }
 
     public void FadeOut()
@@ -53,6 +58,13 @@ public class AudioController : MonoBehaviour
         if (track == BGMTrack.Chase)
         {
             BGM.clip = Chase;
+            BGM.Play();
+            StartCoroutine(coFadeIn());
+        }
+
+        if (track == BGMTrack.Ending)
+        {
+            BGM.clip = Ending;
             BGM.Play();
             StartCoroutine(coFadeIn());
         }

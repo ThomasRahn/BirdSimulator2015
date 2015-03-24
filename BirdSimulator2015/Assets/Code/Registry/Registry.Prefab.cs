@@ -5,6 +5,7 @@
 		public const string SwingBlade = "trap_swingblade";
         public const string SpikeLog = "Log";
         public const string SpikeRock = "spikerock";
+        public const string WallGrate = "doodad_wallgrate(Clone)";
 		public const string Egg = "ServerEgg";
 		public const string EggProxy = "ProxyEgg";
         public const string Fireball = "Fireball";

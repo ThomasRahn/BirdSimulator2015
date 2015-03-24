@@ -30,16 +30,42 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
         for (int i = 0; i < children; i++)
         {
             Kabooms.transform.GetChild(i).GetComponent<ParticleSystem>().Play();
-            Kabooms.transform.GetChild(i).GetChild(0).GetComponent<ParticleSystem>().Play();
         }
 
         this.GetComponent<AudioSource>().Play();
 
+        StartCoroutine(coRumble());
         StartCoroutine(coMoveShit());
         StartCoroutine(coSaturate());
         StartCoroutine(coFadeOut());
 
+        GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().PlayTrack(AudioController.BGMTrack.Ending);
+
         base.Trigger(c, g);
+    }
+
+    IEnumerator coRumble()
+    {
+        yield return new WaitForSeconds(0.2f);
+        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(0.05f, 0f, 1f);
+        yield return new WaitForSeconds(0.1f);
+        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(0.05f, 1f, 0f);
+
+        yield return new WaitForSeconds(0.5f);
+        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(1f, 0.5f, 0.5f);
+
+        yield return new WaitForSeconds(1f);
+        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(1f, 0.3f, 0.3f);
+
+        yield return new WaitForSeconds(1f);
+        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(2f, 0.1f, 0.1f);
+
+        while (Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>().saturation < 1.5f)
+        {
+            Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>().saturation += Time.deltaTime;
+            yield return null;
+        }
+        yield return null;
     }
 
     IEnumerator coMoveShit()
@@ -80,10 +106,10 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
 
     IEnumerator coSaturate()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         while (Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>().saturation < 1.5f)
         {
-            Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>().saturation += Time.deltaTime;
+            Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>().saturation += Time.deltaTime * 0.5f;
             yield return null;
         }
         yield return null;

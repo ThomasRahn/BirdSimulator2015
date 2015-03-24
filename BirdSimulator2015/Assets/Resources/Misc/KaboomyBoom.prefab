@@ -129,7 +129,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 3
     startSpeed:
-      scalar: 3
+      scalar: 10
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -301,7 +301,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 2
-    gravityModifier: .200000003
+    gravityModifier: 0
     inheritVelocity: .300000012
     maxNumParticles: 500
   ShapeModule:
@@ -354,7 +354,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    cnt0: 25
+    cnt0: 100
     cnt1: 30
     cnt2: 30
     cnt3: 30

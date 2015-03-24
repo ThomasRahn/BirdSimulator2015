@@ -41,7 +41,8 @@ public class PlayerCollision : MonoBehaviour
 	{
         if (c.name == Registry.Prefab.SwingBlade
             || c.name == Registry.Prefab.SpikeLog
-            || c.name == Registry.Prefab.SpikeRock)
+            || c.name == Registry.Prefab.SpikeRock
+            || c.name == Registry.Prefab.WallGrate)
         {
             animator.SetTrigger("t_Die");
         }
