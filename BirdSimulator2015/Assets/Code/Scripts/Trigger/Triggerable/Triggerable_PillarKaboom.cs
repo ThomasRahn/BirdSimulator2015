@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
 {
+    public GameObject Cube;
     public GameObject[] Pillars;
     public GameObject Kabooms;
 
@@ -35,6 +36,7 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
         this.GetComponent<AudioSource>().Play();
 
         StartCoroutine(coRumble());
+        StartCoroutine(coFadeCube());
         StartCoroutine(coMoveShit());
         StartCoroutine(coSaturate());
         StartCoroutine(coFadeOut());
@@ -46,10 +48,11 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
 
     IEnumerator coRumble()
     {
-        yield return new WaitForSeconds(0.2f);
-        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(0.05f, 0f, 1f);
+        yield return new WaitForSeconds(0f);
+        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(0.1f, 0f, 1f);
+
         yield return new WaitForSeconds(0.1f);
-        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(0.05f, 1f, 0f);
+        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(0.1f, 1f, 0f);
 
         yield return new WaitForSeconds(0.5f);
         GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(1f, 0.5f, 0.5f);
@@ -58,13 +61,28 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
         GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(1f, 0.3f, 0.3f);
 
         yield return new WaitForSeconds(1f);
-        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(2f, 0.1f, 0.1f);
+        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(1f, 0.1f, 0.1f);
 
         while (Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>().saturation < 1.5f)
         {
             Camera.main.GetComponent<UnityStandardAssets.ImageEffects.ColorCorrectionCurves>().saturation += Time.deltaTime;
             yield return null;
         }
+        yield return null;
+    }
+
+    IEnumerator coFadeCube()
+    {
+        Renderer renderer = Cube.GetComponentInChildren<Renderer>();
+        float alpha = 1f;
+
+        while (alpha > 0f)
+        {
+            alpha -= Time.deltaTime * 0.35f;
+            renderer.material.SetColor("_Color", new Color(1f, 1f, 1f, alpha));
+            yield return null;
+        }
+
         yield return null;
     }
 
@@ -96,7 +114,7 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
             if (t < 9)
             {
                 Time.timeScale = 0.3f;
-                GameController.Player.GetComponent<PlayerState>().SpeedyModeSpeed = 10f;
+                GameController.Player.GetComponent<PlayerState>().SpeedyModeSpeed = 35f;
             }
 
             yield return null;

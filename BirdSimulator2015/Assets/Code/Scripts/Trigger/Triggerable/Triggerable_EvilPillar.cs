@@ -22,12 +22,19 @@ public class Triggerable_EvilPillar : BaseTriggerable<BaseTriggerable>
         alreadyTriggered = true;
 
         GameController.SetInputLock(true);
-        GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().FadeOut();
+        //GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().FadeOut();
         GameController.CinematicPopup.FadeIn();
         GameController.Player.GetComponent<Rigidbody>().velocity = GameController.Player.GetComponent<PlayerState>().SpeedyModeForward;
 
         StartCoroutine(coMoveTowards());
+        StartCoroutine(coFadeSound());
         base.Trigger(c, g);
+    }
+
+    IEnumerator coFadeSound()
+    {
+        yield return new WaitForSeconds(0.5f);
+        GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().FadeOut();
     }
 
     IEnumerator coMoveTowards()
