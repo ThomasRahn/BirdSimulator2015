@@ -32,7 +32,7 @@ public class PlayerCollision : MonoBehaviour
             if (fireballTimer < 0)
             {
                 fireballTimer = _fireballTimer;
-                animator.SetTrigger("t_Die");
+                animator.SetTrigger(Registry.Animator.Die);
             }
         }
     }
@@ -44,7 +44,7 @@ public class PlayerCollision : MonoBehaviour
             || c.name == Registry.Prefab.SpikeRock
             || c.name == Registry.Prefab.WallGrate)
         {
-            animator.SetTrigger("t_Die");
+            animator.SetTrigger(Registry.Animator.Die);
         }
 	}
 

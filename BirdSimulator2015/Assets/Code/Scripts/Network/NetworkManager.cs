@@ -32,6 +32,13 @@ public class NetworkManager : MonoBehaviour
 	void uLink_OnPlayerConnected(uLink.NetworkPlayer player)
 	{
 		Debug.Log("OnPlayerConnected() " + player.ipAddress + ":" + player.port);
+
+		bool grounded = GameController.Player.GetComponent<Animator>().GetBool(Registry.Animator.Grounded);
+		if(grounded)
+		{
+			GameController.Player.GetComponent<PlayerSync>().SendTrigger(Registry.Animator.Land);
+			GameController.Player.GetComponent<PlayerSync>().SendBool(Registry.Animator.Grounded, grounded);
+		}
 	}
 
 	void uLink_OnPlayerDisconnected(uLink.NetworkPlayer player)

@@ -37,13 +37,13 @@ public class PlayerSync : uLink.MonoBehaviour
     [RPC]
     public void SendTrigger_Proxy(string s)
     {
-        animator.ResetTrigger("t_DashForward");
-        animator.ResetTrigger("t_Decelerate");
-        animator.ResetTrigger("t_QuickAscend");
-        animator.ResetTrigger("t_DashRight");
-        animator.ResetTrigger("t_DashLeft");
-        animator.ResetTrigger("t_DashUp");
-        animator.ResetTrigger("t_DashDown");
+        animator.ResetTrigger(Registry.Animator.DashForward);
+        animator.ResetTrigger(Registry.Animator.Decelerate);
+        animator.ResetTrigger(Registry.Animator.QuickAscend);
+        animator.ResetTrigger(Registry.Animator.DashRight);
+        animator.ResetTrigger(Registry.Animator.DashLeft);
+        animator.ResetTrigger(Registry.Animator.DashUp);
+        animator.ResetTrigger(Registry.Animator.DashDown);
 
         animator.SetTrigger(s);
     }
@@ -87,6 +87,6 @@ public class PlayerSync : uLink.MonoBehaviour
 	[RPC]
 	public void Die()
 	{
-		animator.SetTrigger("t_Die");
+		animator.SetTrigger(Registry.Animator.Die);
 	}
 }

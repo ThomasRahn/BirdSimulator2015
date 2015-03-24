@@ -59,10 +59,10 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
         Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 30f;
 
         yield return new WaitForSeconds(10f);
-        GameController.Player.GetComponent<PlayerInput>().SetBool("b_Grounded", false);
+        GameController.Player.GetComponent<PlayerInput>().SetBool(Registry.Animator.Grounded, false);
 
         yield return new WaitForSeconds(2f);
-        GameController.Player.GetComponent<PlayerInput>().SetTrigger("t_DashForward");
+        GameController.Player.GetComponent<PlayerInput>().SetTrigger(Registry.Animator.DashForward);
 
         Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 20f;
         yield return new WaitForSeconds(0.1f);

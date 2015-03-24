@@ -80,7 +80,7 @@ public class GameController : ScriptableObject
 		{
 			Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnBlack).transform;
 		}
-        Player.GetComponent<PlayerInput>().SetTrigger("t_Land");
+        Player.GetComponent<PlayerInput>().SetTrigger(Registry.Animator.Land);
 
         // if server, load in all objects that must be networked
         if (uLink.Network.isServer)

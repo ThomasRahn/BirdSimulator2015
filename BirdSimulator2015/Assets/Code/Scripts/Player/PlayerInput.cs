@@ -54,15 +54,15 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        animator.ResetTrigger("t_DashForward");
-        animator.ResetTrigger("t_Decelerate");
-        animator.ResetTrigger("t_QuickAscend");
-        animator.ResetTrigger("t_DashRight");
-        animator.ResetTrigger("t_DashLeft");
-        animator.ResetTrigger("t_DashUp");
-        animator.ResetTrigger("t_DashDown");
-        animator.ResetTrigger("t_Tornado");
-        animator.ResetTrigger("t_Flash");
+        animator.ResetTrigger(Registry.Animator.DashForward);
+        animator.ResetTrigger(Registry.Animator.Decelerate);
+        animator.ResetTrigger(Registry.Animator.QuickAscend);
+        animator.ResetTrigger(Registry.Animator.DashRight);
+        animator.ResetTrigger(Registry.Animator.DashLeft);
+        animator.ResetTrigger(Registry.Animator.DashUp);
+        animator.ResetTrigger(Registry.Animator.DashDown);
+        animator.ResetTrigger(Registry.Animator.Tornado);
+        animator.ResetTrigger(Registry.Animator.Flash);
 
         JoystickAxisX = 0f;
         JoystickAxisY = 0f;
@@ -154,8 +154,8 @@ public class PlayerInput : MonoBehaviour
             & boostTimer == _boostTimer)
         {
             boostTimer -= Time.deltaTime;
-            this.GetComponent<PlayerSync>().SendTrigger("t_DashForward");
-            animator.SetTrigger("t_DashForward");
+            this.GetComponent<PlayerSync>().SendTrigger(Registry.Animator.DashForward);
+            animator.SetTrigger(Registry.Animator.DashForward);
         }
 
         if (JoystickButton0)
@@ -164,13 +164,13 @@ public class PlayerInput : MonoBehaviour
             {
                 if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Grounded)
                 {
-                    this.GetComponent<PlayerSync>().SendBool("b_Grounded", false);
-                    animator.SetBool("b_Grounded", false);
+                    this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Grounded, false);
+                    animator.SetBool(Registry.Animator.Grounded, false);
                 }
                 else
                 {
-                    this.GetComponent<PlayerSync>().SendTrigger("t_Land");
-                    animator.SetTrigger("t_Land");
+                    this.GetComponent<PlayerSync>().SendTrigger(Registry.Animator.Land);
+                    animator.SetTrigger(Registry.Animator.Land);
                 }
             }
             else
@@ -183,13 +183,13 @@ public class PlayerInput : MonoBehaviour
                         skillTimer -= Time.deltaTime;
                         if (GameController.IsWhite)
                         {
-                            this.GetComponent<PlayerSync>().SendTrigger("t_Flash");
-                            animator.SetTrigger("t_Flash");
+                            this.GetComponent<PlayerSync>().SendTrigger(Registry.Animator.Flash);
+                            animator.SetTrigger(Registry.Animator.Flash);
                         }
                         else
                         {
-                            this.GetComponent<PlayerSync>().SendTrigger("t_Tornado");
-                            animator.SetTrigger("t_Tornado");
+                            this.GetComponent<PlayerSync>().SendTrigger(Registry.Animator.Tornado);
+                            animator.SetTrigger(Registry.Animator.Tornado);
                         }
                     }
                 }
@@ -199,13 +199,13 @@ public class PlayerInput : MonoBehaviour
         if (JoystickButton1)
         {
             boostTimer = _boostTimer;
-            this.GetComponent<PlayerSync>().SendBool("b_Decelerating", true);
-			animator.SetBool("b_Decelerating", true);
+            this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Decelerating, true);
+			animator.SetBool(Registry.Animator.Decelerating, true);
         }
 		else
 		{
-			this.GetComponent<PlayerSync>().SendBool("b_Decelerating", false);
-			animator.SetBool("b_Decelerating", false);
+			this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Decelerating, false);
+			animator.SetBool(Registry.Animator.Decelerating, false);
 		}
 
         if (JoystickButton3
@@ -213,8 +213,8 @@ public class PlayerInput : MonoBehaviour
             & ascendTimer == _ascendTimer)
 		{
             ascendTimer -= Time.deltaTime;
-			this.GetComponent<PlayerSync>().SendTrigger("t_QuickAscend");
-            animator.SetTrigger("t_QuickAscend");
+			this.GetComponent<PlayerSync>().SendTrigger(Registry.Animator.QuickAscend);
+            animator.SetTrigger(Registry.Animator.QuickAscend);
         }
 
         if (JoystickButton4)
@@ -224,13 +224,13 @@ public class PlayerInput : MonoBehaviour
 
 		if (JoystickButton5)
 		{
-            this.GetComponent<PlayerSync>().SendBool("b_Diving", true);
-            animator.SetBool("b_Diving", true);
+            this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Diving, true);
+            animator.SetBool(Registry.Animator.Diving, true);
 		}
 		else
 		{
-            this.GetComponent<PlayerSync>().SendBool("b_Diving", false);
-			animator.SetBool("b_Diving", false);
+            this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Diving, false);
+			animator.SetBool(Registry.Animator.Diving, false);
 		}
 
         if (JoystickButton8)
@@ -238,7 +238,7 @@ public class PlayerInput : MonoBehaviour
             if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Hovering
                 || this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Gliding)
             {
-                animator.SetTrigger("t_AboutFace");
+                animator.SetTrigger(Registry.Animator.AboutFace);
             }
         }
 	}
