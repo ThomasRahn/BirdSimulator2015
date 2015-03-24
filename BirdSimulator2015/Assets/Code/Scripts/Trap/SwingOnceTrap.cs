@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public abstract class SwingOnceTrap : MonoBehaviour 
 {
-    Vector3 OFFSET = new Vector3(-200f, -20f, 0f);
+    Vector3 OFFSET = new Vector3(-300f, -20f, 0f);
 
 	protected struct TransformCopy
 	{
