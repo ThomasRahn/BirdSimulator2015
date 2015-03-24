@@ -75,13 +75,13 @@ public class GameController : ScriptableObject
 		// land on branch
 		if(IsWhite)
 		{
-			//Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnWhite).transform;
+			Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnWhite).transform;
 		}
 		else
 		{
-			//Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnBlack).transform;
+			Player.GetComponent<PlayerState>().LandTarget = GameObject.FindGameObjectWithTag(Registry.Tag.SpawnBlack).transform;
 		}
-        //Player.GetComponent<PlayerInput>().SetTrigger(Registry.Animator.Land);
+        Player.GetComponent<PlayerInput>().SetTrigger(Registry.Animator.Land);
 
         // if server, load in all objects that must be networked
         if (uLink.Network.isServer)
