@@ -6,6 +6,9 @@
         public const string SpikeLog = "Log";
         public const string SpikeRock = "spikerock";
         public const string WallGrate = "doodad_wallgrate(Clone)";
+        public const string FallingRock1 = "crypt_fallingrock1(Clone)";
+        public const string FallingRock2 = "crypt_fallingrock2(Clone)";
+        public const string FallingRock3 = "crypt_fallingrock3(Clone)";
 		public const string Egg = "ServerEgg";
 		public const string EggProxy = "ProxyEgg";
         public const string Fireball = "Fireball";

@@ -4086,10 +4086,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Death: {fileID: 8300000, guid: 0c5b16c0998a8894d9c58dfb621cf0b9, type: 3}
-  Swoop: {fileID: 8300000, guid: 9afae2b69af496540b045d31575a96fb, type: 3}
+  Swoop: {fileID: 8300000, guid: 50f34a71d4d1b2940afd80bff1153787, type: 3}
   Dive: {fileID: 8300000, guid: 1647dbb18a248b34898f15c5de9b6042, type: 3}
   Tornado: {fileID: 8300000, guid: 9afae2b69af496540b045d31575a96fb, type: 3}
-  Flash: {fileID: 8300000, guid: 4bfb35182d7c2cd4b9487fb72575ed8a, type: 3}
+  Flash: {fileID: 8300000, guid: 795b234abeb03a2469fb9b36f84dae59, type: 3}
 --- !u!114 &11497574
 MonoBehaviour:
   m_ObjectHideFlags: 1
