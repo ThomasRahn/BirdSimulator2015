@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MenuCamera : MonoBehaviour
 {
-    private float rate = 0.2f;
+    private float rate = 1f;
     private float origin;
 
 	void Start()
