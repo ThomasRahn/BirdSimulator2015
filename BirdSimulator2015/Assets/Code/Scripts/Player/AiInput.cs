@@ -70,7 +70,7 @@ public class AiInput : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         animator.SetFloat("Vertical", 1);
         yield return new WaitForSeconds(1.5f);
-        animator.SetTrigger("t_Land");
+        animator.SetTrigger(Registry.Animator.Land);
         yield return new WaitForSeconds(5f);
     }
 
