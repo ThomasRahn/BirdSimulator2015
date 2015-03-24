@@ -18,6 +18,7 @@ public class AudioController : MonoBehaviour
     public AudioClip Underworld;
     public AudioClip Chase;
     public AudioClip Ending;
+    public AudioClip AttractMode;
 
     public void PlayTrack(BGMTrack track)
     {

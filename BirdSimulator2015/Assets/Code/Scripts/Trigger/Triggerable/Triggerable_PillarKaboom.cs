@@ -90,16 +90,18 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
             int i = 0;
             foreach (GameObject g in Pillars)
             {
-                g.transform.Translate(directions[i] * Time.deltaTime * 20f);
+                g.transform.Translate(directions[i] * Time.deltaTime * 15f);
                 i++;
             }
             if (t < 9)
             {
                 Time.timeScale = 0.3f;
+                GameController.Player.GetComponent<PlayerState>().SpeedyModeSpeed = 10f;
             }
 
             yield return null;
         }
+        
 
         yield return null;
     }

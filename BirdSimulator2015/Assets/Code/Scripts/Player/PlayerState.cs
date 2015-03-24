@@ -104,6 +104,8 @@ public class PlayerState : MonoBehaviour
 	public LayerMask layerMask;
 	public Egg HeldEgg {get; set;}
 
+    public float SpeedyModeSpeed = 90f;
+
     void Awake()
     {
         animator = this.GetComponent<Animator>();
@@ -610,7 +612,7 @@ public class PlayerState : MonoBehaviour
                 }
 
                 speedChange = 3.0f;
-			    targetVelocity = leftright + updown + SpeedyModeForward * 70f;
+			    targetVelocity = leftright + updown + SpeedyModeForward * SpeedyModeSpeed;
                 break;
 
             case BirdState.Tornadoing:
