@@ -117,4 +117,15 @@ public class GameController : ScriptableObject
 	{
         LastCheckpoint = t;
 	}
+
+	public static Vector3 GetSpawnLocation()
+	{
+		Vector3 offset = LastCheckpoint.right * 5f;
+		if(!uLink.Network.isServer)
+		{
+			offset = -offset;
+		}
+
+		return LastCheckpoint.position + offset;
+	}
 }

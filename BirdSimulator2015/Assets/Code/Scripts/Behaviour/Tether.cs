@@ -32,9 +32,10 @@ public class Tether : MonoBehaviour
 	{
 		if(player.GetState() == PlayerState.BirdState.Dying)
 		{
-			uLink.NetworkView.Get(this).RPC("SetPartnerStatus", uLink.RPCMode.All, true);
 			uLink.NetworkView.Get(proxySync).RPC("Die", uLink.RPCMode.Others);
-			uLink.NetworkView.Get(this).RPC("WaitRespawns", uLink.RPCMode.All);
+			uLink.NetworkView.Get(this).RPC("SetPartnerStatus", uLink.RPCMode.All, true);
+			uLink.NetworkView.Get(this).RPC("WaitRespawns", uLink.RPCMode.Others, false);
+			WaitRespawns(true);
 			return;
 		}
 
@@ -81,32 +82,42 @@ public class Tether : MonoBehaviour
 	}
 
 	[RPC]
-	public void WaitRespawns()
+	public void WaitRespawns(bool iDied)
 	{
 		GameController.SetInputLock(true);
 		player.SetTargetVelocity(Vector3.zero);
 		FadeOut();
-		StartCoroutine(coWaitRespawns());
+		StartCoroutine(coWaitRespawns(iDied));
 	}
 
 	[RPC]
 	public void SetPartnerStatus(bool dead)
 	{
 		partnerDead = dead;
-		if(dead)
-		{
-			player.SetSpeedyMode(false, Vector3.right);
-		}
 	}
 
-	private IEnumerator coWaitRespawns()
+	private IEnumerator coWaitRespawns(bool iDied)
 	{
-		// Wait for bird to be in finish respawning
-		while(player.GetState() == PlayerState.BirdState.Dying || player.GetState() == PlayerState.BirdState.Respawning)
+		// Wait for myself to die because of other bird
+		if(!iDied && player.GetState() != PlayerState.BirdState.Dying)
+		{
+			while(player.GetState() != PlayerState.BirdState.Dying)
+			{
+				yield return null;
+			}
+		}
+
+		// Wait for bird to be finish respawning
+		while(player.GetState() == PlayerState.BirdState.Dying)
+		{
+			yield return null;
+		}
+		while(player.GetState() == PlayerState.BirdState.Respawning)
 		{
 			keepStill();
 			yield return null;
 		}
+		// Tell partner that I have respawned
 		uLink.NetworkView.Get(this).RPC("SetPartnerStatus", uLink.RPCMode.Others, false);
 
 		// Wait for other bird to show up
@@ -116,8 +127,7 @@ public class Tether : MonoBehaviour
 			yield return null;
 		}
 
-		FadeIn(); 
-		// Fade the tether back in while keeping bird positions
+		FadeIn(); // Fade the tether back in while keeping bird positions
 		float timeLeft = FADE_TIMER;
 		while(timeLeft > 0)
 		{
@@ -127,14 +137,13 @@ public class Tether : MonoBehaviour
 		}
 
 		GameController.SetInputLock(false);
-		player.SetSpeedyMode(true, Vector3.right);
 		this.enabled = true;
 	}
 
 	private void keepStill()
 	{
 		GameController.SetInputLock(true); // need to keep locking after respawned
-		player.transform.position = GameController.LastCheckpoint.position;
+		player.transform.position = GameController.GetSpawnLocation();
 		player.SetTargetVelocity(Vector3.zero);
     }
 }
