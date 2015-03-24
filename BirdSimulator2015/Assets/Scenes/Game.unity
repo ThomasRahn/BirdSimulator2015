@@ -10503,7 +10503,6 @@ Transform:
   - {fileID: 1634516412}
   - {fileID: 1090399224}
   - {fileID: 1126415962}
-  - {fileID: 2039229873}
   m_Father: {fileID: 986310232}
   m_RootOrder: 3
 --- !u!1 &615220414
@@ -39430,47 +39429,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 179688, guid: 5ec56ae871a42b5478d2f1ff0b31b337, type: 2}
---- !u!1 &2039229872
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 169478, guid: 20f252b47f7b5b548b01f607c2e62b97, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2039229873}
-  - 114: {fileID: 2039229874}
-  m_Layer: 0
-  m_Name: pf_SmallRock7
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2039229873
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 421854, guid: 20f252b47f7b5b548b01f607c2e62b97, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2039229872}
-  m_LocalRotation: {x: .280301213, y: -.304333329, z: .626722753, w: .660326481}
-  m_LocalPosition: {x: -3396, y: -630, z: 3980}
-  m_LocalScale: {x: 250.000061, y: 250, z: 250.000031}
-  m_Children: []
-  m_Father: {fileID: 610758453}
-  m_RootOrder: 7
---- !u!114 &2039229874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11442960, guid: 20f252b47f7b5b548b01f607c2e62b97,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2039229872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84611f3be91034ee499364cbd1224e8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefab: {fileID: 152066, guid: 9081e605851ba38498f3a3aa218e6605, type: 2}
 --- !u!1 &2039774801
 GameObject:
   m_ObjectHideFlags: 0
@@ -39839,8 +39797,8 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_Strength: .899999976
-    m_Bias: .200000003
-    m_NormalBias: .200000003
+    m_Bias: .400000006
+    m_NormalBias: .400000006
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
