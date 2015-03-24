@@ -604,11 +604,11 @@ public class PlayerState : MonoBehaviour
 
                 if (Physics.Raycast(this.transform.position, leftright, out hit, 10f, layerMask))
                 {
-                    leftright = -leftright;
+                    leftright = -leftright * 0.5f;
                 }
                 if (Physics.Raycast(this.transform.position, updown, out hit, 10f, layerMask))
                 {
-                    updown = -updown;
+                    updown = -updown * 0.5f;
                 }
 
                 speedChange = 3.0f;
