@@ -14,6 +14,7 @@ public class PlayerRumble : MonoBehaviour
 
     public void BumbleRumble(float f, float l, float r)
     {
+        StopAllCoroutines();
         StartCoroutine(coBumbleRumble(f, l, r));
     }
 
