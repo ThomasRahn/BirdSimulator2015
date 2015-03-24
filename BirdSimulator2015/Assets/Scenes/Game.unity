@@ -4258,6 +4258,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11491102, guid: 4ccd509cba824654fbd27c6d10e23d9b, type: 2}
+      propertyPath: Location
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ccd509cba824654fbd27c6d10e23d9b, type: 2}
   m_IsPrefabParent: 0
@@ -5753,6 +5757,10 @@ Prefab:
     - target: {fileID: 6541644, guid: 4ccd509cba824654fbd27c6d10e23d9b, type: 2}
       propertyPath: m_Size.z
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491102, guid: 4ccd509cba824654fbd27c6d10e23d9b, type: 2}
+      propertyPath: Location
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ccd509cba824654fbd27c6d10e23d9b, type: 2}
@@ -19472,7 +19480,6 @@ GameObject:
   m_Component:
   - 224: {fileID: 1037479031}
   - 222: {fileID: 1037479035}
-  - 114: {fileID: 1037479034}
   - 114: {fileID: 1037479033}
   - 114: {fileID: 1037479032}
   m_Layer: 5
@@ -19497,7 +19504,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: 100}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 594, y: 104}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1037479032
 MonoBehaviour:
@@ -19510,6 +19517,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4572a8449edcc524db5bc92d4496241f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Ravenhome: {fileID: 21300000, guid: b6d12eb2a2e178049a6c3919e3ed0042, type: 3}
+  Atrium: {fileID: 21300000, guid: 7adafe6abc215fb449c59f89db479266, type: 3}
+  InnerSanctum: {fileID: 21300000, guid: f7b18db5dd82a7d44888652c90f9a9e5, type: 3}
+  Escape: {fileID: 21300000, guid: 6a50ed9eef7eaaa4684237023e995a1d, type: 3}
 --- !u!114 &1037479033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19518,38 +19529,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1037479030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: .196078435, g: .196078435, b: .196078435, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
---- !u!114 &1037479034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1037479030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .80392158, g: .80392158, b: .80392158, a: 1}
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 6c6f525e910de67469d4712e7658afab, type: 3}
-    m_FontSize: 96
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 1
-    m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: 
+  m_Color: {r: .845588207, g: .845588207, b: .845588207, a: 1}
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!222 &1037479035
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25225,7 +25217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1272020384
 Transform:
   m_ObjectHideFlags: 0
@@ -30952,7 +30944,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1564355754
 Transform:
   m_ObjectHideFlags: 0
@@ -33887,6 +33879,10 @@ Prefab:
     - target: {fileID: 497074, guid: 4ccd509cba824654fbd27c6d10e23d9b, type: 2}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491102, guid: 4ccd509cba824654fbd27c6d10e23d9b, type: 2}
+      propertyPath: Location
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ccd509cba824654fbd27c6d10e23d9b, type: 2}

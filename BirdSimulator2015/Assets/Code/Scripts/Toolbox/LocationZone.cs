@@ -4,7 +4,7 @@ using System.Collections;
 
 public class LocationZone : MonoBehaviour
 {
-    public string Text;
+    public LocationPopup.Location Location;
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class LocationZone : MonoBehaviour
 	{
 		if (other.tag == Registry.Tag.Player)
 		{
-			GameController.LocationPopup.SetText(Text);
+            GameController.LocationPopup.SetText(Location);
 			GameController.LocationPopup.Popup();
 		}
 	}
