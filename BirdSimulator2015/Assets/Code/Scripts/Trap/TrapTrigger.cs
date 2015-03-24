@@ -15,7 +15,7 @@ public class TrapTrigger : MonoBehaviour
 		if(c.tag == Registry.Tag.Player || c.tag == Registry.Tag.Proxy)
 		{
 			trap.Swing();
+            trap.Invoke("ResetTrap", 10f);
 		}
-		trap.Invoke("ResetTrap", 5f);
 	}
 }
