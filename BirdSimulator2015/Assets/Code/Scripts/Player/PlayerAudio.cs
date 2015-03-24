@@ -5,6 +5,7 @@ public class PlayerAudio : MonoBehaviour
 {
     public AudioClip Death;
     public AudioClip Swoop;
+    public AudioClip Dive;
     public AudioClip Tornado;
     public AudioClip Flash;
 
@@ -24,6 +25,11 @@ public class PlayerAudio : MonoBehaviour
     public void PlaySwoop()
     {
         this.GetComponent<AudioSource>().PlayOneShot(Swoop);
+    }
+
+    public void PlayDive()
+    {
+        this.GetComponent<AudioSource>().PlayOneShot(Dive);
     }
 
     public void PlayTornado()

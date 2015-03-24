@@ -301,6 +301,13 @@ public class PlayerState : MonoBehaviour
 				Vector3 leftright = input.GetAxisHorizontal() * this.transform.right * DIVE_STRAFE_RATE;
 				Vector3 updown = input.GetAxisVertical() * this.transform.up * DIVE_STRAFE_RATE;
 			    targetVelocity = leftright + updown + Vector3.down * MAX_DOWNWARD_VELOCITY;
+
+                if (!audioOnce)
+                {
+                    audioOnce = true;
+                    //this.GetComponent<PlayerAudio>().PlayDive();
+                }
+
                 break;
 
             case BirdState.Easing:
@@ -309,6 +316,8 @@ public class PlayerState : MonoBehaviour
 
                 currentMaxSpeed += momentum * MOMENTUM_GAIN_MULTI * Time.deltaTime;
                 targetVelocity = this.transform.forward * currentMaxSpeed + Vector3.up * Mathf.Abs(this.GetComponent<Rigidbody>().velocity.y);
+
+                this.GetComponent<AudioSource>().Stop();
                 break;
 
             case BirdState.EasingAndTurningLeft:
