@@ -133,15 +133,15 @@ public class PlayerState : MonoBehaviour
         //Debug.Log(this.GetComponent<Rigidbody>().velocity.magnitude);
         if (checkDiveCollision())
         {
-            this.GetComponent<PlayerSync>().SendBool("b_CanDive", false);
-            this.GetComponent<PlayerSync>().SendBool("b_Diving", false);
-            animator.SetBool("b_CanDive", false);
-            animator.SetBool("b_Diving", false);
+            this.GetComponent<PlayerSync>().SendBool(Registry.Animator.CanDive, false);
+            this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Diving, false);
+            animator.SetBool(Registry.Animator.CanDive, false);
+            animator.SetBool(Registry.Animator.Diving, false);
         }
         else
         {
-            this.GetComponent<PlayerSync>().SendBool("b_CanDive", true);
-            animator.SetBool("b_CanDive", true);
+            this.GetComponent<PlayerSync>().SendBool(Registry.Animator.CanDive, true);
+            animator.SetBool(Registry.Animator.CanDive, true);
 
             float check = DIVE_SWOOP_DISTANCE;
             if (this.GetComponent<Rigidbody>().velocity.magnitude < check)
@@ -153,8 +153,8 @@ public class PlayerState : MonoBehaviour
                 {
                     if (Vector3.Angle(hit.normal, -direction) < ABOUT_FACE_ANGLE)
                     {
-                        this.GetComponent<PlayerSync>().SendTrigger("t_AboutFace");
-                        animator.SetTrigger("t_AboutFace");
+                        this.GetComponent<PlayerSync>().SendTrigger(Registry.Animator.AboutFace);
+                        animator.SetTrigger(Registry.Animator.AboutFace);
                     }
                 }
             }
@@ -237,8 +237,8 @@ public class PlayerState : MonoBehaviour
                 flipOnce = false;
                 momentum = 0f;
                 currentTurnSpeed = TURN_RATE_INITIAL;
-                this.GetComponent<PlayerSync>().SendBool("b_Grounded", false);
-                animator.SetBool("b_Grounded", false); // just in case
+                this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Grounded, false);
+                animator.SetBool(Registry.Animator.Grounded, false); // just in case
 
 				resetBools();
 
@@ -410,7 +410,7 @@ public class PlayerState : MonoBehaviour
 			break;
 			
 			case BirdState.AboutFacing:
-                animator.ResetTrigger("t_AboutFace");
+                animator.ResetTrigger(Registry.Animator.AboutFace);
 
                 tiltTowards(0);
 
@@ -475,8 +475,8 @@ public class PlayerState : MonoBehaviour
                 if (Vector3.Distance(this.transform.position, LandTarget.position) < 1.5f)
                 {
                     //if (hit.collider.tag != "Player")
-                    this.GetComponent<PlayerSync>().SendBool("b_Grounded", true);
-                    animator.SetBool("b_Grounded", true);
+                    this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Grounded, true);
+                    animator.SetBool(Registry.Animator.Grounded, true);
                 }
                 break;
 
@@ -782,7 +782,7 @@ public class PlayerState : MonoBehaviour
     IEnumerator coRespawn()
     {
         yield return new WaitForSeconds(3.5f);
-        animator.SetTrigger("t_Respawn");
+        animator.SetTrigger(Registry.Animator.Respawn);
         yield return null;
     }
 
@@ -812,8 +812,8 @@ public class PlayerState : MonoBehaviour
     public Vector3 SpeedyModeForward;
     public void SetSpeedyMode(bool b, Vector3 v)
     {
-        this.GetComponent<PlayerSync>().SendBool("b_SpeedyGiuseppe", b);
-        animator.SetBool("b_SpeedyGiuseppe", b);
+        this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Speedy, b);
+        animator.SetBool(Registry.Animator.Speedy, b);
         SpeedyModeForward = v;
     }
 }

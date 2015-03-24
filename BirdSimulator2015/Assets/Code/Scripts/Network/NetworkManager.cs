@@ -36,8 +36,8 @@ public class NetworkManager : MonoBehaviour
 		bool grounded = GameController.Player.GetComponent<Animator>().GetBool(Registry.Animator.Grounded);
 		if(grounded)
 		{
-			GameController.Player.GetComponent<PlayerSync>().SendTrigger("t_Land");
-			GameController.Player.GetComponent<PlayerSync>().SendBool("b_Grounded", grounded);
+			GameController.Player.GetComponent<PlayerSync>().SendTrigger(Registry.Animator.Land);
+			GameController.Player.GetComponent<PlayerSync>().SendBool(Registry.Animator.Grounded, grounded);
 		}
 	}
 
