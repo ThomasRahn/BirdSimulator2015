@@ -40,10 +40,16 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
         StartCoroutine(coMoveShit());
         StartCoroutine(coSaturate());
         StartCoroutine(coFadeOut());
-
-        GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().PlayTrack(AudioController.BGMTrack.Ending);
+        StartCoroutine(coPlayMusic());
 
         base.Trigger(c, g);
+    }
+
+    IEnumerator coPlayMusic()
+    {
+        yield return new WaitForSeconds(2f);
+        GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().PlayTrack(AudioController.BGMTrack.Ending);
+        yield return null;
     }
 
     IEnumerator coRumble()
