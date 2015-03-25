@@ -26,7 +26,7 @@ public class Triggerable_PillarKaboom : BaseTriggerable<BaseTriggerable>
         triggered = true;
 
         Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 200f;
-
+        //Camera.main.GetComponent<TPChaseCamera>().TargetRadius = 200f;
         int children = Kabooms.transform.childCount;
         for (int i = 0; i < children; i++)
         {

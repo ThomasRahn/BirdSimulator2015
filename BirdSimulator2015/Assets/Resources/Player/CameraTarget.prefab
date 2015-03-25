@@ -225,7 +225,7 @@ MonoBehaviour:
   FOVCoefficient: .75
   Radius: 12
   TargetRadius: 0
-  maxOffset: 15
+  maxOffset: 25
 --- !u!114 &11447126
 MonoBehaviour:
   m_ObjectHideFlags: 1

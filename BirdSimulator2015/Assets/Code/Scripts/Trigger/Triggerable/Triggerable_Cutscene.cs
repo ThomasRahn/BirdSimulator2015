@@ -57,21 +57,22 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
 		chaseCam.Center = path.transform.position;
 		chaseCam.transform.forward = chaseCam.Forward;
 
-		camContainer.Switch(CameraContainer.Type.CHASE); // Force the chase camera
+		camContainer.Switch(CameraContainer.Type.RADIAL); // Force the chase camera
 		camContainer.LockCameraSystem(true); // Prevent the other cams from activating during chase
 
         GameController.SetInputLock(true);
         GameController.CinematicPopup.FadeIn();
         GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().FadeOut();
-        chaseCam.TargetRadius = 30f;
-
+        //chaseCam.TargetRadius = 30f;
+        Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 30f;
         yield return new WaitForSeconds(10f);
         GameController.Player.GetComponent<PlayerInput>().SetBool(Registry.Animator.Grounded, false);
 
         yield return new WaitForSeconds(2f);
         GameController.Player.GetComponent<PlayerInput>().SetTrigger(Registry.Animator.DashForward);
 
-        chaseCam.TargetRadius = 15f;
+        //chaseCam.TargetRadius = 15f;
+        Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 15f;
         yield return new WaitForSeconds(0.1f);
         GameController.CinematicPopup.FadeOut();
 
