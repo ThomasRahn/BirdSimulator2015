@@ -6,11 +6,13 @@ using System;
 
 public class MainMenuBehaviour : MonoBehaviour
 {
-	string ip = "127.0.0.1";
-	int port = 1337;
+	string ip;
+	int port;
 	
 	void Start()
 	{
+        ip = PlayerPrefs.GetString("ip");
+        port = PlayerPrefs.GetInt("port");
 	}
 
 	void Update()
@@ -36,6 +38,14 @@ public class MainMenuBehaviour : MonoBehaviour
         toggleMenu("OptionsMenu", true);
         GameObject.Find("IsInverted").GetComponent<Text>().text = (GameController.Gamepad.Inverted == 1 ? "Yes" : "No");
         GameObject.Find("Gamepad").GetComponent<Text>().text = GameController.Gamepad.GetGamepadType() + "";
+
+        Debug.Log("Setting port as : " + PlayerPrefs.GetInt("port"));
+        Debug.Log("Setting IP as : " + PlayerPrefs.GetString("ip"));
+
+        GameObject.Find("PortField").GetComponent<InputField>().textComponent.text = PlayerPrefs.GetInt("port") + "";
+        GameObject.Find("PortField").GetComponent<InputField>().placeholder.GetComponent<Text>().text = PlayerPrefs.GetInt("port") + "";
+        GameObject.Find("IPField").GetComponent<InputField>().textComponent.text = PlayerPrefs.GetString("ip");
+        GameObject.Find("IPField").GetComponent<InputField>().placeholder.GetComponent<Text>().text = PlayerPrefs.GetString("ip");
         EventSystem.current.SetSelectedGameObject(GameObject.Find("Back"));
     }
 
@@ -71,6 +81,8 @@ public class MainMenuBehaviour : MonoBehaviour
         bool b = Int32.TryParse(this.GetComponent<InputField>().text, out p);
         if (b) port = p;
         Debug.Log("Port changed to: " + port);
+        PlayerPrefs.SetInt("port", port);
+        PlayerPrefs.Save();
 
         EventSystem.current.SetSelectedGameObject(GameObject.Find("Port"));
     }
@@ -84,6 +96,8 @@ public class MainMenuBehaviour : MonoBehaviour
     {
         ip = this.GetComponent<InputField>().text;
         Debug.Log("IP changed to: " + ip);
+        PlayerPrefs.SetString("ip", ip);
+        PlayerPrefs.Save();
 
         EventSystem.current.SetSelectedGameObject(GameObject.Find("IP"));
     }
