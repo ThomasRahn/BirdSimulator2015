@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 403988}
   - 114: {fileID: 11403988}
+  - 114: {fileID: 11481720}
   m_Layer: 0
   m_Name: FallingRocks
   m_TagString: Untagged
@@ -23,7 +24,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2550, y: 60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,11 +42,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimerMin: 1
   TimerMax: 2
-  Width: 0
+  Width: 50
   Rocks:
   - {fileID: 178264, guid: 657d75e98136a4c44886f71990256189, type: 2}
   - {fileID: 124232, guid: f66c68079ee3ac34b9d2b0b68adc70f6, type: 2}
   - {fileID: 169560, guid: 6a4b96b80e75caa40b3cdf036edbc32a, type: 2}
+--- !u!114 &11481720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9be5429cbf387c4f9140f7d1908fb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proxyPrefab: 
+  ownerPrefab: 
+  serverPrefab: 
+  _parent: {fileID: 0}
+  _childIndex: -1
+  _children: []
+  stateSynchronization: 0
+  securable: 3
+  observed: {fileID: 0}
+  _manualViewID: 0
+  rpcReceiver: 2
+  listOfGameObjects: []
+  _prefabRoot: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -18,18 +18,23 @@ public class FallingRocks : MonoBehaviour
 	
 	void Update()
     {
+		if(!uLink.Network.isServer) // Only server spawns rocks
+		{
+			return;
+		}
+
         timer -= Time.deltaTime;
 
         if (timer < 0)
         {
+			Vector3 randomPosition = this.transform.position;
+			randomPosition.x += Random.Range(-Width, Width);
+			randomPosition.z += Random.Range(-Width, Width);
+
 			timer = Random.Range(TimerMin, TimerMax);
 			int r = Random.Range(0, Rocks.GetLength(0));
-			GameObject g = GameObject.Instantiate(Rocks[r]) as GameObject;
-            g.transform.rotation = Random.rotation;
-            Vector3 v = this.transform.position;
-            v.x += Random.Range(-Width, Width);
-            v.z += Random.Range(-Width, Width);
-            g.transform.position = v;
+
+			uLink.Network.Instantiate(Rocks[r], randomPosition, Random.rotation, 0);
         }
 	}
 }

@@ -1969,6 +1969,9 @@ MonoBehaviour:
   - {fileID: 129566, guid: 12b90d90b8ade3f4aa375a0de001d588, type: 2}
   - {fileID: 157362, guid: 9a0d93ee5a7406141a6a20f1a96d5b47, type: 2}
   - {fileID: 175142, guid: f33abf837d9642142b25dddee4494239, type: 2}
+  - {fileID: 178264, guid: 657d75e98136a4c44886f71990256189, type: 2}
+  - {fileID: 124232, guid: f66c68079ee3ac34b9d2b0b68adc70f6, type: 2}
+  - {fileID: 169560, guid: 6a4b96b80e75caa40b3cdf036edbc32a, type: 2}
   replaceIfExists: 1
 --- !u!1 &112213520
 GameObject:
@@ -12797,7 +12800,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 403988, guid: bf23a63aa5c475c42ba17897fa82215b, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11403988, guid: bf23a63aa5c475c42ba17897fa82215b, type: 2}
       propertyPath: Width
@@ -16564,7 +16567,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 403988, guid: bf23a63aa5c475c42ba17897fa82215b, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11403988, guid: bf23a63aa5c475c42ba17897fa82215b, type: 2}
       propertyPath: Width
@@ -28686,8 +28689,8 @@ Transform:
   m_Children:
   - {fileID: 550499623}
   - {fileID: 1573043120}
-  - {fileID: 337588024}
   - {fileID: 904729395}
+  - {fileID: 337588024}
   - {fileID: 588075820}
   - {fileID: 2116329724}
   - {fileID: 1347764051}
@@ -38216,10 +38219,6 @@ Prefab:
     - target: {fileID: 403988, guid: bf23a63aa5c475c42ba17897fa82215b, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11403988, guid: bf23a63aa5c475c42ba17897fa82215b, type: 2}
-      propertyPath: Width
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf23a63aa5c475c42ba17897fa82215b, type: 2}

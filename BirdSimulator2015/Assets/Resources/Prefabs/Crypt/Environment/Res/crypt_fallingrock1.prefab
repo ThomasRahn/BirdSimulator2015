@@ -12,7 +12,8 @@ GameObject:
   - 23: {fileID: 2378264}
   - 54: {fileID: 5484100}
   - 64: {fileID: 6472262}
-  - 114: {fileID: 11479416}
+  - 114: {fileID: 11442384}
+  - 114: {fileID: 11434494}
   m_Layer: 2
   m_Name: crypt_fallingrock1
   m_TagString: Untagged
@@ -90,7 +91,7 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 5dcc8895c7da4d743893fc6f65bbfd3d, type: 3}
---- !u!114 &11479416
+--- !u!114 &11434494
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -98,7 +99,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 178264}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d010ebccf821b94419534a1751e5adb4, type: 3}
+  m_Script: {fileID: 11500000, guid: f9be5429cbf387c4f9140f7d1908fb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proxyPrefab: 
+  ownerPrefab: 
+  serverPrefab: 
+  _parent: {fileID: 0}
+  _childIndex: -1
+  _children: []
+  stateSynchronization: 0
+  securable: 3
+  observed: {fileID: 0}
+  _manualViewID: 0
+  rpcReceiver: 0
+  listOfGameObjects: []
+  _prefabRoot: {fileID: 178264}
+--- !u!114 &11442384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01093743e5d7ee941a6139d5b2ea1a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Lifetime: 5
