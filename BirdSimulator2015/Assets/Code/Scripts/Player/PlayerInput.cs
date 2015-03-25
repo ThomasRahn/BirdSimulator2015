@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -139,11 +139,11 @@ public class PlayerInput : MonoBehaviour
 
         if (JoystickAxisX != 0 || JoystickAxisY != 0 || JoystickButton5)
 		{
-			Cameras.Radial(true);
+			Cameras.Switch(CameraContainer.Type.RADIAL);
 		}
         else if (JoystickAxis4 != 0 || JoystickAxis5 != 0)
 		{
-			Cameras.Radial(false);
+			Cameras.Switch(CameraContainer.Type.FREE);
             Cameras.Input(JoystickAxis4 * cameraMultiplier, JoystickAxis5 * cameraMultiplier);
 		}
 

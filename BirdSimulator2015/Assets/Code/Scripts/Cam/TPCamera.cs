@@ -18,9 +18,9 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 		protected Camera cam;
 		protected float velocity;
 		protected Transform parent;
+		protected GameObject target;
 		
 		private float shakeAmplitude = 0.01f;
-		private GameObject target;
 
 		protected virtual void Awake()
 		{
