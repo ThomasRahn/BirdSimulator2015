@@ -9,12 +9,10 @@ public class CameraContainer : MonoBehaviour
 	{
 		RADIAL,
 		FREE,
-		CHASE,
 	}
 
 	private TPRadialCamera radial;
 	private TPFreeCamera free;
-	private TPChaseCamera chase;
 
 	private bool locked;
 
@@ -22,7 +20,6 @@ public class CameraContainer : MonoBehaviour
 	{
 		radial = GetComponentInChildren<TPRadialCamera>();
 		free = GetComponentInChildren<TPFreeCamera>();
-		chase = GetComponentInChildren<TPChaseCamera>();
 	}
 	
 	public void Switch(Type type) 
@@ -37,17 +34,10 @@ public class CameraContainer : MonoBehaviour
 		case Type.RADIAL:
 			radial.enabled = true;
 			free.enabled = false;
-			chase.enabled = false;
 			break;
 		case Type.FREE:
 			radial.enabled = false;
 			free.enabled = true;
-			chase.enabled = false;
-			break;
-		case Type.CHASE:
-			radial.enabled = false;
-			free.enabled = false;
-			chase.enabled = true;
 			break;
 		}
 	}
