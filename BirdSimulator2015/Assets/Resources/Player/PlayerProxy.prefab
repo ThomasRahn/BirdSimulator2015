@@ -3965,7 +3965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8103a122f2d7c0641a489bea50da57df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaterialFeathersWhite: {fileID: 2100000, guid: 333bcf21f150de745b35ee59809d6bbd,
+  MaterialFeathersWhite: {fileID: 2100000, guid: ad7558c65ac536440a496ce9a721989b,
     type: 2}
   MaterialBodyWhite: {fileID: 2100000, guid: 062c962449a78f44296001d6c264ca72, type: 2}
   MaterialFeathersBlack: {fileID: 2100000, guid: 333bcf21f150de745b35ee59809d6bbd,
