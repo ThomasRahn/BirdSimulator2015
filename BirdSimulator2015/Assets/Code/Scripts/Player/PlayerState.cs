@@ -7,6 +7,8 @@ public class PlayerState : MonoBehaviour
     public enum BirdState
     {
         Hovering,
+		HoveringAscend,
+		HoveringDescend,
 
 		Gliding,
 		RandomFlapping,
@@ -232,6 +234,24 @@ public class PlayerState : MonoBehaviour
                 tiltTowards(0);
 				rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
                 targetVelocity = Vector3.zero;
+				break;
+
+			case BirdState.HoveringAscend:
+				resetBools();
+
+				ease();
+				tiltTowards(0);
+				rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
+				targetVelocity = Vector3.up * input.GetAxisVertical() * MAX_UPWARD_VELOCITY;;
+				break;
+
+			case BirdState.HoveringDescend:
+				resetBools();
+				
+				ease();
+				tiltTowards(0);
+				rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
+				targetVelocity = Vector3.up * input.GetAxisVertical() * MAX_UPWARD_VELOCITY;
 				break;
 
             case BirdState.Gliding:
