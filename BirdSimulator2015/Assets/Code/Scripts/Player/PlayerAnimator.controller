@@ -1242,6 +1242,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: b_CanDive
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: b_SpeedyGiuseppe
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 110251008}
   m_Solo: 0
