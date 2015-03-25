@@ -4195,6 +4195,14 @@ Prefab:
       propertyPath: m_Name
       value: trap_swingblade
       objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.19999981
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
   m_IsPrefabParent: 0
@@ -7370,6 +7378,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
   m_IsPrefabParent: 0
@@ -9039,6 +9051,14 @@ Prefab:
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
       value: trap_swingblade
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.30000019
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -16491,6 +16511,14 @@ Prefab:
       propertyPath: m_Name
       value: trap_swingblade
       objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.19999981
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
   m_IsPrefabParent: 0
@@ -16849,6 +16877,14 @@ Prefab:
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
       value: trap_swingblade
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.4000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -19421,6 +19457,14 @@ Prefab:
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
       value: trap_swingblade
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.30000019
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -22069,6 +22113,14 @@ Prefab:
       propertyPath: m_Name
       value: trap_swingblade
       objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.30000019
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
   m_IsPrefabParent: 0
@@ -22598,6 +22650,10 @@ Prefab:
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
       value: trap_swingblade
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -26856,6 +26912,14 @@ Prefab:
       propertyPath: m_Name
       value: trap_swingblade
       objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.4000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
   m_IsPrefabParent: 0
@@ -30777,6 +30841,14 @@ Prefab:
       propertyPath: m_Name
       value: trap_swingblade
       objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.0999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
   m_IsPrefabParent: 0
@@ -32101,6 +32173,14 @@ Prefab:
       propertyPath: m_Name
       value: trap_swingblade
       objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.0999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
   m_IsPrefabParent: 0
@@ -33098,6 +33178,14 @@ Prefab:
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
       value: trap_swingblade
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.0999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -40618,6 +40706,10 @@ Prefab:
       propertyPath: m_Name
       value: trap_swingblade
       objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
   m_IsPrefabParent: 0
@@ -42822,6 +42914,14 @@ Prefab:
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
       value: trap_swingblade
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.19999981
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -46526,6 +46626,14 @@ Prefab:
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
       value: trap_swingblade
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: phaseShift
+      value: 5.4000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: period
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}

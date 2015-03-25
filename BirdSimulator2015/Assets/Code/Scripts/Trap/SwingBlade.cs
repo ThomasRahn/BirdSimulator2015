@@ -16,7 +16,7 @@ namespace Code.Scripts.Trap
 
 		private void Start() 
 		{
-            phaseShift = this.transform.parent.localEulerAngles.z;
+            //phaseShift = this.transform.parent.localEulerAngles.z;
 			this.GetComponent<HingeJoint>().connectedAnchor = transform.position;
 
 			this.audioSource = this.GetComponentInChildren<AudioSource>();
