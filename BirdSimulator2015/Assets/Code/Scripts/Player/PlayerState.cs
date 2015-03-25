@@ -77,7 +77,7 @@ public class PlayerState : MonoBehaviour
     const float TILT_LIMIT = 70f;
     const float ABOUT_FACE_ANGLE = 35f;
 
-    const float HOVER_MAX_SPEED = 7.5f;
+    const float HOVER_MAX_SPEED = 15f;
 
     const float ROTATION_X_LIMIT = 40f;
 
@@ -229,7 +229,7 @@ public class PlayerState : MonoBehaviour
         {
             case BirdState.Hovering:
 				hover();
-				targetVelocity = (Vector3.up * input.GetRightStickVertical()).normalized;
+				targetVelocity = -(Vector3.up * input.GetRightStickVertical()).normalized;
 				targetVelocity += (input.GetDPadHorizontal() * transform.right + input.GetDPadVertical() * transform.forward).normalized;
 				targetVelocity = targetVelocity.normalized * HOVER_MAX_SPEED;
 				break;
