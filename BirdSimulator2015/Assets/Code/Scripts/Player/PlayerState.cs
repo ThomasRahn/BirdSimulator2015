@@ -7,9 +7,6 @@ public class PlayerState : MonoBehaviour
     public enum BirdState
     {
         Hovering,
-		HoveringAscend,
-		HoveringDescend,
-		HoveringStrafe,
 
 		Gliding,
 		RandomFlapping,
@@ -80,7 +77,7 @@ public class PlayerState : MonoBehaviour
     const float TILT_LIMIT = 70f;
     const float ABOUT_FACE_ANGLE = 35f;
 
-    const float HOVER_STRAFE_SPEED = 80f;
+    const float HOVER_MAX_SPEED = 7.5f;
 
     const float ROTATION_X_LIMIT = 40f;
 
@@ -232,19 +229,9 @@ public class PlayerState : MonoBehaviour
         {
             case BirdState.Hovering:
 				hover();
-                targetVelocity = Vector3.zero;
-				break;
-
-			case BirdState.HoveringAscend:
-			case BirdState.HoveringDescend:
-				hover();
-				targetVelocity = Vector3.up * input.GetRightStickVertical() * MAX_UPWARD_VELOCITY;
-				break;
-
-			case BirdState.HoveringStrafe:
-				hover();
-				targetVelocity = input.GetDPadHorizontal() * transform.right + input.GetDPadVertical() * transform.forward;
-				targetVelocity = targetVelocity.normalized * MAX_UPWARD_VELOCITY;
+				targetVelocity = (Vector3.up * input.GetRightStickVertical()).normalized;
+				targetVelocity += (input.GetDPadHorizontal() * transform.right + input.GetDPadVertical() * transform.forward).normalized;
+				targetVelocity = targetVelocity.normalized * HOVER_MAX_SPEED;
 				break;
 
             case BirdState.Gliding:

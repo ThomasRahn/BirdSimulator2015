@@ -115,10 +115,12 @@ public class PlayerInput : MonoBehaviour
             JoystickButton5 = Input.GetButton("KeyboardShift");
         }
 
-        animator.SetFloat("Horizontal", JoystickAxisX);
-        animator.SetFloat("Vertical", JoystickAxisY * GameController.Gamepad.Inverted);
-		animator.SetFloat(Registry.Animator.Horizontal2, JoystickAxis6);
-		animator.SetFloat(Registry.Animator.Vertical2, JoystickAxis7);
+		animator.SetFloat(Registry.Animator.LeftHorizontal, JoystickAxisX);
+		animator.SetFloat(Registry.Animator.LeftVertical, JoystickAxisY * GameController.Gamepad.Inverted);
+		animator.SetFloat(Registry.Animator.DPadHorizontal, JoystickAxis6);
+		animator.SetFloat(Registry.Animator.DPadVertical, JoystickAxis7);
+		animator.SetFloat(Registry.Animator.RightHorizontal, JoystickAxis4);
+		animator.SetFloat(Registry.Animator.RightVertical, JoystickAxis5);
 
         // cooldowns
         if (boostTimer < _boostTimer)
@@ -143,10 +145,7 @@ public class PlayerInput : MonoBehaviour
                 skillTimer = _skillTimer;
         }
 
-		if(state.GetState() == PlayerState.BirdState.Hovering
-		   || state.GetState() == PlayerState.BirdState.HoveringAscend
-		   || state.GetState() == PlayerState.BirdState.HoveringDescend
-		   || state.GetState() == PlayerState.BirdState.HoveringStrafe)
+		if(state.GetState() == PlayerState.BirdState.Hovering)
 		{
 			Cameras.Switch(CameraContainer.Type.RADIAL); // Always use radial in hovering state
 		}
