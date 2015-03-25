@@ -80,6 +80,8 @@ public class PlayerState : MonoBehaviour
     const float TILT_LIMIT = 70f;
     const float ABOUT_FACE_ANGLE = 35f;
 
+    const float HOVER_STRAFE_SPEED = 80f;
+
     const float ROTATION_X_LIMIT = 40f;
 
 
@@ -241,7 +243,7 @@ public class PlayerState : MonoBehaviour
 
 			case BirdState.HoveringStrafe:
 				hover();
-				targetVelocity = input.GetAxisDPadHorizontal() * transform.right + input.GetAxisDPadVertical() * transform.forward;
+				targetVelocity = input.GetAxisDPadHorizontal() * transform.right + input.GetAxisDPadVertical() * transform.forward * HOVER_STRAFE_SPEED;
 				targetVelocity = targetVelocity.normalized * MAX_UPWARD_VELOCITY;
 				break;
 
