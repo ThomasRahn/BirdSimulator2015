@@ -451,6 +451,24 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case BirdState.Landing:
+				if(LandTarget == null)
+				{
+					Collider[] collidables = Physics.OverlapSphere(transform.position, 20f);
+					float closestDistance = float.MaxValue;
+					for(int i = 0; i < collidables.Length; i++)
+					{
+						LandingZone zone = collidables[i].GetComponent<LandingZone>();
+						if(zone != null)
+						{
+							float distance = (zone.transform.position - transform.position).magnitude;
+							if(distance < closestDistance)							
+							{
+								LandTarget = zone.Target;
+								closestDistance = distance;
+							}
+						}
+					}
+				}
                 tiltTowards(0);
                 ease();
 

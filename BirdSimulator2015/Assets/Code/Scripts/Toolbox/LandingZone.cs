@@ -27,8 +27,11 @@ public class LandingZone : MonoBehaviour
 	{
 		if (other.tag == Registry.Tag.Player)
 		{
-			//GameController.GamepadPopup.FadeOut();
-            GameController.Player.GetComponent<PlayerState>().LandTarget = null;
+			PlayerState player = GameController.Player.GetComponent<PlayerState>();
+			if(player.GetState() != PlayerState.BirdState.Landing)
+			{
+				player.LandTarget = null;
+			}
 		}
 	}
 }
