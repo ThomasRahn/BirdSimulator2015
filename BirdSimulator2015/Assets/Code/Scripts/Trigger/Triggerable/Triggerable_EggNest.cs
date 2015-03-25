@@ -25,18 +25,18 @@ public class Triggerable_EggNest : BaseTriggerable<BaseTriggerable>
 
     public override void Trigger(Collider c, GameObject g)
     {
-        eggz++;
+        //eggz++;
 
 		c.transform.position = this.transform.position - Vector3.up * VERTICAL_OFFSET;
 		c.GetComponentInChildren<Egg>().Detach();
 
-        if (eggz == 1)
+        if (eggz == 0)
         {
             //Torches[0].GetComponentInChildren<BaseTriggerable>().Trigger(c, this.gameObject);
             networkView.RPC("RPC_LightFirstTorch", uLink.RPCMode.Others);
             RPC_LightFirstTorch();
         }
-        else if (eggz == 2)
+        else if (eggz == 1)
         {
             networkView.RPC("RPC_LightSecondTorch", uLink.RPCMode.Others);
             RPC_LightSecondTorch();
