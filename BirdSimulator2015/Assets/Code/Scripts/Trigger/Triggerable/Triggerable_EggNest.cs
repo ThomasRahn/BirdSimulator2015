@@ -32,25 +32,40 @@ public class Triggerable_EggNest : BaseTriggerable<BaseTriggerable>
 
         if (eggz == 1)
         {
-            Torches[0].GetComponentInChildren<BaseTriggerable>().Trigger(c, this.gameObject);
+            //Torches[0].GetComponentInChildren<BaseTriggerable>().Trigger(c, this.gameObject);
+            networkView.RPC("RPC_LightFirstTorch", uLink.RPCMode.Others);
+            RPC_LightFirstTorch();
         }
         else if (eggz == 2)
         {
-            Torches[1].GetComponentInChildren<BaseTriggerable>().Trigger(c, this.gameObject);
-
-            Pillars[0].GetComponentInChildren<LandingZone>().enabled = true;
-            Pillars[1].GetComponentInChildren<LandingZone>().enabled = true;
-
-            Pillars[0].GetComponentInChildren<SphereCollider>().enabled = true;
-            Pillars[1].GetComponentInChildren<SphereCollider>().enabled = true;
-
-            Light.GetComponent<Light>().enabled = true;
-            Light.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
-
-            StartCoroutine(coFadeInLight());
+            networkView.RPC("RPC_LightSecondTorch", uLink.RPCMode.Others);
+            RPC_LightSecondTorch();
         }
 
         base.Trigger(c, g);
+    }
+
+    [RPC]
+    public void RPC_LightFirstTorch()
+    {
+        Torches[0].GetComponentInChildren<BaseTriggerable>().Trigger(null, this.gameObject);
+    }
+
+    [RPC]
+    public void RPC_LightSecondTorch()
+    {
+        Torches[1].GetComponentInChildren<BaseTriggerable>().Trigger(null, this.gameObject);
+
+        Pillars[0].GetComponentInChildren<LandingZone>().enabled = true;
+        Pillars[1].GetComponentInChildren<LandingZone>().enabled = true;
+
+        Pillars[0].GetComponentInChildren<SphereCollider>().enabled = true;
+        Pillars[1].GetComponentInChildren<SphereCollider>().enabled = true;
+
+        Light.GetComponent<Light>().enabled = true;
+        Light.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+
+        StartCoroutine(coFadeInLight());
     }
 
     IEnumerator coFadeInLight()
