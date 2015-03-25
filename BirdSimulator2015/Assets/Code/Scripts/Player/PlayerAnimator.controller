@@ -227,6 +227,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: t_Tornado
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: b_SpeedyGiuseppe
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 110222158}
   m_Solo: 0
@@ -638,6 +641,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: t_AboutFace
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: b_SpeedyGiuseppe
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 110285068}
   m_Solo: 0
@@ -1022,6 +1028,9 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: b_Grounded
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: b_SpeedyGiuseppe
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 110203948}
@@ -1483,6 +1492,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: t_Flash
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: b_SpeedyGiuseppe
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 110212946}
   m_Solo: 0
@@ -1706,6 +1718,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: t_Land
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: b_SpeedyGiuseppe
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 110285766}
