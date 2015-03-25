@@ -44,19 +44,6 @@ public class FireballZone : uLink.MonoBehaviour
 		fireball.transform.position = Vector3.MoveTowards(fireball.transform.position, Target.position, Time.deltaTime * Speed);
 	}
 
-	public void PushBack(Vector3 force){
-		if (uLink.Network.isServer)
-			fireball.GetComponent<Rigidbody> ().AddForce (force);
-		else 
-			fireball.GetComponent<uLinkNetworkView>().RPC("NetworkPushBack", uLink.RPCMode.Server, force);
-	}
-
-	[RPC]
-	public void NetworkPushBack(Vector3 force)
-	{
-		fireball.GetComponent<Rigidbody> ().AddForce (force);
-	}
-
 	void OnTriggerEnter(Collider c)
 	{
 		if (c.tag == Registry.Tag.Player || c.tag == Registry.Tag.Proxy)

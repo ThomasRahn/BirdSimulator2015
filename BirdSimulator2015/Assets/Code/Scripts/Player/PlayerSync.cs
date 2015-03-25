@@ -89,4 +89,25 @@ public class PlayerSync : uLink.MonoBehaviour
 	{
 		animator.SetTrigger(Registry.Animator.Die);
 	}
+
+    public void PushBack(Vector3 v)
+    {
+        networkView.RPC("PushBack_Proxy", uLink.RPCMode.Others, v);
+    }
+
+    [RPC]
+    public void PushBack_Proxy(Vector3 v)
+    {
+        Debug.Log(v);
+        Collider[] colliders = Physics.OverlapSphere(v, 15f);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].name == Registry.Prefab.FireballMini + "(Clone)"
+                || colliders[i].name == Registry.Prefab.Fireball + "(Clone)")
+            {
+                //Debug.Log("Pushing back");
+                colliders[i].transform.position = new Vector3(-2392f, -874f, -232f);
+            }
+        }
+    }
 }

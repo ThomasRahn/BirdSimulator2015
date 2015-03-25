@@ -642,17 +642,8 @@ public class PlayerState : MonoBehaviour
                     GameObject.Instantiate(Resources.Load(Registry.Prefab.WhirlyWind), this.transform.position, Quaternion.identity);
 
                     this.GetComponent<PlayerAudio>().PlayTornado();
-					
-					Collider[] colliders = Physics.OverlapSphere (this.transform.position, WHIRLWIND_DISTANCE);
-					for(int i = 0; i < colliders.Length; i++)
-					{
-						FireballZone[] fbZone = colliders[i].gameObject.GetComponentsInChildren<FireballZone>();
-						if(fbZone.Length > 0)
-						{
-							Vector3 force = colliders[i].gameObject.transform.position - this.transform.position;
-							fbZone[0].PushBack(force * 10.0f);	
-						}
-					}
+
+                    this.GetComponent<PlayerSync>().PushBack(this.transform.position);
                 }
 
                 targetVelocity = this.transform.forward * currentMaxSpeed;
@@ -672,7 +663,7 @@ public class PlayerState : MonoBehaviour
 					Collider[] colliders = Physics.OverlapSphere (this.transform.position, TAUNT_DISTANCE);
 					if (colliders.Length > 0) 
 					{
-						for(int i = 0; i < colliders.Length; i++)
+						for (int i = 0; i < colliders.Length; i++)
 						{
 							Triggerable_TorchLit[] lightable_torches = colliders[i].gameObject.GetComponentsInChildren<Triggerable_TorchLit>();
 							
