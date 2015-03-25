@@ -4193,7 +4193,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 6
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -9038,7 +9038,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 10
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -16489,7 +16489,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 7
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -16848,7 +16848,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 14
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -19420,7 +19420,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 9
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -22067,7 +22067,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 11
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -22597,7 +22597,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 2
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -26854,7 +26854,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 12
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -30775,7 +30775,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 4
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -32099,7 +32099,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 5
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -33097,7 +33097,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 3
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -37142,6 +37142,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1746603634}
   - 114: {fileID: 1746603635}
+  - 114: {fileID: 1746603636}
   m_Layer: 0
   m_Name: EggDropSystem
   m_TagString: Untagged
@@ -37180,6 +37181,30 @@ MonoBehaviour:
   - {fileID: 1157898780}
   - {fileID: 1322963157}
   Light: {fileID: 491452821}
+--- !u!114 &1746603636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1746603633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9be5429cbf387c4f9140f7d1908fb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proxyPrefab: 
+  ownerPrefab: 
+  serverPrefab: 
+  _parent: {fileID: 0}
+  _childIndex: -1
+  _children: []
+  stateSynchronization: 0
+  securable: 0
+  observed: {fileID: 1746603635}
+  _manualViewID: 4
+  rpcReceiver: 1
+  listOfGameObjects: []
+  _prefabRoot: {fileID: 0}
 --- !u!1 &1749757440
 GameObject:
   m_ObjectHideFlags: 0
@@ -40591,7 +40616,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 1
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -42796,7 +42821,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 8
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -46500,7 +46525,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: m_Name
-      value: trap_swingblade 13
+      value: trap_swingblade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
