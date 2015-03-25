@@ -31,6 +31,7 @@ public class PlayerInput : MonoBehaviour
     protected bool JoystickButton12 = false;
 
     private Animator animator;
+	private PlayerState state;
     private float cameraMultiplier = 1f;
 
     private float _boostTimer = 1.5f;
@@ -42,6 +43,7 @@ public class PlayerInput : MonoBehaviour
 
     void Awake()
     {
+		state = this.GetComponent<PlayerState>();
         animator = this.GetComponent<Animator>();
     }
 
@@ -77,7 +79,7 @@ public class PlayerInput : MonoBehaviour
             JoystickAxisX = Input.GetAxis("JoystickAxisX"); // left thumbstick horizontal
             JoystickAxisY = Input.GetAxis("JoystickAxisY"); // left thumbstick vertical
 
-            if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.SpeedyMode)
+            if (state.GetState() == PlayerState.BirdState.SpeedyMode)
                 return;
 
 #if UNITY_EDITOR_WIN
@@ -98,7 +100,7 @@ public class PlayerInput : MonoBehaviour
             JoystickAxisX = Input.GetAxis("KeyboardAxisX");
             JoystickAxisY = Input.GetAxis("KeyboardAxisY");
 
-            if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.SpeedyMode)
+            if (state.GetState() == PlayerState.BirdState.SpeedyMode)
                 return;
 
             JoystickAxis4 = Input.GetAxis("Mouse X");
@@ -141,20 +143,30 @@ public class PlayerInput : MonoBehaviour
                 skillTimer = _skillTimer;
         }
 
-        if (JoystickAxisX != 0 || JoystickAxisY != 0 || JoystickButton5)
+		if(state.GetState() == PlayerState.BirdState.Hovering
+		   || state.GetState() == PlayerState.BirdState.HoveringAscend
+		   || state.GetState() == PlayerState.BirdState.HoveringDescend
+		   || state.GetState() == PlayerState.BirdState.HoveringStrafe)
 		{
-			Cameras.Switch(CameraContainer.Type.RADIAL);
+			Cameras.Switch(CameraContainer.Type.RADIAL); // Always use radial in hovering state
 		}
-        else if (JoystickAxis4 != 0 || JoystickAxis5 != 0)
+		else
 		{
-			Cameras.Switch(CameraContainer.Type.FREE);
-            Cameras.Input(JoystickAxis4 * cameraMultiplier, JoystickAxis5 * cameraMultiplier);
+			if (JoystickAxisX != 0 || JoystickAxisY != 0 || JoystickButton5)
+			{
+				Cameras.Switch(CameraContainer.Type.RADIAL);
+			}
+			else if (JoystickAxis4 != 0 || JoystickAxis5 != 0)
+			{
+				Cameras.Switch(CameraContainer.Type.FREE);
+				Cameras.Input(JoystickAxis4 * cameraMultiplier, JoystickAxis5 * cameraMultiplier);
+			}
 		}
 
         if (JoystickButton2
-            & this.GetComponent<PlayerState>().GetState() != PlayerState.BirdState.Diving
-            & this.GetComponent<PlayerState>().GetState() != PlayerState.BirdState.Grounded
-            & this.GetComponent<PlayerState>().GetState() != PlayerState.BirdState.LiftingOff
+            & state.GetState() != PlayerState.BirdState.Diving
+		    & state.GetState() != PlayerState.BirdState.Grounded
+		    & state.GetState() != PlayerState.BirdState.LiftingOff
             & boostTimer == _boostTimer)
         {
             boostTimer -= Time.deltaTime;
@@ -164,9 +176,9 @@ public class PlayerInput : MonoBehaviour
 
         if (JoystickButton0)
         {
-            if (this.GetComponent<PlayerState>().LandTarget != null)
+			if (state.LandTarget != null)
             {
-                if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Grounded)
+				if (state.GetState() == PlayerState.BirdState.Grounded)
                 {
                     this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Grounded, false);
                     animator.SetBool(Registry.Animator.Grounded, false);
@@ -179,8 +191,8 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
-                if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Hovering
-                    || this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Gliding)
+				if (state.GetState() == PlayerState.BirdState.Hovering
+				    || state.GetState() == PlayerState.BirdState.Gliding)
                 {
                     if (skillTimer == _skillTimer)
                     {
@@ -213,7 +225,7 @@ public class PlayerInput : MonoBehaviour
 		}
 
         if (JoystickButton3
-            & this.GetComponent<PlayerState>().GetState() != PlayerState.BirdState.QuickAscending
+		    & state.GetState() != PlayerState.BirdState.QuickAscending
             & ascendTimer == _ascendTimer)
 		{
             ascendTimer -= Time.deltaTime;
@@ -239,8 +251,8 @@ public class PlayerInput : MonoBehaviour
 
         if (JoystickButton8)
         {
-            if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Hovering
-                || this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Gliding)
+			if (state.GetState() == PlayerState.BirdState.Hovering
+			    || state.GetState() == PlayerState.BirdState.Gliding)
             {
                 animator.SetTrigger(Registry.Animator.AboutFace);
             }
@@ -259,25 +271,17 @@ public class PlayerInput : MonoBehaviour
         animator.SetBool(s, b);
     }
 
-    public float GetAxisHorizontal()
-    {
-        return JoystickAxisX;
-    }
+    public float GetLeftStickHorizontal() { return JoystickAxisX; }
 
-    public float GetAxisVertical()
-    {
-        return JoystickAxisY;
-    }
+    public float GetLeftStickVertical() { return JoystickAxisY; }
 
-	public float GetAxisDPadHorizontal()
-	{
-		return JoystickAxis6;
-	}
+	public float GetDPadHorizontal() { return JoystickAxis6; }
 
-	public float GetAxisDPadVertical()
-	{
-		return JoystickAxis7;
-	}
+	public float GetDPadVertical() { return JoystickAxis7; }
+
+	public float GetRightStickHorizontal() { return JoystickAxis4; }
+
+	public float GetRightStickVertical() { return JoystickAxis5; }
 
     private void DoXBOXWin()
     {

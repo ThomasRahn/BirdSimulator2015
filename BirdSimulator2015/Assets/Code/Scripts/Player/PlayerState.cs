@@ -238,12 +238,12 @@ public class PlayerState : MonoBehaviour
 			case BirdState.HoveringAscend:
 			case BirdState.HoveringDescend:
 				hover();
-				targetVelocity = Vector3.up * input.GetAxisVertical() * MAX_UPWARD_VELOCITY;
+				targetVelocity = Vector3.up * input.GetRightStickVertical() * MAX_UPWARD_VELOCITY;
 				break;
 
 			case BirdState.HoveringStrafe:
 				hover();
-				targetVelocity = input.GetAxisDPadHorizontal() * transform.right + input.GetAxisDPadVertical() * transform.forward * HOVER_STRAFE_SPEED;
+				targetVelocity = input.GetDPadHorizontal() * transform.right + input.GetDPadVertical() * transform.forward;
 				targetVelocity = targetVelocity.normalized * MAX_UPWARD_VELOCITY;
 				break;
 
@@ -309,12 +309,12 @@ public class PlayerState : MonoBehaviour
                     Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
                 }
 
-                tiltTowards(input.GetAxisHorizontal() * TILT_LIMIT);
+                tiltTowards(input.GetLeftStickHorizontal() * TILT_LIMIT);
                 addMomentum();
                 dive();
 
-				Vector3 leftright = input.GetAxisHorizontal() * this.transform.right * DIVE_STRAFE_RATE;
-				Vector3 updown = input.GetAxisVertical() * this.transform.up * DIVE_STRAFE_RATE;
+				Vector3 leftright = input.GetLeftStickHorizontal() * this.transform.right * DIVE_STRAFE_RATE;
+				Vector3 updown = input.GetLeftStickVertical() * this.transform.up * DIVE_STRAFE_RATE;
 			    targetVelocity = leftright + updown + Vector3.down * MAX_DOWNWARD_VELOCITY;
 
                 //if (!audioOnce)
@@ -363,7 +363,7 @@ public class PlayerState : MonoBehaviour
 				targetVelocity = Vector3.zero;
 				speedChange = 3.0f;
 
-                float f = this.GetComponent<PlayerInput>().GetAxisHorizontal();
+                float f = this.GetComponent<PlayerInput>().GetLeftStickHorizontal();
                 if (f < 0)
                 {
                     turnLeft();
@@ -628,10 +628,10 @@ public class PlayerState : MonoBehaviour
                 rotationX = 0f;
                 rotationY = 90f;
                 //rotationZ = 0f;
-                tiltTowards(input.GetAxisHorizontal() * TILT_LIMIT);
+                tiltTowards(input.GetLeftStickHorizontal() * TILT_LIMIT);
 
-                leftright = input.GetAxisHorizontal() * this.transform.right * 100f;
-				updown = input.GetAxisVertical() * this.transform.up * 100f;
+                leftright = input.GetLeftStickHorizontal() * this.transform.right * 100f;
+				updown = input.GetLeftStickVertical() * this.transform.up * 100f;
 
                 if (Physics.Raycast(this.transform.position, leftright, out hit, 10f, layerMask))
                 {
@@ -758,7 +758,7 @@ public class PlayerState : MonoBehaviour
 
     void turnLeft()
     {
-        intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+        intendedTurnSpeed = Mathf.Abs(input.GetLeftStickHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
         currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
         currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
         //rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
@@ -767,7 +767,7 @@ public class PlayerState : MonoBehaviour
 
     void turnRight()
     {
-        intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+        intendedTurnSpeed = Mathf.Abs(input.GetLeftStickHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
         currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
         currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
         //rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
@@ -793,7 +793,7 @@ public class PlayerState : MonoBehaviour
 		resetBools();
 		ease();
 		tiltTowards(0);
-		rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
+		rotationY += input.GetRightStickHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
 	}
 
     const float DIVE_SWOOP_DISTANCE = 7f;
