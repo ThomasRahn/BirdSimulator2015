@@ -2,6 +2,8 @@ public static partial class Registry
 {
 	public static class Animator
 	{
+		public const string Horizontal2 = "SecondaryHorizontal";
+		public const string Vertical2 = "SecondaryVertical";
 		public const string DashForward = "t_DashForward";
 		public const string DashUp = "t_DashUp";
 		public const string DashRight = "t_DashRight";

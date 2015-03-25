@@ -103,6 +103,8 @@ public class PlayerInput : MonoBehaviour
 
             JoystickAxis4 = Input.GetAxis("Mouse X");
             JoystickAxis5 = Input.GetAxis("Mouse Y");
+			JoystickAxis6 = Input.GetAxis("KeyboardAxisJL"); // d-pad horizontal
+			JoystickAxis7 = Input.GetAxis("KeyboardAxisIK"); // d-pad vertical
 
             JoystickButton0 = Input.GetButton("KeyboardX");
             JoystickButton1 = Input.GetButton("KeyboardF");
@@ -113,6 +115,8 @@ public class PlayerInput : MonoBehaviour
 
         animator.SetFloat("Horizontal", JoystickAxisX);
         animator.SetFloat("Vertical", JoystickAxisY * GameController.Gamepad.Inverted);
+		animator.SetFloat(Registry.Animator.Horizontal2, JoystickAxis6);
+		animator.SetFloat(Registry.Animator.Vertical2, JoystickAxis7);
 
         // cooldowns
         if (boostTimer < _boostTimer)
@@ -265,11 +269,23 @@ public class PlayerInput : MonoBehaviour
         return JoystickAxisY;
     }
 
+	public float GetAxisDPadHorizontal()
+	{
+		return JoystickAxis6;
+	}
+
+	public float GetAxisDPadVertical()
+	{
+		return JoystickAxis7;
+	}
+
     private void DoXBOXWin()
     {
         JoystickAxis3 = Input.GetAxis("JoystickAxis3"); // right and left trigger
         JoystickAxis4 = Input.GetAxis("JoystickAxis4"); // right thumbstick horizontal
         JoystickAxis5 = Input.GetAxis("JoystickAxis5"); // right thumbstick vertical
+		JoystickAxis6 = Input.GetAxis("JoystickAxis6"); // d-pad horizontal
+		JoystickAxis7 = Input.GetAxis("JoystickAxis7"); // d-pad vertical
 
         JoystickButton0 = Input.GetButton("JoystickButton0"); // bottom button
         JoystickButton1 = Input.GetButton("JoystickButton1"); // right button
@@ -289,6 +305,8 @@ public class PlayerInput : MonoBehaviour
     {
         JoystickAxis4 = Input.GetAxis("JoystickAxis3"); // right thumbstick horizontal
         JoystickAxis5 = Input.GetAxis("JoystickAxis4"); // right thumbstick vertical
+		JoystickAxis6 = (Input.GetButton("JoystickButton8") ? 1 : 0) + (Input.GetButton("JoystickButton7") ? -1 : 0); // d-pad horizontal
+		JoystickAxis7 = (Input.GetButton("JoystickButton5") ? 1 : 0) + (Input.GetButton("JoystickButton6") ? -1 : 0); // d-pad vertical
 
         JoystickButton0 = Input.GetButton("JoystickButton16"); // bottom button
         JoystickButton1 = Input.GetButton("JoystickButton17"); // right button

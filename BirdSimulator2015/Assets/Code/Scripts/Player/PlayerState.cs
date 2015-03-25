@@ -9,6 +9,7 @@ public class PlayerState : MonoBehaviour
         Hovering,
 		HoveringAscend,
 		HoveringDescend,
+		HoveringStrafe,
 
 		Gliding,
 		RandomFlapping,
@@ -228,30 +229,20 @@ public class PlayerState : MonoBehaviour
         switch (state)
         {
             case BirdState.Hovering:
-				resetBools();
-
-                ease();
-                tiltTowards(0);
-				rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
+				hover();
                 targetVelocity = Vector3.zero;
 				break;
 
 			case BirdState.HoveringAscend:
-				resetBools();
-
-				ease();
-				tiltTowards(0);
-				rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
-				targetVelocity = Vector3.up * input.GetAxisVertical() * MAX_UPWARD_VELOCITY;;
+			case BirdState.HoveringDescend:
+				hover();
+				targetVelocity = Vector3.up * input.GetAxisVertical() * MAX_UPWARD_VELOCITY;
 				break;
 
-			case BirdState.HoveringDescend:
-				resetBools();
-				
-				ease();
-				tiltTowards(0);
-				rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
-				targetVelocity = Vector3.up * input.GetAxisVertical() * MAX_UPWARD_VELOCITY;
+			case BirdState.HoveringStrafe:
+				hover();
+				targetVelocity = input.GetAxisDPadHorizontal() * transform.right + input.GetAxisDPadVertical() * transform.forward;
+				targetVelocity = targetVelocity.normalized * MAX_UPWARD_VELOCITY;
 				break;
 
             case BirdState.Gliding:
@@ -794,6 +785,14 @@ public class PlayerState : MonoBehaviour
         this.GetComponent<Rigidbody>().velocity = Vector3.zero;
         targetVelocity = Vector3.zero;
     }
+
+	private void hover()
+	{
+		resetBools();
+		ease();
+		tiltTowards(0);
+		rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
+	}
 
     const float DIVE_SWOOP_DISTANCE = 7f;
     bool checkDiveCollision()
