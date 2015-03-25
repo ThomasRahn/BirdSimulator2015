@@ -48,12 +48,14 @@ public class Triggerable_EggNest : BaseTriggerable<BaseTriggerable>
     [RPC]
     public void RPC_LightFirstTorch()
     {
+        eggz++;
         Torches[0].GetComponentInChildren<BaseTriggerable>().Trigger(null, this.gameObject);
     }
 
     [RPC]
     public void RPC_LightSecondTorch()
     {
+        eggz++;
         Torches[1].GetComponentInChildren<BaseTriggerable>().Trigger(null, this.gameObject);
 
         Pillars[0].GetComponentInChildren<LandingZone>().enabled = true;

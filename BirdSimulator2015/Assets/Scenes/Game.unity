@@ -32551,7 +32551,7 @@ MonoBehaviour:
   Overworld: {fileID: 8300000, guid: 9aa9af8a149a4e0449d53e8da732ee44, type: 3}
   Underworld: {fileID: 8300000, guid: 3f1d38183b0fae04bb8a2d89373a4904, type: 3}
   Chase: {fileID: 8300000, guid: b385faa01a0955b418b92afe80097dab, type: 3}
-  Ending: {fileID: 8300000, guid: 9efa88b0959395645a5c087ba0e517d7, type: 3}
+  Ending: {fileID: 8300000, guid: 4ff7d6309e91b4649aa9488558092da2, type: 3}
   AttractMode: {fileID: 8300000, guid: 2587660d685b97245b5039c396d96695, type: 3}
 --- !u!1 &1539432207
 GameObject:
