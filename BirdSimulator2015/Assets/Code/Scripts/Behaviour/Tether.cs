@@ -128,7 +128,7 @@ public class Tether : MonoBehaviour
 		}
 
 		FadeIn(); // Fade the tether back in while keeping bird positions
-		float timeLeft = FADE_TIMER;
+		float timeLeft = FADE_TIMER/3;
 		while(timeLeft > 0)
 		{
 			keepStill();

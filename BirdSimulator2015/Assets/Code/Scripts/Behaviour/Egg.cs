@@ -26,8 +26,8 @@ public class Egg : MonoBehaviour
 				// Attach owner to egg
 				link(c.attachedRigidbody);
 
-				// Attach proxies to egg on other machines
-				uLink.NetworkView.Get(this).RPC("Attach", uLink.RPCMode.Others, c.transform.position);
+				// Disable the pickup on networked eggs
+				uLink.NetworkView.Get(this).RPC("ToggleCollider", uLink.RPCMode.Others, false);
 			}
 			else // Give ownership to the player that picked it up
 			{
@@ -48,9 +48,9 @@ public class Egg : MonoBehaviour
     }
 
 	[RPC]
-	public void Attach(Vector3 birdPosition)
+	public void ToggleCollider(bool enabled)
 	{
-		GetComponent<Collider>().enabled = false;
+		GetComponent<Collider>().enabled = enabled;
 	}
 
 	private void link(Rigidbody bird)
@@ -88,7 +88,7 @@ public class Egg : MonoBehaviour
 	public void Reset()
 	{
 		Detach();
-		GetComponent<Collider>().enabled = true;
+		uLink.NetworkView.Get(this).RPC("ToggleCollider", uLink.RPCMode.All, true);
 		transform.parent.position = spawn;
 	}
 }
