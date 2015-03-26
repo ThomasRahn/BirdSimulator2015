@@ -69,7 +69,13 @@ public class LocationPopup : MonoBehaviour
 	
 	IEnumerator coFadeOut()
 	{
-		yield return new WaitForSeconds(FADE_OUT_DELAY);
+        float offset = 0f;
+        if (image.sprite == Ravenhome)
+        {
+            offset = 4f;
+        }
+
+        yield return new WaitForSeconds(FADE_OUT_DELAY + offset);
 		image.CrossFadeAlpha(0f, FADE_OUT_TIME, false);
 		yield return null;
 	}

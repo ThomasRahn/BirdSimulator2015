@@ -235,7 +235,7 @@ public class PlayerState : MonoBehaviour
         switch (state)
         {
             case BirdState.Hovering:
-                if (!hoverOnce && GameController.GamepadPopup.Timer > 0f)
+                if (!hoverOnce && GameController.GamepadPopup.Timer > 0f && Vector3.Distance(GameController.Player.transform.position, Vector3.zero) > 200f)
                 {
                     hoverOnce = true;
                     GameController.GamepadPopup.FadeIn();
