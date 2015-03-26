@@ -160,15 +160,18 @@ public class PlayerInput : MonoBehaviour
 
         if (JoystickButton0)
         {
+            // if can land
             if (this.GetComponent<PlayerState>().LandTarget != null)
             {
                 if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Grounded)
                 {
+                    // lift off
                     this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Grounded, false);
                     animator.SetBool(Registry.Animator.Grounded, false);
                 }
-                else
+                else if (this.GetComponent<PlayerState>().GetState() != PlayerState.BirdState.Landing)
                 {
+                    // if not already landing
                     this.GetComponent<PlayerSync>().SendTrigger(Registry.Animator.Land);
                     animator.SetTrigger(Registry.Animator.Land);
                 }
