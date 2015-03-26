@@ -229,7 +229,7 @@ public class PlayerState : MonoBehaviour
         {
             case BirdState.Hovering:
 				hover();
-				targetVelocity = (Vector3.up * input.GetRightStickVertical()).normalized;
+				targetVelocity = -(Vector3.up * input.GetRightStickVertical()).normalized;
 				targetVelocity += (input.GetDPadHorizontal() * transform.right + input.GetDPadVertical() * transform.forward).normalized;
 				targetVelocity = targetVelocity.normalized * HOVER_MAX_SPEED;
 				break;
