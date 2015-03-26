@@ -1983,7 +1983,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Hovering
-  m_Speed: .800000012
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110196414}
@@ -1992,7 +1992,7 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_Motion: {fileID: 7400030, guid: feb4984240f5d4844858dcf824ce7976, type: 3}
+  m_Motion: {fileID: 7400024, guid: feb4984240f5d4844858dcf824ce7976, type: 3}
   m_Tag: 
 --- !u!1102 &110240764
 AnimatorState:
@@ -2326,6 +2326,9 @@ AnimatorStateMachine:
       first: {fileID: 110700000}
       second: []
     data:
+      first: {fileID: 110796556}
+      second: []
+    data:
       first: {fileID: 110739194}
       second: []
     data:
@@ -2333,9 +2336,6 @@ AnimatorStateMachine:
       second: []
     data:
       first: {fileID: 110795828}
-      second: []
-    data:
-      first: {fileID: 110796556}
       second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -108, y: 588, z: 0}
