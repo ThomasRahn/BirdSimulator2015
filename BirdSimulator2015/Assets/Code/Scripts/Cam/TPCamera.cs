@@ -33,10 +33,10 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 		private void FixedUpdate()
 		{
 			velocity = target.GetComponent<Rigidbody>().velocity.magnitude;
-			UpdatePosition();
+			Vector3 finalPosition = UpdatePosition();
             UpdateFieldOfView();
             UpdateRadius();
-			collisionResolution();
+			collisionResolution(finalPosition);
 		}
 
         private void UpdateFieldOfView()
@@ -64,25 +64,25 @@ namespace BirdSimulator2015.Code.Scripts.Cam
             }
         }
 
-		private void collisionResolution()
+		private void collisionResolution(Vector3 finalPosition)
 		{
-			Vector3 towardsPlayer = target.transform.position - transform.position;
+			Vector3 towardsPlayer = target.transform.position - finalPosition;
 			RaycastHit hit;
 			if(Physics.Raycast(target.transform.position, -towardsPlayer, out hit, towardsPlayer.magnitude))
 			{
-				reposition(hit, true);
+				reposition(finalPosition, hit, true);
 			}
-			else if(Physics.Raycast(transform.position, towardsPlayer, out hit, towardsPlayer.magnitude))
+			else if(Physics.Raycast(finalPosition, towardsPlayer, out hit, towardsPlayer.magnitude))
 			{
-				reposition(hit, false);
+				reposition(finalPosition, hit, false);
 			}
 		}
 
-		private void reposition(RaycastHit hit, bool reverse)
+		private void reposition(Vector3 finalPosition, RaycastHit hit, bool reverse)
 		{
-			float offset = (transform.position - target.transform.position).magnitude * Mathf.Tan(Mathf.PI/6);
-			Vector3 rightOffset = transform.position + transform.right * offset;
-			Vector3 leftOffset = transform.position - transform.right * offset;
+			float offset = (finalPosition - target.transform.position).magnitude * Mathf.Tan(Mathf.PI/6);
+			Vector3 rightOffset = finalPosition + transform.right * offset;
+			Vector3 leftOffset = finalPosition - transform.right * offset;
 
 			Vector3 rightDirection = target.transform.position - rightOffset;
 			Vector3 leftDirection = target.transform.position - leftOffset;
@@ -96,13 +96,18 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			}
 			else
 			{
-				if(!Physics.Raycast(transform.position, rightDirection, rightDirection.magnitude) &&
-				   !Physics.Raycast(transform.position, leftDirection, rightDirection.magnitude))
+				if(!Physics.Raycast(finalPosition, rightDirection, rightDirection.magnitude) &&
+				   !Physics.Raycast(finalPosition, leftDirection, rightDirection.magnitude))
 				{
 					return;
 				}
 			}
-			this.transform.position = hit.point + hit.normal * Camera.main.nearClipPlane * 2;
+
+			Vector3 targetPosition = hit.point + hit.normal * Camera.main.nearClipPlane * 2;
+			if(Vector3.Distance(transform.position, targetPosition) > Registry.Constant.MIN_LERP_DISTANCE)
+			{
+				transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+			}
 		}
 
 		private void shake()
@@ -113,7 +118,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			transform.localPosition = position;
 		}
 
-		protected void positionBehind()
+		protected Vector3 positionBehind()
 		{
 			Vector3 targetLocalPosition = transform.localPosition;
 			targetLocalPosition = -Vector3.forward * Radius + Vector3.up * UpOffset;
@@ -125,6 +130,8 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			{
 				transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.identity, moveSpeed * Time.deltaTime);
 			}
+
+			return transform.parent.position + transform.rotation * targetLocalPosition;
 		}
 
 		public void SetTarget(GameObject target)
@@ -139,6 +146,6 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			this.target = targetRigidbody.gameObject;
 		}
 
-		protected abstract void UpdatePosition();
+		protected abstract Vector3 UpdatePosition();
 	}
 }

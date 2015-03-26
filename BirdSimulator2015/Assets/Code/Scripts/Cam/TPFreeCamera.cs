@@ -13,9 +13,9 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 			positionBehind();
 		}
 		
-		protected override void UpdatePosition()
+		protected override Vector3 UpdatePosition()
 		{
-			positionBehind();
+			return positionBehind();
 		}
 
 		public void UpdateAngles(float horizontal, float vertical)
