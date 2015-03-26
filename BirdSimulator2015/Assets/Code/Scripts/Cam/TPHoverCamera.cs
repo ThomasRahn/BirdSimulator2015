@@ -43,7 +43,7 @@ public class TPHoverCamera : TPCamera
 		}
 		if(Quaternion.Angle(transform.rotation, targetRotation) > Registry.Constant.MIN_LERP_DISTANCE)
 		{
-			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 3 * moveSpeed * Time.deltaTime);
+			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, moveSpeed * Time.deltaTime);
 		}
 
 		return targetPosition;
