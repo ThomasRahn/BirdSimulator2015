@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437b294d5ec3bcc4c8ea1c0678cef0c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FOVThreshold: 50
+  FOVThreshold: 55
   UpOffset: 3
   FOVCoefficient: .75
   Radius: 12
