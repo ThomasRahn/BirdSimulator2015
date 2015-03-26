@@ -8,7 +8,7 @@ public class TPHoverCamera : TPCamera
 	private float radialUp;
 	private float radialRadius;
 
-    private const float UPDOWN = 1f;
+    private const float UPDOWN = 2f;
 
 	protected override void Awake()
 	{
