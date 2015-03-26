@@ -25,8 +25,6 @@ public class Triggerable_EggNest : BaseTriggerable<BaseTriggerable>
 
     public override void Trigger(Collider c, GameObject g)
     {
-        //eggz++;
-
 		c.transform.position = this.transform.position - Vector3.up * VERTICAL_OFFSET;
 		c.GetComponentInChildren<Egg>().Detach();
 
@@ -48,6 +46,7 @@ public class Triggerable_EggNest : BaseTriggerable<BaseTriggerable>
     [RPC]
     public void RPC_LightFirstTorch()
     {
+        this.GetComponent<AudioSource>().Play();
         eggz++;
         Torches[0].GetComponentInChildren<BaseTriggerable>().Trigger(null, this.gameObject);
     }
