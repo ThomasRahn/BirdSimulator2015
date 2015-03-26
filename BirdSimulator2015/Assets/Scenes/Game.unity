@@ -20466,14 +20466,14 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 958538763}
   m_LocalRotation: {x: 0, y: .766044259, z: 0, w: -.642787814}
-  m_LocalPosition: {x: 0, y: 0, z: -14.2799997}
+  m_LocalPosition: {x: 0, y: 0, z: -11.6000004}
   m_LocalScale: {x: .00700000022, y: .00700000022, z: 1}
   m_Children: []
   m_Father: {fileID: 909425990}
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -197.5, y: 75.6999969}
+  m_AnchoredPosition: {x: -219.399994, y: 75.6999969}
   m_SizeDelta: {x: 1024, y: 819}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &958538765
@@ -32265,22 +32265,32 @@ AudioSource:
   MinDistance: 100
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - time: .200000003
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -5.00199175
+      outSlope: -5.00199175
+      tangentMode: 0
+    - time: .360674173
+      value: .591666639
+      inSlope: -1.31397629
+      outSlope: -1.31397629
+      tangentMode: 0
+    - time: .783146083
+      value: .391666681
+      inSlope: -.312624484
+      outSlope: -.312624484
       tangentMode: 0
     - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      value: .37500003
+      inSlope: -.200079754
+      outSlope: -.200079754
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -46562,7 +46572,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2085125087}
   m_LocalRotation: {x: 0, y: 0, z: -.0236795396, w: .99971962}
-  m_LocalPosition: {x: -255.600006, y: 54.4000015, z: -47.4000015}
+  m_LocalPosition: {x: -258.369995, y: 54.5299988, z: -47.4000015}
   m_LocalScale: {x: 1.11576486, y: 1.11576474, z: 1.11576474}
   m_Children: []
   m_Father: {fileID: 1637619260}
