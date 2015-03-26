@@ -227,7 +227,7 @@ public class PlayerState : MonoBehaviour
         }
 
         // fade out gamepad if not hovering
-        if (state != BirdState.Hovering)
+        if (state != BirdState.Hovering || GameController.GamepadPopup.Timer < 0f)
         {
             GameController.GamepadPopup.FadeOut();
         }

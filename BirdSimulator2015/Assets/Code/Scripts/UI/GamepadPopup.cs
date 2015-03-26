@@ -27,7 +27,6 @@ public class GamepadPopup : MonoBehaviour
 	
 	void Update()
     {
-        Debug.Log(Timer);
         if (runTimer)
             Timer -= Time.deltaTime;
 	}
