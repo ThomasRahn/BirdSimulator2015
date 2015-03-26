@@ -4334,7 +4334,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.19999981
+      value: 5.4000001
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
@@ -9319,7 +9319,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.30000019
+      value: 5.5999999
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
@@ -17032,7 +17032,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.19999981
+      value: 5.4000001
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
@@ -17399,11 +17399,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.4000001
+      value: 5.80000019
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -20103,7 +20107,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.30000019
+      value: 5.5999999
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
@@ -22775,7 +22779,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.30000019
+      value: 5.5999999
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
@@ -27640,11 +27644,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.4000001
+      value: 5.80000019
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
@@ -31755,7 +31763,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.0999999
+      value: 5.19999981
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
@@ -33151,7 +33159,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.0999999
+      value: 5.19999981
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
@@ -34157,7 +34165,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.0999999
+      value: 5.19999981
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
@@ -44169,7 +44177,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.19999981
+      value: 5.4000001
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
@@ -47943,11 +47951,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: phaseShift
-      value: 5.4000001
+      value: 5.80000019
       objectReference: {fileID: 0}
     - target: {fileID: 11441544, guid: 3ec91579ce6606040991dd26203386de, type: 2}
       propertyPath: period
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 145662, guid: 3ec91579ce6606040991dd26203386de, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ec91579ce6606040991dd26203386de, type: 2}
