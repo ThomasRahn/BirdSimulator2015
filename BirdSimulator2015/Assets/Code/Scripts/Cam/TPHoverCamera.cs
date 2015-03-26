@@ -8,7 +8,9 @@ public class TPHoverCamera : TPCamera
 	private float radialUp;
 	private float radialRadius;
 
-	protected override void Awake ()
+    private const float UPDOWN = 1f;
+
+	protected override void Awake()
 	{
 		base.Awake();
 		positionBehind();
@@ -21,22 +23,22 @@ public class TPHoverCamera : TPCamera
 	protected override void UpdatePosition()
 	{
 		float updown = target.GetComponent<Rigidbody>().velocity.y;
-		if(updown > 4)
+        if (updown > UPDOWN)
 		{
-			targetPosition = target.transform.position - Vector3.up * UpOffset - target.transform.forward * Radius;
+			targetPosition = target.transform.position - Vector3.up * (UpOffset / 2) - target.transform.forward * Radius;
 		}
-		else if (updown > -4)
+        else if (updown > -UPDOWN)
 		{
 			targetPosition = target.transform.position + Vector3.up * radialUp - target.transform.forward * radialRadius;
 		}
-		else // updown < -4
+        else // updown < -UPDOWN
 		{
-			targetPosition = target.transform.position + Vector3.up * UpOffset - target.transform.forward * Radius;
+            targetPosition = target.transform.position + Vector3.up * (UpOffset / 2) - target.transform.forward * Radius;
 		}
 
-		if(Vector3.Distance(transform.position, targetPosition) > Registry.Constant.MIN_LERP_DISTANCE)
+		if (Vector3.Distance(transform.position, targetPosition) > Registry.Constant.MIN_LERP_DISTANCE)
 		{
-			transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+			transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime);
 			transform.LookAt(target.transform.position);
 		}
 	}
