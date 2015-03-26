@@ -32,6 +32,7 @@ public class PlayerInput : MonoBehaviour
     protected bool JoystickButton12 = false;
 
     private Animator animator;
+	private PlayerState state;
     private float cameraMultiplier = 1f;
 
     private float _boostTimer = 1.5f;
@@ -43,6 +44,7 @@ public class PlayerInput : MonoBehaviour
 
     void Awake()
     {
+		state = this.GetComponent<PlayerState>();
         animator = this.GetComponent<Animator>();
     }
 
@@ -78,7 +80,7 @@ public class PlayerInput : MonoBehaviour
             JoystickAxisX = Input.GetAxis("JoystickAxisX"); // left thumbstick horizontal
             JoystickAxisY = Input.GetAxis("JoystickAxisY"); // left thumbstick vertical
 
-            if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.SpeedyMode)
+            if (state.GetState() == PlayerState.BirdState.SpeedyMode)
                 return;
 
 #if UNITY_EDITOR_WIN
@@ -99,11 +101,13 @@ public class PlayerInput : MonoBehaviour
             JoystickAxisX = Input.GetAxis("KeyboardAxisX");
             JoystickAxisY = Input.GetAxis("KeyboardAxisY");
 
-            if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.SpeedyMode)
+            if (state.GetState() == PlayerState.BirdState.SpeedyMode)
                 return;
 
             JoystickAxis4 = Input.GetAxis("Mouse X");
             JoystickAxis5 = Input.GetAxis("Mouse Y");
+			JoystickAxis6 = Input.GetAxis("KeyboardAxisJL"); // d-pad horizontal
+			JoystickAxis7 = Input.GetAxis("KeyboardAxisIK"); // d-pad vertical
 
             JoystickButton0 = Input.GetButton("KeyboardX");
             JoystickButton1 = Input.GetButton("KeyboardF");
@@ -112,8 +116,12 @@ public class PlayerInput : MonoBehaviour
             JoystickButton5 = Input.GetButton("KeyboardShift");
         }
 
-        animator.SetFloat("Horizontal", JoystickAxisX);
-        animator.SetFloat("Vertical", JoystickAxisY * GameController.Gamepad.Inverted);
+		animator.SetFloat(Registry.Animator.LeftHorizontal, JoystickAxisX);
+		animator.SetFloat(Registry.Animator.LeftVertical, JoystickAxisY * GameController.Gamepad.Inverted);
+		animator.SetFloat(Registry.Animator.DPadHorizontal, JoystickAxis6);
+		animator.SetFloat(Registry.Animator.DPadVertical, JoystickAxis7);
+		animator.SetFloat(Registry.Animator.RightHorizontal, JoystickAxis4);
+		animator.SetFloat(Registry.Animator.RightVertical, JoystickAxis5);
 
         // cooldowns
         if (boostTimer < _boostTimer)
@@ -138,20 +146,25 @@ public class PlayerInput : MonoBehaviour
                 skillTimer = _skillTimer;
         }
 
-        if (JoystickAxisX != 0 || JoystickAxisY != 0 || JoystickButton5)
+		if(state.GetState() == PlayerState.BirdState.Hovering)
+		{
+			Cameras.Switch(CameraContainer.Type.HOVER);
+		}
+		else if (state.GetState() == PlayerState.BirdState.Landing
+		         || JoystickAxisX != 0 || JoystickAxisY != 0 || JoystickButton5)
 		{
 			Cameras.Switch(CameraContainer.Type.RADIAL);
 		}
-        else if (JoystickAxis4 != 0 || JoystickAxis5 != 0)
+		else if (JoystickAxis4 != 0 || JoystickAxis5 != 0)
 		{
 			Cameras.Switch(CameraContainer.Type.FREE);
-            Cameras.Input(JoystickAxis4 * cameraMultiplier, JoystickAxis5 * cameraMultiplier);
+			Cameras.Input(JoystickAxis4 * cameraMultiplier, JoystickAxis5 * cameraMultiplier);
 		}
 
         if (JoystickButton2
-            & this.GetComponent<PlayerState>().GetState() != PlayerState.BirdState.Diving
-            & this.GetComponent<PlayerState>().GetState() != PlayerState.BirdState.Grounded
-            & this.GetComponent<PlayerState>().GetState() != PlayerState.BirdState.LiftingOff
+            & state.GetState() != PlayerState.BirdState.Diving
+		    & state.GetState() != PlayerState.BirdState.Grounded
+		    & state.GetState() != PlayerState.BirdState.LiftingOff
             & boostTimer == _boostTimer)
         {
             boostTimer -= Time.deltaTime;
@@ -161,10 +174,9 @@ public class PlayerInput : MonoBehaviour
 
         if (JoystickButton0)
         {
-            // if can land
-            if (this.GetComponent<PlayerState>().LandTarget != null)
+			if (state.LandTarget != null)
             {
-                if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Grounded)
+				if (state.GetState() == PlayerState.BirdState.Grounded)
                 {
                     // lift off
                     this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Grounded, false);
@@ -179,8 +191,8 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
-                if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Hovering
-                    || this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Gliding)
+				if (state.GetState() == PlayerState.BirdState.Hovering
+				    || state.GetState() == PlayerState.BirdState.Gliding)
                 {
                     if (skillTimer == _skillTimer)
                     {
@@ -213,7 +225,7 @@ public class PlayerInput : MonoBehaviour
 		}
 
         if (JoystickButton3
-            & this.GetComponent<PlayerState>().GetState() != PlayerState.BirdState.QuickAscending
+		    & state.GetState() != PlayerState.BirdState.QuickAscending
             & ascendTimer == _ascendTimer)
 		{
             ascendTimer -= Time.deltaTime;
@@ -253,8 +265,8 @@ public class PlayerInput : MonoBehaviour
 
         if (JoystickButton8)
         {
-            if (this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Hovering
-                || this.GetComponent<PlayerState>().GetState() == PlayerState.BirdState.Gliding)
+			if (state.GetState() == PlayerState.BirdState.Hovering
+			    || state.GetState() == PlayerState.BirdState.Gliding)
             {
                 animator.SetTrigger(Registry.Animator.AboutFace);
             }
@@ -273,21 +285,25 @@ public class PlayerInput : MonoBehaviour
         animator.SetBool(s, b);
     }
 
-    public float GetAxisHorizontal()
-    {
-        return JoystickAxisX;
-    }
+    public float GetLeftStickHorizontal() { return JoystickAxisX; }
 
-    public float GetAxisVertical()
-    {
-        return JoystickAxisY;
-    }
+    public float GetLeftStickVertical() { return JoystickAxisY; }
+
+	public float GetDPadHorizontal() { return JoystickAxis6; }
+
+	public float GetDPadVertical() { return JoystickAxis7; }
+
+	public float GetRightStickHorizontal() { return JoystickAxis4; }
+
+	public float GetRightStickVertical() { return JoystickAxis5; }
 
     private void DoXBOXWin()
     {
         JoystickAxis3 = Input.GetAxis("JoystickAxis3"); // right and left trigger
         JoystickAxis4 = Input.GetAxis("JoystickAxis4"); // right thumbstick horizontal
         JoystickAxis5 = Input.GetAxis("JoystickAxis5"); // right thumbstick vertical
+		JoystickAxis6 = Input.GetAxis("JoystickAxis6"); // d-pad horizontal
+		JoystickAxis7 = Input.GetAxis("JoystickAxis7"); // d-pad vertical
 
         JoystickButton0 = Input.GetButton("JoystickButton0"); // bottom button
         JoystickButton1 = Input.GetButton("JoystickButton1"); // right button
@@ -307,6 +323,8 @@ public class PlayerInput : MonoBehaviour
     {
         JoystickAxis4 = Input.GetAxis("JoystickAxis3"); // right thumbstick horizontal
         JoystickAxis5 = Input.GetAxis("JoystickAxis4"); // right thumbstick vertical
+		JoystickAxis6 = (Input.GetButton("JoystickButton8") ? 1 : 0) + (Input.GetButton("JoystickButton7") ? -1 : 0); // d-pad horizontal
+		JoystickAxis7 = (Input.GetButton("JoystickButton5") ? 1 : 0) + (Input.GetButton("JoystickButton6") ? -1 : 0); // d-pad vertical
 
         JoystickButton0 = Input.GetButton("JoystickButton16"); // bottom button
         JoystickButton1 = Input.GetButton("JoystickButton17"); // right button
