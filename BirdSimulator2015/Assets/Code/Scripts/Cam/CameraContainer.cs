@@ -9,10 +9,12 @@ public class CameraContainer : MonoBehaviour
 	{
 		RADIAL,
 		FREE,
+		HOVER,
 	}
 
 	private TPRadialCamera radial;
 	private TPFreeCamera free;
+	private TPHoverCamera hover;
 
 	private bool locked;
 
@@ -20,6 +22,8 @@ public class CameraContainer : MonoBehaviour
 	{
 		radial = GetComponentInChildren<TPRadialCamera>();
 		free = GetComponentInChildren<TPFreeCamera>();
+		hover = GetComponentInChildren<TPHoverCamera>();
+		Switch(Type.RADIAL);
 	}
 	
 	public void Switch(Type type) 
@@ -34,10 +38,17 @@ public class CameraContainer : MonoBehaviour
 		case Type.RADIAL:
 			radial.enabled = true;
 			free.enabled = false;
+			hover.enabled = false;
 			break;
 		case Type.FREE:
 			radial.enabled = false;
 			free.enabled = true;
+			hover.enabled = false;
+			break;
+		case Type.HOVER:
+			radial.enabled = false;
+			free.enabled = false;
+			hover.enabled = true;
 			break;
 		}
 	}

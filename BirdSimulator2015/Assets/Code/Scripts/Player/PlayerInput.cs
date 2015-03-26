@@ -147,7 +147,7 @@ public class PlayerInput : MonoBehaviour
 
 		if(state.GetState() == PlayerState.BirdState.Hovering)
 		{
-			Cameras.Switch(CameraContainer.Type.RADIAL); // Always use radial in hovering state
+			Cameras.Switch(CameraContainer.Type.HOVER);
 		}
 		else
 		{

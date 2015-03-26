@@ -19,6 +19,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 		protected float velocity;
 		protected Transform parent;
 		protected GameObject target;
+		protected float moveSpeed = 12.5f;
 		
 		private float shakeAmplitude = 0.01f;
 
@@ -114,9 +115,13 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 
 		protected void positionBehind()
 		{
-			Vector3 localPosition = transform.localPosition;
-			localPosition = -Vector3.forward * Radius + Vector3.up * UpOffset;
-			transform.localPosition = localPosition;
+			Vector3 targetLocalPosition = transform.localPosition;
+			targetLocalPosition = -Vector3.forward * Radius + Vector3.up * UpOffset;
+			if(Vector3.Distance(transform.localPosition, targetLocalPosition) > 0.2f)
+			{
+				transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetLocalPosition, moveSpeed * Time.deltaTime);
+			}
+			transform.localEulerAngles = Vector3.zero;
 		}
 
 		public void SetTarget(GameObject target)
