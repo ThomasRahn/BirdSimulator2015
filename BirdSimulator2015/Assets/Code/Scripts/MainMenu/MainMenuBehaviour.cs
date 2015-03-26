@@ -21,6 +21,7 @@ public class MainMenuBehaviour : MonoBehaviour
 
 	public void Server()
     {
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().sendNavigationEvents = false;
         GameController.DeathPopup.FadeIn();
         StartCoroutine(coServer());
 	}
@@ -36,9 +37,9 @@ public class MainMenuBehaviour : MonoBehaviour
 
 	public void Client()
 	{
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().sendNavigationEvents = false;
         GameController.DeathPopup.FadeIn();
         StartCoroutine(coClient());
-
 	}
 
     IEnumerator coClient()
