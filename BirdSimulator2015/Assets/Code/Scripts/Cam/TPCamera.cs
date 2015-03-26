@@ -19,7 +19,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 		protected float velocity;
 		protected Transform parent;
 		protected GameObject target;
-		protected float moveSpeed = 12.5f;
+		protected float moveSpeed = 3f;
 		
 		private float shakeAmplitude = 0.01f;
 
@@ -117,11 +117,14 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 		{
 			Vector3 targetLocalPosition = transform.localPosition;
 			targetLocalPosition = -Vector3.forward * Radius + Vector3.up * UpOffset;
-			if(Vector3.Distance(transform.localPosition, targetLocalPosition) > 0.2f)
+			if(Vector3.Distance(transform.localPosition, targetLocalPosition) > Registry.Constant.MIN_LERP_DISTANCE)
 			{
-				transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetLocalPosition, moveSpeed * Time.deltaTime);
+				transform.localPosition = Vector3.Lerp(transform.localPosition, targetLocalPosition, moveSpeed * Time.deltaTime);
 			}
-			transform.localEulerAngles = Vector3.zero;
+			if(Quaternion.Angle(transform.localRotation, Quaternion.identity) > Registry.Constant.MIN_LERP_DISTANCE)
+			{
+				transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.identity, moveSpeed * Time.deltaTime);
+			}
 		}
 
 		public void SetTarget(GameObject target)

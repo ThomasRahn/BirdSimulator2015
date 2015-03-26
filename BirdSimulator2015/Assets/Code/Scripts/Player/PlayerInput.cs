@@ -149,17 +149,15 @@ public class PlayerInput : MonoBehaviour
 		{
 			Cameras.Switch(CameraContainer.Type.HOVER);
 		}
-		else
+		else if (state.GetState() == PlayerState.BirdState.Landing
+		         || JoystickAxisX != 0 || JoystickAxisY != 0 || JoystickButton5)
 		{
-			if (JoystickAxisX != 0 || JoystickAxisY != 0 || JoystickButton5)
-			{
-				Cameras.Switch(CameraContainer.Type.RADIAL);
-			}
-			else if (JoystickAxis4 != 0 || JoystickAxis5 != 0)
-			{
-				Cameras.Switch(CameraContainer.Type.FREE);
-				Cameras.Input(JoystickAxis4 * cameraMultiplier, JoystickAxis5 * cameraMultiplier);
-			}
+			Cameras.Switch(CameraContainer.Type.RADIAL);
+		}
+		else if (JoystickAxis4 != 0 || JoystickAxis5 != 0)
+		{
+			Cameras.Switch(CameraContainer.Type.FREE);
+			Cameras.Input(JoystickAxis4 * cameraMultiplier, JoystickAxis5 * cameraMultiplier);
 		}
 
         if (JoystickButton2
