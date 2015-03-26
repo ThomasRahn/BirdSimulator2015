@@ -20,17 +20,35 @@ public class MainMenuBehaviour : MonoBehaviour
 	}
 
 	public void Server()
-	{
-		toggleMenu("MainMenu", false);
-		uLink.Network.isAuthoritativeServer = false;
-		uLink.Network.InitializeServer(32, port);
+    {
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().sendNavigationEvents = false;
+        GameController.DeathPopup.FadeIn();
+        StartCoroutine(coServer());
 	}
+
+    IEnumerator coServer()
+    {
+        yield return new WaitForSeconds(3.1f);
+        toggleMenu("MainMenu", false);
+        uLink.Network.isAuthoritativeServer = false;
+        uLink.Network.InitializeServer(32, port);
+        GameController.DeathPopup.FadeOut();
+    }
 
 	public void Client()
 	{
-        toggleMenu("MainMenu", false);
-		uLink.Network.Connect(ip, port);
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().sendNavigationEvents = false;
+        GameController.DeathPopup.FadeIn();
+        StartCoroutine(coClient());
 	}
+
+    IEnumerator coClient()
+    {
+        yield return new WaitForSeconds(3.1f);
+        toggleMenu("MainMenu", false);
+        uLink.Network.Connect(ip, port);
+        GameController.DeathPopup.FadeOut();
+    }
 
     public void Options()
     {

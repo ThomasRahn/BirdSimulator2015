@@ -37,6 +37,7 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
             if (players.Count > 1)
             {
 				Debug.Log("Linking players");
+                this.GetComponent<AudioSource>().Play();
                 uLink.Network.Instantiate(uLink.Network.player, Registry.Prefab.Tether, Registry.Prefab.Tether, Registry.Prefab.Tether, this.transform.position, Quaternion.identity, 0);
             }
 
@@ -58,6 +59,9 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
         GameController.CinematicPopup.FadeIn();
         GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().FadeOut();
         Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 30f;
+
+        GameObject.Find("Tether(Clone)").GetComponent<Tether>().FadeIn(0.1f);
+
         yield return new WaitForSeconds(10f);
         GameController.Player.GetComponent<PlayerInput>().SetBool(Registry.Animator.Grounded, false);
 

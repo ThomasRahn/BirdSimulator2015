@@ -77,6 +77,8 @@ public class PlayerState : MonoBehaviour
     const float TILT_LIMIT = 70f;
     const float ABOUT_FACE_ANGLE = 35f;
 
+    const float HOVER_MAX_SPEED = 15f;
+
     const float ROTATION_X_LIMIT = 40f;
 
 
@@ -99,6 +101,7 @@ public class PlayerState : MonoBehaviour
     private bool skillOnce = false;
     private bool yodoYouOnlyDieOnce = false;
     private bool audioOnce = false;
+    private bool hoverOnce = false;
 
     public Transform LandTarget; // collision trigger (landing)
 	public LayerMask layerMask;
@@ -223,15 +226,25 @@ public class PlayerState : MonoBehaviour
             }
         }
 
+        // fade out gamepad if not hovering
+        if (state != BirdState.Hovering || GameController.GamepadPopup.Timer < 0f)
+        {
+            GameController.GamepadPopup.FadeOut();
+        }
+
         switch (state)
         {
             case BirdState.Hovering:
-				resetBools();
+                if (!hoverOnce && GameController.GamepadPopup.Timer > 0f && Vector3.Distance(GameController.Player.transform.position, Vector3.zero) > 200f)
+                {
+                    hoverOnce = true;
+                    GameController.GamepadPopup.FadeIn();
+                }
 
-                ease();
-                tiltTowards(0);
-				rotationY += input.GetAxisHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
-                targetVelocity = Vector3.zero;
+				hover();
+				targetVelocity = -(Vector3.up * input.GetRightStickVertical()).normalized;
+				targetVelocity += (input.GetDPadHorizontal() * transform.right + input.GetDPadVertical() * transform.forward).normalized;
+				targetVelocity = targetVelocity.normalized * HOVER_MAX_SPEED;
 				break;
 
             case BirdState.Gliding:
@@ -296,12 +309,12 @@ public class PlayerState : MonoBehaviour
                     Camera.main.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>().blurAmount = b;
                 }
 
-                tiltTowards(input.GetAxisHorizontal() * TILT_LIMIT);
+                tiltTowards(input.GetLeftStickHorizontal() * TILT_LIMIT);
                 addMomentum();
                 dive();
 
-				Vector3 leftright = input.GetAxisHorizontal() * this.transform.right * DIVE_STRAFE_RATE;
-				Vector3 updown = input.GetAxisVertical() * this.transform.up * DIVE_STRAFE_RATE;
+				Vector3 leftright = input.GetLeftStickHorizontal() * this.transform.right * DIVE_STRAFE_RATE;
+				Vector3 updown = input.GetLeftStickVertical() * this.transform.up * DIVE_STRAFE_RATE;
 			    targetVelocity = leftright + updown + Vector3.down * MAX_DOWNWARD_VELOCITY;
 
                 //if (!audioOnce)
@@ -350,7 +363,7 @@ public class PlayerState : MonoBehaviour
 				targetVelocity = Vector3.zero;
 				speedChange = 3.0f;
 
-                float f = this.GetComponent<PlayerInput>().GetAxisHorizontal();
+                float f = this.GetComponent<PlayerInput>().GetLeftStickHorizontal();
                 if (f < 0)
                 {
                     turnLeft();
@@ -615,10 +628,10 @@ public class PlayerState : MonoBehaviour
                 rotationX = 0f;
                 rotationY = 90f;
                 //rotationZ = 0f;
-                tiltTowards(input.GetAxisHorizontal() * TILT_LIMIT);
+                tiltTowards(input.GetLeftStickHorizontal() * TILT_LIMIT);
 
-                leftright = input.GetAxisHorizontal() * this.transform.right * 100f;
-				updown = input.GetAxisVertical() * this.transform.up * 100f;
+                leftright = input.GetLeftStickHorizontal() * this.transform.right * 100f;
+				updown = input.GetLeftStickVertical() * this.transform.up * 100f;
 
                 if (Physics.Raycast(this.transform.position, leftright, out hit, 10f, layerMask))
                 {
@@ -646,7 +659,7 @@ public class PlayerState : MonoBehaviour
                     this.GetComponent<PlayerSync>().PushBack(this.transform.position);
                 }
 
-                targetVelocity = this.transform.forward * currentMaxSpeed;
+                //targetVelocity = this.transform.forward * currentMaxSpeed;
                 break;
 
             case BirdState.Flashing:
@@ -675,7 +688,7 @@ public class PlayerState : MonoBehaviour
 					}
                 }
 
-                targetVelocity = this.transform.forward * currentMaxSpeed;
+                //targetVelocity = this.transform.forward * currentMaxSpeed;
                 break;
         }
 
@@ -745,7 +758,7 @@ public class PlayerState : MonoBehaviour
 
     void turnLeft()
     {
-        intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+        intendedTurnSpeed = Mathf.Abs(input.GetLeftStickHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
         currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
         currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
         //rotationY -= currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
@@ -754,7 +767,7 @@ public class PlayerState : MonoBehaviour
 
     void turnRight()
     {
-        intendedTurnSpeed = Mathf.Abs(input.GetAxisHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
+        intendedTurnSpeed = Mathf.Abs(input.GetLeftStickHorizontal()) * TURN_ACCELERATION * Time.deltaTime * currentMaxSpeed * 30f;
         currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, intendedTurnSpeed, Time.deltaTime);
         currentTurnSpeed = Mathf.Clamp(currentTurnSpeed, 0, TURN_RATE_MAX);
         //rotationY += currentTurnSpeed * Time.deltaTime * TURN_SHARPNESS;
@@ -774,6 +787,14 @@ public class PlayerState : MonoBehaviour
         this.GetComponent<Rigidbody>().velocity = Vector3.zero;
         targetVelocity = Vector3.zero;
     }
+
+	private void hover()
+	{
+		resetBools();
+		ease();
+		tiltTowards(0);
+		rotationY += input.GetRightStickHorizontal() * Time.deltaTime * TURN_RATE_WHEN_IDLE;
+	}
 
     const float DIVE_SWOOP_DISTANCE = 7f;
     bool checkDiveCollision()
@@ -799,6 +820,7 @@ public class PlayerState : MonoBehaviour
 
 	private void resetBools()
 	{
+        hoverOnce = false;
 		yodoYouOnlyDieOnce = false;
 		respawnOnce = false;
 		skillOnce = false;

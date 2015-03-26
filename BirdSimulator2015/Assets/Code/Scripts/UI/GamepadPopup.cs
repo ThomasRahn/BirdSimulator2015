@@ -10,6 +10,9 @@ public class GamepadPopup : MonoBehaviour
 
     private Image image;
 
+    private bool runTimer = false;
+    public float Timer = 20f; // after x seconds, the player should most likely understand how to use these controls, hopefully
+
     void Awake()
     {
         image = this.GetComponent<Image>();
@@ -24,6 +27,8 @@ public class GamepadPopup : MonoBehaviour
 	
 	void Update()
     {
+        if (runTimer)
+            Timer -= Time.deltaTime;
 	}
 
     public void SetImage(GamepadSetup.GamepadAction ia)
@@ -33,12 +38,14 @@ public class GamepadPopup : MonoBehaviour
 
     public void FadeIn()
     {
+        runTimer = true;
         StopAllCoroutines();
         image.CrossFadeAlpha(1f, FADE_IN_TIME, false);
     }
 
     public void FadeOut()
     {
+        runTimer = false;
         StartCoroutine(coFadeOut());
     }
 

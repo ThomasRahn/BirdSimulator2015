@@ -10,7 +10,7 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 	{
 		private GameObject bird;
 		private bool followRotation;
-		private float turn_speed = 5.0f;
+		private float turnSpeed = 2f;
 		private const float ROTATION_THRESHOLD = 15.0f;
 		private void Awake()
 		{
@@ -33,23 +33,24 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 					targetRotation.z = Mathf.Clamp(targetRotation.z, 0, 30);
 				}
 
-				transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(targetRotation), 2 * Time.deltaTime);
+				Quaternion targetQuaternion = Quaternion.Euler(targetRotation);
+				if(Quaternion.Angle(transform.rotation, targetQuaternion) > Registry.Constant.MIN_LERP_DISTANCE)
+				{
+					transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, turnSpeed * Time.deltaTime);
+				}
 
                 
 				//Want to turn faster then you ascend/descend, but still slow down after turning.
 				Vector3 turn_vector = new Vector3(transform.eulerAngles.x, targetRotation.y, transform.eulerAngles.z);
-
-				float rotation_change = turn_vector.y - transform.eulerAngles.y;
-
-				if(rotation_change < ROTATION_THRESHOLD || rotation_change > -ROTATION_THRESHOLD)
+				float rotation_change = Mathf.Abs(targetRotation.y - transform.eulerAngles.y);
+				if(rotation_change > ROTATION_THRESHOLD)
 				{
-					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(turn_vector), 2.0f * Time.deltaTime);
+					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(turn_vector), 2.5f * turnSpeed * Time.deltaTime);
 				}
 				else
 				{
-					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(turn_vector), turn_speed * Time.deltaTime);
+					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(turn_vector), turnSpeed * Time.deltaTime);
 				}
-                
 			}
 		}
 

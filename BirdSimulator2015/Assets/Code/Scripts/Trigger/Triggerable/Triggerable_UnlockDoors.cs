@@ -53,7 +53,7 @@ public class Triggerable_UnlockDoors : BaseTriggerable<BaseTriggerable>
     {
         yield return new WaitForSeconds(2f);
 
-        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble(Length - 0.5f, 0.2f, 0.2f);
+        GameController.Player.GetComponent<PlayerRumble>().BumbleRumble((Length / 2) - 0.5f, 0.2f, 0.2f);
         Left.GetComponentInChildren<AudioSource>().Play();
         Right.GetComponentInChildren<AudioSource>().Play();
 
