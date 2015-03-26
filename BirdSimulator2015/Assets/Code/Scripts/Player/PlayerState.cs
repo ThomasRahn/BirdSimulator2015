@@ -646,7 +646,7 @@ public class PlayerState : MonoBehaviour
                     this.GetComponent<PlayerSync>().PushBack(this.transform.position);
                 }
 
-                targetVelocity = this.transform.forward * currentMaxSpeed;
+                //targetVelocity = this.transform.forward * currentMaxSpeed;
                 break;
 
             case BirdState.Flashing:
@@ -675,7 +675,7 @@ public class PlayerState : MonoBehaviour
 					}
                 }
 
-                targetVelocity = this.transform.forward * currentMaxSpeed;
+                //targetVelocity = this.transform.forward * currentMaxSpeed;
                 break;
         }
 
