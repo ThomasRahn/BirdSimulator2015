@@ -23,6 +23,7 @@ public class PlayerInput : MonoBehaviour
     protected bool JoystickButton4 = false;
     protected bool JoystickButton5 = false;
     protected bool JoystickButton6 = false;
+    protected bool JoystickButton6_ = false;
     protected bool JoystickButton7 = false;
     protected bool JoystickButton8 = false;
     protected bool JoystickButton9 = false;
@@ -235,6 +236,20 @@ public class PlayerInput : MonoBehaviour
             this.GetComponent<PlayerSync>().SendBool(Registry.Animator.Diving, false);
 			animator.SetBool(Registry.Animator.Diving, false);
 		}
+
+        if (JoystickButton6)
+        {
+            if (!JoystickButton6_)
+            {
+                Debug.Log("Inverted Y");
+                JoystickButton6_ = true;
+                GameController.Gamepad.Inverted = -GameController.Gamepad.Inverted;
+            }
+        }
+        else
+        {
+            JoystickButton6_ = false;
+        }
 
         if (JoystickButton8)
         {
