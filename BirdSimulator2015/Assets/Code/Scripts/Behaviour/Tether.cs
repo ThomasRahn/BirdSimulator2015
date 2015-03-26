@@ -19,6 +19,8 @@ public class Tether : MonoBehaviour
 	{
 		line = GetComponent<LineRenderer>();
 		partnerDead = false;
+
+        line.material.SetColor("_Color", new Color(1f, 1f, 1f, 0f));
 	}
 
 	private void Start()
@@ -56,15 +58,44 @@ public class Tether : MonoBehaviour
 
 	public void FadeOut()
 	{
-		StartCoroutine(LerpColor(Color.white, Color.clear));
+		//StartCoroutine(LerpColor(Color.white, Color.clear));
+        StartCoroutine(coFadeOut());
 		this.enabled = false;
 	}
 
-	public void FadeIn()
+	public void FadeIn(float rate)
 	{
-		StartCoroutine(LerpColor(Color.clear, Color.white));
+		//StartCoroutine(LerpColor(Color.clear, Color.white));
+        StartCoroutine(coFadeIn(rate));
 		this.enabled = true;
 	}
+
+    IEnumerator coFadeIn(float rate)
+    {
+        float alpha = 0f;
+        while (alpha < 1f)
+        {
+            alpha += Time.deltaTime * rate;
+            line.material.SetColor("_Color", new Color(1f, 1f, 1f, alpha));
+            yield return null;
+        }
+
+        yield return null;
+    }
+
+    IEnumerator coFadeOut()
+    {
+        float alpha = 1f;
+        while (alpha > 0f)
+        {
+            alpha -= Time.deltaTime * 2f;
+            line.material.SetColor("_Color", new Color(1f, 1f, 1f, alpha));
+            yield return null;
+        }
+
+        yield return null;
+    }
+
 
 	private IEnumerator LerpColor(Color start, Color end)
 	{
@@ -127,7 +158,7 @@ public class Tether : MonoBehaviour
 			yield return null;
 		}
 
-		FadeIn(); // Fade the tether back in while keeping bird positions
+		FadeIn(0.3f); // Fade the tether back in while keeping bird positions
 		float timeLeft = FADE_TIMER/3;
 		while(timeLeft > 0)
 		{
