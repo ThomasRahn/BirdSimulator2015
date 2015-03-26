@@ -20,7 +20,7 @@ public class TPHoverCamera : TPCamera
 		radialRadius = radial.Radius;
 	}
 
-	protected override void UpdatePosition()
+	protected override Vector3 UpdatePosition()
 	{
 		float updown = target.GetComponent<Rigidbody>().velocity.y;
         if (updown > UPDOWN)
@@ -35,11 +35,22 @@ public class TPHoverCamera : TPCamera
 		{
             targetPosition = target.transform.position + Vector3.up * (UpOffset / 2) - target.transform.forward * Radius;
 		}
+		Quaternion targetRotation = Quaternion.LookRotation(target.transform.position - transform.position);
 
 		if (Vector3.Distance(transform.position, targetPosition) > Registry.Constant.MIN_LERP_DISTANCE)
 		{
 			transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime);
-			transform.LookAt(target.transform.position);
 		}
+		if(Quaternion.Angle(transform.rotation, targetRotation) > Registry.Constant.MIN_LERP_DISTANCE)
+		{
+			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 3 * moveSpeed * Time.deltaTime);
+		}
+
+		return targetPosition;
+	}
+
+	private void OnEnable()
+	{
+		SendMessageUpwards("ToggleRotation", false);
 	}
 }
