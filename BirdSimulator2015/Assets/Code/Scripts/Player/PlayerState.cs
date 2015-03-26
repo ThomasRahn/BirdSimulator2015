@@ -101,6 +101,7 @@ public class PlayerState : MonoBehaviour
     private bool skillOnce = false;
     private bool yodoYouOnlyDieOnce = false;
     private bool audioOnce = false;
+    private bool hoverOnce = false;
 
     public Transform LandTarget; // collision trigger (landing)
 	public LayerMask layerMask;
@@ -225,9 +226,21 @@ public class PlayerState : MonoBehaviour
             }
         }
 
+        // fade out gamepad if not hovering
+        if (state != BirdState.Hovering)
+        {
+            GameController.GamepadPopup.FadeOut();
+        }
+
         switch (state)
         {
             case BirdState.Hovering:
+                if (!hoverOnce && GameController.GamepadPopup.Timer > 0f)
+                {
+                    hoverOnce = true;
+                    GameController.GamepadPopup.FadeIn();
+                }
+
 				hover();
 				targetVelocity = -(Vector3.up * input.GetRightStickVertical()).normalized;
 				targetVelocity += (input.GetDPadHorizontal() * transform.right + input.GetDPadVertical() * transform.forward).normalized;
@@ -807,6 +820,7 @@ public class PlayerState : MonoBehaviour
 
 	private void resetBools()
 	{
+        hoverOnce = false;
 		yodoYouOnlyDieOnce = false;
 		respawnOnce = false;
 		skillOnce = false;
