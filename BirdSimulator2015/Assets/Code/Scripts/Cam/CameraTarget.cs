@@ -47,7 +47,10 @@ namespace BirdSimulator2015.Code.Scripts.Cam
 				{
 					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(turn_vector), 2.5f * turnSpeed * Time.deltaTime);
 				}
-                
+				else
+				{
+					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(turn_vector), turnSpeed * Time.deltaTime);
+				}
 			}
 		}
 
