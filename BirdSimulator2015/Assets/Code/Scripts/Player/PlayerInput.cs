@@ -96,6 +96,38 @@ public class PlayerInput : MonoBehaviour
             DoXBOXMac();
 #endif
         }
+        else if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.LOGITECHF310)
+        {
+            cameraMultiplier = 7f;
+
+            JoystickAxisX = Input.GetAxis("JoystickAxisX"); // left thumbstick horizontal
+            JoystickAxisY = Input.GetAxis("JoystickAxisY"); // left thumbstick vertical
+
+            if (state.GetState() == PlayerState.BirdState.SpeedyMode)
+                return;
+
+            //JoystickAxis3 = Input.GetAxis("JoystickAxis3"); // right and left trigger
+            JoystickAxis4 = Input.GetAxis("JoystickAxis3"); // right thumbstick horizontal
+            JoystickAxis5 = Input.GetAxis("JoystickAxis4"); // right thumbstick vertical
+            JoystickAxis6 = Input.GetAxis("JoystickAxis5"); // d-pad horizontal
+            JoystickAxis7 = Input.GetAxis("JoystickAxis6"); // d-pad vertical
+
+            JoystickButton0 = Input.GetButton("JoystickButton1"); // bottom button
+            JoystickButton1 = Input.GetButton("JoystickButton2"); // right button
+            JoystickButton2 = Input.GetButton("JoystickButton0"); // left button
+            JoystickButton3 = Input.GetButton("JoystickButton3"); // top button
+
+            //Input.GetButton("JoystickButton4"); // left bumper
+            //Input.GetButton("JoystickButton5"); // right bumper
+            //Input.GetButton("JoystickButton6"); // left trigger
+            JoystickButton5 = Input.GetButton("JoystickButton5"); // right bumper
+
+            //Input.GetButton("JoystickButton8"); // back
+            //Input.GetButton("JoystickButton9"); // start
+
+            JoystickButton8 = Input.GetButton("JoystickButton10"); // left thumbstick in
+            //Input.GetButton("JoystickButton11"); // right thumbstick in
+        }
         else if (GameController.Gamepad.GetGamepadType() == GamepadSetup.GamepadType.KEYBOARD)
         {
             JoystickAxisX = Input.GetAxis("KeyboardAxisX");
