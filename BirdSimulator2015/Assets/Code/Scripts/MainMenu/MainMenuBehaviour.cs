@@ -19,17 +19,28 @@ public class MainMenuBehaviour : MonoBehaviour
 	{
 	}
 
-	public void Server()
+	public void ServerOne()
     {
+        Registry.Constant.PLAYERS = 1;
         GameObject.Find("EventSystem").GetComponent<EventSystem>().sendNavigationEvents = false;
         GameController.DeathPopup.FadeIn();
         StartCoroutine(coServer());
 	}
 
+    public void ServerTwo()
+    {
+        Registry.Constant.PLAYERS = 2;
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().sendNavigationEvents = false;
+        GameController.DeathPopup.FadeIn();
+        StartCoroutine(coServer());
+    }
+
     IEnumerator coServer()
     {
+        Debug.Log("Starting new game with players: " + Registry.Constant.PLAYERS);
         yield return new WaitForSeconds(3.1f);
         toggleMenu("MainMenu", false);
+        toggleMenu("PlayMenu", false);
         uLink.Network.isAuthoritativeServer = false;
         uLink.Network.InitializeServer(32, port);
         GameController.DeathPopup.FadeOut();
@@ -46,14 +57,24 @@ public class MainMenuBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(3.1f);
         toggleMenu("MainMenu", false);
+        toggleMenu("PlayMenu", false);
         uLink.Network.Connect(ip, port);
         GameController.DeathPopup.FadeOut();
+    }
+
+    public void Play()
+    {
+        toggleMenu("MainMenu", false);
+        toggleMenu("OptionsMenu", false);
+        toggleMenu("PlayMenu", true);
+        EventSystem.current.SetSelectedGameObject(GameObject.Find("OnePlayer"));
     }
 
     public void Options()
     {
         toggleMenu("MainMenu", false);
         toggleMenu("OptionsMenu", true);
+        toggleMenu("PlayMenu", false);
         GameObject.Find("IsInverted").GetComponent<Text>().text = (GameController.Gamepad.Inverted == 1 ? "Yes" : "No");
         GameObject.Find("Gamepad").GetComponent<Text>().text = GameController.Gamepad.GetGamepadType() + "";
 
@@ -128,8 +149,9 @@ public class MainMenuBehaviour : MonoBehaviour
 
     public void Options_Back()
     {
-        toggleMenu("OptionsMenu", false);
         toggleMenu("MainMenu", true);
+        toggleMenu("OptionsMenu", false);
+        toggleMenu("PlayMenu", false);
         EventSystem.current.SetSelectedGameObject(GameObject.Find("Play"));
     }
 

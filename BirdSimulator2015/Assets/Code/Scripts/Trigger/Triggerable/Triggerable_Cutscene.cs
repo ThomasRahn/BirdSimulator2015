@@ -60,7 +60,8 @@ public class Triggerable_Cutscene : BaseTriggerable<BaseTriggerable>
         GameObject.FindWithTag(Registry.Tag.AudioController).GetComponent<AudioController>().FadeOut();
         Camera.main.GetComponent<BirdSimulator2015.Code.Scripts.Cam.TPRadialCamera>().TargetRadius = 30f;
 
-        GameObject.Find("Tether(Clone)").GetComponent<Tether>().FadeIn(0.1f);
+        if (Registry.Constant.PLAYERS == 2)
+            GameObject.Find("Tether(Clone)").GetComponent<Tether>().FadeIn(0.1f);
 
         yield return new WaitForSeconds(10f);
         GameController.Player.GetComponent<PlayerInput>().SetBool(Registry.Animator.Grounded, false);

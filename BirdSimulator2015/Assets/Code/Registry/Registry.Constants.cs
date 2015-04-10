@@ -2,7 +2,7 @@
 {
     public static class Constant
     {
-        public const int PLAYERS = 2;
+        public static int PLAYERS = 2;
 		public const float MIN_LERP_DISTANCE = 0.75f;
     }
 }
