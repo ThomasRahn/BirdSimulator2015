@@ -146,6 +146,7 @@ public class PlayerInput : MonoBehaviour
             JoystickButton2 = Input.GetButton("KeyboardE");
             JoystickButton3 = Input.GetButton("KeyboardQ");
             JoystickButton5 = Input.GetButton("KeyboardShift");
+            JoystickButton8 = Input.GetButton("KeyboardSpace");
         }
 
 		animator.SetFloat(Registry.Animator.LeftHorizontal, JoystickAxisX);
