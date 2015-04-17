@@ -48,6 +48,9 @@ public class Triggerable_EvilPillar : BaseTriggerable<BaseTriggerable>
         else
             dest.z = -15f;
 
+        if (Registry.Constant.PLAYERS == 1)
+            dest.z = 0f;
+
         while (Vector3.Distance(GameController.Player.transform.position, dest) > 1f)
         {
             dest.x = GameController.Player.transform.position.x + 50f;
