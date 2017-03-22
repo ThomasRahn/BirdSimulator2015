@@ -1,0 +1,341 @@
+fileFormatVersion: 2
+guid: 6d9f0c67afa084734b9d63d1550066f3
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bone
+    100004: bone
+    100006: Bone.001
+    100008: Bone.002
+    100010: Bone.003
+    100012: Bone.004
+    100014: Bone.005
+    100016: Bone.006
+    100018: Bone.007
+    100020: Bone.008
+    100022: Bone.009
+    100024: Bone.010
+    100026: Bone.011
+    100028: Camera
+    100030: Cube.005
+    100032: Lamp
+    400000: //RootNode
+    400002: Bone
+    400004: bone
+    400006: Bone.001
+    400008: Bone.002
+    400010: Bone.003
+    400012: Bone.004
+    400014: Bone.005
+    400016: Bone.006
+    400018: Bone.007
+    400020: Bone.008
+    400022: Bone.009
+    400024: Bone.010
+    400026: Bone.011
+    400028: Camera
+    400030: Cube.005
+    400032: Lamp
+    4300000: Cube.005
+    7400000: bone|Dive
+    7400002: bone|Flap
+    7400004: bone|Glide
+    7400006: Cube.005|Glide
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Cube.005
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: bone|Dive
+      takeName: bone|Dive
+      firstFrame: 0
+      lastFrame: 8
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: bone
+        weight: 1
+      - path: bone/Bone
+        weight: 1
+      - path: bone/Bone/Bone.001
+        weight: 1
+      - path: bone/Bone.002
+        weight: 1
+      - path: bone/Bone.002/Bone.004
+        weight: 1
+      - path: bone/Bone.002/Bone.004/Bone.006
+        weight: 1
+      - path: bone/Bone.002/Bone.004/Bone.006/Bone.008
+        weight: 1
+      - path: bone/Bone.003
+        weight: 1
+      - path: bone/Bone.003/Bone.005
+        weight: 1
+      - path: bone/Bone.003/Bone.005/Bone.007
+        weight: 1
+      - path: bone/Bone.003/Bone.005/Bone.007/Bone.009
+        weight: 1
+      - path: bone/Bone.010
+        weight: 1
+      - path: bone/Bone.010/Bone.011
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Cube.005
+        weight: 1
+      - path: Lamp
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: bone|Flap
+      takeName: bone|Flap
+      firstFrame: 0
+      lastFrame: 36
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: bone
+        weight: 1
+      - path: bone/Bone
+        weight: 1
+      - path: bone/Bone/Bone.001
+        weight: 1
+      - path: bone/Bone.002
+        weight: 1
+      - path: bone/Bone.002/Bone.004
+        weight: 1
+      - path: bone/Bone.002/Bone.004/Bone.006
+        weight: 1
+      - path: bone/Bone.002/Bone.004/Bone.006/Bone.008
+        weight: 1
+      - path: bone/Bone.003
+        weight: 1
+      - path: bone/Bone.003/Bone.005
+        weight: 1
+      - path: bone/Bone.003/Bone.005/Bone.007
+        weight: 1
+      - path: bone/Bone.003/Bone.005/Bone.007/Bone.009
+        weight: 1
+      - path: bone/Bone.010
+        weight: 1
+      - path: bone/Bone.010/Bone.011
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Cube.005
+        weight: 1
+      - path: Lamp
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: bone|Glide
+      takeName: bone|Glide
+      firstFrame: 0
+      lastFrame: 92
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: bone
+        weight: 1
+      - path: bone/Bone
+        weight: 1
+      - path: bone/Bone/Bone.001
+        weight: 1
+      - path: bone/Bone.002
+        weight: 1
+      - path: bone/Bone.002/Bone.004
+        weight: 1
+      - path: bone/Bone.002/Bone.004/Bone.006
+        weight: 1
+      - path: bone/Bone.002/Bone.004/Bone.006/Bone.008
+        weight: 1
+      - path: bone/Bone.003
+        weight: 1
+      - path: bone/Bone.003/Bone.005
+        weight: 1
+      - path: bone/Bone.003/Bone.005/Bone.007
+        weight: 1
+      - path: bone/Bone.003/Bone.005/Bone.007/Bone.009
+        weight: 1
+      - path: bone/Bone.010
+        weight: 1
+      - path: bone/Bone.010/Bone.011
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Cube.005
+        weight: 1
+      - path: Lamp
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Cube.005|Glide
+      takeName: Cube.005|Glide
+      firstFrame: 0
+      lastFrame: 92
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: bone
+        weight: 1
+      - path: bone/Bone
+        weight: 1
+      - path: bone/Bone/Bone.001
+        weight: 1
+      - path: bone/Bone.002
+        weight: 1
+      - path: bone/Bone.002/Bone.004
+        weight: 1
+      - path: bone/Bone.002/Bone.004/Bone.006
+        weight: 1
+      - path: bone/Bone.002/Bone.004/Bone.006/Bone.008
+        weight: 1
+      - path: bone/Bone.003
+        weight: 1
+      - path: bone/Bone.003/Bone.005
+        weight: 1
+      - path: bone/Bone.003/Bone.005/Bone.007
+        weight: 1
+      - path: bone/Bone.003/Bone.005/Bone.007/Bone.009
+        weight: 1
+      - path: bone/Bone.010
+        weight: 1
+      - path: bone/Bone.010/Bone.011
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Cube.005
+        weight: 1
+      - path: Lamp
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
